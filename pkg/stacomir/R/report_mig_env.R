@@ -123,21 +123,22 @@ setMethod("charge",signature=signature("report_mig_env"),definition=function(obj
 	  return(r_mig_env)
 	})
 
-#' Internal handler function
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-hbmmCEcalc=function(h=null,...){
-  r_mig_env<-get("r_mig_env",envir_stacomi)	
-  r_mig_env<-charge(r_mig_env)
-  r_mig_env<-connect(r_mig_env)
-  r_mig_env<-calcule(r_mig_env)
-  assign("r_mig_env",r_mig_env,envir_stacomi)
-  toolbarlist<-get("toolbarlist",envir_stacomi)
-  enabled(toolbarlist[["Graph"]])<-TRUE
-  return(invisible(NULL))	
-}
+#deprecated0.6
+##' Internal handler function
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#hbmmCEcalc=function(h=null,...){
+#  r_mig_env<-get("r_mig_env",envir_stacomi)	
+#  r_mig_env<-charge(r_mig_env)
+#  r_mig_env<-connect(r_mig_env)
+#  r_mig_env<-calcule(r_mig_env)
+#  assign("r_mig_env",r_mig_env,envir_stacomi)
+#  toolbarlist<-get("toolbarlist",envir_stacomi)
+#  enabled(toolbarlist[["Graph"]])<-TRUE
+#  return(invisible(NULL))	
+#}
 
 #' Calculations for migration in the class \link{report_mig_env-class}
 #' 
@@ -156,15 +157,15 @@ setMethod("calcule",signature=signature("report_mig_env"),definition=function(ob
 	})
 
 
-
-#' internal method for graphical interface
-#' @param h A handler
-#' @keywords internal
-hbmmCEgraph = function(h=null){   
-  r_mig_env<-get("r_mig_env",envir_stacomi)
-  r_mig_env<-plot(r_mig_env)
-  return(invisible(NULL))	
-}
+#deprecated0.6
+##' internal method for graphical interface
+##' @param h A handler
+##' @keywords internal
+#hbmmCEgraph = function(h=null){   
+#  r_mig_env<-get("r_mig_env",envir_stacomi)
+#  r_mig_env<-plot(r_mig_env)
+#  return(invisible(NULL))	
+#}
 
 #' Plot method for report_mig_env
 #' @param x An object of class \link{report_mig_env}

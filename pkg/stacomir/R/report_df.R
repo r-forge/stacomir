@@ -482,20 +482,20 @@ funtableDF = function(h,...) {
   }
   summary(report_df)
 }
-
-#' handler to print the command line
-#' @param h a handler
-#' @param ... Additional parameters
-#' @keywords internal
-houtDF = function(h,...) {
-  report_df<-get("report_df",envir=envir_stacomi) 
-  report_df<-charge(report_df)
-  report_df<-connect(report_df)
-  #the charge method will check that all objects necessary to build the formula
-  # are in envir_stacomi
-  print(report_df)
-  
-}   
+#deprecated
+##' handler to print the command line
+##' @param h a handler
+##' @param ... Additional parameters
+##' @keywords internal
+#houtDF = function(h,...) {
+#  report_df<-get("report_df",envir=envir_stacomi) 
+#  report_df<-charge(report_df)
+#  report_df<-connect(report_df)
+#  #the charge method will check that all objects necessary to build the formula
+#  # are in envir_stacomi
+#  print(report_df)
+#  
+#}   
 
 #' Method to print the command line of the object
 #' @param x An object of class report_df

@@ -174,18 +174,18 @@ setMethod("choice_c",signature=signature("report_ge_weight"),definition=function
 
 
 
-
-#' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
-#' @param h handler
-#' @param \dots additional arguments passed to the function
-#' @keywords internal
-hcalc = function(h,...) {
-  r_gew<-get("report_ge_weight",envir=envir_stacomi)
-  r_gew<-charge(r_gew)
-  r_gew<-connect(r_gew)
-  r_gew<-calcule(r_gew)
-  
-}
+#deprecated0.6
+##' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
+##' @param h handler
+##' @param \dots additional arguments passed to the function
+##' @keywords internal
+#hcalc = function(h,...) {
+#  r_gew<-get("report_ge_weight",envir=envir_stacomi)
+#  r_gew<-charge(r_gew)
+#  r_gew<-connect(r_gew)
+#  r_gew<-calcule(r_gew)
+#  
+#}
 
 
 #' Calcule method for report_ge_weight
@@ -213,23 +213,23 @@ setMethod("calcule",signature=signature("report_ge_weight"),definition=function(
 	  return(r_gew)
 	})
 
-
-#' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
-#' @param h handler
-#' @param \dots additional arguments passed to the function
-#' @keywords internal
-hplot=function(h,...){
-  
-  r_gew<-get("report_ge_weight",envir=envir_stacomi)
-  if (h$action==1) {
-	plot(r_gew,plot.type=1)
-  } else if (h$action==2){
-	plot(r_gew,plot.type=2)
-  } else if (h$action==3){
-	plot(r_gew,plot.type=3)
-  }
-  
-}
+#deprecated0.6
+##' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
+##' @param h handler
+##' @param \dots additional arguments passed to the function
+##' @keywords internal
+#hplot=function(h,...){
+#  
+#  r_gew<-get("report_ge_weight",envir=envir_stacomi)
+#  if (h$action==1) {
+#	plot(r_gew,plot.type=1)
+#  } else if (h$action==2){
+#	plot(r_gew,plot.type=2)
+#  } else if (h$action==3){
+#	plot(r_gew,plot.type=3)
+#  }
+#  
+#}
 
 #' Plot method for report_ge_weight' 
 #' @note the model method provides plots for the fitted models
@@ -290,15 +290,15 @@ setMethod("plot",signature(x = "report_ge_weight", y = "missing"),definition=fun
 	  }
 	})
 
-
-#' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
-#' @param h handler
-#' @param \dots additional arguments passed to the function
-#' @keywords internal
-hreg = function(h,...) {			
-  r_gew<-get("report_ge_weight",envir=envir_stacomi)
-  model(r_gew,model.type=h$action)			
-}
+#deprecated0.6
+##' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
+##' @param h handler
+##' @param \dots additional arguments passed to the function
+##' @keywords internal
+#hreg = function(h,...) {			
+#  r_gew<-get("report_ge_weight",envir=envir_stacomi)
+#  model(r_gew,model.type=h$action)			
+#}
 
 
 #' model method for report_ge_weight' 
@@ -529,19 +529,20 @@ setMethod("model",signature(object = "report_ge_weight"),definition=function(obj
 	  }
 	  return(r_gew)
 	})
-
-#' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
-#' @param h handler
-#' @param \dots additional arguments passed to the function
-#' @keywords internal
-hexp=function(h,...){
-  # export d'un tableau que l'on peut ecrire dans la base
-  gWidgets::gconfirm(gettext("Do you want to write data in the database ?",domain="R-stacomiR"),
-	  title=gettext("Warning!",domain="R-stacomiR"),
-	  handler=hreg,action="export")
-  r_gew<-get("report_ge_weight",envir=envir_stacomi)
-  write_database(r_gew)
-}
+	
+#deprecated0.6
+##' Internal handler for reg, class \code{\link{report_ge_weight-class}}. 
+##' @param h handler
+##' @param \dots additional arguments passed to the function
+##' @keywords internal
+#hexp=function(h,...){
+#  # export d'un tableau que l'on peut ecrire dans la base
+#  gWidgets::gconfirm(gettext("Do you want to write data in the database ?",domain="R-stacomiR"),
+#	  title=gettext("Warning!",domain="R-stacomiR"),
+#	  handler=hreg,action="export")
+#  r_gew<-get("report_ge_weight",envir=envir_stacomi)
+#  write_database(r_gew)
+#}
 
 
 

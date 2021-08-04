@@ -123,23 +123,24 @@ setMethod("choice_c",signature=signature("report_species"),definition=function(o
 	  return(bilesp)
 	})
 
-#' handler for calculation 
-#' 
-#' internal use
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-hbilespcalc=function(h,...){
-  if (exists("bilesp",envir_stacomi)) {
-	bilesp<-get("bilesp",envir_stacomi)
-  } else {      
-	funout(gettext("No data named bilesp in envir_stacomi",domain="R-stacomiR"),arret=TRUE)
-  }	
-  bilesp<-charge(bilesp)
-  bilesp<-connect(bilesp)
-  bilesp<-calcule(bilesp)
-}
+#deprecated0.6
+##' handler for calculation 
+##' 
+##' internal use
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#hbilespcalc=function(h,...){
+#  if (exists("bilesp",envir_stacomi)) {
+#	bilesp<-get("bilesp",envir_stacomi)
+#  } else {      
+#	funout(gettext("No data named bilesp in envir_stacomi",domain="R-stacomiR"),arret=TRUE)
+#  }	
+#  bilesp<-charge(bilesp)
+#  bilesp<-connect(bilesp)
+#  bilesp<-calcule(bilesp)
+#}
 
 
 #' charge method for report_species
@@ -182,15 +183,15 @@ setMethod("charge",signature=signature("report_species"),definition=function(obj
 	  return(bilesp)
 	})
 
-
-#' handler for plot internal use
-#' @param h Handler
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-hplotbilesp = function(h) {
-  bilesp<-get("bilesp",envir_stacomi)
-  plot(bilesp,plot.type=h$action)
-}
+#deprecated0.6
+##' handler for plot internal use
+##' @param h Handler
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#hplotbilesp = function(h) {
+#  bilesp<-get("bilesp",envir_stacomi)
+#  plot(bilesp,plot.type=h$action)
+#}
 
 #' calcule method for report_species
 #' 
@@ -301,18 +302,18 @@ setMethod("plot",signature(x = "report_species", y = "missing"),definition=funct
 	}
 )
 
-
-#' handler for summary report_species, internal use
-#' @param h a handler
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-hsummarybilesp=function(h) {
-  if (exists("bilesp",envir_stacomi)) {
-	bilesp<-get("bilesp",envir_stacomi)
-  } else {      
-	funout(gettext("No data named bilesp in envir_stacomi",domain="R-stacomiR"),arret=TRUE)
-  }
-}
+#deprecated0.6
+##' handler for summary report_species, internal use
+##' @param h a handler
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#hsummarybilesp=function(h) {
+#  if (exists("bilesp",envir_stacomi)) {
+#	bilesp<-get("bilesp",envir_stacomi)
+#  } else {      
+#	funout(gettext("No data named bilesp in envir_stacomi",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
 
 #' summary for report_species 
 #'  generate csv and html output in the user data directory

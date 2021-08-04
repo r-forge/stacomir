@@ -61,23 +61,24 @@ setValidity("report_mig",function(object)
 	}   
 )
 
-#' handler for calculations report_mig
-#' 
-#'  internal use
-#' @param h handler
-#' @param ... additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_migcalc=function(h,...){
-  if (exists("report_mig",envir_stacomi)) {
-	report_mig<-get("report_mig",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  report_mig<-charge(report_mig)
-  report_mig<-connect(report_mig)
-  report_mig<-calcule(report_mig)
-}
+#deprecated0.6
+##' handler for calculations report_mig
+##' 
+##'  internal use
+##' @param h handler
+##' @param ... additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_migcalc=function(h,...){
+#  if (exists("report_mig",envir_stacomi)) {
+#	report_mig<-get("report_mig",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  report_mig<-charge(report_mig)
+#  report_mig<-connect(report_mig)
+#  report_mig<-calcule(report_mig)
+#}
 
 #' connect method for report_mig
 #' 
@@ -311,22 +312,22 @@ setMethod("calcule",signature=signature("report_mig"),definition=function(object
 	})
 
 
-
-#' handler to print the command line
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-houtreport_mig=function(h=null,...) {
-  if (exists("ref_stage",envir_stacomi)) 	{
-	report_mig<-get("report_mig",envir_stacomi)
-	print(report_mig)
-  } 
-  else 
-  {      
-	funout(gettext("Please select DC, taxa, and stages for a complete command\n",domain="R-stacomiR"),arret=TRUE)
-  }
-}
+#deprecated0.6
+##' handler to print the command line
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#houtreport_mig=function(h=null,...) {
+#  if (exists("ref_stage",envir_stacomi)) 	{
+#	report_mig<-get("report_mig",envir_stacomi)
+#	print(report_mig)
+#  } 
+#  else 
+#  {      
+#	funout(gettext("Please select DC, taxa, and stages for a complete command\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
 
 #' Method to print the command line of the object
 #' @param x An object of class report_mig
@@ -494,59 +495,61 @@ setMethod("plot",signature(x = "report_mig", y = "ANY"),definition=function(x, y
 	})
 
 
+#deprecated0.6
+##' handler for  h_report_miggraph
+##' 
+##' Standard report_mig graph over time
+##' @param h handler
+##' @param ... additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_miggraph = function(h,...) {
+#  if (exists("report_mig",envir_stacomi)) {
+#	report_mig<-get("report_mig",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  plot(report_mig,plot.type="standard")
+#  
+#}
 
-#' handler for  h_report_miggraph
-#' 
-#' Standard report_mig graph over time
-#' @param h handler
-#' @param ... additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_miggraph = function(h,...) {
-  if (exists("report_mig",envir_stacomi)) {
-	report_mig<-get("report_mig",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  plot(report_mig,plot.type="standard")
-  
-}
+#deprecated0.6
+##' handler for h_report_miggraph2
+##' 
+##' Step plot over time
+##' @param h handler
+##' @param ... additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_miggraph2 = function(h,...) {
+#  if (exists("report_mig",envir_stacomi)) {
+#	report_mig<-get("report_mig",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  plot(report_mig,plot.type="step")
+#}
 
-#' handler for h_report_miggraph2
-#' 
-#' Step plot over time
-#' @param h handler
-#' @param ... additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_miggraph2 = function(h,...) {
-  if (exists("report_mig",envir_stacomi)) {
-	report_mig<-get("report_mig",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  plot(report_mig,plot.type="step")
-}
-
-#' handler for summary function, internal use
-#' calls functions funstat and funtable to build summary tables in html and
-#' csv files
-#' @param h Handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-hTablereport_mig=function(h,...) {
-  if (exists("report_mig",envir_stacomi)) 
-  {
-	report_mig<-get("report_mig",envir_stacomi)
-  } 
-  else 
-  {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  summary(report_mig)
-  
-}
+#deprecated0.6
+##' handler for summary function, internal use
+##' calls functions funstat and funtable to build summary tables in html and
+##' csv files
+##' @param h Handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#hTablereport_mig=function(h,...) {
+#  if (exists("report_mig",envir_stacomi)) 
+#  {
+#	report_mig<-get("report_mig",envir_stacomi)
+#  } 
+#  else 
+#  {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  summary(report_mig)
+#  
+#}
 
 #' summary for report_mig 
 #' calls functions funstat and funtable to create migration overviews
@@ -565,31 +568,31 @@ setMethod("summary",signature=signature(object="report_mig"),definition=function
 
 
 
+#deprecated0.6
+##' handler h_report_migwrite
+##' Allows the saving of daily and monthly counts in the database
+##' @note these entries are necessary to run the Interannual Migration class. 
+##' then no entry will be written to the database
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_migwrite = function(h,...) {
+#  if (exists("report_mig",envir_stacomi)) {
+#	report_mig<-get("report_mig",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  # ecriture du report journalier, ecrit aussi le report mensuel
+#  database_expected<-get("database_expected",envir=envir_stacomi)
+#  if (database_expected) {
+#	write_database(report_mig,silent=FALSE)
+#  }	else {
+#	funout(gettext("no report written to database : database_expected argument=FALSE",domain="R-stacomiR"))
+#  }
+#  
+#}
 
-#' handler h_report_migwrite
-#' Allows the saving of daily and monthly counts in the database
-#' @note these entries are necessary to run the Interannual Migration class. 
-#' then no entry will be written to the database
-
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_migwrite = function(h,...) {
-  if (exists("report_mig",envir_stacomi)) {
-	report_mig<-get("report_mig",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  # ecriture du report journalier, ecrit aussi le report mensuel
-  database_expected<-get("database_expected",envir=envir_stacomi)
-  if (database_expected) {
-	write_database(report_mig,silent=FALSE)
-  }	else {
-	funout(gettext("no report written to database : database_expected argument=FALSE",domain="R-stacomiR"))
-  }
-  
-}
 #' Command line method to write the daily and monthly counts to the 
 #' t_bilanmigrationjournalier_bjo table
 #' 

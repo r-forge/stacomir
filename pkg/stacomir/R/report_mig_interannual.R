@@ -1018,115 +1018,115 @@ setMethod("plot",signature(x = "report_mig_interannual", y = "missing"),definiti
 			
 		})			
 
-
-#' Plot of all interannual from top to bottom
-#' @param h handler
-#' @param ... additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual = function(h,...)
-{
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	plot(report_mig_interannual,plot.type="line",silent=FALSE)
-	
-}
-
-#'Plot of daily migrations
-#' @param h handler
-#' @param ... additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual2 = function(h,...)
-{
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	plot(report_mig_interannual,plot.type="standard",silent=FALSE)
-}  # end function 
-
-
-
-
-
-
-
-
-#' Step plot with different years displayed on the same graph. One year
-#' can be highlighted against the others
-#' @param h handler
-#' @param ... additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual3 = function(h,...)
-{ 
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	dat=report_mig_interannual@data
-	plot(report_mig_interannual,plot.type="step",silent=FALSE)
-}   
-
-
-
-#' Plot comparing the migration  to the migration  
-#' computed for all years available in the daily migration table.
-#' This function plots comparisons for periods of 1 week, 2 weeks, month
-#' @param h A handler
-#' @param ... Additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual4 = function(h,...)
-{
-	timesplit=h$action    # timesplit="quinzaine" timesplit="semaine" timesplit="mois"
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	plot(report_mig_interannual,plot.type="barchart",timesplit=timesplit)
-	
-}  # end function 
-
-
-
-#' Function displaying comparison similar to \link{hgraph_report_mig_interannual4} but using pointrange and geom_bar
-#' This function plots comparisons for periods of 1 week, 2 weeks, month
-#' @param h A handler
-#' @param ... Additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual5 = function(h,...)
-{
-	timesplit=h$action    # timesplit="quinzaine" # timesplit="mois"
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	plot(report_mig_interannual,plot.type="pointrange",timesplit=timesplit)
-	
-}  # end function 
-
-
-#' This function creates a cumulated area plot to highlight seasonal trends in migration. Data are calculated by
-#' 2 weeks period then centered and reduced
-#' @param h A handler
-#' @param ... Additional parameters
-#' @keywords internal
-hgraph_report_mig_interannual7 = function(h,...)
-{
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	plot(report_mig_interannual,plot.type="density")
-	
-}
-
-
-
-#'Summary handler internal method
-#' @param h A handler
-#' @param ... Additional parameters
-#' @keywords internal
-hsummaryreport_migInterannuelle<-function(h,...){
-	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
-	report_mig_interannual <- charge(report_mig_interannual)
-	report_mig_interannual <- connect(report_mig_interannual)
-	summary(report_mig_interannual)
-}
+#deprecated0.6
+##' Plot of all interannual from top to bottom
+##' @param h handler
+##' @param ... additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual = function(h,...)
+#{
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	plot(report_mig_interannual,plot.type="line",silent=FALSE)
+#	
+#}
+#
+##'Plot of daily migrations
+##' @param h handler
+##' @param ... additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual2 = function(h,...)
+#{
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	plot(report_mig_interannual,plot.type="standard",silent=FALSE)
+#}  # end function 
+#
+#
+#
+#
+#
+#
+#
+#
+##' Step plot with different years displayed on the same graph. One year
+##' can be highlighted against the others
+##' @param h handler
+##' @param ... additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual3 = function(h,...)
+#{ 
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	dat=report_mig_interannual@data
+#	plot(report_mig_interannual,plot.type="step",silent=FALSE)
+#}   
+#
+#
+#
+##' Plot comparing the migration  to the migration  
+##' computed for all years available in the daily migration table.
+##' This function plots comparisons for periods of 1 week, 2 weeks, month
+##' @param h A handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual4 = function(h,...)
+#{
+#	timesplit=h$action    # timesplit="quinzaine" timesplit="semaine" timesplit="mois"
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	plot(report_mig_interannual,plot.type="barchart",timesplit=timesplit)
+#	
+#}  # end function 
+#
+#
+#
+##' Function displaying comparison similar to \link{hgraph_report_mig_interannual4} but using pointrange and geom_bar
+##' This function plots comparisons for periods of 1 week, 2 weeks, month
+##' @param h A handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual5 = function(h,...)
+#{
+#	timesplit=h$action    # timesplit="quinzaine" # timesplit="mois"
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	plot(report_mig_interannual,plot.type="pointrange",timesplit=timesplit)
+#	
+#}  # end function 
+#
+#
+##' This function creates a cumulated area plot to highlight seasonal trends in migration. Data are calculated by
+##' 2 weeks period then centered and reduced
+##' @param h A handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hgraph_report_mig_interannual7 = function(h,...)
+#{
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	plot(report_mig_interannual,plot.type="density")
+#	
+#}
+#
+#
+#
+##'Summary handler internal method
+##' @param h A handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hsummaryreport_migInterannuelle<-function(h,...){
+#	report_mig_interannual <- get("report_mig_interannual",envir=envir_stacomi)
+#	report_mig_interannual <- charge(report_mig_interannual)
+#	report_mig_interannual <- connect(report_mig_interannual)
+#	summary(report_mig_interannual)
+#}
 
 #' summary for report_mig_interannual
 #' provides summary statistics for the latest year (if silent=TRUE), or the year selected in the interface,

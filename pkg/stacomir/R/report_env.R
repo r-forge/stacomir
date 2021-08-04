@@ -127,19 +127,19 @@ setMethod("charge",signature=signature("report_env"),definition=function(object,
 	  return(object)
 	})
 
-
-#' h_report_envgraph Internal method
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_envgraph = function(h,...) 
-{	
-  report_env<-get("report_env",envir=envir_stacomi)
-  report_env=charge(report_env)
-  report_env=connect(report_env)
-  plot(report_env)
-}	
+#deprecated0.6
+##' h_report_envgraph Internal method
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_envgraph = function(h,...) 
+#{	
+#  report_env<-get("report_env",envir=envir_stacomi)
+#  report_env=charge(report_env)
+#  report_env=connect(report_env)
+#  plot(report_env)
+#}	
 #' Plot method for report_env
 #' @param x An object of class \link{report_env-class}
 #' @param silent Stops displaying the messages

@@ -373,22 +373,22 @@ setMethod("connect",signature=signature("report_mig_mult"),definition=function(o
 	})				
 
 
-
-#' handler for plot method in report_mig_mult class
-#' 
-#' internal use
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_mig_mult_graph=function(h=null,...){
-  if (exists("report_mig_mult",envir_stacomi)) {
-	report_mig_mult<-get("report_mig_mult",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  plot(x=report_mig_mult,plot.type="standard")
-}
+#deprecated0.6
+##' handler for plot method in report_mig_mult class
+##' 
+##' internal use
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_mig_mult_graph=function(h=null,...){
+#  if (exists("report_mig_mult",envir_stacomi)) {
+#	report_mig_mult<-get("report_mig_mult",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  plot(x=report_mig_mult,plot.type="standard")
+#}
 
 
 #' Plots of various type for report_mig_mult
@@ -606,74 +606,74 @@ setMethod("plot",signature(x = "report_mig_mult", y = "missing"),definition=func
 #==========================end / type=3=============================			
 	})
 
+#deprecated0.6
+##' handler for calculations
+##' 
+##'  internal use for graphical interface
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#h_report_mig_multcalc=function(h=null,...){
+#  report_mig_mult<-get("report_mig_mult",envir=envir_stacomi)
+#  report_mig_mult<-charge(report_mig_mult)
+#  # charge loads the method connect
+#  report_mig_mult<-connect(report_mig_mult)
+#  report_mig_mult<-calcule(report_mig_mult)
+#}
 
-#' handler for calculations
-#' 
-#'  internal use for graphical interface
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-h_report_mig_multcalc=function(h=null,...){
-  report_mig_mult<-get("report_mig_mult",envir=envir_stacomi)
-  report_mig_mult<-charge(report_mig_mult)
-  # charge loads the method connect
-  report_mig_mult<-connect(report_mig_mult)
-  report_mig_mult<-calcule(report_mig_mult)
-}
+#deprecated0.6
+##' handler du calcul h_report_miggraph2
+##' 
+##' Cumulated migration over time
+##' @param h a handler
+##' @param ... Additional parameters
+##' @keywords internal
+#h_report_mig_multgraph2 = function(h=null,...) {
+#  if (exists("report_mig_mult",envir_stacomi)) {
+#	report_mig_mult<-get("report_mig_mult",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  plot(report_mig_mult,plot.type="step")
+#}
 
-#' handler du calcul h_report_miggraph2
-#' 
-#' Cumulated migration over time
-#' @param h a handler
-#' @param ... Additional parameters
-#' @keywords internal
-h_report_mig_multgraph2 = function(h=null,...) {
-  if (exists("report_mig_mult",envir_stacomi)) {
-	report_mig_mult<-get("report_mig_mult",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  plot(report_mig_mult,plot.type="step")
-}
-
-
-#' handler
-#' 
-#' internal use
-#' @param h a handler
-#' @param ... Additional parameters
-#' @keywords internal
-h_report_mig_multgraph3 = function(h=null,...) {
-  if (exists("report_mig_mult",envir_stacomi)) {
-	report_mig_mult<-get("report_mig_mult",envir_stacomi)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  plot(report_mig_mult,plot.type="multiple")
-}
+#deprecated0.6
+##' handler
+##' 
+##' internal use
+##' @param h a handler
+##' @param ... Additional parameters
+##' @keywords internal
+#h_report_mig_multgraph3 = function(h=null,...) {
+#  if (exists("report_mig_mult",envir_stacomi)) {
+#	report_mig_mult<-get("report_mig_mult",envir_stacomi)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  plot(report_mig_mult,plot.type="multiple")
+#}
 
 
-#' 
-#' 
-
-#' handler function table 
-#' 
-#' internal use
-#' @param h a handler
-#' @param ... Additional parameters
-#' @keywords internal
-hTablereport_mig_mult=function(h=null,...) {
-  if (exists("report_mig_mult",envir_stacomi)) 
-  {
-	report_mig_mult<-get("report_mig_mult",envir_stacomi)
-  } 
-  else 
-  {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-  summary(report_mig_mult)
-}
+ 
+#deprecated0.6
+##' handler function table 
+##' 
+##' internal use
+##' @param h a handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hTablereport_mig_mult=function(h=null,...) {
+#  if (exists("report_mig_mult",envir_stacomi)) 
+#  {
+#	report_mig_mult<-get("report_mig_mult",envir_stacomi)
+#  } 
+#  else 
+#  {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#  summary(report_mig_mult)
+#}
 
 #' summary for report_mig_mult 
 #' calls functions funstat and funtable to create migration overviews
@@ -741,21 +741,22 @@ setMethod("summary",signature=signature(object="report_mig_mult"),definition=fun
 	  
 	})
 
-#' handler to print the command line
-#' @keywords internal
-#' @param h a handler
-#' @param ... Additional parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-houtreport_mig_mult=function(h=null,...) {
-  if (exists("ref_stage",envir_stacomi)) 	{
-	report_mig_mult<-get("report_mig_mult",envir_stacomi)
-	print(report_mig_mult)
-  } 
-  else 
-  {      
-	funout(gettext("Please select DC, taxa, and stages for a complete command\n",domain="R-stacomiR"),arret=TRUE)
-  }
-}
+#deprecated0.6
+##' handler to print the command line
+##' @keywords internal
+##' @param h a handler
+##' @param ... Additional parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#houtreport_mig_mult=function(h=null,...) {
+#  if (exists("ref_stage",envir_stacomi)) 	{
+#	report_mig_mult<-get("report_mig_mult",envir_stacomi)
+#	print(report_mig_mult)
+#  } 
+#  else 
+#  {      
+#	funout(gettext("Please select DC, taxa, and stages for a complete command\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
 
 #' Method to print the command line of the object
 #' @param x An object of class report_mig_mult
