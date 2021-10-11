@@ -257,109 +257,110 @@ setMethod("get_year",signature=signature("ref_timestep"),definition=function(obj
   	  return (as.numeric(annees))
 	})
 
-#' Method to select timesteps from the graphical interface
-#' @param object An object of class \link{ref_timestep-class}
-#' @keywords internal
-setMethod("choice",signature=signature("ref_timestep"),definition=function(object) {
-	  if (length(Lesref_timestep$Labelref_timestep) > 0){
-		hwinpa=function(h,...){
-		  pas=svalue(choicepas)
-		  nb_step=as.numeric(svalue(choicenb_step)) 
-		  object@nb_step<-nb_step
-		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
-		  object=set_starting_date(object,svalue(datedeb))
-		  assign("timestep",object,envir_stacomi)					
-		}
-		hchoicepas=function(h,...){
-		  pas=svalue(choicepas)
-		  nb_step=as.numeric(svalue(choicenb_step))
-		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
-		  object@nb_step<-nb_step 
-		  object=set_starting_date(object,svalue(datedeb))
-		  add(datedefin,strftime(as.POSIXlt(end_date(object)),format="%Y-%m-%d %H:%M:%S"),
-			  font.attr=c(foreground.colors="red") )
-		  hwinpa(h)
-		}
-		group<-get("group",envir=envir_stacomi)
-		winpa=gframe(gettext("Time steps choice",domain="R-stacomiR"),container=group,horizontal=FALSE)
-		pg<-ggroup(horizontal=FALSE,container=winpa)
-		glabel(gettext("Starting date",domain="R-stacomiR"),container=pg)
-		datedeb<-gedit(getdateDebut(object),
-			container=pg,handler=hchoicepas,width=15)
-		datedebut2=as.character(strftime(object@dateDebut,"%Y-%m-%d"))
-		datedeb2<-gcalendar(datedebut2,container=pg,handler=function(h,...){
-			  svalue(datedeb)<-as.character(strftime(
-					  strptime(svalue(datedeb2),"%Y-%m-%d"),
-					  "%Y-%m-%d %H:%M:%S"))
-			  hchoicepas(h)				
-			} )
-		glabel(gettext("Time steps choice",domain="R-stacomiR"),container=winpa)
-		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
-		choicepas=gdroplist(pas_libelle,selected = 8,container=winpa,handler=hchoicepas) 
-		glabel(gettext("Number of time step choice",domain="R-stacomiR"),container=winpa)
-		choicenb_step=gedit("365",container=winpa,coerce.with=as.numeric,handler=hchoicepas,width=15)
-		datedefin<-gtext(gettext("End date",domain="R-stacomiR"),height=50,container=winpa) # Date de fin
-		gbutton("OK", container=winpa,handler=hwinpa,icon="execute")
-	  } else funout(gettext("Internal error : no entry in time steps table\n",domain="R-stacomiR"), arret=TRUE)
-	})
-
-
-#' Graphical interface for multiple choice method for PasdeTemps (used in report_mig_mult)
-#' @param object An object of class \link{ref_timestep-class}
-#' @note this method differs from choice as it is called within a notebook,
-#' it does not allow for multiple choice to be made
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-setMethod("choicemult",signature=signature("ref_timestep"),definition=function(object) {
-	  if (length(Lesref_timestep$Labelref_timestep) > 0){
-		hwinpa=function(h,...){
-		  pas=svalue(choicepas)
-		  nb_step=as.numeric(svalue(choicenb_step)) 
-		  object@nb_step<<-nb_step
-		  object@step_duration<<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
-		  object=set_starting_date(object,svalue(datedeb))						
-		  assign("timestep",object,envir_stacomi)
-		  funout(gettext("Timesteps loaded\n",domain="R-stacomiR"))
-		  # charge le deuxieme onglet du notebook
-		  svalue(notebook)<-2
-		}
-		hchoicepas=function(h,...){
-		  #browser()
-		  pas=svalue(choicepas)
-		  nb_step=as.numeric(svalue(choicenb_step))
-		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
-		  object@nb_step<-nb_step 
-		  object=set_starting_date(object,svalue(datedeb))  
-		  add(datedefin,strftime(as.POSIXlt(end_date(object)),format="%Y-%m-%d %H:%M:%S"),
-			  font.attr=c(foreground.colors="red") )
-		  hwinpa(h)
-		}
-		hchoicedatedebut=function(h,...){
-		  # TODO to develop
-		}
-		notebook<-get("notebook",envir=envir_stacomi)
-		groupdate<-ggroup(container=notebook, label="periode")   ## "add" called by constructor this is a tab of the notebook
-		assign("groupdate",groupdate,envir=envir_stacomi)
-		winpa=gframe(gettext("Time steps choice",domain="R-stacomiR"),container=groupdate,horizontal=FALSE)
-		pg<-ggroup(horizontal=FALSE,container=winpa)
-		glabel(gettext("Starting date",domain="R-stacomiR"),container=pg)
-		datedeb<-gedit(getdateDebut(object),container=pg,handler=hchoicepas,width=15)
-		datedebut2=as.character(strftime(object@dateDebut,"%Y-%m-%d"))
-		datedeb2<-gcalendar(datedebut2,container=pg,handler=function(h,...){
-			  svalue(datedeb)<-as.character(strftime(
-					  strptime(svalue(datedeb2),"%Y-%m-%d"),
-					  "%Y-%m-%d %H:%M:%S"))
-			  hchoicepas(h)				
-			} )
-		glabel(gettext("Time steps choice",domain="R-stacomiR"),container=winpa)
-		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
-		choicepas=gdroplist(pas_libelle,selected = 8,container=winpa,handler=hchoicepas) 
-		glabel(gettext("Number of time steps choice",domain="R-stacomiR"),container=winpa)
-		choicenb_step=gedit("365",container=winpa,coerce.with=as.numeric,handler=hchoicepas,width=15)
-		datedefin<-gtext(gettext("Ending date",domain="R-stacomiR"),height=50,container=winpa) # Date de fin)
-		gbutton("OK", container=winpa,handler=hwinpa,icon="execute")
-	  } else funout(gettext("Internal error : no entry in time steps table\n",domain="R-stacomiR"), arret=TRUE)
-	})
+#deprecated0.6
+##' Method to select timesteps from the graphical interface
+##' @param object An object of class \link{ref_timestep-class}
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_timestep"),definition=function(object) {
+#	  if (length(Lesref_timestep$Labelref_timestep) > 0){
+#		hwinpa=function(h,...){
+#		  pas=svalue(choicepas)
+#		  nb_step=as.numeric(svalue(choicenb_step)) 
+#		  object@nb_step<-nb_step
+#		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
+#		  object=set_starting_date(object,svalue(datedeb))
+#		  assign("timestep",object,envir_stacomi)					
+#		}
+#		hchoicepas=function(h,...){
+#		  pas=svalue(choicepas)
+#		  nb_step=as.numeric(svalue(choicenb_step))
+#		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
+#		  object@nb_step<-nb_step 
+#		  object=set_starting_date(object,svalue(datedeb))
+#		  add(datedefin,strftime(as.POSIXlt(end_date(object)),format="%Y-%m-%d %H:%M:%S"),
+#			  font.attr=c(foreground.colors="red") )
+#		  hwinpa(h)
+#		}
+#		group<-get("group",envir=envir_stacomi)
+#		winpa=gframe(gettext("Time steps choice",domain="R-stacomiR"),container=group,horizontal=FALSE)
+#		pg<-ggroup(horizontal=FALSE,container=winpa)
+#		glabel(gettext("Starting date",domain="R-stacomiR"),container=pg)
+#		datedeb<-gedit(getdateDebut(object),
+#			container=pg,handler=hchoicepas,width=15)
+#		datedebut2=as.character(strftime(object@dateDebut,"%Y-%m-%d"))
+#		datedeb2<-gcalendar(datedebut2,container=pg,handler=function(h,...){
+#			  svalue(datedeb)<-as.character(strftime(
+#					  strptime(svalue(datedeb2),"%Y-%m-%d"),
+#					  "%Y-%m-%d %H:%M:%S"))
+#			  hchoicepas(h)				
+#			} )
+#		glabel(gettext("Time steps choice",domain="R-stacomiR"),container=winpa)
+#		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
+#		choicepas=gdroplist(pas_libelle,selected = 8,container=winpa,handler=hchoicepas) 
+#		glabel(gettext("Number of time step choice",domain="R-stacomiR"),container=winpa)
+#		choicenb_step=gedit("365",container=winpa,coerce.with=as.numeric,handler=hchoicepas,width=15)
+#		datedefin<-gtext(gettext("End date",domain="R-stacomiR"),height=50,container=winpa) # Date de fin
+#		gbutton("OK", container=winpa,handler=hwinpa,icon="execute")
+#	  } else funout(gettext("Internal error : no entry in time steps table\n",domain="R-stacomiR"), arret=TRUE)
+#	})
+#
+#
+##' Graphical interface for multiple choice method for PasdeTemps (used in report_mig_mult)
+##' @param object An object of class \link{ref_timestep-class}
+##' @note this method differs from choice as it is called within a notebook,
+##' it does not allow for multiple choice to be made
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#setMethod("choicemult",signature=signature("ref_timestep"),definition=function(object) {
+#	  if (length(Lesref_timestep$Labelref_timestep) > 0){
+#		hwinpa=function(h,...){
+#		  pas=svalue(choicepas)
+#		  nb_step=as.numeric(svalue(choicenb_step)) 
+#		  object@nb_step<<-nb_step
+#		  object@step_duration<<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
+#		  object=set_starting_date(object,svalue(datedeb))						
+#		  assign("timestep",object,envir_stacomi)
+#		  funout(gettext("Timesteps loaded\n",domain="R-stacomiR"))
+#		  # charge le deuxieme onglet du notebook
+#		  svalue(notebook)<-2
+#		}
+#		hchoicepas=function(h,...){
+#		  #browser()
+#		  pas=svalue(choicepas)
+#		  nb_step=as.numeric(svalue(choicenb_step))
+#		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
+#		  object@nb_step<-nb_step 
+#		  object=set_starting_date(object,svalue(datedeb))  
+#		  add(datedefin,strftime(as.POSIXlt(end_date(object)),format="%Y-%m-%d %H:%M:%S"),
+#			  font.attr=c(foreground.colors="red") )
+#		  hwinpa(h)
+#		}
+#		hchoicedatedebut=function(h,...){
+#		  # TODO to develop
+#		}
+#		notebook<-get("notebook",envir=envir_stacomi)
+#		groupdate<-ggroup(container=notebook, label="periode")   ## "add" called by constructor this is a tab of the notebook
+#		assign("groupdate",groupdate,envir=envir_stacomi)
+#		winpa=gframe(gettext("Time steps choice",domain="R-stacomiR"),container=groupdate,horizontal=FALSE)
+#		pg<-ggroup(horizontal=FALSE,container=winpa)
+#		glabel(gettext("Starting date",domain="R-stacomiR"),container=pg)
+#		datedeb<-gedit(getdateDebut(object),container=pg,handler=hchoicepas,width=15)
+#		datedebut2=as.character(strftime(object@dateDebut,"%Y-%m-%d"))
+#		datedeb2<-gcalendar(datedebut2,container=pg,handler=function(h,...){
+#			  svalue(datedeb)<-as.character(strftime(
+#					  strptime(svalue(datedeb2),"%Y-%m-%d"),
+#					  "%Y-%m-%d %H:%M:%S"))
+#			  hchoicepas(h)				
+#			} )
+#		glabel(gettext("Time steps choice",domain="R-stacomiR"),container=winpa)
+#		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
+#		choicepas=gdroplist(pas_libelle,selected = 8,container=winpa,handler=hchoicepas) 
+#		glabel(gettext("Number of time steps choice",domain="R-stacomiR"),container=winpa)
+#		choicenb_step=gedit("365",container=winpa,coerce.with=as.numeric,handler=hchoicepas,width=15)
+#		datedefin<-gtext(gettext("Ending date",domain="R-stacomiR"),height=50,container=winpa) # Date de fin)
+#		gbutton("OK", container=winpa,handler=hwinpa,icon="execute")
+#	  } else funout(gettext("Internal error : no entry in time steps table\n",domain="R-stacomiR"), arret=TRUE)
+#	})
 
 
 

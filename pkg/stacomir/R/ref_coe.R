@@ -1,4 +1,4 @@
-# Nom fichier :        ref_coe(classe)
+# Name :        ref_coe(classe)
 
 #' Class "ref_coe"
 #' 

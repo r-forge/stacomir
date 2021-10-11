@@ -1,8 +1,3 @@
-# Nom fichier :        refPar  (classe)
-# Contact :            cedric.briand"at"eptb-vilaine.fr
-# Date de creation :   22/03/2009 21:14:14
-
-#TODO  selection de plusieurs caracteristiques
 #' Class "ref_par"
 #' 
 #' Class enabling to load the list of parameters and select one of them
@@ -85,49 +80,50 @@ setMethod("charge_with_filter",signature=signature("ref_par"),definition=functio
 	  if (nrow(object@data)==0) funout(gettext("No data for selected device, taxa and stage\n",domain="R-stacomiR"),arret=TRUE)
 	  return(object)
 	})
-#' Choice method for ref_par referential objects
-#' @param object An object of class \link{ref_par-class}
-#' @param label The label that will be displayed in the message frame or as output text
-#' @param nomassign The assignment name in envir_stacomi
-#' @param frameassign The name of the frame used for assignment in envir_stacomi
-#' @param is.enabled Default TRUE.
-#' @note the choice method assigns an object of class ref_par named ref_par in the environment envir_stacomi
-#' @note this method choice is also on daughter classes ref_parquan, hence the parameters, however it was redefined in ref_parqual
-#' @note to load the possible values of qualitative parameters
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @examples  
-#' \dontrun{
-#'  object=new("ref_par")
-#'  win=gwindow()
-#'  group=ggroup(container=win,horizontal=FALSE)
-#'  object<-charge(object)
-#'  choice(object)
-#' }
-#' @keywords internal
-setMethod("choice",signature=signature("ref_par"),definition=function(object,
-		label="Choix d'une caracteristique de lot",
-		nomassign="ref_par",
-		frameassign="frame_par",
-		is.enabled=TRUE) {
-	  if (nrow(object@data) > 0){
-		hcar=function(h,...){
-		  carchoisi=svalue(choice)
-		  object@par_selected<-object@data[car_libelle%in%carchoisi ,"par_code"]
-		  #object@data<-object@data[car_libelle%in%carchoisi ,"par_code"]
-		  assign(nomassign,object,envir_stacomi)
-		  funout(gettext("Feature has been selected\n",domain="R-stacomiR"))
-		}
-		#frame_par<<-gframe(label)
-		assign(frameassign,gframe(label,horizontal=FALSE),envir= envir_stacomi)
-		# pour pouvoir la supprimer ensuite
-		group<-get("group",envir=envir_stacomi)
-		add(group,get(eval(frameassign),envir= envir_stacomi))
-		car_libelle=fun_char_spe(object@data$par_nom)
-		car_libelle[nchar(car_libelle)>30]<-paste(substr(car_libelle[nchar(car_libelle)>30],1,30),".",sep="")
-		choice=gdroplist(items=car_libelle,container=get(eval(frameassign),envir= envir_stacomi),handler=hcar)
-		gbutton("OK", container=get(eval(frameassign),envir= envir_stacomi),handler=hcar)
-	  } else funout(gettext("Internal error : unable to load any feature to make the choice\n",domain="R-stacomiR"),arret=TRUE)
-	})
+#deprecated0.6
+##' Choice method for ref_par referential objects
+##' @param object An object of class \link{ref_par-class}
+##' @param label The label that will be displayed in the message frame or as output text
+##' @param nomassign The assignment name in envir_stacomi
+##' @param frameassign The name of the frame used for assignment in envir_stacomi
+##' @param is.enabled Default TRUE.
+##' @note the choice method assigns an object of class ref_par named ref_par in the environment envir_stacomi
+##' @note this method choice is also on daughter classes ref_parquan, hence the parameters, however it was redefined in ref_parqual
+##' @note to load the possible values of qualitative parameters
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @examples  
+##' \dontrun{
+##'  object=new("ref_par")
+##'  win=gwindow()
+##'  group=ggroup(container=win,horizontal=FALSE)
+##'  object<-charge(object)
+##'  choice(object)
+##' }
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_par"),definition=function(object,
+#		label="Choix d'une caracteristique de lot",
+#		nomassign="ref_par",
+#		frameassign="frame_par",
+#		is.enabled=TRUE) {
+#	  if (nrow(object@data) > 0){
+#		hcar=function(h,...){
+#		  carchoisi=svalue(choice)
+#		  object@par_selected<-object@data[car_libelle%in%carchoisi ,"par_code"]
+#		  #object@data<-object@data[car_libelle%in%carchoisi ,"par_code"]
+#		  assign(nomassign,object,envir_stacomi)
+#		  funout(gettext("Feature has been selected\n",domain="R-stacomiR"))
+#		}
+#		#frame_par<<-gframe(label)
+#		assign(frameassign,gframe(label,horizontal=FALSE),envir= envir_stacomi)
+#		# pour pouvoir la supprimer ensuite
+#		group<-get("group",envir=envir_stacomi)
+#		add(group,get(eval(frameassign),envir= envir_stacomi))
+#		car_libelle=fun_char_spe(object@data$par_nom)
+#		car_libelle[nchar(car_libelle)>30]<-paste(substr(car_libelle[nchar(car_libelle)>30],1,30),".",sep="")
+#		choice=gdroplist(items=car_libelle,container=get(eval(frameassign),envir= envir_stacomi),handler=hcar)
+#		gbutton("OK", container=get(eval(frameassign),envir= envir_stacomi),handler=hcar)
+#	  } else funout(gettext("Internal error : unable to load any feature to make the choice\n",domain="R-stacomiR"),arret=TRUE)
+#	})
 
 
 #' Command line interface to select a parameter
@@ -181,88 +177,89 @@ setMethod("choice_c",signature=signature("ref_par"),definition=function(object,p
 #' choicemult(object,objectreport=report_mig_char)	
 #' }
 #' @keywords internal
-setMethod("choicemult",signature=signature("ref_par"),definition=function(object,
-		objectreport=NULL,
-		label=gettext("Sample characteristic",domain="R-stacomiR"),
-		nomassign="ref_par") {
-	  
-	  if (nrow(object@data) > 0){
-		hpar=function(h,...){
-		  parm=tbdestpar[,][tbdestpar[,]!=""]
-		  object@par_selected<-object@data[car_libelle%in%parm,"par_code"]
-		  assign(nomassign,object,envir_stacomi)
-		  funout(gettext("Parameter selected\n",domain="R-stacomiR"))
-		  if (!is.null(objectreport)) {
-			# the method can be used for parquan or par
-			# so I test whether the object contains a class parquan
-			if (class(try(objectreport@parquan,silent=TRUE))!="try-error") {
-			  objectreport@parquan<-object
-			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
-			} else {
-			  objectreport@parm<-object
-			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
-			}
-			# suppresses all tab larger than current tab
-			partab<-svalue(notebook)
-			if (svalue(notebook)<length(notebook)){
-			  svalue(notebook)<-partab+1	
-			}
-		  }
-		}
-		# below the widget structure [=> within (=> type
-		# group(ggroup)[notebook(notebook)[groupstd(ggroup&tab)[[framestdsource(gframe)[tbsourcestd(gtable)],framestddest(gframe)[tbdeststd(gtable)]],OKbutton]]
-		if (!exists("notebook",envir_stacomi)){ 
-		  group<-get("group",envir_stacomi)
-		  notebook <- gnotebook(container=group)} 
-		else {
-		  notebook<-get("notebook",envir=envir_stacomi)
-		}
-		car_libelle=fun_char_spe(object@data$par_nom)
-		car_libelle[nchar(car_libelle)>30]<-paste(substr(car_libelle[nchar(car_libelle)>30],1,30),".",sep="")
-		grouppar<-ggroup() 
-		assign("gouppar",grouppar,envir=envir_stacomi)
-		add(notebook,grouppar,label=label)
-		frameparsource<-gframe(gettext("Select here",domain="R-stacomiR"),container=grouppar)
-		tbsourcepar  = gtable(car_libelle,container=frameparsource,expand = TRUE, fill = TRUE)
-		size(tbsourcepar)<-c(160,300) 
-		framepardest<-gframe(gettext("drop here",domain="R-stacomiR"),container=grouppar)
-		# need for a fixed size data.frame otherwise errors when adding new lines
-		xx<-data.frame(choice=rep("",8))
-		xx$choice<-as.character(xx$choice)
-		tbdestpar=gtable(xx,container=framepardest,expand = TRUE, fill = TRUE)
-		size(tbdestpar)<-c(160,300)
-		adddropsource(tbsourcepar)
-		adddroptarget(tbdestpar)				
-		adddropmotion(tbdestpar,handler=function(h,...) {
-			  valeurs<-tbdestpar[,]
-			  valeurs<-valeurs[valeurs!=""]
-			  if (!svalue(tbsourcepar)%in%valeurs){
-				tbdestpar[length(valeurs)+1,1]<-svalue(tbsourcepar)
-			  }
-			})
-		addHandlerDoubleclick(tbsourcepar,handler=function(h,...) {
-			  valeurs<-tbdestpar[,]
-			  valeurs<-valeurs[valeurs!=""]
-			  if (!svalue(tbsourcepar)%in%valeurs){
-				tbdestpar[length(valeurs)+1,1]<-svalue(h$obj)
-			  }
-			})
-		adddropsource(tbdestpar)
-		adddroptarget(tbsourcepar)
-		removepar<-function(){
-		  valeurs<-tbdestpar[,]
-		  valeurs<-valeurs[valeurs!=""]
-		  valeurs<-valeurs[-match(svalue(tbdestpar),valeurs)]
-		  tbdestpar[,]<-c(valeurs,rep("",8-length(valeurs)))
-		}
-		adddropmotion(tbsourcepar,handler=function(h,...) {
-			  removepar()
-			})
-		addHandlerDoubleclick(tbdestpar,handler=function(h,...) {
-			  removepar()
-			})
-		gbutton("OK", container = grouppar, handler = hpar)
-	  } else {
-		funout(gettext("Error : no parameters in the database (the query returns 0 entry)\n",domain="R-stacomiR"),arret=TRUE)
-	  }
-	})
+#deprecated0.6
+#setMethod("choicemult",signature=signature("ref_par"),definition=function(object,
+#		objectreport=NULL,
+#		label=gettext("Sample characteristic",domain="R-stacomiR"),
+#		nomassign="ref_par") {
+#	  
+#	  if (nrow(object@data) > 0){
+#		hpar=function(h,...){
+#		  parm=tbdestpar[,][tbdestpar[,]!=""]
+#		  object@par_selected<-object@data[car_libelle%in%parm,"par_code"]
+#		  assign(nomassign,object,envir_stacomi)
+#		  funout(gettext("Parameter selected\n",domain="R-stacomiR"))
+#		  if (!is.null(objectreport)) {
+#			# the method can be used for parquan or par
+#			# so I test whether the object contains a class parquan
+#			if (class(try(objectreport@parquan,silent=TRUE))!="try-error") {
+#			  objectreport@parquan<-object
+#			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
+#			} else {
+#			  objectreport@parm<-object
+#			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
+#			}
+#			# suppresses all tab larger than current tab
+#			partab<-svalue(notebook)
+#			if (svalue(notebook)<length(notebook)){
+#			  svalue(notebook)<-partab+1	
+#			}
+#		  }
+#		}
+#		# below the widget structure [=> within (=> type
+#		# group(ggroup)[notebook(notebook)[groupstd(ggroup&tab)[[framestdsource(gframe)[tbsourcestd(gtable)],framestddest(gframe)[tbdeststd(gtable)]],OKbutton]]
+#		if (!exists("notebook",envir_stacomi)){ 
+#		  group<-get("group",envir_stacomi)
+#		  notebook <- gnotebook(container=group)} 
+#		else {
+#		  notebook<-get("notebook",envir=envir_stacomi)
+#		}
+#		car_libelle=fun_char_spe(object@data$par_nom)
+#		car_libelle[nchar(car_libelle)>30]<-paste(substr(car_libelle[nchar(car_libelle)>30],1,30),".",sep="")
+#		grouppar<-ggroup() 
+#		assign("gouppar",grouppar,envir=envir_stacomi)
+#		add(notebook,grouppar,label=label)
+#		frameparsource<-gframe(gettext("Select here",domain="R-stacomiR"),container=grouppar)
+#		tbsourcepar  = gtable(car_libelle,container=frameparsource,expand = TRUE, fill = TRUE)
+#		size(tbsourcepar)<-c(160,300) 
+#		framepardest<-gframe(gettext("drop here",domain="R-stacomiR"),container=grouppar)
+#		# need for a fixed size data.frame otherwise errors when adding new lines
+#		xx<-data.frame(choice=rep("",8))
+#		xx$choice<-as.character(xx$choice)
+#		tbdestpar=gtable(xx,container=framepardest,expand = TRUE, fill = TRUE)
+#		size(tbdestpar)<-c(160,300)
+#		adddropsource(tbsourcepar)
+#		adddroptarget(tbdestpar)				
+#		adddropmotion(tbdestpar,handler=function(h,...) {
+#			  valeurs<-tbdestpar[,]
+#			  valeurs<-valeurs[valeurs!=""]
+#			  if (!svalue(tbsourcepar)%in%valeurs){
+#				tbdestpar[length(valeurs)+1,1]<-svalue(tbsourcepar)
+#			  }
+#			})
+#		addHandlerDoubleclick(tbsourcepar,handler=function(h,...) {
+#			  valeurs<-tbdestpar[,]
+#			  valeurs<-valeurs[valeurs!=""]
+#			  if (!svalue(tbsourcepar)%in%valeurs){
+#				tbdestpar[length(valeurs)+1,1]<-svalue(h$obj)
+#			  }
+#			})
+#		adddropsource(tbdestpar)
+#		adddroptarget(tbsourcepar)
+#		removepar<-function(){
+#		  valeurs<-tbdestpar[,]
+#		  valeurs<-valeurs[valeurs!=""]
+#		  valeurs<-valeurs[-match(svalue(tbdestpar),valeurs)]
+#		  tbdestpar[,]<-c(valeurs,rep("",8-length(valeurs)))
+#		}
+#		adddropmotion(tbsourcepar,handler=function(h,...) {
+#			  removepar()
+#			})
+#		addHandlerDoubleclick(tbdestpar,handler=function(h,...) {
+#			  removepar()
+#			})
+#		gbutton("OK", container = grouppar, handler = hpar)
+#	  } else {
+#		funout(gettext("Error : no parameters in the database (the query returns 0 entry)\n",domain="R-stacomiR"),arret=TRUE)
+#	  }
+#	})

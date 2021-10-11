@@ -1,5 +1,3 @@
-# Nom fichier :        ref_df   (classe)
-
 #' Class "ref_df"
 #' 
 #' Representation of a fishway, contains description data of all fishways from
@@ -67,48 +65,49 @@ setMethod("charge",signature=signature("ref_df"),definition=function(object) {
 	  return(object)
 	})
 
-#' Graphical method to choose a fishway through the interface
-#' @param object An object of class \link{ref_df-class}
-#' @note the choice method assigns an object of class ref_df in the environment envir_stacomi
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @examples  
-#'  \dontrun{ 
-#' win=gwindow()
-#' group=ggroup(container=win,horizontal=FALSE)
-#' object=new("ref_df")
-#' object<-charge(object)
-#' choice(object)
-#' }
-#' @keywords internal
-setMethod("choice",signature=signature("ref_df"),definition=function(object) {
-	  if (nrow(object@data) > 0){
-		h_report_df=function(h,...){
-		  object@df_selectionne=svalue(choice)
-		  object@ouvrage= object@data$dif_ouv_identifiant[object@data$df%in%object@df_selectionne]
-		  #cat("passe par la")
-		  assign("ref_df",object,envir_stacomi)
-		  funout(gettext("Fishway selected\n",domain="R-stacomiR"))
-		  #dispose(winst)
-		} 
-		# Handler d'affichage du tableau
-		h_report_dfi=function(h,...){
-		  w=gwindow(gettext("Fishways data",domain="R-stacomiR"),width=400)
-		  wg=ggroup(horizontal=FALSE,container=w)
-		  tab=gtable(object@data[,c(1,6,7)],chosencol=1,multiple=FALSE,expand=TRUE, container=wg)
-		  bg<-ggroup(container=wg)
-		  addSpring(bg)
-		  gbutton(gettext("close",domain="R-stacomiR"), container=bg, handler = function(h,...) dispose(w))
-		}
-		group<-get("group",envir=envir_stacomi)
-		frameDF=gframe(gettext("Fishway choice",domain="R-stacomiR"),container=group)
-		DF_identifiant=object@data$df
-		choice=gdroplist(DF_identifiant,container=frameDF,handler=h_report_df)
-		gbutton(gettext("Table",domain="R-stacomiR"), container=frameDF,handler=h_report_dfi)
-		gbutton("OK", container=frameDF,handler=h_report_df)
-	  } else {
-		funout(gettext("No fishway in the database (the query returns 0 entry)\n",domain="R-stacomiR"),arret=TRUE)
-	  }
-	})
+#deprecated0.6
+##' Graphical method to choose a fishway through the interface
+##' @param object An object of class \link{ref_df-class}
+##' @note the choice method assigns an object of class ref_df in the environment envir_stacomi
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @examples  
+##'  \dontrun{ 
+##' win=gwindow()
+##' group=ggroup(container=win,horizontal=FALSE)
+##' object=new("ref_df")
+##' object<-charge(object)
+##' choice(object)
+##' }
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_df"),definition=function(object) {
+#	  if (nrow(object@data) > 0){
+#		h_report_df=function(h,...){
+#		  object@df_selectionne=svalue(choice)
+#		  object@ouvrage= object@data$dif_ouv_identifiant[object@data$df%in%object@df_selectionne]
+#		  #cat("passe par la")
+#		  assign("ref_df",object,envir_stacomi)
+#		  funout(gettext("Fishway selected\n",domain="R-stacomiR"))
+#		  #dispose(winst)
+#		} 
+#		# Handler d'affichage du tableau
+#		h_report_dfi=function(h,...){
+#		  w=gwindow(gettext("Fishways data",domain="R-stacomiR"),width=400)
+#		  wg=ggroup(horizontal=FALSE,container=w)
+#		  tab=gtable(object@data[,c(1,6,7)],chosencol=1,multiple=FALSE,expand=TRUE, container=wg)
+#		  bg<-ggroup(container=wg)
+#		  addSpring(bg)
+#		  gbutton(gettext("close",domain="R-stacomiR"), container=bg, handler = function(h,...) dispose(w))
+#		}
+#		group<-get("group",envir=envir_stacomi)
+#		frameDF=gframe(gettext("Fishway choice",domain="R-stacomiR"),container=group)
+#		DF_identifiant=object@data$df
+#		choice=gdroplist(DF_identifiant,container=frameDF,handler=h_report_df)
+#		gbutton(gettext("Table",domain="R-stacomiR"), container=frameDF,handler=h_report_dfi)
+#		gbutton("OK", container=frameDF,handler=h_report_df)
+#	  } else {
+#		funout(gettext("No fishway in the database (the query returns 0 entry)\n",domain="R-stacomiR"),arret=TRUE)
+#	  }
+#	})
 
 
 #' Command line interface to choose a fishway

@@ -54,167 +54,167 @@ setMethod("charge_with_filter",signature=signature("ref_taxa"),definition=functi
 	  return(object)
 	})
 
-
-#' Choice method for reftaxa referential objects with only one taxa selected
-#' @param object An object of class \link{ref_taxa-class}
-#' @param objectreport An object report which includes the \link{ref_taxa-class}, default NULL
-#' @param is.enabled Sets if the frame is enabled at launch, defaut TRUE
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-#' @examples  \dontrun{
-#'  object=new("ref_taxa")
-#' win=gwindow()
-#' group<-ggroup(container=win,horizontal=FALSE)
-#' object<-charge(object)
-#' report_mig<-new(report_mig)
-#' choice(object,objectreport=report_mig)
-#' }
-setMethod("choice",signature=signature("ref_taxa"),
-	definition=function(
-		object,
-		objectreport=NULL,
-		is.enabled=TRUE) {
-	  if (nrow(object@data) > 0){
-		htax=function(h,...){
-		  taxa=svalue(choice)
-		  object@data<-object@data[tax_libelle%in%taxa ,]
-		  assign("ref_taxa",object,envir_stacomi)
-		  funout(gettext("Taxon selected\n",domain="R-stacomiR"))
-		  if (!is.null(objectreport)) {
-			objectreport@stage<<-charge_with_filter(object=objectreport@stage,dc_selectionne=get("ref_dc",envir_stacomi)@dc_selectionne,taxa_selectionne=get("ref_taxa",envir_stacomi)@data$tax_code)
-			if (exists("frame_std",envir_stacomi)){
-			  delete(group,get("frame_std",envir_stacomi))
-			}
-			if (exists("frame_par",envir_stacomi)) {
-			  delete(group,get("frame_par",envir_stacomi))
-			}
-			if (exists("frame_parquan",envir_stacomi)) {
-			  delete(group,get("frame_parquan",envir_stacomi))
-			}
-			if (exists("frame_parqual",envir_stacomi)) {
-			  delete(group,get("frame_parqual",envir_stacomi))
-			}
-			choice(objectreport@stage,objectreport,is.enabled=TRUE)						
-		  }
-		}
-		group<-get("group",envir=envir_stacomi)
-		frame_tax<-gframe(gettext("Taxon selection",domain="R-stacomiR"))
-		# assignment in envir_stacomi to get it back and delete it when previous
-		# object (dc) is selected
-		assign("frame_tax",frame_tax,envir_stacomi)
-		add(group,frame_tax)
-		tax_libelle=fun_char_spe(object@data$tax_nom_latin)
-		choice=gdroplist(tax_libelle,container=frame_tax,handler=htax)
-		enabled(frame_tax)<-is.enabled
-		gbutton("OK", container=frame_tax,handler=htax)
-	  } else funout(gettext("Stop there is no line in the taxa table (problem with the ODBC link ?)\n",domain="R-stacomiR"),arret=TRUE)
-	})
-
-#' Multiple Choice method for reftaxa referential objects, the graphical interface is built to allow
-#' for multiple choices. See load for method in the command line.
-#' @param object An object of class \link{ref_taxa-class}
-#' @param objectreport An object report which includes the \link{ref_taxa-class}, default NULL
-#' @param is.enabled Sets if the frame is enabled at launch, defaut TRUE
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @examples 
-#' \dontrun{ 
-#'  object=new("ref_taxa")
-#' win=gwindow()
-#' group=ggroup(container=win,horizontal=FALSE)
-#' object<-charge(object)
-#' report_mig=new(report_mig)
-#' choicemult(object,objectreport=report_mig)
-#' }
-setMethod("choicemult",signature=signature("ref_taxa"),definition=function(object,objectreport=NULL,is.enabled=TRUE) {
-	  if (nrow(object@data) > 0){
-		htax=function(h,...){
-		  taxa=tbdesttaxa[,][tbdesttaxa[,]!=""]
-		  if (length(taxa)>0){
-			object@data<-object@data[tax_libelle%in%taxa ,]
-			assign("ref_taxa",object,envir_stacomi)
-			funout(gettext("Taxa selected\n",domain="R-stacomiR"))
-			if (!is.null(objectreport)) {
-			  objectreport@taxa<-object
-			  objectreport@stage<-charge_with_filter(object=objectreport@stage,
-				  dc_selectionne=get("ref_dc",envir_stacomi)@dc_selectionne,
-				  taxa_selectionne=get("ref_taxa",envir_stacomi)@data$tax_code
-			  )
-			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
-			  # suppresses all tab larger than 3 (taxa)
-			  # suppresses all tab larger than (dc)
-			  currenttab<-svalue(notebook)
-			  if (length(notebook)>currenttab){
-				for (i in length(notebook):(currenttab+1)){
-				  svalue(notebook) <- i							
-				  dispose(notebook) ## dispose current tab
-				}}
-			  choicemult(objectreport@stage,objectreport,is.enabled=TRUE)						
-			}
-			# changing tab of notebook to next tab
-			if (svalue(notebook)<length(notebook)){
-			  svalue(notebook)<-svalue(notebook)+1	
-			}
-		  } else {
-			funout(gettext("No taxa selected\n",domain="R-stacomiR"))					
-		  }				
-		}
-		# below the widget structure [=> within (=> type
-		# group(ggroup)[notebook(notebook)[grouptaxa(ggroup&tab)[[frametaxaource(gframe)[tbsourcetaxa(gtable)],frametaxadest(gframe)[tbdtaxadest(gtable)]],OKbutton]]
-		if (!exists("notebook",envir_stacomi)){ 
-		  group<-get("group",envir_stacomi)
-		  notebook <- gnotebook(container=group)} 
-		else {
-		  notebook<-get("notebook",envir=envir_stacomi)
-		}			
-		tax_libelle=fun_char_spe(object@data$tax_nom_latin)
-		grouptaxa<-ggroup() 
-		assign("grouptaxa",grouptaxa,envir_stacomi)
-		add(notebook,grouptaxa,label="taxa")
-		frametaxaource<-gframe(gettext("Taxon selection",domain="R-stacomiR"),container=grouptaxa)
-		tbsourcetaxa  = gtable(tax_libelle,container=frametaxaource,expand = TRUE, fill = TRUE)
-		size(tbsourcetaxa)<-c(160,300) # les dimensions sont testees a la main 
-		# pour s'ajuster aux dimensions du notebook (largeur 400)
-		frametaxadest<-gframe(gettext("drop here",domain="R-stacomiR"),container=grouptaxa)
-		# need for a fixed size data.frame otherwise errors when adding new lines
-		xx<-data.frame(choice=rep("",8))
-		xx$choice<-as.character(xx$choice)
-		tbdesttaxa=gtable(xx,container=frametaxadest,expand = TRUE, fill = TRUE)
-		size(tbdesttaxa)<-c(160,300)
-		adddropsource(tbsourcetaxa)
-		adddroptarget(tbdesttaxa)				
-		adddropmotion(tbdesttaxa,handler=function(h,...) {
-			  valeurs<-tbdesttaxa[,]
-			  valeurs<-valeurs[valeurs!=""]
-			  if (!svalue(tbsourcetaxa)%in%valeurs){
-				tbdesttaxa[length(valeurs)+1,1]<-svalue(tbsourcetaxa)
-			  }
-			})
-		addHandlerDoubleclick(tbsourcetaxa,handler=function(h,...) {
-			  valeurs<-tbdesttaxa[,]
-			  valeurs<-valeurs[valeurs!=""]
-			  if (!svalue(tbsourcetaxa)%in%valeurs){
-				tbdesttaxa[length(valeurs)+1,1]<-svalue(h$obj)
-			  }
-			})
-		adddropsource(tbdesttaxa)
-		adddroptarget(tbsourcetaxa)
-		removetaxa<-function(){
-		  valeurs<-tbdesttaxa[,]
-		  valeurs<-valeurs[valeurs!=""]
-		  valeurs<-valeurs[-match(svalue(tbdesttaxa),valeurs)]
-		  tbdesttaxa[,]<-c(valeurs,rep("",8-length(valeurs)))
-		}
-		adddropmotion(tbsourcetaxa,handler=function(h,...) {
-			  removetaxa()
-			})
-		addHandlerDoubleclick(tbdesttaxa,handler=function(h,...) {
-			  removetaxa()
-			})
-		gbutton("OK", container = grouptaxa, handler = htax)
-	  } else {
-		funout(gettext("Stop there is no line in the taxa table (problem with the ODBC link ?)\n",domain="R-stacomiR"),arret=TRUE)
-	  }
-	})
+#deprecated0.6
+##' Choice method for reftaxa referential objects with only one taxa selected
+##' @param object An object of class \link{ref_taxa-class}
+##' @param objectreport An object report which includes the \link{ref_taxa-class}, default NULL
+##' @param is.enabled Sets if the frame is enabled at launch, defaut TRUE
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+##' @examples  \dontrun{
+##'  object=new("ref_taxa")
+##' win=gwindow()
+##' group<-ggroup(container=win,horizontal=FALSE)
+##' object<-charge(object)
+##' report_mig<-new(report_mig)
+##' choice(object,objectreport=report_mig)
+##' }
+#setMethod("choice",signature=signature("ref_taxa"),
+#	definition=function(
+#		object,
+#		objectreport=NULL,
+#		is.enabled=TRUE) {
+#	  if (nrow(object@data) > 0){
+#		htax=function(h,...){
+#		  taxa=svalue(choice)
+#		  object@data<-object@data[tax_libelle%in%taxa ,]
+#		  assign("ref_taxa",object,envir_stacomi)
+#		  funout(gettext("Taxon selected\n",domain="R-stacomiR"))
+#		  if (!is.null(objectreport)) {
+#			objectreport@stage<<-charge_with_filter(object=objectreport@stage,dc_selectionne=get("ref_dc",envir_stacomi)@dc_selectionne,taxa_selectionne=get("ref_taxa",envir_stacomi)@data$tax_code)
+#			if (exists("frame_std",envir_stacomi)){
+#			  delete(group,get("frame_std",envir_stacomi))
+#			}
+#			if (exists("frame_par",envir_stacomi)) {
+#			  delete(group,get("frame_par",envir_stacomi))
+#			}
+#			if (exists("frame_parquan",envir_stacomi)) {
+#			  delete(group,get("frame_parquan",envir_stacomi))
+#			}
+#			if (exists("frame_parqual",envir_stacomi)) {
+#			  delete(group,get("frame_parqual",envir_stacomi))
+#			}
+#			choice(objectreport@stage,objectreport,is.enabled=TRUE)						
+#		  }
+#		}
+#		group<-get("group",envir=envir_stacomi)
+#		frame_tax<-gframe(gettext("Taxon selection",domain="R-stacomiR"))
+#		# assignment in envir_stacomi to get it back and delete it when previous
+#		# object (dc) is selected
+#		assign("frame_tax",frame_tax,envir_stacomi)
+#		add(group,frame_tax)
+#		tax_libelle=fun_char_spe(object@data$tax_nom_latin)
+#		choice=gdroplist(tax_libelle,container=frame_tax,handler=htax)
+#		enabled(frame_tax)<-is.enabled
+#		gbutton("OK", container=frame_tax,handler=htax)
+#	  } else funout(gettext("Stop there is no line in the taxa table (problem with the ODBC link ?)\n",domain="R-stacomiR"),arret=TRUE)
+#	})
+#
+##' Multiple Choice method for reftaxa referential objects, the graphical interface is built to allow
+##' for multiple choices. See load for method in the command line.
+##' @param object An object of class \link{ref_taxa-class}
+##' @param objectreport An object report which includes the \link{ref_taxa-class}, default NULL
+##' @param is.enabled Sets if the frame is enabled at launch, defaut TRUE
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @examples 
+##' \dontrun{ 
+##'  object=new("ref_taxa")
+##' win=gwindow()
+##' group=ggroup(container=win,horizontal=FALSE)
+##' object<-charge(object)
+##' report_mig=new(report_mig)
+##' choicemult(object,objectreport=report_mig)
+##' }
+#setMethod("choicemult",signature=signature("ref_taxa"),definition=function(object,objectreport=NULL,is.enabled=TRUE) {
+#	  if (nrow(object@data) > 0){
+#		htax=function(h,...){
+#		  taxa=tbdesttaxa[,][tbdesttaxa[,]!=""]
+#		  if (length(taxa)>0){
+#			object@data<-object@data[tax_libelle%in%taxa ,]
+#			assign("ref_taxa",object,envir_stacomi)
+#			funout(gettext("Taxa selected\n",domain="R-stacomiR"))
+#			if (!is.null(objectreport)) {
+#			  objectreport@taxa<-object
+#			  objectreport@stage<-charge_with_filter(object=objectreport@stage,
+#				  dc_selectionne=get("ref_dc",envir_stacomi)@dc_selectionne,
+#				  taxa_selectionne=get("ref_taxa",envir_stacomi)@data$tax_code
+#			  )
+#			  assign(get("objectreport",envir=envir_stacomi),objectreport,envir=envir_stacomi)
+#			  # suppresses all tab larger than 3 (taxa)
+#			  # suppresses all tab larger than (dc)
+#			  currenttab<-svalue(notebook)
+#			  if (length(notebook)>currenttab){
+#				for (i in length(notebook):(currenttab+1)){
+#				  svalue(notebook) <- i							
+#				  dispose(notebook) ## dispose current tab
+#				}}
+#			  choicemult(objectreport@stage,objectreport,is.enabled=TRUE)						
+#			}
+#			# changing tab of notebook to next tab
+#			if (svalue(notebook)<length(notebook)){
+#			  svalue(notebook)<-svalue(notebook)+1	
+#			}
+#		  } else {
+#			funout(gettext("No taxa selected\n",domain="R-stacomiR"))					
+#		  }				
+#		}
+#		# below the widget structure [=> within (=> type
+#		# group(ggroup)[notebook(notebook)[grouptaxa(ggroup&tab)[[frametaxaource(gframe)[tbsourcetaxa(gtable)],frametaxadest(gframe)[tbdtaxadest(gtable)]],OKbutton]]
+#		if (!exists("notebook",envir_stacomi)){ 
+#		  group<-get("group",envir_stacomi)
+#		  notebook <- gnotebook(container=group)} 
+#		else {
+#		  notebook<-get("notebook",envir=envir_stacomi)
+#		}			
+#		tax_libelle=fun_char_spe(object@data$tax_nom_latin)
+#		grouptaxa<-ggroup() 
+#		assign("grouptaxa",grouptaxa,envir_stacomi)
+#		add(notebook,grouptaxa,label="taxa")
+#		frametaxaource<-gframe(gettext("Taxon selection",domain="R-stacomiR"),container=grouptaxa)
+#		tbsourcetaxa  = gtable(tax_libelle,container=frametaxaource,expand = TRUE, fill = TRUE)
+#		size(tbsourcetaxa)<-c(160,300) # les dimensions sont testees a la main 
+#		# pour s'ajuster aux dimensions du notebook (largeur 400)
+#		frametaxadest<-gframe(gettext("drop here",domain="R-stacomiR"),container=grouptaxa)
+#		# need for a fixed size data.frame otherwise errors when adding new lines
+#		xx<-data.frame(choice=rep("",8))
+#		xx$choice<-as.character(xx$choice)
+#		tbdesttaxa=gtable(xx,container=frametaxadest,expand = TRUE, fill = TRUE)
+#		size(tbdesttaxa)<-c(160,300)
+#		adddropsource(tbsourcetaxa)
+#		adddroptarget(tbdesttaxa)				
+#		adddropmotion(tbdesttaxa,handler=function(h,...) {
+#			  valeurs<-tbdesttaxa[,]
+#			  valeurs<-valeurs[valeurs!=""]
+#			  if (!svalue(tbsourcetaxa)%in%valeurs){
+#				tbdesttaxa[length(valeurs)+1,1]<-svalue(tbsourcetaxa)
+#			  }
+#			})
+#		addHandlerDoubleclick(tbsourcetaxa,handler=function(h,...) {
+#			  valeurs<-tbdesttaxa[,]
+#			  valeurs<-valeurs[valeurs!=""]
+#			  if (!svalue(tbsourcetaxa)%in%valeurs){
+#				tbdesttaxa[length(valeurs)+1,1]<-svalue(h$obj)
+#			  }
+#			})
+#		adddropsource(tbdesttaxa)
+#		adddroptarget(tbsourcetaxa)
+#		removetaxa<-function(){
+#		  valeurs<-tbdesttaxa[,]
+#		  valeurs<-valeurs[valeurs!=""]
+#		  valeurs<-valeurs[-match(svalue(tbdesttaxa),valeurs)]
+#		  tbdesttaxa[,]<-c(valeurs,rep("",8-length(valeurs)))
+#		}
+#		adddropmotion(tbsourcetaxa,handler=function(h,...) {
+#			  removetaxa()
+#			})
+#		addHandlerDoubleclick(tbdesttaxa,handler=function(h,...) {
+#			  removetaxa()
+#			})
+#		gbutton("OK", container = grouptaxa, handler = htax)
+#	  } else {
+#		funout(gettext("Stop there is no line in the taxa table (problem with the ODBC link ?)\n",domain="R-stacomiR"),arret=TRUE)
+#	  }
+#	})
 
 
 #' choice_c method for ref_taxa
@@ -230,7 +230,7 @@ setMethod("choicemult",signature=signature("ref_taxa"),definition=function(objec
 #' object=new("ref_taxa")
 #' object<-charge(object)
 #' objectreport=new("report_mig_mult")
-#' choice_c(object=object,objectreport=objectreport,"Anguilla anguilla")
+#' choice_c(object=object,"Anguilla anguilla")
 #' }
 setMethod("choice_c",signature=signature("ref_taxa"),definition=function(object,taxa) {
 	  if (is.null(taxa)) {

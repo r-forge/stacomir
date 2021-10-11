@@ -1,5 +1,3 @@
-# Nom fichier :        ref_periode.R
-
 #' Class "ref_period" referential class
 #' 
 #' ref_period referential class to choose a period

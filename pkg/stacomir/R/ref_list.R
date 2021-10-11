@@ -34,35 +34,36 @@ setMethod("charge",signature=signature("ref_list"),definition=function(object,li
 	  object@label=label
 	  return(object)
 	})
-#' Choice method for ref_list referential objects
-#' @param object An object of class \link{ref_list-class}
-#' @param is.enabled A boolean indicating whether the frame is enabled when first displayed, default to TRUE
-#' @note the choice method assigns an object of class refList named ref_list in the environment envir_stacomi
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @examples  
-#' \dontrun{
-#'  object=new("ref_list")
-#' win=gwindow()
-#' group=ggroup(container=win,horizontal=FALSE)
-#' object<-charge(object,vecteur=c("choice1","choice2"),label="please choose")
-#' choice(object)
-#' }
-#' @keywords internal
-setMethod("choice",signature=signature("ref_list"),definition=function(object,is.enabled=TRUE) {
-	  hlist=function(h,...){
-		valeurchoisie=svalue(choice)
-		object@selectedvalue<-object@listechoice[list_libelle%in%valeurchoisie]
-		assign("refliste",object,envir_stacomi)
-		funout(paste(object@label,"\n"))
-	  }
-	  group<-get("group",envir=envir_stacomi)
-	  frame_list<<-gframe(object@label)
-	  add(group,frame_list)
-	  list_libelle=fun_char_spe(object@listechoice)
-	  choice=gdroplist(items=list_libelle,container=frame_list,handler=hlist)
-	  enabled(frame_list)<-is.enabled
-	  gbutton("OK", container=frame_list,handler=hlist)
-	})
+#deprecated0.6
+##' Choice method for ref_list referential objects
+##' @param object An object of class \link{ref_list-class}
+##' @param is.enabled A boolean indicating whether the frame is enabled when first displayed, default to TRUE
+##' @note the choice method assigns an object of class refList named ref_list in the environment envir_stacomi
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @examples  
+##' \dontrun{
+##'  object=new("ref_list")
+##' win=gwindow()
+##' group=ggroup(container=win,horizontal=FALSE)
+##' object<-charge(object,vecteur=c("choice1","choice2"),label="please choose")
+##' choice(object)
+##' }
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_list"),definition=function(object,is.enabled=TRUE) {
+#	  hlist=function(h,...){
+#		valeurchoisie=svalue(choice)
+#		object@selectedvalue<-object@listechoice[list_libelle%in%valeurchoisie]
+#		assign("refliste",object,envir_stacomi)
+#		funout(paste(object@label,"\n"))
+#	  }
+#	  group<-get("group",envir=envir_stacomi)
+#	  frame_list<<-gframe(object@label)
+#	  add(group,frame_list)
+#	  list_libelle=fun_char_spe(object@listechoice)
+#	  choice=gdroplist(items=list_libelle,container=frame_list,handler=hlist)
+#	  enabled(frame_list)<-is.enabled
+#	  gbutton("OK", container=frame_list,handler=hlist)
+#	})
 
 
 #' Choice_c method for ref_list referential objects

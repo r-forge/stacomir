@@ -279,20 +279,20 @@ setMethod("connect",signature=signature("report_mig_char"),definition=function(o
 	  return(r_mig_char)
 	})
 
-
-#' handler for report_mig_char
-#' 
-#' internal use
-#' @param h handler
-#' @param ... Additional parameters
-#' @keywords internal
-hbmCcalc=function(h,...){
-  r_mig_char<-get("r_mig_char",envir=envir_stacomi)
-  r_mig_char<-charge(r_mig_char)
-  r_mig_char<-connect(r_mig_char)
-  r_mig_char<-calcule(r_mig_char)
-  # calcule will assign in envir_stacomi
-}			
+#deprecated0.6
+##' handler for report_mig_char
+##' 
+##' internal use
+##' @param h handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hbmCcalc=function(h,...){
+#  r_mig_char<-get("r_mig_char",envir=envir_stacomi)
+#  r_mig_char<-charge(r_mig_char)
+#  r_mig_char<-connect(r_mig_char)
+#  r_mig_char<-calcule(r_mig_char)
+#  # calcule will assign in envir_stacomi
+#}			
 #' Turns a quantitative parameter into qualitative
 #' 
 #' @param object An object of class \link{ref_parquan-class}
@@ -368,59 +368,66 @@ setMethod("calcule",signature=signature("report_mig_char"),definition=function(o
 	  assign("r_mig_char",r_mig_char,envir_stacomi)	
 	  return(r_mig_char)
 	})
-#' handler for plot
-#' 
-#' @param h handler
-#' @param ... Additional parameters
-#' @keywords internal
-hbmCplotquan = function(h,...) {
-  if (exists("r_mig_char",envir_stacomi)) {
-	r_mig_char<-get("r_mig_char",envir_stacomi)
-	plot(r_mig_char,plot.type="quan",silent=FALSE)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-}
-#' handler for plot
-#' 
-#' @param h handler
-#' @param ... Additional parameters
-#' @keywords internal
-hbmCplotqual=function(h,...){
-  if (exists("r_mig_char",envir_stacomi)) {
-	r_mig_char<-get("r_mig_char",envir_stacomi)
-	plot(r_mig_char,plot.type="qual",silent=FALSE)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-}
-#' handler for plot
-#' 
-#' @param h handler
-#' @param ... Additional parameters
-#' @keywords internal
-hbmCplotcrossed=function(h,...){
-  if (exists("r_mig_char",envir_stacomi)) {
-	r_mig_char<-get("r_mig_char",envir_stacomi)
-	plot(r_mig_char,plot.type="crossed",silent=FALSE)
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-  }
-}
-#' This handler calls the generic method stat 
-#' 
-#' 
-#' @param h handler
-#' @param ... Additional parameters
-#' @keywords internal
-hbmCstat=function(h){
-  if (exists("r_mig_char",envir_stacomi)) {
-	r_mig_char<-get("r_mig_char",envir_stacomi)
-	plot(r_mig_char,plot.type="summary")
-  } else {      
-	funout(gettext("You need to launch computation first, clic on calc\n",arret=TRUE)		)
-  }
-}
+
+#deprecated0.6
+##' handler for plot
+##' 
+##' @param h handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hbmCplotquan = function(h,...) {
+#  if (exists("r_mig_char",envir_stacomi)) {
+#	r_mig_char<-get("r_mig_char",envir_stacomi)
+#	plot(r_mig_char,plot.type="quan",silent=FALSE)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
+
+#deprecated0.6
+##' handler for plot
+##' 
+##' @param h handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hbmCplotqual=function(h,...){
+#  if (exists("r_mig_char",envir_stacomi)) {
+#	r_mig_char<-get("r_mig_char",envir_stacomi)
+#	plot(r_mig_char,plot.type="qual",silent=FALSE)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
+
+#deprecated0.6
+##' handler for plot
+##' 
+##' @param h handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hbmCplotcrossed=function(h,...){
+#  if (exists("r_mig_char",envir_stacomi)) {
+#	r_mig_char<-get("r_mig_char",envir_stacomi)
+#	plot(r_mig_char,plot.type="crossed",silent=FALSE)
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
+#  }
+#}
+#deprecated0.6
+##' This handler calls the generic method stat 
+##' 
+##' 
+##' @param h handler
+##' @param ... Additional parameters
+##' @keywords internal
+#hbmCstat=function(h){
+#  if (exists("r_mig_char",envir_stacomi)) {
+#	r_mig_char<-get("r_mig_char",envir_stacomi)
+#	plot(r_mig_char,plot.type="summary")
+#  } else {      
+#	funout(gettext("You need to launch computation first, clic on calc\n",arret=TRUE)		)
+#  }
+#}
 
 #' plot method for report_mig_char
 #' 
@@ -464,10 +471,10 @@ setMethod("plot",signature=signature(x="report_mig_char",y="missing"),definition
 		calcdata<-r_mig_char@calcdata
         calcdata$car_par_code_quan[is.na(calcdata$car_par_code_quan)]<-"NA"
 		the_parms<-unique(calcdata$car_par_code_quan)
-		cs<-colortable(color=color_parm,vec=the_parms,palette="Dark2")
-		cs<-stacomirtools::chnames(cs,"name","car_par_code_quan")
-		calcdata<-merge(calcdata,cs)
-		g<-ggplot(calcdata)+
+		cs <- colortable(color=color_parm,vec=the_parms,palette="Dark2")
+		cs <- stacomirtools::chnames(cs,"name","car_par_code_quan")
+		calcdata <- merge(calcdata,cs)
+		g <- ggplot(calcdata)+
 			geom_point(aes(x=ope_date_debut,y=car_valeur_quantitatif,col=color),stat='identity')+
 			xlab(gettext("Month"))+
 			ylab(gettext("Quantitative parameter"))+

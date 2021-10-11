@@ -1,7 +1,7 @@
 #' Class "ref_choice"
 #' 
 #' ref_choice referential class allows to choose within several values with
-#' radiobuttons
+#' radiobuttons interface
 #' 
 #' @section Objects from the Class: Objects can be created by calls of the form
 #' \code{new("ref_choice", listechoice=character() ,label=character()
@@ -18,7 +18,7 @@ setClass(Class="ref_choice",representation= representation(listechoice="ANY",
 	prototype=list(
 		selectedvalue=vector()))
 
-#' Loading method for Rechoice referential objects
+#' Loading method for Refchoice referential objects
 #' 
 #' @family referential objects
 #' @return An S4 object of class ref_choice
@@ -39,36 +39,37 @@ setMethod("charge",signature=signature("ref_choice"),definition=function(object,
 	  object
 	  return(object)
 	})
-#' Choice method for Rechoice referential objects
-#' 
-#' Used by the graphical interface.
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @param object An object of class \link{ref_choice-class}
-#' @examples 
-#' \dontrun{
-#'  object=new("ref_choice")
-#'  object<-charge(object,vecteur=c("oui","non"),label="essai",selected=as.integer(1))
-#' win=gwindow(title="test ref_choice")
-#' group=ggroup(container=win,horizontal=FALSE)
-#' choice(object) 
-#' dispose(win)}
-#' @keywords internal
-setMethod("choice",signature=signature("ref_choice"),definition=function(object) {
-	  hlist=function(h,...){
-		valeurchoisie=svalue(choice)
-		object@listechoice<-valeurchoisie
-		assign("refchoice",object,envir_stacomi)
-		funout(paste(object@label,"\n"))
-	  }
-	  group<-get("group",envir=envir_stacomi)
-	  frame_choice<-gframe(object@label)
-	  assign("frame_choice",frame_choice,envir=envir_stacomi)
-	  ##=>selection de plusieurs caracteristiques
-	  add(group,frame_choice)
-	  list_libelle=fun_char_spe(object@listechoice)
-	  choice=gradio(items=list_libelle,selected=object@selected,horizontal=TRUE,container=frame_choice,handler=hlist)
-	  gbutton("OK", container=frame_choice,handler=hlist)
-	})
+#deprecated0.6
+##' Choice method for Rechoice referential objects
+##' 
+##' Used by the graphical interface.
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @param object An object of class \link{ref_choice-class}
+##' @examples 
+##' \dontrun{
+##'  object=new("ref_choice")
+##'  object<-charge(object,vecteur=c("oui","non"),label="essai",selected=as.integer(1))
+##' win=gwindow(title="test ref_choice")
+##' group=ggroup(container=win,horizontal=FALSE)
+##' choice(object) 
+##' dispose(win)}
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_choice"),definition=function(object) {
+#	  hlist=function(h,...){
+#		valeurchoisie=svalue(choice)
+#		object@listechoice<-valeurchoisie
+#		assign("refchoice",object,envir_stacomi)
+#		funout(paste(object@label,"\n"))
+#	  }
+#	  group<-get("group",envir=envir_stacomi)
+#	  frame_choice<-gframe(object@label)
+#	  assign("frame_choice",frame_choice,envir=envir_stacomi)
+#	  ##=>selection de plusieurs caracteristiques
+#	  add(group,frame_choice)
+#	  list_libelle=fun_char_spe(object@listechoice)
+#	  choice=gradio(items=list_libelle,selected=object@selected,horizontal=TRUE,container=frame_choice,handler=hlist)
+#	  gbutton("OK", container=frame_choice,handler=hlist)
+#	})
 
 #' Choice_c method for refchoix referential objects
 #' @param object An object of class \link{ref_list-class}
@@ -96,39 +97,39 @@ setMethod("choice_c",signature=signature("ref_choice"),definition=function(objec
 	  
 	  
 	})
-
-#' Multiple Choice method for ref_choice referential objects, to put together with notebook widgets
-#' @param object An object of class \link{ref_choice-class}
-#' @param selected_value the value selected in the combo
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @keywords internal
-setMethod("choicemult",signature=signature("ref_choice"),definition=function(object,
-		selected_value
-	) {
-	  hlist=function(h,...){
-		valeurchoisie=svalue(choice)
-		object@selectedvalue<-valeurchoisie
-		assign("refchoice",object,envir_stacomi)
-		funout(gettext("choice made\n",domain="R-stacomiR"))
-		if (svalue(notebook)<length(notebook)){
-		  svalue(notebook)<-svalue(notebook)+1	
-		}
-	  }
-	  group<-get("group",envir=envir_stacomi)
-	  if (!exists("notebook",envir=envir_stacomi)){
-		notebook <- gnotebook(container=group)
-	  } else {
-		notebook<-get("notebook",envir=envir_stacomi)
-	  }
-	  groupchoice<-ggroup(container=notebook, 
-		  label=gettext("options",domain="R-stacomiR"),
-		  horizontal=FALSE) 
-	  glabel(object@label,container=groupchoice)
-	  list_libelle=fun_char_spe(object@listechoice)
-	  choice=gradio(items=list_libelle,
-		  selected=object@selected,
-		  horizontal=FALSE,
-		  container=groupchoice,
-		  handler=hlist)		
-	  gbutton("OK", container=groupchoice,handler=hlist)
-	})
+#deprecated0.6
+##' Multiple Choice method for ref_choice referential objects, to put together with notebook widgets
+##' @param object An object of class \link{ref_choice-class}
+##' @param selected_value the value selected in the combo
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @keywords internal
+#setMethod("choicemult",signature=signature("ref_choice"),definition=function(object,
+#		selected_value
+#	) {
+#	  hlist=function(h,...){
+#		valeurchoisie=svalue(choice)
+#		object@selectedvalue<-valeurchoisie
+#		assign("refchoice",object,envir_stacomi)
+#		funout(gettext("choice made\n",domain="R-stacomiR"))
+#		if (svalue(notebook)<length(notebook)){
+#		  svalue(notebook)<-svalue(notebook)+1	
+#		}
+#	  }
+#	  group<-get("group",envir=envir_stacomi)
+#	  if (!exists("notebook",envir=envir_stacomi)){
+#		notebook <- gnotebook(container=group)
+#	  } else {
+#		notebook<-get("notebook",envir=envir_stacomi)
+#	  }
+#	  groupchoice<-ggroup(container=notebook, 
+#		  label=gettext("options",domain="R-stacomiR"),
+#		  horizontal=FALSE) 
+#	  glabel(object@label,container=groupchoice)
+#	  list_libelle=fun_char_spe(object@listechoice)
+#	  choice=gradio(items=list_libelle,
+#		  selected=object@selected,
+#		  horizontal=FALSE,
+#		  container=groupchoice,
+#		  handler=hlist)		
+#	  gbutton("OK", container=groupchoice,handler=hlist)
+#	})

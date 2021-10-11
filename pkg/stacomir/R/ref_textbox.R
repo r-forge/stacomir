@@ -24,36 +24,36 @@ setMethod("charge",signature=signature("ref_textbox"),definition=function(object
 	  return(object)
 	})
 
-
-#' Choice method for ReTextBox referential objects
-#' 
-#' 
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @param object An object of class \link{ref_textbox-class}
-#' @param nomassign The name with which the object will be assigned in envir_stacomi
-#' @keywords internal
-#' @examples 
-#' \dontrun{
-#' object=new("ref_textbox")
-#' object<- charge(object,title="le titre",label="20")
-#' win=gwindow(title="test ref_textbox")
-#' group=ggroup(container=win,horizontal=FALSE)
-#' choice(object) 
-#' dispose(win)
-#' }
-setMethod("choice",signature=signature("ref_textbox"),definition=function(object,nomassign="ref_textbox") {
-	  hlist=function(h,...){
-		object@label<-svalue(choice)
-		assign(nomassign,object,envir_stacomi)
-		funout(paste("choice",object@label,"\n"))
-	  }
-	  group<-get("group",envir=envir_stacomi)
-	  frame_text<-gframe(object@title)	
-	  assign("frame_text",frame_text,envir_stacomi)
-	  add(group,frame_text)
-	  choice=glabel(text=object@label,container=frame_text,handler=hlist,editable=TRUE)
-	  addhandlerchanged(choice,handler=hlist)
-	})
+#deprecated0.6
+##' Choice method for ReTextBox referential objects
+##' 
+##' 
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @param object An object of class \link{ref_textbox-class}
+##' @param nomassign The name with which the object will be assigned in envir_stacomi
+##' @keywords internal
+##' @examples 
+##' \dontrun{
+##' object=new("ref_textbox")
+##' object<- charge(object,title="le titre",label="20")
+##' win=gwindow(title="test ref_textbox")
+##' group=ggroup(container=win,horizontal=FALSE)
+##' choice(object) 
+##' dispose(win)
+##' }
+#setMethod("choice",signature=signature("ref_textbox"),definition=function(object,nomassign="ref_textbox") {
+#	  hlist=function(h,...){
+#		object@label<-svalue(choice)
+#		assign(nomassign,object,envir_stacomi)
+#		funout(paste("choice",object@label,"\n"))
+#	  }
+#	  group<-get("group",envir=envir_stacomi)
+#	  frame_text<-gframe(object@title)	
+#	  assign("frame_text",frame_text,envir_stacomi)
+#	  add(group,frame_text)
+#	  choice=glabel(text=object@label,container=frame_text,handler=hlist,editable=TRUE)
+#	  addhandlerchanged(choice,handler=hlist)
+#	})
 
 #' Choice_c method for ReTextBox referential objects
 #' 

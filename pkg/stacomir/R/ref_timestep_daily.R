@@ -56,43 +56,44 @@ setValidity(Class="ref_timestep_daily",function(object)
 	})	
 # pour test #object=new("ref_timestep_daily")
 
-#' Method to select timesteps from the graphical interface
-#' @param object An object of class \link{ref_timestep_daily-class}
-#' @keywords internal
-setMethod("choice",signature=signature("ref_timestep_daily"),definition=function(object) {
-	  if (length(Lesref_timestep$Labelref_timestep) > 0){
-		hwinpa=function(h,...){
-		  pas=svalue(choicepas)
-		  nb_step=as.numeric(svalue(choicenb_step)) 
-		  object@nb_step<-nb_step
-		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
-		  object=set_starting_date(object,as.POSIXlt(svalue(datedeb)))
-		  svalue(datedefin)<-as.Date(end_date(object))
-		  assign("timestep",object,envir_stacomi)
-		  funout(gettext("Time steps loaded\n",domain="R-stacomiR"))
-		  #dispose(winpa)
-		}
-		group<-get("group",envir=envir_stacomi)
-		winpa=gframe(gettext("Time steps choice (1 year duration)",domain="R-stacomiR"),container=group,horizontal=FALSE)
-		pg<-glayout(container=winpa)
-		pg[1,1]<-glabel(gettext("Start date",domain="R-stacomiR"))
-		datedeb<-gedit(as.Date(getdateDebut(object)),handler=hwinpa,width=10)
-		pg[2,1]<-datedeb
-		pg[3,1]<-glabel(gettext("Time step",domain="R-stacomiR"))
-		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
-		choicepas=gdroplist(pas_libelle,selected = 8,handler=hwinpa)
-		pg[4,1]<-choicepas 
-		enabled(choicepas)=FALSE
-		pg[3,2]<-glabel(gettext("Number of days",domain="R-stacomiR"))
-		choicenb_step=gedit("365",coerce.with=as.numeric,handler=hwinpa,width=5)
-		pg[4,2]<-choicenb_step
-		pg[1,2]<-glabel(gettext("End date",domain="R-stacomiR"),container=pg)
-		datedefin<-gedit("...",width=10) # heigth=30
-		enabled(datedefin)<-FALSE
-		pg[2,2]<-datedefin			
-		pg[3,4:4]<-	gbutton("OK", handler=hwinpa,icon="execute")
-	  } else stop("internal error length(Lesref_timestep$Labelref_timestep) == 0")
-	})
+#deprecated0.6
+##' Method to select timesteps from the graphical interface
+##' @param object An object of class \link{ref_timestep_daily-class}
+##' @keywords internal
+#setMethod("choice",signature=signature("ref_timestep_daily"),definition=function(object) {
+#	  if (length(Lesref_timestep$Labelref_timestep) > 0){
+#		hwinpa=function(h,...){
+#		  pas=svalue(choicepas)
+#		  nb_step=as.numeric(svalue(choicenb_step)) 
+#		  object@nb_step<-nb_step
+#		  object@step_duration<-as.numeric(Lesref_timestep$Valeurref_timestep[Lesref_timestep$Labelref_timestep%in%pas])
+#		  object=set_starting_date(object,as.POSIXlt(svalue(datedeb)))
+#		  svalue(datedefin)<-as.Date(end_date(object))
+#		  assign("timestep",object,envir_stacomi)
+#		  funout(gettext("Time steps loaded\n",domain="R-stacomiR"))
+#		  #dispose(winpa)
+#		}
+#		group<-get("group",envir=envir_stacomi)
+#		winpa=gframe(gettext("Time steps choice (1 year duration)",domain="R-stacomiR"),container=group,horizontal=FALSE)
+#		pg<-glayout(container=winpa)
+#		pg[1,1]<-glabel(gettext("Start date",domain="R-stacomiR"))
+#		datedeb<-gedit(as.Date(getdateDebut(object)),handler=hwinpa,width=10)
+#		pg[2,1]<-datedeb
+#		pg[3,1]<-glabel(gettext("Time step",domain="R-stacomiR"))
+#		pas_libelle=fun_char_spe(Lesref_timestep$Labelref_timestep)
+#		choicepas=gdroplist(pas_libelle,selected = 8,handler=hwinpa)
+#		pg[4,1]<-choicepas 
+#		enabled(choicepas)=FALSE
+#		pg[3,2]<-glabel(gettext("Number of days",domain="R-stacomiR"))
+#		choicenb_step=gedit("365",coerce.with=as.numeric,handler=hwinpa,width=5)
+#		pg[4,2]<-choicenb_step
+#		pg[1,2]<-glabel(gettext("End date",domain="R-stacomiR"),container=pg)
+#		datedefin<-gedit("...",width=10) # heigth=30
+#		enabled(datedefin)<-FALSE
+#		pg[2,2]<-datedefin			
+#		pg[3,4:4]<-	gbutton("OK", handler=hwinpa,icon="execute")
+#	  } else stop("internal error length(Lesref_timestep$Labelref_timestep) == 0")
+#	})
 
 
 

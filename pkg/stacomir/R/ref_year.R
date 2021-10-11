@@ -113,49 +113,49 @@ setMethod("charge",signature=signature("ref_year"),definition=function(object,ob
 	  object@data<-requete@query
 	  return(object)
 	})
-
-#' choice method for ref_year referential 
-#' 
-#' Allows the selection of year and the assignment in environment envir_stacomi
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @param object An object of class \link{ref_year-class}
-#' @param nomassign The name to be assigned in envir_stacomi
-#' @param funoutlabel The label that appears in funout
-#' @param titleFrame Title for the frame
-#' @param preselect The number of the year selected in the gdroplist (integer)
-#' @examples  
-#' \dontrun{
-#' object=new("ref_year")
-#' object<-charge(object)
-#' win=gwindow(title="test ref_year")
-#' group=ggroup(container=win,horizontal=FALSE)
-#' choice(object,nomassign="ref_year",funoutlabel="essai",titleFrame="essai ref_year",preselect=1)
-#' dispose(win)
-#' }
-#' @keywords internal
-setMethod("choice",
-	signature=signature("ref_year"),definition=function(object,
-		nomassign="ref_year", 
-		funoutlabel=gettext("Year selected\n",domain="R-stacomiR"),
-		titleFrame=gettext("Year choice",domain="R-stacomiR"), 
-		preselect=1){
-	  if (nrow(object@data) > 0){      
-		hannee=function(h,...){      
-		  object@annee_selectionnee<-svalue(choice)					
-		  assign(nomassign,object,envir_stacomi)
-		  funout(funoutlabel)      
-		}    
-		group<-get("group",envir=envir_stacomi)
-		frame_annee<-gframe(titleFrame) 
-		assign("frame_annee",frame_annee,envir=envir_stacomi)
-		add(group,frame_annee)    
-		annees=object@data$year    
-		choice=gdroplist(annees,container=frame_annee,handler=hannee,selected=preselect)    
-		gbutton("OK", container=frame_annee,handler=hannee)  
-	  } else { 
-		funout(gettext("Problem when loading data or no data in the database (ODBC link ?)",domain="R-stacomiR"),arret=TRUE)  
-	  }
-	}) 
+#deprecated0.6
+##' choice method for ref_year referential 
+##' 
+##' Allows the selection of year and the assignment in environment envir_stacomi
+##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+##' @param object An object of class \link{ref_year-class}
+##' @param nomassign The name to be assigned in envir_stacomi
+##' @param funoutlabel The label that appears in funout
+##' @param titleFrame Title for the frame
+##' @param preselect The number of the year selected in the gdroplist (integer)
+##' @examples  
+##' \dontrun{
+##' object=new("ref_year")
+##' object<-charge(object)
+##' win=gwindow(title="test ref_year")
+##' group=ggroup(container=win,horizontal=FALSE)
+##' choice(object,nomassign="ref_year",funoutlabel="essai",titleFrame="essai ref_year",preselect=1)
+##' dispose(win)
+##' }
+##' @keywords internal
+#setMethod("choice",
+#	signature=signature("ref_year"),definition=function(object,
+#		nomassign="ref_year", 
+#		funoutlabel=gettext("Year selected\n",domain="R-stacomiR"),
+#		titleFrame=gettext("Year choice",domain="R-stacomiR"), 
+#		preselect=1){
+#	  if (nrow(object@data) > 0){      
+#		hannee=function(h,...){      
+#		  object@annee_selectionnee<-svalue(choice)					
+#		  assign(nomassign,object,envir_stacomi)
+#		  funout(funoutlabel)      
+#		}    
+#		group<-get("group",envir=envir_stacomi)
+#		frame_annee<-gframe(titleFrame) 
+#		assign("frame_annee",frame_annee,envir=envir_stacomi)
+#		add(group,frame_annee)    
+#		annees=object@data$year    
+#		choice=gdroplist(annees,container=frame_annee,handler=hannee,selected=preselect)    
+#		gbutton("OK", container=frame_annee,handler=hannee)  
+#	  } else { 
+#		funout(gettext("Problem when loading data or no data in the database (ODBC link ?)",domain="R-stacomiR"),arret=TRUE)  
+#	  }
+#	}) 
 
 
 #' choice_c method for ref_year referential from the command line
