@@ -1,14 +1,3 @@
-# Nom fichier :        utilities.R
-# Projet :             stacomiR
-
-
-#############################################
-# functions copied from Hmisc
-#############################################
-
-
-
-
 #' function used to print the html tables of output (see xtable documentation)
 #' 
 #' see \pkg{xtable} for further description, an xtable is created and printed
@@ -25,7 +14,7 @@
 #' @param ...  additional parameters to be passed to the function
 #' @return an xtable
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @export funhtml
+#' @export
 funhtml=function(data,caption=NULL,top=TRUE,outfile=NULL,clipboard=FALSE,append=TRUE,digits=NULL,...){
 	
 	xt=xtable::xtable(data, caption=caption,digits=digits)
@@ -63,14 +52,14 @@ funhtml=function(data,caption=NULL,top=TRUE,outfile=NULL,clipboard=FALSE,append=
 #' "new_variable_name" = c("color")))
 #' }
 #' 
-#' @export chnames
+#' @export
 chnames=function(object,
 		old_variable_name,
 		new_variable_name){
-		if (length(old_variable_name)!=length(new_variable_name)) stop("les variables de remplacement doivent avoir le meme nombre que les variables de depart")
-		if (!all(!is.na(match(old_variable_name,colnames(object))))) {
-		   stop(paste("les noms",paste(old_variable_name[is.na(match(old_variable_name,colnames(object)))],collapse="/"),"ne correspondent pas aux variables du tableau"))
-    }
+	if (length(old_variable_name)!=length(new_variable_name)) stop("les variables de remplacement doivent avoir le meme nombre que les variables de depart")
+	if (!all(!is.na(match(old_variable_name,colnames(object))))) {
+		stop(paste("les noms",paste(is.na(match(old_variable_name,colnames(object))),collapse="/"),"ne correspondent pas aux variables du tableau"))
+	}
 	colnames(object)[match(old_variable_name,colnames(object))]<- new_variable_name
 	return(object)
 }
@@ -94,7 +83,7 @@ chnames=function(object,
 #' 
 #' induk(c(1,1,2,2,2,3))
 #' 
-#' @export induk
+#' @export
 induk=function(a){
 	sol=match(unique(a),a)     #index des valeurs uniques
 	return(sol)   
@@ -126,7 +115,7 @@ killfactor=function(df){
 #' 
 #' @param d a dataframe
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @export ex
+#' @export
 ex<-function(d=NULL){
 	if (is.null(d)){
 		xl=utils::select.list(choices=ls(envir=globalenv()), preselect = NULL, multiple = FALSE, title = "choisir l'object")
@@ -156,20 +145,20 @@ ex<-function(d=NULL){
 #' is.odd(1)
 #' is.odd(2)
 #' 
-#' @export is.odd
+#' @export
 is.odd=function (x) 
 {
-    if (x==as.integer(x)) {
-        if (x%%2 == 0) {
-            return(FALSE)
-        }
-        else {
-            return(TRUE)
-        }
-    }
-    else {
-        stop("is.odd should be used with an integer")
-    }
+	if (x==as.integer(x)) {
+		if (x%%2 == 0) {
+			return(FALSE)
+		}
+		else {
+			return(TRUE)
+		}
+	}
+	else {
+		stop("is.odd should be used with an integer")
+	}
 }
 
 
@@ -189,20 +178,20 @@ is.odd=function (x)
 #' is.even(1)
 #' is.even(2)
 #' 
-#' @export is.even
+#' @export
 is.even=function (x) 
 {
-    if (x==as.integer(x)) {
-        if (x%%2 != 0) {
-            return(FALSE)
-        }
-        else {
-            return(TRUE)
-        }
-    }
-    else {
-        stop("is.even should be used with an integer")
-    }
+	if (x==as.integer(x)) {
+		if (x%%2 != 0) {
+			return(FALSE)
+		}
+		else {
+			return(TRUE)
+		}
+	}
+	else {
+		stop("is.even should be used with an integer")
+	}
 }
 
 
@@ -224,7 +213,7 @@ is.even=function (x)
 #' ftdf <- ftable(df)
 #' tab2df(ftdf)
 #' 
-#' @export tab2df
+#' @export
 tab2df<-function(tab){
 	if (length((attributes(tab)$dim))>2) stop("only works with tables of dim 2")
 	df=as.data.frame(matrix(as.vector(tab),nrow(tab),ncol(tab)))
@@ -235,7 +224,7 @@ tab2df<-function(tab){
 #' Function loaded in this package to avoid errors, if the package is called without stacomiR
 #' @param text The text to display
 #' @param arret Boolean should the program stop
-#' @param wash= FALSE only used when called from within stacomiR, and there is a widget interface,
+#' @param wash FALSE only used when called from within stacomiR, and there is a widget interface,
 #' kept there for consistency 
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @export

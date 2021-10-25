@@ -1,4 +1,6 @@
 
+#' Validity method for ODBC class
+#' @param object an object of class ConnectionODBC
 validity_ODBC=function(object)
 {
 	rep1= class(object@baseODBC[1])=="Character"
@@ -11,12 +13,10 @@ validity_ODBC=function(object)
 #' @title ConnectionODBC class 
 #' @note Mother class for connection, opens the connection but does not shut it
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#' @slot baseODBC="vector" (of length 3, character)
-#' @slot silent="logical"
-#' @slot etat="ANY" # can be -1 or string
-#' @slot connection="ANY" # could be both string or S3
-#' @slot sql="character"
-#' @slot query="data.frame"
+#' @slot baseODBC "vector" (of length 3, character)
+#' @slot silent "logical" 
+#' @slot etat "ANY" # can be -1 or string
+#' @slot connection "ANY" # could be both string or S3
 #' @return connectionODBC an S4 object of class connectionODBC
 #' @examples 
 #' ##this wont be run as the user need to manually configure the connection before using it
@@ -27,24 +27,33 @@ validity_ODBC=function(object)
 #' object<-connect(object)
 #' odbcClose(object@connection)
 #' }
+#' @export
 setClass(Class="ConnectionODBC",
 		representation= representation(baseODBC="vector",silent="logical",etat="ANY",connection="ANY"),
 		prototype = list(silent=TRUE),
 		validity=validity_ODBC)
-    
+
 #' generic connect function for baseODBC
+#' @param object an object
+#' @param ... additional arguments passed on to the connect method 
 #' @export   
 setGeneric("connect",def=function(object,...) standardGeneric("connect"))
 
 #' connect method for ConnectionODBC class
+#' @param object an object of class ConnectionODBC
 #' @return a connection with slot filled
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @examples 
+#' ##this wont be run as the user need to manually configure the connection before using it
+#' \dontrun{
 #' object=new("ConnectionODBC")
-#' 
-#' object@baseODBC=baseODBC
-#' connect(object)
-setMethod("connect",signature=signature("ConnectionODBC"),definition=function(object) {     
+#' object@baseODBC=c("myODBCconnection","myusername","mypassword")
+#' object@silent=FALSE
+#' object<-connect(object)
+#' odbcClose(object@connection)
+#' }
+setMethod("connect",signature=signature("ConnectionODBC"),definition=function(object) {
+			.Deprecated(new= "ConnectionDB", old="ConnectionODBC")			
 			if (length(object@baseODBC)!=3)  {
 				if (exists("baseODBC",envir=envir_stacomi)){ 
 					object@baseODBC<-get("baseODBC",envir=envir_stacomi) 

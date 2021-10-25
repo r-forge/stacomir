@@ -1,23 +1,37 @@
 Package: stacomirtools
-Version: 0.5.4
-Date: 2020-04-03
+Version: 0.6.0.9000
+Date: 2021-10-22
 Title: 'ODBC' Connection Class for Package stacomiR
-Authors@R: c(person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"))
+Authors@R: c(
+              person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"),
+              person("Marion", "Legrand", role = "aut", email = "<tableau-salt-loire@logrami.fr>"),
+              person("Beaulaton", "Laurent", role = "aut", email = "<laurent.beaulaton@ofb.gouv.fr>"))
 Author: Cedric Briand [aut, cre]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
-Description: S4 class wrappers for the 'ODBC' connection, also provides some 
+Description: S4 class wrappers for the 'ODBC' and Pool dbi connection, also provides some 
     utilities to paste small datasets to clipboard, rename columns. It is used by the package 'stacomiR' for
     connections to the database. Development versions of 'stacomiR' are available in R-forge.
 License: GPL (>= 2)
-Collate:
-    'ConnectionODBC.r'
-    'RequeteODBC.r'
-    'RequeteODBCwhere.r'
-    'RequeteODBCwheredate.r'
-    'utilities.r'   
-    'stacomirtools.r'
-    'stacomirtools-package.R' 
+Collate: 'ConnectionODBC.R' 'RequeteODBC.R' 'RequeteODBCwhere.R'
+        'RequeteODBCwheredate.R' 'utilities.R' 'stacomirtools.R'
+        'stacomirtools-package.R''ConnectionDB.R' 'RequeteDB.R' 'RequeteDBwhere.R'
+        'RequeteDBwheredate.R'
 LazyLoad: yes
-Depends: RODBC
-Imports: methods,xtable,utils
-Suggests: testthat
+Depends: RODBC, DBI, pool
+Imports: 
+    methods,
+    xtable,
+    utils,
+    RPostgres,
+    stacomirtools (>= 0.5.3)
+Suggests: testthat, stacomiR
+Repository: CRAN
+Repository/R-Forge/Project: stacomir
+Repository/R-Forge/Revision: 540
+Repository/R-Forge/DateTimeStamp: 2018-10-06 06:18:25
+Date/Publication: 2018-10-06 07:40:02 UTC
+NeedsCompilation: no
+Packaged: 2018-10-06 06:25:10 UTC; rforge
+RoxygenNote: 7.1.2
+Remotes:  
+    Remotes: gitlab::git@forgemia.inra.fr:stacomi/stacomirtools.git
