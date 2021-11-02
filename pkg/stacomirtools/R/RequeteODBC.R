@@ -56,16 +56,10 @@ setMethod("connect",signature=signature("RequeteODBC"),definition=function(objec
 			msg4<-gettext("connection successfull")
 			msg5<-gettext("request trial")
 			msg6<-gettext("success")
-			if (requireNamespace("stacomiR", quietly = TRUE)){
-				if (exists("envir_stacomi", where =asNamespace("stacomiR"), mode="environment")){
-					verbose<-exists("showmerequest",envir=envir_stacomi)
-				} else {
-					verbose <- FALSE
-				}
-			} else {
-				verbose <- FALSE
-				
-			}
+
+			printqueries <- options("stacomiR.printqueries")[[1]]
+			if (is.null(printqueries)) printqueries <- FALSE
+	
 			
 			# The connection might already be opened, we will avoid to go through there !
 			if (is.null(object@connection)){ 				
@@ -73,7 +67,7 @@ setMethod("connect",signature=signature("RequeteODBC"),definition=function(objec
 					if (exists("baseODBC",envir=envir_stacomi)) {
 						object@baseODBC<-get("baseODBC",envir=envir_stacomi)  
 					} else {
-						funout(msg1,arret=TRUE)
+						stop(msg1)
 					}
 				}
 				# opening of 'ODBC' connection
@@ -82,25 +76,25 @@ setMethod("connect",signature=signature("RequeteODBC"),definition=function(objec
 								pwd = object@baseODBC[3],
 								case = "tolower",
 								believeNRows = FALSE))
-				if (!object@silent) funout(paste(msg2,object@baseODBC[1],"\n"))
+				if (!object@silent) cat(paste(msg2,object@baseODBC[1],"\n"))
 				# send the result of a try catch expression in
 				#the Currentconnection object ie a character vector
 				object@connection<-tryCatch(eval(e), error=paste(msg3 ,object@baseODBC)) 
 				# un object S3 RODBC
 				if (class(object@connection)=="RODBC") {
-					if (!object@silent)funout(msg4)
+					if (!object@silent) cat(msg4)
 					object@etat=msg4# success
 				} else {
 					object@etat<-object@connection # report of the error
 					object@connection<-NULL
-					funout(msg3,arret=TRUE)
+					stop(msg3)
 				}
 				# sending the query
 			} 
-			if (!object@silent) funout(msg5) # query trial
-			if (verbose) print(object@sql)
-			query<-data.frame() # otherwise, query called in the later expression is evaluated as a global variable by RCheck
-			e=expression(query<-sqlQuery(object@connection,object@sql,errors=TRUE))
+			if (!object@silent) cat(msg5) # query trial
+			if (printqueries) print(object@sql)
+			query <- data.frame() # otherwise, query called in the later expression is evaluated as a global variable by RCheck
+			e <- expression(query<-sqlQuery(object@connection,object@sql,errors=TRUE))
 			if (object@open) {
 				# If we want to leave the connection open no finally clause
 				resultatRequete<-tryCatch(eval(e),error = function(e) e)
@@ -109,7 +103,7 @@ setMethod("connect",signature=signature("RequeteODBC"),definition=function(objec
 				resultatRequete<-tryCatch(eval(e),error = function(e) e,finally=RODBC::odbcClose(object@connection))
 			}
 			if ((class(resultatRequete)=="data.frame")[1]) {
-				if (!object@silent) funout(msg6)
+				if (!object@silent) cat(msg6)
 				object@query=killfactor(query)    
 				object@etat=msg6
 			} else {

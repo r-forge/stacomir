@@ -18,9 +18,9 @@ The goal of stacomirtools is to …
 You can install the development version of stacomirtools like so:
 
 ``` r
-# TODO
-# install.packages("remotes")
-remotes::install_github(repo= "Remotes: gitlab::git@forgemia.inra.fr:stacomi/stacomirtools.git")
+#install.packages("remotes")
+#remotes::install_github(repo= "Remotes: gitlab::git@forgemia.inra.fr:stacomi/stacomirtools.git")
+install.packages("stacomirtools", repos="http://R-Forge.R-project.org")
 ```
 
 ## Example
@@ -29,8 +29,16 @@ This is a basic example which shows you how to solve a common problem:
 
 ``` r
 library(stacomirtools)
-#> Le chargement a nécessité le package : RODBC
-#> Le chargement a nécessité le package : DBI
-#> Le chargement a nécessité le package : pool
-## basic example code
+options(list(
+                        stacomi.path = "~",
+                        stacomi.dbname = "bd_contmig_nat",
+                        stacomi.host ="localhost",
+                        stacomi.port = "5432",
+                        stacomi.user = "mysuser",
+                        stacomi.password = "mypassword",
+                        stacomi.ODBClink = NULL,
+                        stacomi.printqueries =FALSE
+                ))
+req <- new("RequeteDB")
+req <- query(req)
 ```

@@ -57,37 +57,33 @@ setMethod("query",signature=signature("RequeteDB"),
 			msg4 <- gettext("connection successfull")
 			msg5 <- gettext("request trial")
 			msg6 <- gettext("success")
-			if (requireNamespace("stacomiR", quietly = TRUE)){
-				if (exists("envir_stacomi", where =asNamespace("stacomiR"), mode="environment")){
-					verbose <- exists("showmerequest",envir=envir_stacomi)
-				} else {
-					verbose <- FALSE
-				}
-			} else {
-				verbose <- FALSE
+			printqueries <- options("stacomiR.printqueries")[[1]]
+			if (is.null(printqueries)) printqueries <- FALSE
 				
-			}
+			 
+			
 			# The connection might already be opened, we will avoid to go through there !
 			if (is.null(object@connection)){ 						
 				# opening of connection
 				e=expression(channel <- connect(object, ...))
-				if (!object@silent) funout(paste(msg2, object@dbname, "\n"))
+				if (!object@silent) cat(paste(msg2, object@dbname, "\n"))
 				# send the result of a try catch expression in
 				#the Currentconnection object ie a character vector
 				object<-tryCatch(eval(e), error=paste(msg3 ,object@dbname)) 
 				# un object S3 RODBC
 				if (any(class(object@connection)=="Pool")) {
-					if (!object@silent) funout(msg4)
+					if (!object@silent) cat(msg4)
 					object@status <- msg4# success
 				} else {
 					object@status <- object@connection # report of the error
 					object@connection <- NULL
-					funout(msg3, arret=TRUE)
+					stop(msg3)
 				}
 				# sending the query
 			} 
-			if (!object@silent) funout(msg5) # query trial
-			if (verbose) print(object@sql)
+			if (!object@silent) cat(msg5) # query trial
+			if (printqueries) print(object@sql)
+			if (length(object@sql)==0) warnings("No sql query")
 			query <- data.frame() # otherwise, query called in the later expression is evaluated as a global variable by RCheck
 			e=expression(query<- dbGetQuery(object@connection,object@sql,errors=TRUE))
 			if (object@open) {
@@ -98,7 +94,7 @@ setMethod("query",signature=signature("RequeteDB"),
 				resultatRequete<-tryCatch(eval(e),error = function(e) e,finally=pool::poolClose(object@connection))
 			}
 			if (any(class(resultatRequete)=="data.frame")) {
-				if (!object@silent) funout(msg6)
+				if (!object@silent) cat(msg6)
 				object@query <- killfactor(query)    
 				object@status <- msg6
 			} else {
@@ -110,3 +106,16 @@ setMethod("query",signature=signature("RequeteDB"),
 			
 		}
 )
+
+#' generic query function for  
+#' @param object an object
+#' @param ... additional parameters passed to query
+setGeneric("getquery", def=function(object, ...) standardGeneric("getquery"))
+
+
+#' getquery retreives the result of the query from the object
+#' @param object an object of class RequeteDB
+#' @return A data frame
+setMethod("getquery",signature=signature("RequeteDB"),
+		definition=function(object) {
+			return(object@query)})

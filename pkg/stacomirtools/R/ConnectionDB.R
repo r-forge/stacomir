@@ -8,14 +8,24 @@ validity_DB=function(object)
 	rep3 <- length(object@port)==1
 	rep4 <- length(object@user)==1	
 	rep5 <- length(object@password)==1
+	rep6 <- !is.null(object@dbname)
+	rep7 <- !is.null(object@host)
+	rep8 <- !is.null(object@port)
+	rep9 <- !is.null(object@user)
+	rep10 <- !is.null(object@password)
 	
-	return(ifelse(rep1 & rep2 & rep3 & rep4 & rep5  ,TRUE,
+	return(ifelse(rep1 & rep2 & rep3 & rep4 & rep5 & rep6 & rep7 & rep8 & rep9 & rep10  ,TRUE,
 					c(gettext("dbname should be of length 1"),
 							gettext("host should be of length 1"),
 							gettext("port should be of length 1"),
 							gettext("user should be of length 1"),
-							gettext("password should be of length 1"))[
-							!c(rep1, rep2, rep3, rep4, rep5)]))
+							gettext("password should be of length 1"),
+							gettext("dbname should not be NULL, did you forget to set dbname ? hint use : options('stacomiR.dbname'='bd_contmig_nat')"),
+							gettext("host should not be NULL, did you forget to set host ? hint use: options('stacomiR.host'='localhost')"),
+							gettext("port should not be NULL, did you forget to set port ?  hint use: ('stacomiR.port'='5432')"),
+							gettext("user should not be NULL, did you forget to set user ? hint use : options('stacomiR.user'='myuser')"),
+							gettext("password should not be NULL, did you forget to set dbname ? hint use : options('stacomiR.password'='mypassword')"))[
+							!c(rep1, rep2, rep3, rep4, rep5,rep6, rep7, rep8, rep9, rep10)]))
 }
 
 #' @title ConnectionDB class 
@@ -80,18 +90,22 @@ setClass(Class="ConnectionDB",
 #' pool::poolClose(object@connection)
 #' }
 setMethod("connect", signature=signature("ConnectionDB"), 
-		definition=function(object, base=NULL) {     
+		definition=function(object, base=NULL) {  
+			#browser()
 			if (!is.null(base)) {
 				object@dbname <- base[1]
-				object@host=base[2]
-				object@port=base[3]
-				object@user=base[4]
-				object@password=base[5]
+				object@host <- base[2]
+				object@port <- base[3]
+				object@user <- base[4]
+				object@password <- base[5]
+			} else if (options("stacomiR.user")[[1]]!=""){
+				object@dbname <- options("stacomiR.dbname")[[1]]
+				object@host <- options("stacomiR.host")[[1]]
+				object@port <- options("stacomiR.port")[[1]]
+				object@user <- options("stacomiR.user")[[1]]
+				object@password <- options("stacomiR.password")[[1]]
 			}
-			test <- validObject(object, test=TRUE)
-			if (is.character(test)) {
-				funout(test, arret=TRUE)
-			}
+			validObject(object, test=TRUE)
 			
 			
 			currentConnection <- pool::dbPool(drv = RPostgres::Postgres(), 
@@ -105,7 +119,7 @@ setMethod("connect", signature=signature("ConnectionDB"),
 			
 #			if (!exists("odbcConnect")) {
 #				if (exists("envir_stacomi")){
-#					funout("The RODBC library is necessary, please load the package",arret=TRUE)
+#					stop("The RODBC library is necessary, please load the package")
 #				} else	  {
 #					stop("the RODBC library is necessary, please load the package")
 #				}

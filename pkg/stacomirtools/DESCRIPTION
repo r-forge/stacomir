@@ -15,7 +15,7 @@ License: GPL (>= 2)
 Collate: 'ConnectionODBC.R' 'RequeteODBC.R' 'RequeteODBCwhere.R'
         'RequeteODBCwheredate.R' 'utilities.R' 'stacomirtools.R'
         'stacomirtools-package.R''ConnectionDB.R' 'RequeteDB.R' 'RequeteDBwhere.R'
-        'RequeteDBwheredate.R'
+        'RequeteDBwheredate.R' 'zzz.R'
 LazyLoad: yes
 Depends: RODBC, DBI, pool
 Imports: 
@@ -23,7 +23,7 @@ Imports:
     xtable,
     utils,
     RPostgres
-Suggests: testthat, stacomiR
+Suggests: testthat
 Repository: CRAN
 Repository/R-Forge/Project: stacomir
 Repository/R-Forge/Revision: 540

@@ -16,7 +16,7 @@ test_that("Test that ConnectionDB returns a pool object and closes ", {
 
 test_that("Test that ConnectionDB returns error when dbname length >1 ", {
 			skip_on_cran()
-			object<-new("ConnectionDB")
+			object <- new("ConnectionDB")
 			object@dbname <- c("bd_contmig_nat","test")
 			object@host <- 		"localhost"
 			object@port <-		"5432"
