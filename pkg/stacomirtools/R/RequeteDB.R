@@ -69,7 +69,7 @@ setMethod("query",signature=signature("RequeteDB"),
 				if (!object@silent) cat(paste(msg2, object@dbname, "\n"))
 				# send the result of a try catch expression in
 				#the Currentconnection object ie a character vector
-				object<-tryCatch(eval(e), error=paste(msg3 ,object@dbname)) 
+				object <- tryCatch(eval(e)) 
 				# un object S3 RODBC
 				if (any(class(object@connection)=="Pool")) {
 					if (!object@silent) cat(msg4)
@@ -116,6 +116,7 @@ setGeneric("getquery", def=function(object, ...) standardGeneric("getquery"))
 #' getquery retreives the result of the query from the object
 #' @param object an object of class RequeteDB
 #' @return A data frame
+#' @export
 setMethod("getquery",signature=signature("RequeteDB"),
 		definition=function(object) {
 			return(object@query)})

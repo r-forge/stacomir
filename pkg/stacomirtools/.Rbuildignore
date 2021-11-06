@@ -1,2 +1,7 @@
-^NEWS.md$
-^NEWS.md.html$
+^\.dbeaver/
+aux$
+log$
+out$
+^dev
+^README\.Rmd$
+^www
