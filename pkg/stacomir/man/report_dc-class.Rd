@@ -30,8 +30,7 @@ class allows to draw graphics allowing an overview of the device operation
 
 \examples{
 require(stacomiR)
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
+stacomi(
 	database_expected=FALSE)
 ###########################################################
 ## An example that will work only if the database is present 
@@ -67,19 +66,20 @@ stacomi(gr_interface=FALSE,
 
 }
 \seealso{
-Other report Objects: \code{\link{report_annual-class}},
-  \code{\link{report_df-class}},
-  \code{\link{report_env-class}},
-  \code{\link{report_ge_weight-class}},
-  \code{\link{report_mig-class}},
-  \code{\link{report_mig_char-class}},
-  \code{\link{report_mig_env-class}},
-  \code{\link{report_mig_interannual-class}},
-  \code{\link{report_mig_mult-class}},
-  \code{\link{report_sample_char-class}},
-  \code{\link{report_sea_age-class}},
-  \code{\link{report_silver_eel-class}},
-  \code{\link{report_species-class}}
+Other report Objects: 
+\code{\link{report_annual-class}},
+\code{\link{report_df-class}},
+\code{\link{report_env-class}},
+\code{\link{report_ge_weight-class}},
+\code{\link{report_mig-class}},
+\code{\link{report_mig_char-class}},
+\code{\link{report_mig_env-class}},
+\code{\link{report_mig_interannual-class}},
+\code{\link{report_mig_mult-class}},
+\code{\link{report_sample_char-class}},
+\code{\link{report_sea_age-class}},
+\code{\link{report_silver_eel-class}},
+\code{\link{report_species-class}}
 }
 \author{
 Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}

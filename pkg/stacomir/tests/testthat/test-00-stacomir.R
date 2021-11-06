@@ -1,81 +1,66 @@
 context("stacomi base connection")
 
-test_that("Test existence of csv file",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  filecsv<-"C:/Program Files/stacomi/calcmig.csv";
-	  expect_equivalent(file.access(filecsv,0),0)
-	}
+if (interactive()){
+	user <- readline(prompt="Enter user: ")
+	password <- readline(prompt="Enter password: ")	
 
-)
+}
+
 # while crashing in some test for reportFonctionnement DF or report_dc, 
 #the program will set time to GMT, this will cause some errors hard to understand in some of 
 # the classes (report_mig, report_mig_mult), with the following you can check this problem
 test_that("Test that the program is running under the right locale",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  expect_equal(Sys.getlocale(category = "LC_TIME"),"French_France.1252")			
+		skip_on_cran()
+	  if(Sys.info()["sysname"] == "Linux")
+		  expect_equal(Sys.getlocale(category = "LC_TIME"),"fr_FR.UTF-8")
+	  else
+	      expect_equal(Sys.getlocale(category = "LC_TIME"),"French_France.1252")	
+	  
 	}
 )
 
-# some bugs due to sys.timezone=
-test_that("Test existence calcmig data within package",{
-	  data("calcmig",package = "stacomiR")
-	  calcmig<-calcmig
-	  expect_equal(length(calcmig),9)	  
-	}
-)
-
-test_that("Test that ODBC link exists and has the right length",{
-      skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  result<-chargecsv(database_expected=TRUE);
-	  expect_equal(length(result),4)
-	  expect_equal(length(result$baseODBC),3)
-	  expect_equal(length(result$sqldf),5)
-	})
 
 
 context("Database connection")
 
 test_that("Test that stacomirtools connects",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-      envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
-	  mylinks=chargecsv(database_expected=TRUE)
-	  baseODBC=mylinks[["baseODBC"]]	
-	  con=new("ConnectionODBC")	
-	  con@baseODBC=baseODBC
-	  con<-connect(con)
-	  expect_is(connect(con),'ConnectionODBC')
-	  expect_equal(con@etat,"Connection in progress")
-	  odbcCloseAll()
+		skip_on_cran()
+    envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
+	  con <- new("ConnectionDB")
+		con@user <- user
+		con@password <- password
+		con <- connect(con)
+		expect_is(connect(con),'ConnectionDB')
+	  expect_equal(con@status,"Connection OK")
+	  pool::poolClose(con@connection)
 	  rm("envir_stacomi")
 	})
 
 
 test_that("Test that positive count for nrow(ref.tr_taxon_tax)",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-      envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
-	  mylinks=chargecsv(database_expected=TRUE)
-	  baseODBC=mylinks[["baseODBC"]]	
-	  requete=new("RequeteODBC")
-	  requete@baseODBC<-baseODBC
+ 		skip_on_cran()
+    envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
+		base <- c("bd_contmig_nat","localhost","5432",user,password)	  
+	  requete=new("RequeteDB")
+		requete <- connect(requete,base)
 	  requete@sql="select count(*) from ref.tr_taxon_tax"
-	  requete<-stacomirtools::connect(requete)
-	  expect_true(as.numeric(requete@query)>0)	
-	  odbcCloseAll()
+	  requete <- stacomirtools::query(requete)
+	  expect_true(as.numeric(requete@query)>0)
 	  rm("envir_stacomi")
 	})
 
+
 test_that("Tests positive count for sch.t_operation_ope",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-      envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
-	  mylinks=chargecsv(database_expected=TRUE)
-	  baseODBC=mylinks[["baseODBC"]]	
-	  sch<-paste(baseODBC[2],".",sep="")
-	  requete=new("RequeteODBC")
-	  requete@baseODBC<-baseODBC	
+		skip_on_cran()
+    envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
+		base <- c("bd_contmig_nat","localhost","5432",user,password)	  
+		requete=new("RequeteDB")
+		requete <- connect(requete,base)
+		sch <- paste("iav",".",sep="")	  
 	  requete@sql=paste("select count(*) from ",sch,"t_operation_ope",sep="")
-	  requete<-stacomirtools::connect(requete)
+	  requete <- stacomirtools::query(requete)
+	  	
 	  expect_true(as.numeric(requete@query)>0)	
-	  odbcCloseAll()
 	  rm("envir_stacomi")
 	})
 
@@ -83,31 +68,18 @@ context("Loading program")
 
 
 test_that("Test that working environment is created",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  stacomi(gr_interface=TRUE,login_window=TRUE,database_expected=TRUE)
+			skip_on_cran()
+			o <- options()
+			options(					
+					stacomiR.dbname = "bd_contmig_nat",
+					stacomiR.host ="localhost",
+					stacomiR.port = "5432",
+					stacomiR.user = user,
+					stacomiR.password = password					
+			)	
+	  stacomi(database_expected=TRUE)
 	  expect_true(exists("envir_stacomi"))
-	  dispose(get("logw",envir_stacomi))
-	})
-
-test_that("Test that gWidget loginwindow is loaded ",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  stacomi(gr_interface=TRUE,login_window=TRUE,database_expected=TRUE)
-	  expect_true(exists("logw",envir_stacomi))
-	  dispose(get("logw",envir_stacomi))
-	})
-
-test_that("Test that gWidget gr_interface is loaded, without database_expected, nor login window",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  stacomi(gr_interface=TRUE,login_window=FALSE,database_expected=FALSE)
-	  expect_true(exists("win",envir_stacomi))			
-	  dispose(get("win",envir_stacomi))
-	})
-
-test_that("gWidget gr_interface is loaded, with pre launch_test, but without login window",{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  stacomi(gr_interface=TRUE,login_window=FALSE,database_expected=TRUE)
-	  expect_true(exists("win",envir_stacomi))
-	  dispose(get("win",envir_stacomi))
+		options(o)
 	})
 
 
@@ -117,17 +89,23 @@ context(stringr::str_c("Database integrity"))
 
 test_that("Test that tickets have been launched",
 	{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  require(stacomiR)
-	  stacomi(gr_interface=FALSE,login_window=FALSE,database_expected=FALSE)
-	  req<-new("RequeteODBC")
-	  req@baseODBC<-get("baseODBC", envir=envir_stacomi)		
-	  sch=rlang::env_get(envir_stacomi, "sch")
-	  req@sql=paste("select * from ",sch," ts_maintenance_main")
-	  req<-stacomirtools::connect(req)
-	  result<-req@query
+	  skip_on_cran()
+	  envir_stacomi <- new.env(parent = asNamespace("stacomiR"))
+		o <- options()
+		options(					
+				stacomiR.dbname = "bd_contmig_nat",
+				stacomiR.host ="localhost",
+				stacomiR.port = "5432",
+				stacomiR.user = user,
+				stacomiR.user = password						
+		)		  
+	  req=new("RequeteDB")
+	  sch <- "iav."
+	  req@sql <- paste("select * from ",sch," ts_maintenance_main")
+	  req <- stacomirtools::query(req)
+	  result <- req@query
 	  # using dput(ticket)
-	  tickets<-structure(list(
+	  tickets <- structure(list(
 			  main_ticket = c(59L,
 				  40L,
 				  42L, 
@@ -158,22 +136,28 @@ test_that("Test that tickets have been launched",
 	  for (i in 1:nrow(tickets)){
 		expect_true(check_exist_tickets[i],label=paste('Missing ticket :',tickets$main_ticket[i]))
 	  }					
+		options(o)
 	})
 # test on current schema
-#  attention your may need superuser rights for that test (change baseODBC[2] and baseODBC[3]
+#  attention your may need superuser rights for that test 
+if (interactive()){
+	user <- readline(prompt="Enter user (superuser): ")
+	password <- readline(prompt="Enter password (superuser): ")	
+	schema <- readline(prompt="Enter schema")
+
 test_that("All foreign keys are present",
 	{
-	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
-	  stacomi(gr_interface=FALSE,login_window=FALSE,database_expected=TRUE)
-	  req<-new("RequeteODBC")
-	  baseODBC<-get("baseODBC", envir=envir_stacomi)
-      # ATTENTION local user may not have the rights to  connect information schema
-    # baseODBC[2] <- userlocal
-    # baseODBC[3] <- passwordlocal
-	  options(warn=-1)
-	  #warning : Coercing LHS to a list	 	
-	  options(warn=0)
-	  req@baseODBC<-baseODBC
+		skip_on_cran()
+#	  skip_if_not(stacomi_installed(),"skipping as the program is not installed on this computer")
+		req=new("RequeteDB")
+		o <- options()
+		options(					
+				stacomiR.dbname = "bd_contmig_nat",
+				stacomiR.host ="localhost",
+				stacomiR.port = "5432",
+				stacomiR.user = "postgres",
+				stacomiR.password = "postgres"					
+		)		 
 	  req@sql=paste(stringr::str_c("SELECT
 				  distinct on (tc.constraint_name) tc.constraint_name, tc.table_name							
 				  FROM 
@@ -182,10 +166,10 @@ test_that("All foreign keys are present",
 				  ON tc.constraint_name = kcu.constraint_name
 				  JOIN information_schema.constraint_column_usage AS ccu
 				  ON ccu.constraint_name = tc.constraint_name
-				  WHERE constraint_type = 'FOREIGN KEY' and  tc.constraint_schema='",gsub("\\.","",rlang::env_get(envir_stacomi, "sch")),"';"))
-	  req<-stacomirtools::connect(req)
-	  result<-req@query
-	  fk<-structure(list(constraint_name = c("c_fk_act_lot_identifiant", 
+				  WHERE constraint_type = 'FOREIGN KEY' and  tc.constraint_schema='",paste(schema),"';"))
+	  req <- query(req)
+	  result <- req@query
+	  fk <- structure(list(constraint_name = c("c_fk_act_lot_identifiant", 
 				  "c_fk_act_mqe_reference", "c_fk_act_org_code", "c_fk_bjo_org_code", 
 				  "c_fk_bjo_std_code", "c_fk_bjo_tax_code", "c_fk_bme_std_code", 
 				  "c_fk_bme_tax_code", "c_fk_car_lot_identifiant", "c_fk_car_org_code", 
@@ -249,7 +233,4 @@ test_that("All foreign keys are present",
 	  }
 	  rm(list=ls(all=TRUE))	
 	})
-
-
-
-
+}

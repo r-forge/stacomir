@@ -1,7 +1,6 @@
 require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
+stacomi(
 	database_expected=FALSE)
 # the following script will load the Arzal dataset 
 #if connected to iav schema

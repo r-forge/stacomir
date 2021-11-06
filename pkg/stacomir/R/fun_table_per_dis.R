@@ -13,28 +13,27 @@
 #' @param date Boolean, should the function return a POSIXt or date value
 #' @return  A list
 #' @note returns either POSIXt or date if date=TRUE
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-fun_table_per_dis <-function(typeperiode, tempsdebut, tempsfin,libelle,date=TRUE){
-  listeg=list()
-  for (j in 1:5){
-    if (!date){
-      # pour utilisation ulterieure de la classe Posixct
-      if (sum(unique(typeperiode)==j)>0){
-        choice_periode <-typeperiode==j
-        liste<-list(    "debut"=tempsdebut[choice_periode],
-            "fin"=tempsfin[choice_periode],
-            "nom"=libelle[choice_periode][1])
-        listeg[[as.character(j)]]<-liste
-      }
-      # pour utilisation ulterieure de la classe date       
-    }  else {
-      if (sum(unique(typeperiode)==j)>0){
-        choice_periode <-typeperiode==j
-        liste<-list(    "debut"=as.Date(tempsdebut[choice_periode]),
-            "fin"=as.Date(tempsfin[choice_periode]),
-            "nom"=as.character(libelle[choice_periode][1]))
-        listeg[[as.character(j)]]<-liste
-      }
+#' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+fun_table_per_dis <- function(typeperiode, tempsdebut, tempsfin, libelle, date = TRUE) {
+    listeg = list()
+    for (j in 1:5) {
+        if (!date) {
+            # pour utilisation ulterieure de la classe Posixct
+            if (sum(unique(typeperiode) == j) > 0) {
+                choice_periode <- typeperiode == j
+                liste <- list(debut = tempsdebut[choice_periode], fin = tempsfin[choice_periode],
+                  nom = libelle[choice_periode][1])
+                listeg[[as.character(j)]] <- liste
+            }
+            # pour utilisation ulterieure de la classe date
+        } else {
+            if (sum(unique(typeperiode) == j) > 0) {
+                choice_periode <- typeperiode == j
+                liste <- list(debut = as.Date(tempsdebut[choice_periode]), fin = as.Date(tempsfin[choice_periode]),
+                  nom = as.character(libelle[choice_periode][1]))
+                listeg[[as.character(j)]] <- liste
+            }
+        }
     }
-  }
-  return(listeg)}
+    return(listeg)
+}

@@ -1,10 +1,9 @@
 Package: stacomiR
-Version: 0.5.4.5
+Version: 0.6.9000
 Date: 2020-08-05
 Title: Fish Migration Monitoring
 Authors@R: c(person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"),
-	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"),
-	      person("Timothee", "Besse", role = "aut", email="tableau-ang-loire@logrami.fr"))
+	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"))
 Description: Graphical outputs and treatment for a database of fish pass
     monitoring. It is a part of the 'STACOMI' open source project developed in
     France by the French Office for Biodiversity (OFB) institute to centralize
@@ -24,21 +23,6 @@ Collate:
     'funstat.R'
     'funstat_daily.R'
     'funtable.R'
-    'interface_report_annual.R'
-    'interface_report_dc.R'
-    'interface_report_df.R'
-    'interface_report_env.R'
-    'interface_report_ge_weight.R'
-    'interface_report_mig.R'
-    'interface_report_mig_char.R'
-    'interface_report_mig_env.R'
-    'interface_report_mig_interannual.R'
-    'interface_report_mig_mult.R'
-    'interface_report_sample_char.R'
-    'interface_report_sea_age.R'
-    'interface_report_silver_eel.R'
-    'interface_report_species.R'
-    'ref_checkbox.R'
     'ref_choice.R'
     'ref_coe.R'
     'ref_dc.R'
@@ -74,20 +58,18 @@ Collate:
     'report_species.R'
     'setAs.R'
     'stacomi.R'
+    'stacomiR-package.R'
 LazyLoad: yes
 LazyData: true
 Depends:
-    R (>= 3.5.0),
+    R (>= 4.0.0),
     methods,
-    stacomirtools,
-    RODBC
+    stacomirtools
 Imports:
     magrittr,
     intervals,
     RColorBrewer,
     stringr,
-    gWidgets,
-    gWidgetsRGtk2,
     RPostgreSQL,
     ggplot2,
     reshape2,
@@ -98,12 +80,12 @@ Imports:
     lattice,
     grDevices,
     Hmisc (>= 4.1-1),
-    RGtk2,
     lubridate,
     dplyr,
     xtable,
     mgcv,
-    rlang
+    rlang,
+    pool
 Suggests:
     testthat,
     viridis,
@@ -113,6 +95,6 @@ Author: Cedric Briand [aut, cre],
     Marion Legrand [aut],
     Timothee Besse [aut]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
-RoxygenNote: 6.1.0.9000
+RoxygenNote: 7.1.2
 NeedsCompilation: no
 VignetteBuilder: knitr

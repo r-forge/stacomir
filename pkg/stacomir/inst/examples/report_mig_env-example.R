@@ -1,6 +1,5 @@
 require(stacomiR)
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
+stacomi(
 	database_expected=FALSE)
 # the following will load the data provided the user has access to the database
 # with data in the iav example scheme.

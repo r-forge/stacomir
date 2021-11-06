@@ -1,16 +1,12 @@
 require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
-	database_expected=FALSE)
+stacomi(
+	database_expected=FALSE, sch ='fd80')
 # the following script will load data from the two Anguillere monitored in the Somme
 
 \dontrun{
   #create an instance of the class
   r_silver<-new("report_silver_eel")
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("fd80",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
   sch<-rlang::env_get(envir_stacomi, "sch")
   assign("sch","fd80.",envir_stacomi)
   r_silver<-choice_c(r_silver,

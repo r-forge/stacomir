@@ -1,6 +1,5 @@
 require(stacomiR)
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
+stacomi(
 	database_expected=FALSE)
 ## An example that will work with the database installed only
 \dontrun{

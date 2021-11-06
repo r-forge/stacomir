@@ -1,14 +1,13 @@
 library(stacomiR)
 
-stacomi(gr_interface=FALSE,login_window=FALSE,database_expected=FALSE) 
+stacomi(database_expected=FALSE) 
 ## launches the application in the command line
 ## here an example of loading
 ## the following lines will only run if you have the program installed
 ## and the iav scheme available in the database
 ## this example generates the r_mig_mult dataset
 \dontrun{
-  stacomi(gr_interface=FALSE,
-	  login_window=FALSE,
+  stacomi(
 	  database_expected=TRUE)	
   r_mig_mult=new("report_mig_mult")
   r_mig_mult=choice_c(r_mig_mult,
@@ -63,6 +62,6 @@ plot(r_mig_mult,plot.type="standard",silent=TRUE)
 # Combined plot for ggplot2
   plot(r_mig_mult,plot.type="multiple",silent=TRUE)
 # Data will be written in the data directory specified in 
-# the stacomi/calcmig.csv file
+# the datawd argument to stacomi, default "~"
   summary(r_mig_mult,silent=FALSE)
 }

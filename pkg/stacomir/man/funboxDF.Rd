@@ -2,7 +2,7 @@
 % Please edit documentation in R/report_df.R
 \name{funboxDF}
 \alias{funboxDF}
-\title{Internal use, rectangles to describe the DF work for report_df class, 
+\title{Internal use, rectangles to describe the DF work for report_df class,
 graphical interface handler}
 \usage{
 funboxDF(h, ...)
@@ -13,7 +13,7 @@ funboxDF(h, ...)
 \item{...}{additional parameters}
 }
 \description{
-Internal use, rectangles to describe the DF work for report_df class, 
+Internal use, rectangles to describe the DF work for report_df class,
 graphical interface handler
 }
 \keyword{internal}

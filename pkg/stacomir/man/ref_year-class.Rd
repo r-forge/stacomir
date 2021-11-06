@@ -21,19 +21,20 @@ Class used to select one or several years
 }
 
 \seealso{
-Other referential objects: \code{\link{charge,ref_choice-method}},
-  \code{\link{ref_checkbox-class}},
-  \code{\link{ref_choice-class}},
-  \code{\link{ref_coe-class}}, \code{\link{ref_dc-class}},
-  \code{\link{ref_df-class}},
-  \code{\link{ref_horodate-class}},
-  \code{\link{ref_list-class}},
-  \code{\link{ref_par-class}},
-  \code{\link{ref_parqual-class}},
-  \code{\link{ref_parquan-class}},
-  \code{\link{ref_period-class}},
-  \code{\link{ref_stage-class}},
-  \code{\link{ref_taxa-class}}
+Other referential objects: 
+\code{\link{charge,ref_choice-method}},
+\code{\link{ref_choice-class}},
+\code{\link{ref_coe-class}},
+\code{\link{ref_dc-class}},
+\code{\link{ref_df-class}},
+\code{\link{ref_horodate-class}},
+\code{\link{ref_list-class}},
+\code{\link{ref_par-class}},
+\code{\link{ref_parqual-class}},
+\code{\link{ref_parquan-class}},
+\code{\link{ref_period-class}},
+\code{\link{ref_stage-class}},
+\code{\link{ref_taxa-class}}
 }
 \author{
 cedric.briand"at"eptb-vilaine.fr

@@ -15,5 +15,5 @@ returns a table where all components within the list calcdata are aggregated
 and formatted for plot
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }

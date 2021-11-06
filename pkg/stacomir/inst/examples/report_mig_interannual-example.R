@@ -1,8 +1,7 @@
 require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
-	database_expected=FALSE)
+stacomi(
+	database_expected=FALSE, sch='pmp')
 ###### If you have connection to the database with the pmp scheme ############
 \dontrun{
   
@@ -11,16 +10,6 @@ stacomi(gr_interface=FALSE,
   # in France for eel ...) this suppose you have access to the pmp schema...
   # a glimpse of the dataset is still available in the r_mig_interannual dataset 
   # loaded in the package...
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("pmp",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","pmp.",envir_stacomi)
-  # Note in some cases you will want to change host and port setting
-#   sqldf.options<-get("sqldf.options",envir=envir_stacomi)  
-#   sqldf.options["sqldf.RPostgreSQL.host"]<-"www.myhostname.com"
-#   sqldf.options["sqldf.RPostgreSQL.port"]<-5433  
-#   assign("sqldf.options",sqldf.options,envir_stacomi)  
   r_mig_interannual<-new("report_mig_interannual")
   r_mig_interannual<-choice_c(r_mig_interannual,
 	  dc=c(16),
@@ -150,11 +139,7 @@ plot(r_mig_interannual,plot.type="density",silent=TRUE)
 # recorded at the the Descarte DF (Vienne)
   ################################################
 # run this only if you are connected to the logrami dataset
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("logrami",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","logrami.",envir_stacomi)
+stacomi(database_expected = TRUE, sch = 'logrami')
   bmi_des<-new("report_mig_interannual")
   bmi_des<-choice_c(bmi_des,
 	  dc=c(23),

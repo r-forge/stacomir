@@ -1,16 +1,10 @@
 require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
-	database_expected=FALSE)
+stacomi(
+	database_expected=FALSE, sch='iav')
 \dontrun{
   #create an instance of the class
   r_gew<-new("report_ge_weight")
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("iav",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","iav.",envir_stacomi)
   r_gew@liste<-charge(object=r_gew@liste,listechoice=c("=1",">1","tous"),label="")
   # here I'm using weights when number are larger than 1 ie wet weight
   # always choose a date from one year to the next eg 2010 to 2011

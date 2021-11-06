@@ -4,7 +4,7 @@
 \name{report_sample_char-class}
 \alias{report_sample_char-class}
 \alias{report_sample_char}
-\title{Class "report_sample_char"}
+\title{Class 'report_sample_char'}
 \description{
 The report_sample_char class is used to load and display sample characteristics, which can be either
 continuous or discrete variable, for instance, it can be used to analyze size or sex structure during
@@ -34,14 +34,13 @@ of the view vue_lot_ope_car
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new("report_sample_char", ...)}
+\code{new('report_sample_char', ...)}
 }
 
 \examples{
 require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
+stacomi(
 	database_expected=FALSE)
 # the following script will load the Arzal dataset 
 #if connected to iav schema
@@ -122,22 +121,23 @@ plot(r_sample_char,plot.type="3",silent=TRUE)
 }
 }
 \seealso{
-Other report Objects: \code{\link{report_annual-class}},
-  \code{\link{report_dc-class}},
-  \code{\link{report_df-class}},
-  \code{\link{report_env-class}},
-  \code{\link{report_ge_weight-class}},
-  \code{\link{report_mig-class}},
-  \code{\link{report_mig_char-class}},
-  \code{\link{report_mig_env-class}},
-  \code{\link{report_mig_interannual-class}},
-  \code{\link{report_mig_mult-class}},
-  \code{\link{report_sea_age-class}},
-  \code{\link{report_silver_eel-class}},
-  \code{\link{report_species-class}}
+Other report Objects: 
+\code{\link{report_annual-class}},
+\code{\link{report_dc-class}},
+\code{\link{report_df-class}},
+\code{\link{report_env-class}},
+\code{\link{report_ge_weight-class}},
+\code{\link{report_mig-class}},
+\code{\link{report_mig_char-class}},
+\code{\link{report_mig_env-class}},
+\code{\link{report_mig_interannual-class}},
+\code{\link{report_mig_mult-class}},
+\code{\link{report_sea_age-class}},
+\code{\link{report_silver_eel-class}},
+\code{\link{report_species-class}}
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
 \concept{report Objects}
 \keyword{classes}

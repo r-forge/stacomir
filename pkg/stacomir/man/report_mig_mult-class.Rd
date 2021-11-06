@@ -23,7 +23,7 @@ This migration count can be built either by the graphical interface or from the 
 
 \item{\code{data}}{A data.frame containing raw data filled by the connect method}
 
-\item{\code{calcdata}}{A "list" of calculated daily data, one per dc, filled in by the calcule method}
+\item{\code{calcdata}}{A 'list' of calculated daily data, one per dc, filled in by the calcule method}
 
 \item{\code{coef_conversion}}{A data frame of daily weight to number conversion coefficients, filled in by the connect
 method if any weight are found in the data slot.}
@@ -47,15 +47,14 @@ it uses quantities other than numbers if necessary (only used for glass eel in t
 \examples{
 library(stacomiR)
 
-stacomi(gr_interface=FALSE,login_window=FALSE,database_expected=FALSE) 
+stacomi(database_expected=FALSE) 
 ## launches the application in the command line
 ## here an example of loading
 ## the following lines will only run if you have the program installed
 ## and the iav scheme available in the database
 ## this example generates the r_mig_mult dataset
 \dontrun{
-  stacomi(gr_interface=FALSE,
-	  login_window=FALSE,
+  stacomi(
 	  database_expected=TRUE)	
   r_mig_mult=new("report_mig_mult")
   r_mig_mult=choice_c(r_mig_mult,
@@ -110,27 +109,28 @@ plot(r_mig_mult,plot.type="standard",silent=TRUE)
 # Combined plot for ggplot2
   plot(r_mig_mult,plot.type="multiple",silent=TRUE)
 # Data will be written in the data directory specified in 
-# the stacomi/calcmig.csv file
+# the datawd argument to stacomi, default "~"
   summary(r_mig_mult,silent=FALSE)
 }
 }
 \seealso{
-Other report Objects: \code{\link{report_annual-class}},
-  \code{\link{report_dc-class}},
-  \code{\link{report_df-class}},
-  \code{\link{report_env-class}},
-  \code{\link{report_ge_weight-class}},
-  \code{\link{report_mig-class}},
-  \code{\link{report_mig_char-class}},
-  \code{\link{report_mig_env-class}},
-  \code{\link{report_mig_interannual-class}},
-  \code{\link{report_sample_char-class}},
-  \code{\link{report_sea_age-class}},
-  \code{\link{report_silver_eel-class}},
-  \code{\link{report_species-class}}
+Other report Objects: 
+\code{\link{report_annual-class}},
+\code{\link{report_dc-class}},
+\code{\link{report_df-class}},
+\code{\link{report_env-class}},
+\code{\link{report_ge_weight-class}},
+\code{\link{report_mig-class}},
+\code{\link{report_mig_char-class}},
+\code{\link{report_mig_env-class}},
+\code{\link{report_mig_interannual-class}},
+\code{\link{report_sample_char-class}},
+\code{\link{report_sea_age-class}},
+\code{\link{report_silver_eel-class}},
+\code{\link{report_species-class}}
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
 \concept{report Objects}
 \keyword{classes}

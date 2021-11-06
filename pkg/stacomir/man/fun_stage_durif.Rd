@@ -2,17 +2,31 @@
 % Please edit documentation in R/report_silver_eel.R
 \name{fun_stage_durif}
 \alias{fun_stage_durif}
-\title{Function to calculate the stages from Durif}
+\title{table function}
 \usage{
 fun_stage_durif(data)
 }
 \arguments{
 \item{data}{A dataset with columns BL, W, Dv, Dh, FL corresponding to body length (mm),
 Weight (g), vertical eye diameter (mm), vertical eye diameter (mm), and pectoral fin length (mm)}
+
+\item{h}{handler passed by the graphical interface}
+
+\item{...}{Additional parameters}
 }
 \description{
-Function to calculate the stages from Durif
+funtablereport_silver_eel shows a table of results in gdf
 }
 \author{
+Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+
 Laurent Beaulaton \email{laurent.beaulaton"at"onema.fr}
 }
+\keyword{Durif}
+\keyword{Function}
+\keyword{calculate}
+\keyword{from}
+\keyword{internal}
+\keyword{stages}
+\keyword{the}
+\keyword{to}

@@ -4,14 +4,24 @@
 \alias{fungraph}
 \title{Function for report_mig graphs including numbers DF DC operations}
 \usage{
-fungraph(report_mig, tableau, time.sequence, taxa, stage, dc = NULL,
-  silent, color = NULL, color_ope = NULL, ...)
+fungraph(
+  report_mig,
+  tableau,
+  time.sequence,
+  taxa,
+  stage,
+  dc = NULL,
+  silent,
+  color = NULL,
+  color_ope = NULL,
+  ...
+)
 }
 \arguments{
 \item{report_mig}{An object of class \code{\linkS4class{report_mig}}}
 
 \item{tableau}{A data frame with the with the following columns : No.pas,debut_pas,fin_pas,
-ope_dic_identifiant,lot_tax_code,lot_std_code,type_de_quantite,MESURE,CALCULE,               
+ope_dic_identifiant,lot_tax_code,lot_std_code,type_de_quantite,MESURE,CALCULE,
 EXPERT,PONCTUEL,Effectif_total,taux_d_echappement,coe_valeur_coefficient}
 
 \item{time.sequence}{A vector POSIXt}

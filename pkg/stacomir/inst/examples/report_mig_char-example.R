@@ -1,16 +1,10 @@
 require(stacomiR)
 
-stacomi(gr_interface=FALSE,
-	login_window=FALSE,
-	database_expected=FALSE)
+stacomi(
+	database_expected=FALSE, sch='logrami')
 
 \dontrun{
   r_mig_char<-new("report_mig_char")
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("logrami",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","logrami.",envir_stacomi)
   # here parqual is not in the list
   # so this is equivalent to parqual=NULL
   # default for echantillon is "with"
@@ -43,13 +37,9 @@ plot(r_mig_char,plot.type="crossed",
 xt<-xtable(r_mig_char)
 # use method print.xtable to get the output
 \dontrun{
+	stacomi(database_expected=FALSE, sch='logrami')
 # An example with several years
   r_mig_char<-new("report_mig_char")
-  baseODBC<-get("baseODBC",envir=envir_stacomi)
-  baseODBC[c(2,3)]<-rep("logrami",2)
-  assign("baseODBC",baseODBC,envir_stacomi)
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","logrami.",envir_stacomi)
 # here parqual is not in the list
 # so this is equivalent to parqual=NULL
   r_mig_char<-choice_c(r_mig_char,

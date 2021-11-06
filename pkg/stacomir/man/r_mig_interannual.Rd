@@ -4,7 +4,9 @@
 \name{r_mig_interannual}
 \alias{r_mig_interannual}
 \title{Daily glass eel and elver migration from 1984 to 2016 in the Sevre Niortaise}
-\format{An object of class \link{report_mig_interannual-class} with data loaded.}
+\format{
+An object of class \link{report_mig_interannual-class} with data loaded.
+}
 \usage{
 r_mig_interannual
 }

@@ -1,13 +1,12 @@
 library(stacomiR)
 
-stacomi(gr_interface=FALSE,login_window=FALSE,database_expected=FALSE) 
+stacomi(database_expected=FALSE) 
 ## launches the application in the command line
 ## here an example of loading
 ## not run as the program is possibly not installed
 ## this example generates the r_mig dataset
 \dontrun{
-  stacomi(gr_interface=FALSE,
-	  login_window=FALSE,
+  stacomi(
 	  database_expected=TRUE)	
   r_mig=new("report_mig")
   r_mig=choice_c(r_mig,
@@ -48,7 +47,7 @@ plot(r_mig,plot.type="standard",silent=TRUE)
 #cumulated migration at the station (all stages and DC grouped)
 plot(r_mig,plot.type="step")
 
-# data will be written in the data directory specified in the stacomi/calcmig.csv
+# data will be written in the data directory specified in datawd argument to stacomi default "~"
 #file
 
 \dontrun{

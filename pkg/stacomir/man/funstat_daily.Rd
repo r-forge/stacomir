@@ -21,5 +21,5 @@ funstat_daily(tableau, time.sequence, taxa, stage, DC)
 function to create daily statistics
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
