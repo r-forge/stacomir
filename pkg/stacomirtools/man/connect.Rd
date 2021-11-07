@@ -2,6 +2,7 @@
 % Please edit documentation in R/ConnectionODBC.R
 \name{connect}
 \alias{connect}
+\alias{connect.generic}
 \title{generic connect function for baseODBC}
 \usage{
 connect(object, ...)

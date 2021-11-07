@@ -1,5 +1,6 @@
 context("RequeteODBCwhere")
 test_that("Test that RequeteODBCwhere returns rows", {
+			skip_on_cran()
 			# this requires an odbc link to be setup for test here a database bd_contmig_nat used for stacomir
 			# the odbc link is bd_contmig_nat and points to database bd_contmig_nat
 			# userlocal and passwordlocal are generated from Rprofile.site
