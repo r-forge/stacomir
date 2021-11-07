@@ -15,3 +15,8 @@
 ^paper\.md$
 ^CODE_OF_CONDUCT\.md$
 ^dev
+^\.dbeaver/
+aux$
+log$
+out$
+^www
