@@ -1,5 +1,5 @@
 Package: stacomirtools
-Version: 0.6.0.9000
+Version: 2021-11-07
 Date: 2021-11-07
 Title: Connection Class for Package stacomiR
 Authors@R: c(
