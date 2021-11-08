@@ -290,7 +290,7 @@ data("r_mig_mult_df")
 assign("report_df",r_mig_mult_df,envir=envir_stacomi)
 data("r_mig_mult_dc")
 assign("report_dc",r_mig_mult_dc,envir=envir_stacomi)
-r_mig_mult<-calcule(r_mig_mult,silent=TRUE) 
+r_mig_mult <- calcule(r_mig_mult,silent=TRUE) 
 
 # To avoid call to dev.new() which creates a device per stage, DC, taxa, we simplify 
 # the object as dev.new() causes knitr to crash:
