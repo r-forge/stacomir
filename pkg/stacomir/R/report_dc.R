@@ -603,12 +603,11 @@ setMethod(
 )
 
 #' Function to create a barchart (lattice) corresponding to the periods
-#' @param h a handler
 #' @param ... Additional parameters
 #' @return assigns the data frame \code{periodeDC} allowing to build the lattice graph in the environment envir_stacomi
 #' @keywords internal
 #' @author cedric.briand
-funbarchartDC = function(h, ...) {
+funbarchartDC = function(...) {
 	report_dc <- get("report_dc", envir = envir_stacomi)
 	report_dc = charge(report_dc)
 	report_dc = connect(report_dc)
@@ -619,73 +618,8 @@ funbarchartDC = function(h, ...) {
 }
 
 
-#deprecated
-##' Handler for barchart for report_df class from the graphical interface
-##'
-##' @note The program cuts periods which overlap between two month
-##' @param h handler
-##' @param ... additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-#funbarchart1DC = function(h,...) {
-#  report_dc<-get("report_dc",envir=envir_stacomi)
-#  report_dc=charge(report_dc)
-#  report_dc<-connect(report_dc)
-#  if( nrow(report_df@data)==0 ) {
-#	funout(gettext("No Shutdowns types for this pass\n"), arret=TRUE)
-#  }
-#  plot(report_dc,plot.type=2,silent=FALSE)
-#}
-#
-##' function used for some lattice graph
-##'
-##' @param h a handler
-##' @param ... Additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-##' @keywords internal
-#funboxDC = function(h,...) {
-#  report_dc<-get("report_dc",envir=envir_stacomi)
-#  report_dc=charge(report_dc)
-#  report_dc=connect(report_dc)
-#
-#  if( nrow(report_dc@data)==0 ) {
-#	funout(gettext("No data for this counting device\n"), arret=TRUE)
-#  }
-#  plot(report_dc,plot.type=3)
-#}
-#
-##' Handler function to plot calendar like graph, internal use
-##' @param h handler
-##' @param ... additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-##' @keywords internal
-#funchartDC = function(h,...) {
-#  report_dc<-get("report_dc",envir=envir_stacomi)
-#  report_dc=charge(report_dc)
-#  report_dc<-connect(report_dc)
-#
-#  if( nrow(report_dc@data)==0 ) {
-#	funout(gettext("No data for this counting device\n"), arret=TRUE)
-#  }
-#  plot(report_dc,plot.type=4,silent=FALSE)
-#
-#}
-#
-##' handler to print the command line
-##' @param h a handler
-##' @param ... Additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-##' @keywords internal
-#houtDC = function(h,...) {
-#  report_dc<-get("report_dc",envir=envir_stacomi)
-#  report_dc<-charge(report_dc)
-#  report_dc<-connect(report_dc)
-#  #the charge method will check that all objects necessary to build the formula
-#  # are in envir_stacomi
-#  print(report_dc)
-#
-#}
 
-#' Method to print the command line of the object
+#' Method to print the command line of the object.
 #' @param x An object of class report_dc
 #' @param ... Additional parameters passed to print
 #' @return NULL
@@ -716,11 +650,10 @@ setMethod(
 )
 
 #' FuntableDC create a table output for report_dc class
-#' @param h Handler
 #' @param ... Additional parameters
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
-funtableDC = function(h, ...) {
+funtableDC = function(...) {
 	report_dc <- get("report_dc", envir = envir_stacomi)
 	report_dc = charge(report_dc)
 	report_dc = connect(report_dc)

@@ -161,7 +161,7 @@ setMethod(
     reqdiff@sql <-
       stringr::str_replace_all(reqdiff@sql, "[\r\n\t]" , " ")
     reqdiff <- stacomirtools::query(reqdiff)
-    detailed_data <- getquery(reqdiff)
+    detailed_data <- stacomirtools::getquery(reqdiff)
     # If there are some operations with year of date_debut different to the year of date_fin we need to find these operations
     # and apply on it the overlaps function to separate fish that arrive during the first year from the rest
     #If we don't have operation on two years we apply the simple sum per year

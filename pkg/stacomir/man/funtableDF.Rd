@@ -4,11 +4,9 @@
 \alias{funtableDF}
 \title{Table output for report_df class}
 \usage{
-funtableDF(h, ...)
+funtableDF(...)
 }
 \arguments{
-\item{h}{handler}
-
 \item{...}{additional parameters}
 }
 \description{

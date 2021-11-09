@@ -4,11 +4,9 @@
 \alias{funboxplotreport_sample_char}
 \title{Boxplots for ggplot2}
 \usage{
-funboxplotreport_sample_char(h, ...)
+funboxplotreport_sample_char(...)
 }
 \arguments{
-\item{h}{A handler passed by the graphical interface}
-
 \item{...}{Additional parameters}
 }
 \description{

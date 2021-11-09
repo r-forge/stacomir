@@ -9,7 +9,7 @@ Allows the saving of daily and monthly counts in the database}
 \S4method{write_database}{report_mig}(object, silent = TRUE, check_for_bjo = TRUE)
 }
 \arguments{
-\item{object}{an object of class \code{\linkS4class{report_mig}}}
+\item{object}{an object of class \linkS4class{report_mig}}
 
 \item{silent}{: TRUE to avoid messages}
 

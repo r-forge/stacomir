@@ -159,22 +159,16 @@ setMethod("charge", signature = signature("report_species"), definition = functi
     return(bilesp)
 })
 
-# deprecated0.6
-##' handler for plot internal use
-##' @param h Handler
-##' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-##' @keywords internal
-# hplotbilesp = function(h) { bilesp<-get('bilesp',envir_stacomi)
-# plot(bilesp,plot.type=h$action) }
+
 
 #' calcule method for report_species
 #' 
-#' ' the number will be split according to the split argument passed to the class, e.g.
+#' The number will be split according to the split argument passed to the class, e.g.
 #' per year or month or week. Data from different DC will be grouped. Counts are given per taxa,
 #' unless there are several stages, in which case the counts correspond to taxa + stage.
-#' @param object An object of class \code{\link{report_species-class}}
+#' @param object An object of class \link{report_species-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed, only warnings and errors
-#' @return  with calcdata slot filled.
+#' @return An object of class \link{report_species-class} with calcdata slot filled.
 #' @aliases calcule.report_species
 setMethod("calcule", signature = signature("report_species"), definition = function(object,
     silent = FALSE) {

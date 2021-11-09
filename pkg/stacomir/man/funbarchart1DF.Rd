@@ -4,11 +4,9 @@
 \alias{funbarchart1DF}
 \title{Handler for barchart for report_df class from the graphical interface}
 \usage{
-funbarchart1DF(h, ...)
+funbarchart1DF(...)
 }
 \arguments{
-\item{h}{handler}
-
 \item{...}{additional parameters}
 }
 \description{

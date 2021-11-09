@@ -4,10 +4,10 @@ stacomir based on gwidget was dropped from CRAN in May 2020, it will soon switch
 So basically we need to add connection class that work in LINUX in stacomirtools.
 
 * Rewrote classes for connections using DBI and pool.
-* The connection setting can now be made using options
+* The connection settings can now be made using options
 * Added unit tests to all classes
 * now documented using Roxygen
-* Connector classes using RODBC are now marked as deprecated and will fire a warning
+* Connector classes using RODBC are now marked as deprecated and will fire note deprecated
 
 # stacomitools 0.5.3
 

@@ -723,7 +723,7 @@ setMethod(
 #'
 #' Daily values are needed to compare migrations from year to year, by the class \link{report_mig_interannual-class}. They are added by
 #' by this function.
-#' @param object an object of class \code{\linkS4class{report_mig}}
+#' @param object an object of class \linkS4class{report_mig}
 #' @param silent : TRUE to avoid messages
 #' @param check_for_bjo : do you want to check if data are already present in the bjo table, and delete them,
 #' this param was added otherwise connect method when called from report_mig_interannual runs in loops
@@ -745,9 +745,7 @@ setMethod(
 		definition = function(object,
 				silent = TRUE,
 				check_for_bjo = TRUE) {
-			# dbname="bd_contmig_nat";host="localhost";silent=FALSE;port=5432
-			# object=bM
-			
+			# object=bM			
 			report_mig <- object
 			if (class(report_mig) != "report_mig")
 				stop("the report_mig should be of class report_mig")

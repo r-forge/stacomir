@@ -2,7 +2,7 @@
 % Please edit documentation in R/ref_par.R
 \name{choice_c,ref_par-method}
 \alias{choice_c,ref_par-method}
-\title{Choice method for ref_par referential objects}
+\title{Command line interface to select a parameter}
 \usage{
 \S4method{choice_c}{ref_par}(object, par, silent = FALSE)
 }
@@ -12,81 +12,15 @@
 \item{par}{A character vector of par}
 
 \item{silent}{Default FALSE but not used there}
-
-\item{label}{The label that will be displayed in the message frame or as output text}
-
-\item{nomassign}{The assignment name in envir_stacomi}
-
-\item{frameassign}{The name of the frame used for assignment in envir_stacomi}
-
-\item{is.enabled}{Default TRUE.}
 }
 \value{
 An object of class \link{ref_par-class}
 }
 \description{
-Choice method for ref_par referential objects
-}
-\note{
-the choice method assigns an object of class ref_par named ref_par in the environment envir_stacomi
-
-this method choice is also on daughter classes ref_parquan, hence the parameters, however it was redefined in ref_parqual
-
-to load the possible values of qualitative parameters
-}
-\examples{
- 
-\dontrun{
- object=new('ref_par')
- win=gwindow()
- group=ggroup(container=win,horizontal=FALSE)
- object<-charge(object)
- choice(object)
-}
+the choice_c method is intendedto have the same behaviour as choice (which creates a
+widget in the graphical interface) but from the command line. 
+If an objectreport is passed as a parameter, the method will do a charge_with_filter to select only the taxa present in the counting devices.
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
-\keyword{(which}
-\keyword{Command}
-\keyword{If}
-\keyword{a}
-\keyword{an}
-\keyword{as}
-\keyword{behaviour}
-\keyword{but}
-\keyword{charge_with_filter}
-\keyword{choice}
-\keyword{choice_c}
-\keyword{command}
-\keyword{counting}
-\keyword{creates}
-\keyword{devices}
-\keyword{do}
-\keyword{from}
-\keyword{graphical}
-\keyword{have}
-\keyword{in}
-\keyword{intendedto}
-\keyword{interface}
-\keyword{interface)}
-\keyword{internal}
-\keyword{is}
-\keyword{line}
-\keyword{line.}
-\keyword{method}
-\keyword{objectreport}
-\keyword{only}
-\keyword{parameter}
-\keyword{parameter,}
-\keyword{passed}
-\keyword{present}
-\keyword{same}
-\keyword{select}
-\keyword{taxa}
-\keyword{the}
-\keyword{to}
-\keyword{widget}
-\keyword{will}

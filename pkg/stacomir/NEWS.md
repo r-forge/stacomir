@@ -1,10 +1,15 @@
-# stacomiR 0.5.4.XXX
+# stacomiR 0.6.0
 
-## Minor improvement and bug fix
+* adapted to stacomirtools new connection and connection options (using pool and DBI instead of RODC)
+* removed all dependency to gwidgetRGTK2 so in practise there is no longer a graphical interface, the shiny package is due soon.
+* added code of conduct
+* rewrote unit tests
+
+# stacomiR 0.5.4.4 (not released on CRAN)
+
 
 * added import to package  `rlang` 
 * Change to adapt to new dplyr format `dplyr:n()` instead of `n()` see dplyr breaking change in version 1.0.0
-
 
 
 # stacomiR 0.5.4.3

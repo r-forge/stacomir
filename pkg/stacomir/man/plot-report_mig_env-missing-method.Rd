@@ -3,7 +3,7 @@
 \name{plot,report_mig_env,missing-method}
 \alias{plot,report_mig_env,missing-method}
 \alias{plot.report_mig_env}
-\title{internal method for graphical interface}
+\title{Plot method for report_mig_env}
 \usage{
 \S4method{plot}{report_mig_env,missing}(x, color_station = NULL, color_dc = NULL, silent = FALSE)
 }
@@ -15,17 +15,10 @@
 \item{color_dc}{A named vector giving the color for each dc default null (e.g. c("5"="#4D4D4D","6"="#E6E6E6","12"="#AEAEAE"))}
 
 \item{silent}{Stops displaying the messages.}
-
-\item{h}{A handler}
 }
 \description{
-internal method for graphical interface
+Plot method for report_mig_env
 }
 \author{
 Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 }
-\keyword{Plot}
-\keyword{for}
-\keyword{internal}
-\keyword{method}
-\keyword{report_mig_env}

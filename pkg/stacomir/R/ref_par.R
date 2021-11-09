@@ -79,52 +79,13 @@ setMethod("charge_with_filter", signature = signature("ref_par"), definition = f
             arret = TRUE)
     return(object)
 })
-# deprecated0.6
-##' Choice method for ref_par referential objects
-##' @param object An object of class \link{ref_par-class}
-##' @param label The label that will be displayed in the message frame or as output text
-##' @param nomassign The assignment name in envir_stacomi
-##' @param frameassign The name of the frame used for assignment in envir_stacomi
-##' @param is.enabled Default TRUE.
-##' @note the choice method assigns an object of class ref_par named ref_par in the environment envir_stacomi
-##' @note this method choice is also on daughter classes ref_parquan, hence the parameters, however it was redefined in ref_parqual
-##' @note to load the possible values of qualitative parameters
-##' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-##' @examples  
-##' \dontrun{
-##'  object=new('ref_par')
-##'  win=gwindow()
-##'  group=ggroup(container=win,horizontal=FALSE)
-##'  object<-charge(object)
-##'  choice(object)
-##' }
-##' @keywords internal
-# setMethod('choice',signature=signature('ref_par'),definition=function(object,
-#   label='Choix d'une caracteristique de lot',   nomassign='ref_par',
-#   frameassign='frame_par',   is.enabled=TRUE) {  if (nrow(object@data)
-# > 0){   hcar=function(h,...){    carchoisi=svalue(choice)   
-# object@par_selected<-object@data[car_libelle%in%carchoisi ,'par_code']   
-# #object@data<-object@data[car_libelle%in%carchoisi ,'par_code']   
-# assign(nomassign,object,envir_stacomi)    funout(gettext('Feature has been
-# selected\n',domain='R-stacomiR'))   }   #frame_par<<-gframe(label)
-#   assign(frameassign,gframe(label,horizontal=FALSE),envir= envir_stacomi)
-#   # pour pouvoir la supprimer ensuite
-#   group<-get('group',envir=envir_stacomi)
-#   add(group,get(eval(frameassign),envir= envir_stacomi))
-#   car_libelle=fun_char_spe(object@data$par_nom)
-#   car_libelle[nchar(car_libelle)>30]<-paste(substr(car_libelle[nchar(car_libelle)>30],1,30),'.',sep='')
-#   choice=gdroplist(items=car_libelle,container=get(eval(frameassign),envir=
-# envir_stacomi),handler=hcar)   gbutton('OK',
-# container=get(eval(frameassign),envir= envir_stacomi),handler=hcar)  } else
-# funout(gettext('Internal error : unable to load any feature to make the
-# choice\n',domain='R-stacomiR'),arret=TRUE) })
 
 
 #' Command line interface to select a parameter
 #' 
 #' the choice_c method is intendedto have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line. 
-#' If an objectreport is passed as a parameter, the method will do a charge_with_filter to select only the taxa present in the counting devices
+#' If an objectreport is passed as a parameter, the method will do a charge_with_filter to select only the taxa present in the counting devices.
 #' @param object an object of class  \link{ref_par-class}
 #' @param par A character vector of par
 #' @param silent Default FALSE but not used there

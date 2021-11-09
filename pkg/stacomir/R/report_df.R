@@ -608,10 +608,9 @@ funbarchartDF = function(h, ...) {
 #' Handler for barchart for report_df class from the graphical interface
 #'
 #' @note The program cuts periods which overlap between two month
-#' @param h handler
 #' @param ... additional parameters
 #' @keywords internal
-funbarchart1DF = function(h, ...) {
+funbarchart1DF = function(...) {
   report_df <- get("report_df", envir = envir_stacomi)
   report_df = charge(report_df)
   report_df <- connect(report_df)
@@ -623,10 +622,9 @@ funbarchart1DF = function(h, ...) {
 }
 #' Internal use, rectangles to describe the DF work for report_df class,
 #' graphical interface handler
-#' @param h handler
 #' @param ... additional parameters
 #' @keywords internal
-funboxDF = function(h, ...) {
+funboxDF = function(...) {
   report_df <- get("report_df", envir = envir_stacomi)
   report_df = charge(report_df)
   report_df <- connect(report_df)
@@ -639,11 +637,10 @@ funboxDF = function(h, ...) {
   
 }
 
-#' Handler function to plot calendar like graph, internal use
-#' @param h handler
+#' Function to plot calendar like graph, internal use
 #' @param ... additional parameters
 #' @keywords internal
-funchartDF = function(h, ...) {
+funchartDF = function(...) {
   report_df <- get("report_df", envir = envir_stacomi)
   report_df = charge(report_df)
   report_df <- connect(report_df)
@@ -657,10 +654,9 @@ funchartDF = function(h, ...) {
 }
 
 #' Table output for report_df class
-#' @param h handler
 #' @param ... additional parameters
 #' @keywords internal
-funtableDF = function(h, ...) {
+funtableDF = function(...) {
   report_df <- get("report_df", envir = envir_stacomi)
   report_df = charge(report_df)
   report_df <- connect(report_df)
@@ -671,20 +667,7 @@ funtableDF = function(h, ...) {
   }
   summary(report_df)
 }
-#deprecated
-##' handler to print the command line
-##' @param h a handler
-##' @param ... Additional parameters
-##' @keywords internal
-#houtDF = function(h,...) {
-#  report_df<-get("report_df",envir=envir_stacomi)
-#  report_df<-charge(report_df)
-#  report_df<-connect(report_df)
-#  #the charge method will check that all objects necessary to build the formula
-#  # are in envir_stacomi
-#  print(report_df)
-#
-#}
+
 
 #' Method to print the command line of the object
 #' @param x An object of class report_df

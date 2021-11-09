@@ -4,11 +4,9 @@
 \alias{funtableDC}
 \title{FuntableDC create a table output for report_dc class}
 \usage{
-funtableDC(h, ...)
+funtableDC(...)
 }
 \arguments{
-\item{h}{Handler}
-
 \item{...}{Additional parameters}
 }
 \description{

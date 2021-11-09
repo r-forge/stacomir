@@ -3,7 +3,7 @@
 \name{print,report_df-method}
 \alias{print,report_df-method}
 \alias{print.report_df}
-\title{handler to print the command line}
+\title{Method to print the command line of the object}
 \usage{
 \S4method{print}{report_df}(x, ...)
 }
@@ -11,21 +11,10 @@
 \item{x}{An object of class report_df}
 
 \item{...}{Additional parameters passed to print}
-
-\item{h}{a handler}
 }
 \description{
-handler to print the command line
+Method to print the command line of the object
 }
 \author{
 cedric.briand
 }
-\keyword{Method}
-\keyword{command}
-\keyword{internal}
-\keyword{line}
-\keyword{object}
-\keyword{of}
-\keyword{print}
-\keyword{the}
-\keyword{to}

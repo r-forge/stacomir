@@ -2,16 +2,14 @@
 % Please edit documentation in R/report_df.R
 \name{funchartDF}
 \alias{funchartDF}
-\title{Handler function to plot calendar like graph, internal use}
+\title{Function to plot calendar like graph, internal use}
 \usage{
-funchartDF(h, ...)
+funchartDF(...)
 }
 \arguments{
-\item{h}{handler}
-
 \item{...}{additional parameters}
 }
 \description{
-Handler function to plot calendar like graph, internal use
+Function to plot calendar like graph, internal use
 }
 \keyword{internal}

@@ -4,11 +4,9 @@
 \alias{funbarchartDC}
 \title{Function to create a barchart (lattice) corresponding to the periods}
 \usage{
-funbarchartDC(h, ...)
+funbarchartDC(...)
 }
 \arguments{
-\item{h}{a handler}
-
 \item{...}{Additional parameters}
 }
 \value{

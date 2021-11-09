@@ -1056,17 +1056,17 @@ setMethod(
 #' funplotreport_silver_eel
 #'
 #' assigns an object g in envir_stacomi for eventual modification of the plot
-#' @param h A handler, with action 1,2,3 or 4
+#' @param action, action 1,2,3 or 4 corresponding to plot
 #' @param ... Additional parameters
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
-funplotreport_silver_eel = function(h, ...) {
+funplotreport_silver_eel = function(action, ...) {
   r_silver <- get(x = "report_arg", envir = envir_stacomi)
   r_silver <- charge(r_silver)
   r_silver <- connect(r_silver)
   r_silver <- calcule(r_silver)
   #plot.type is determined by button in h$action
-  the_plot <- plot(r_silver, plot.type = h$action)
+  the_plot <- plot(r_silver, plot.type = action)
   print(the_plot)
 }
 

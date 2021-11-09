@@ -5,11 +5,9 @@
 \title{Internal use, rectangles to describe the DF work for report_df class,
 graphical interface handler}
 \usage{
-funboxDF(h, ...)
+funboxDF(...)
 }
 \arguments{
-\item{h}{handler}
-
 \item{...}{additional parameters}
 }
 \description{

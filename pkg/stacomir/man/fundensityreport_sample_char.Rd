@@ -4,11 +4,9 @@
 \alias{fundensityreport_sample_char}
 \title{fundensityreport_sample_char uses ggplot2 to draw density plots}
 \usage{
-fundensityreport_sample_char(h, ...)
+fundensityreport_sample_char(...)
 }
 \arguments{
-\item{h}{A handler}
-
 \item{...}{Additional parameters}
 }
 \description{

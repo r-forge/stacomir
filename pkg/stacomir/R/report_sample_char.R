@@ -300,11 +300,10 @@ setMethod("print", signature = signature("report_sample_char"), definition = fun
 #' fundensityreport_sample_char uses ggplot2 to draw density plots
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
-#' @param h A handler
 #' @param ... Additional parameters
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
-fundensityreport_sample_char = function(h, ...) {
+fundensityreport_sample_char = function(...) {
     report_sample_char <- get("report_sample_char", envir = envir_stacomi)
     report_sample_char <- charge(report_sample_char)
     report_sample_char <- connect(report_sample_char)
@@ -315,11 +314,10 @@ fundensityreport_sample_char = function(h, ...) {
 #' Boxplots for ggplot2
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
-#' @param h A handler passed by the graphical interface
 #' @param ... Additional parameters
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
-funboxplotreport_sample_char = function(h, ...) {
+funboxplotreport_sample_char = function(...) {
     report_sample_char <- get("report_sample_char", envir = envir_stacomi)
     report_sample_char <- charge(report_sample_char)
     report_sample_char <- connect(report_sample_char)
@@ -331,11 +329,10 @@ funboxplotreport_sample_char = function(h, ...) {
 #' Point graph from ggplot
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
-#' @param h handler passed by the graphical interface
 #' @param ... Additional parameters
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
-funpointreport_sample_char = function(h, ...) {
+funpointreport_sample_char = function(...) {
     report_sample_char <- get("report_sample_char", envir = envir_stacomi)
     report_sample_char <- charge(report_sample_char)
     report_sample_char <- connect(report_sample_char)

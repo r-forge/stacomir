@@ -4,11 +4,9 @@
 \alias{funpointreport_sample_char}
 \title{Point graph from ggplot}
 \usage{
-funpointreport_sample_char(h, ...)
+funpointreport_sample_char(...)
 }
 \arguments{
-\item{h}{handler passed by the graphical interface}
-
 \item{...}{Additional parameters}
 }
 \description{

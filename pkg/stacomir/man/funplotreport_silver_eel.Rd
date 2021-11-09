@@ -4,10 +4,10 @@
 \alias{funplotreport_silver_eel}
 \title{funplotreport_silver_eel}
 \usage{
-funplotreport_silver_eel(h, ...)
+funplotreport_silver_eel(action, ...)
 }
 \arguments{
-\item{h}{A handler, with action 1,2,3 or 4}
+\item{action, }{action 1,2,3 or 4 corresponding to plot}
 
 \item{...}{Additional parameters}
 }

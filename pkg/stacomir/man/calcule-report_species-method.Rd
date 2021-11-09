@@ -3,66 +3,20 @@
 \name{calcule,report_species-method}
 \alias{calcule,report_species-method}
 \alias{calcule.report_species}
-\title{handler for plot internal use}
+\title{calcule method for report_species}
 \usage{
 \S4method{calcule}{report_species}(object, silent = FALSE)
 }
 \arguments{
-\item{object}{An object of class \code{\link{report_species-class}}}
+\item{object}{An object of class \link{report_species-class}}
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed, only warnings and errors}
-
-\item{h}{Handler}
 }
 \value{
-with calcdata slot filled.
+An object of class \link{report_species-class} with calcdata slot filled.
 }
 \description{
-handler for plot internal use
+The number will be split according to the split argument passed to the class, e.g.
+per year or month or week. Data from different DC will be grouped. Counts are given per taxa,
+unless there are several stages, in which case the counts correspond to taxa + stage.
 }
-\author{
-Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-}
-\keyword{'}
-\keyword{+}
-\keyword{Counts}
-\keyword{DC}
-\keyword{Data}
-\keyword{according}
-\keyword{are}
-\keyword{argument}
-\keyword{be}
-\keyword{calcule}
-\keyword{case}
-\keyword{class,}
-\keyword{correspond}
-\keyword{counts}
-\keyword{different}
-\keyword{e.g.}
-\keyword{for}
-\keyword{from}
-\keyword{given}
-\keyword{grouped.}
-\keyword{in}
-\keyword{internal}
-\keyword{method}
-\keyword{month}
-\keyword{number}
-\keyword{or}
-\keyword{passed}
-\keyword{per}
-\keyword{report_species}
-\keyword{several}
-\keyword{split}
-\keyword{stage.}
-\keyword{stages,}
-\keyword{taxa}
-\keyword{taxa,}
-\keyword{the}
-\keyword{there}
-\keyword{to}
-\keyword{unless}
-\keyword{week.}
-\keyword{which}
-\keyword{will}
-\keyword{year}

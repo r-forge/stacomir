@@ -3,7 +3,7 @@
 \name{print,report_dc-method}
 \alias{print,report_dc-method}
 \alias{print.report_dc}
-\title{Handler for barchart for report_df class from the graphical interface}
+\title{Method to print the command line of the object.}
 \usage{
 \S4method{print}{report_dc}(x, ...)
 }
@@ -11,41 +11,10 @@
 \item{x}{An object of class report_dc}
 
 \item{...}{Additional parameters passed to print}
-
-\item{h}{a handler}
 }
 \description{
-Handler for barchart for report_df class from the graphical interface
-}
-\note{
-The program cuts periods which overlap between two month
+Method to print the command line of the object.
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-function used for some lattice graph
-
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-
 cedric.briand
 }
-\keyword{Handler}
-\keyword{Method}
-\keyword{calendar}
-\keyword{command}
-\keyword{function}
-\keyword{graph,}
-\keyword{handler}
-\keyword{internal}
-\keyword{like}
-\keyword{line}
-\keyword{object}
-\keyword{of}
-\keyword{plot}
-\keyword{print}
-\keyword{the}
-\keyword{to}
-\keyword{use}

@@ -3,7 +3,7 @@
 \name{calcule,report_mig_env-method}
 \alias{calcule,report_mig_env-method}
 \alias{calcule.report_mig_env}
-\title{Internal handler function}
+\title{Calculations for migration in the class \link{report_mig_env-class}}
 \usage{
 \S4method{calcule}{report_mig_env}(object, silent = FALSE)
 }
@@ -11,29 +11,10 @@
 \item{object}{An object of class \link{report_mig_env-class}}
 
 \item{silent}{Boolean default FALSE, if TRUE information messages not displayed}
-
-\item{h}{a handler}
-
-\item{...}{Additional parameters}
 }
 \value{
 \link{report_mig_env-class} with data in slot r_mig_env@report_mig_mult@calcdata
 }
 \description{
-Internal handler function
+Runs the calcule method in \link{report_mig_mult-class}
 }
-\author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-}
-\keyword{Calculations}
-\keyword{Runs}
-\keyword{\link{report_mig_env-class}}
-\keyword{\link{report_mig_mult-class}}
-\keyword{calcule}
-\keyword{class}
-\keyword{for}
-\keyword{in}
-\keyword{internal}
-\keyword{method}
-\keyword{migration}
-\keyword{the}
