@@ -1,6 +1,7 @@
 stacomi(database_expected=FALSE) 
 # If you have a working database
-# the following line of code will create the r_mig dataset from the iav (default) schema in the database
+# the following line of code will create the r_mig dataset from the iav (default) 
+# schema in the database
 \dontrun{	
 	stacomi(database_expected=TRUE)	
 	if (interactive()){

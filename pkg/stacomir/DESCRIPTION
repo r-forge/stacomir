@@ -3,10 +3,14 @@ Version: 0.6.0
 Date: 2021-11-07
 Title: Fish Migration Monitoring
 Authors@R: c(person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"),
-	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"))
+	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"),
+	      person("Beaulaton", "Laurent", role = "ctb", email = "laurent.beaulaton@ofb.gouv.fr"),
+	      person("Boulenger", "Clarisse", role = "ctb", email = "Clarisse.Boulenger@ofb.gouv.fr"),
+	      person("Lafage", "Denis", role = "ctb", email = "denis.lafage@logrami.fr"),
+	      person("Grall", "Sebastien", role = "ctb", email = "seinormigr.grall@gmail.com"))
 Description: Graphical outputs and treatment for a database of fish pass
     monitoring. It is a part of the 'STACOMI' open source project developed in
-    France by the French Office for Biodiversity (OFB) institute to centralize
+    France by the French Office for Biodiversity institute to centralize
     data obtained by fish pass monitoring. This version is available in French and
     English. See <http://stacomir.r-forge.r-project.org/> for more information on
     'STACOMI'.     
@@ -64,7 +68,7 @@ LazyData: true
 Depends:
     R (>= 4.0.0),
     methods,
-    stacomirtools
+    stacomirtools (>= 0.6.0)
 Imports:
     magrittr,
     intervals,
@@ -93,7 +97,10 @@ Suggests:
     rmarkdown
 Author: Cedric Briand [aut, cre],
     Marion Legrand [aut],
-    Timothee Besse [aut]
+    Beaulaton Laurent [ctb],
+    Boulenger Clarisse [ctb],
+    Lafage Denis [ctb],
+    Grall Sebastien [ctb]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
 RoxygenNote: 7.1.2
 NeedsCompilation: no
