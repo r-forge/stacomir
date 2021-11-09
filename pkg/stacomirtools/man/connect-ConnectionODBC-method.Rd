@@ -2,7 +2,6 @@
 % Please edit documentation in R/ConnectionODBC.R
 \name{connect,ConnectionODBC-method}
 \alias{connect,ConnectionODBC-method}
-\alias{connect.ConnectionODBC}
 \title{connect method for ConnectionODBC class}
 \usage{
 \S4method{connect}{ConnectionODBC}(object)

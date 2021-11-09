@@ -2,7 +2,6 @@
 % Please edit documentation in R/RequeteODBCwheredate.R
 \name{connect,RequeteODBCwheredate-method}
 \alias{connect,RequeteODBCwheredate-method}
-\alias{connect.RequeteODBCwheredate}
 \title{connect method loads a request to the database and returns either an error or a data.frame}
 \usage{
 \S4method{connect}{RequeteODBCwheredate}(object)

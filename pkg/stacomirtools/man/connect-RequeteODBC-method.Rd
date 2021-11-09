@@ -2,7 +2,6 @@
 % Please edit documentation in R/RequeteODBC.R
 \name{connect,RequeteODBC-method}
 \alias{connect,RequeteODBC-method}
-\alias{connect.RequeteODBC}
 \title{connect method loads a request to the database and returns either an error or a data.frame}
 \usage{
 \S4method{connect}{RequeteODBC}(object)

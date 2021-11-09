@@ -2,7 +2,6 @@
 % Please edit documentation in R/RequeteODBCwhere.R
 \name{connect,RequeteODBCwhere-method}
 \alias{connect,RequeteODBCwhere-method}
-\alias{connect.RequeteODBCwhere}
 \title{connect method loads a request to the database and returns either an error or a data.frame}
 \usage{
 \S4method{connect}{RequeteODBCwhere}(object)

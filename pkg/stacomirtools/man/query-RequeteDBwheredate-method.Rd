@@ -2,7 +2,6 @@
 % Please edit documentation in R/RequeteDBwheredate.R
 \name{query,RequeteDBwheredate-method}
 \alias{query,RequeteDBwheredate-method}
-\alias{query.RequeteDBwheredate}
 \title{query method loads a request to the database and returns either an error or a data.frame}
 \usage{
 \S4method{query}{RequeteDBwheredate}(object, ...)

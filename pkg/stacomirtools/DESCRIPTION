@@ -10,7 +10,7 @@ Author: Cedric Briand [aut, cre],
   Marion Legrand [aut],
   Beaulaton Laurent [ctb]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
-Description: S4 class wrappers for the 'ODBC' and Pool dbi connection, also provides some 
+Description: S4 class wrappers for the 'ODBC' and Pool DBI connection, also provides some 
     utilities to paste small datasets to clipboard, rename columns. It is used by the package 'stacomiR' for
     connections to the database. Development versions of 'stacomiR' are available in R-forge.
 License: GPL (>= 2)

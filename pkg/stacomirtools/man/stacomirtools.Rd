@@ -6,7 +6,7 @@
 \alias{stacomirtools-package}
 \title{Stacomirtools options.}
 \description{
-S4 class wrappers for the 'ODBC' and Pool dbi connection, also provides some utilities to paste small datasets to clipboard, rename columns. It is used by the package 'stacomiR' for connections to the database. Development versions of 'stacomiR' are available in R-forge.
+S4 class wrappers for the 'ODBC' and Pool DBI connection, also provides some utilities to paste small datasets to clipboard, rename columns. It is used by the package 'stacomiR' for connections to the database. Development versions of 'stacomiR' are available in R-forge.
 }
 \section{Package options}{
 
@@ -38,7 +38,11 @@ stacomirtools uses the following [options()] to configure behaviour:
 Authors:
 \itemize{
   \item Marion Legrand \email{<tableau-salt-loire@logrami.fr>}
-  \item Beaulaton Laurent \email{<laurent.beaulaton@ofb.gouv.fr>}
+}
+
+Other contributors:
+\itemize{
+  \item Beaulaton Laurent \email{<laurent.beaulaton@ofb.gouv.fr>} [contributor]
 }
 
 }

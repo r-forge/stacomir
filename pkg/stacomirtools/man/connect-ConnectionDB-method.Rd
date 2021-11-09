@@ -2,7 +2,6 @@
 % Please edit documentation in R/ConnectionDB.R
 \name{connect,ConnectionDB-method}
 \alias{connect,ConnectionDB-method}
-\alias{connect.ConnectionDB}
 \title{connect method for ConnectionDB class}
 \usage{
 \S4method{connect}{ConnectionDB}(object, base = NULL)

@@ -6,6 +6,7 @@
 #' @import RODBC
 #' @import pool
 #' @import methods
+#' @import RPostgres
 ## usethis namespace: end
 NULL
 
