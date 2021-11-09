@@ -2,9 +2,10 @@ stacomi(
 	database_expected=FALSE)
 # An example that will work with the database installed only and schema iav in the database
 # prompt for user and password but you can set appropriate options for host, port and dbname
-stacomi(
-		database_expected=TRUE, sch='iav')	
+
 \dontrun{
+	stacomi(
+			database_expected=TRUE, sch='iav')	
 	if (interactive()){
 		if (!exists("user")){
 			user <- readline(prompt="Enter user: ")
