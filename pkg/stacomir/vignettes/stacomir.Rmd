@@ -1,5 +1,5 @@
 ---
-title: "StacomiR"
+title: "StacomiR- A package for fish migration monitoring"
 author: "Marion Legrand, Cedric Briand"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
