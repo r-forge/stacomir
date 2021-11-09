@@ -1,7 +1,24 @@
 require(stacomiR)
 stacomi(
-	database_expected=FALSE, sch= 'logrami')
+	database_expected=FALSE)
+# If you have a working database
+# the following line of code will create the r_seaa dataset from the logrami schema in the database
 \dontrun{
+		stacomi(database_expected=TRUE, sch='logrami')	# overrides the default option sch = 'iav'
+		# prompt for user and password, you can set these in the options, including dbname and host
+		if (interactive()){
+			if (!exists("user")){
+				user <- readline(prompt="Enter user: ")
+				password <- readline(prompt="Enter password: ")	
+			}	
+		}
+		options(					
+				stacomiR.dbname = "bd_contmig_nat",
+				stacomiR.host ="localhost",
+				stacomiR.port = "5432",
+				stacomiR.user = user,
+				stacomiR.user = password						
+		)	
   #create an instance of the class
   r_seaa<-new("report_sea_age")
   r_seaa<-choice_c(r_seaa,

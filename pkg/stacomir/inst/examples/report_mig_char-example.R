@@ -2,8 +2,24 @@ require(stacomiR)
 
 stacomi(
 	database_expected=FALSE, sch='logrami')
-
+# this requires a database with the schema logrami
+# prompt for user and password but you can set appropriate options for host, port and dbname
 \dontrun{
+	stacomi(
+			database_expected=TRUE, sch='logrami')	
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
   r_mig_char<-new("report_mig_char")
   # here parqual is not in the list
   # so this is equivalent to parqual=NULL

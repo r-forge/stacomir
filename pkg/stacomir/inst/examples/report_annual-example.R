@@ -1,10 +1,23 @@
-require(stacomiR)
-# launching stacomi without selecting the scheme or interface
-stacomi(
-	database_expected=FALSE, sch='iav')
-# the following script will load the Arzal dataset if connected to iav schema
-
+# launching stacomi without database for demo
+stacomi(database_expected=FALSE)
+# the following piece of script will load the Arzal dataset and connected to iav postgres schema
+# it requires a working database
+# prompt for user and password but you can set appropriate options for host, port and dbname
 \dontrun{
+	stacomi(database_expected=TRUE, sch='iav')
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
   r_ann<-new("report_annual")
   r_ann<-choice_c(r_ann,
 	  dc=c(5,6,12),

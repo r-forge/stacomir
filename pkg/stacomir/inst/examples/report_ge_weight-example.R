@@ -2,7 +2,24 @@ require(stacomiR)
 # launching stacomi without selecting the scheme or interface
 stacomi(
 	database_expected=FALSE, sch='iav')
+# this requires a working database with the schema iav
+# prompt for user and password but you can set appropriate options for host, port and dbname
 \dontrun{
+	stacomi(
+			database_expected=TRUE, sch='iav')	
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
   #create an instance of the class
   r_gew<-new("report_ge_weight")
   r_gew@liste<-charge(object=r_gew@liste,listechoice=c("=1",">1","tous"),label="")

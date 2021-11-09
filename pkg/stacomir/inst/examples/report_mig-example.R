@@ -1,11 +1,21 @@
-library(stacomiR)
-
 stacomi(database_expected=FALSE) 
-## launches the application in the command line
-## here an example of loading
-## not run as the program is possibly not installed
-## this example generates the r_mig dataset
-\dontrun{
+# If you have a working database
+# the following line of code will create the r_mig dataset from the iav (default) schema in the database
+\dontrun{	
+	stacomi(database_expected=TRUE)	
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
   stacomi(
 	  database_expected=TRUE)	
   r_mig=new("report_mig")
