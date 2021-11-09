@@ -47,17 +47,31 @@ This class is displayed by interface_report_silver_eel
 }
 
 \examples{
-require(stacomiR)
 # launching stacomi without selecting the scheme or interface
-stacomi(
-	database_expected=FALSE, sch ='fd80')
+stacomi(	database_expected=FALSE)
 # the following script will load data from the two Anguillere monitored in the Somme
 
+# If you have a working database
+# the following line of code will create the r_silver dataset from the "fd80." schema in the database
 \dontrun{
+	stacomi(database_expected=TRUE, sch="fd80.")	# overrides the default option sch = 'iav'
+	# prompt for user and password, you can set these in the options, including dbname and host
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
+	
   #create an instance of the class
   r_silver<-new("report_silver_eel")
-  sch<-rlang::env_get(envir_stacomi, "sch")
-  assign("sch","fd80.",envir_stacomi)
   r_silver<-choice_c(r_silver,
 	  dc=c(2,6),			
 	  horodatedebut="2010-09-01",

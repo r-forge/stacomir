@@ -41,9 +41,24 @@ require(stacomiR)
 # launching stacomi without selecting the scheme or interface
 stacomi(
 	database_expected=FALSE, sch='pmp')
-###### If you have connection to the database with the pmp scheme ############
+# If you have connection to the database with the pmp scheme 
+# prompt for user and password but you can set appropriate options for host, port and dbname
 \dontrun{
-  
+	stacomi(
+			database_expected=TRUE)	
+	if (interactive()){
+		if (!exists("user")){
+			user <- readline(prompt="Enter user: ")
+			password <- readline(prompt="Enter password: ")	
+		}	
+	}
+	options(					
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host ="localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.user = password						
+	)	
   # overriding user schema to point to Parc Marais Poitevin 
   # (longest historical dataset available
   # in France for eel ...) this suppose you have access to the pmp schema...
