@@ -2,6 +2,7 @@
 % Please edit documentation in R/RequeteDBwhere.R
 \name{query,RequeteDBwhere-method}
 \alias{query,RequeteDBwhere-method}
+\alias{query.RequeteODBCwhere}
 \title{query method loads a request to the database and returns either an error or a data.frame}
 \usage{
 \S4method{query}{RequeteDBwhere}(object, ...)

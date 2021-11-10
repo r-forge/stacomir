@@ -19,12 +19,16 @@ test_that("Test that RequeteODBC works on a database ", {
 
 
 
-test_that("Test that RequeteDB returns the sql string when options(stacomiR.printquery=TRUE) ", {
+test_that("Test that RequeteDB returns the sql string when options(stacomiR.printqueries=TRUE) ", {
       skip_on_cran()
-			options(stacomiR.printquery=TRUE)
+			o <- options()
+			options(
+					stacomiR.printqueries = TRUE
+			)
       req<-new("RequeteODBC")
       req@sql<-"select * from iav.t_lot_lot limit 10"
       req@baseODBC <- c("bd_contmig_nat",user,password)   
       expect_output(req<- connect(req))
+			options(o)
     })
 

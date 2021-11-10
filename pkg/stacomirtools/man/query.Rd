@@ -2,6 +2,7 @@
 % Please edit documentation in R/RequeteDB.R
 \name{query}
 \alias{query}
+\alias{query.RequeteDB}
 \title{generic query function for}
 \usage{
 query(object, ...)

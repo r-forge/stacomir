@@ -37,12 +37,12 @@ stacomirtools uses the following [options()] to configure behaviour:
 
 Authors:
 \itemize{
-  \item Marion Legrand \email{<tableau-salt-loire@logrami.fr>}
+  \item Marion Legrand \email{tableau-salt-loire@logrami.fr}
 }
 
 Other contributors:
 \itemize{
-  \item Beaulaton Laurent \email{<laurent.beaulaton@ofb.gouv.fr>} [contributor]
+  \item Beaulaton Laurent \email{laurent.beaulaton@ofb.gouv.fr} [contributor]
 }
 
 }

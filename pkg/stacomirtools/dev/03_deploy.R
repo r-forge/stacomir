@@ -17,12 +17,13 @@
 ## Check the package before sending to prod
 #usethis::use_build_ignore(".dbeaver")
 # delete namespace before loading again...
+devtools::load_all()
 devtools::document()
 devtools::build_readme()
 devtools::test()
 
 #roxygen2::roxygenise(clean = TRUE) # marche pas si les .Rd ont été écrits à la main il faut les supprimer
-
+Sys.setenv("NOT_CRAN"= "false") # to set checks without testhat testthat
 devtools::check()
 rhub::check_for_cran()
 
