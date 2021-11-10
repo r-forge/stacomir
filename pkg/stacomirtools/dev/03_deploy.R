@@ -20,7 +20,8 @@
 devtools::document()
 devtools::build_readme()
 devtools::test()
-lov#roxygen2::roxygenise(clean = TRUE) # marche pas si les .Rd ont été écrits à la main il faut les supprimer
+
+#roxygen2::roxygenise(clean = TRUE) # marche pas si les .Rd ont été écrits à la main il faut les supprimer
 
 devtools::check()
 rhub::check_for_cran()
