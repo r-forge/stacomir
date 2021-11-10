@@ -1,13 +1,20 @@
 context("RequeteDB")
+if (interactive()){
+	if (!exists("user")){
+		host <- readline(prompt="Enter host: ")
+		user <- readline(prompt="Enter user: ")
+		password <- readline(prompt="Enter password: ")	
+	}	
+}
 test_that("Test that RequeteDB works on a database ", {
 			skip_on_cran()
 			object <-new("RequeteDB")
 			object@sql <- "select * from iav.t_lot_lot limit 10"
 			object@dbname <- "bd_contmig_nat"
-			object@host <- 		"localhost"
+			object@host <- 		host
 			object@port <-		"5432"
-			object@user <-		"postgres"
-			object@password <-		"postgres"
+			object@user <-		user
+			object@password <-		password
 			object <- query(object)
 			expect_that(object@connection,is_a("Pool"))
 			expect_gt(nrow(object@query),0)
@@ -17,7 +24,7 @@ test_that("Test that RequeteDB works when passed arguments base", {
 			skip_on_cran()
 			object <-new("RequeteDB")
 			base <-
-					c("bd_contmig_nat", "localhost", "5432", "postgres", "postgres")
+					c("bd_contmig_nat", host, "5432", user, password)
 			object@sql <- "select * from iav.t_lot_lot limit 10"
 			object <- query(object, base)
 			expect_that(object@connection,is_a("Pool"))
@@ -29,10 +36,10 @@ test_that("Test that RequeteDB works when using options", {
 			o <- options()
 			options(					
 							stacomiR.dbname = "bd_contmig_nat",
-							stacomiR.host ="localhost",
+							stacomiR.host = host,
 							stacomiR.port = "5432",
-							stacomiR.user = "postgres",
-							stacomiR.password = "postgres"					
+							stacomiR.user = user,
+							stacomiR.password = password					
 					)	
 			object <-new("RequeteDB")
 			object@sql <- "select * from iav.t_lot_lot limit 10"
@@ -49,7 +56,7 @@ test_that("Test that RequeteDB does not work when using wrong options and no bas
 			o <- options()
 			options(					
 					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
+					stacomiR.host = host,
 					stacomiR.port = "5432",
 					stacomiR.user = "",
 					stacomiR.password = ""					
@@ -63,18 +70,19 @@ test_that("Test that RequeteDB does not work when using wrong options and no bas
 
 test_that("Test that RequeteDB returns the sql string when options(stacomiR.printquery=TRUE) ", {
 			skip_on_cran()
+			o <- options()
 			options(					
 					stacomiR.printqueries = TRUE
 			)	
 			object <- new("RequeteDB")
 			object@sql <- "select * from iav.t_lot_lot limit 10"
 			object@dbname <- "bd_contmig_nat"
-			object@host <- 		"localhost"
+			object@host <- 		host
 			object@port <-		"5432"
-			object@user <-		"postgres"
-			object@password <-		"postgres" 
+			object@user <-		user
+			object@password <-		password 
 			expect_output(object<-query(object))
-			
+			options(o)
 			
 		})
 

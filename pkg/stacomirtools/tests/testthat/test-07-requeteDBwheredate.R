@@ -1,8 +1,15 @@
 context("RequeteDBwheredate")
+if (interactive()){
+	if (!exists("user")){
+		host <- readline(prompt="Enter host: ")
+		user <- readline(prompt="Enter user: ")
+		password <- readline(prompt="Enter password: ")	
+	}	
+}
 test_that("Test that RequeteDBwheredate works on a database ", {
 			skip_on_cran()
 			object <-new("RequeteDBwheredate")
-			base=c("bd_contmig_nat","localhost","5432","postgres", "postgres")
+			base=c("bd_contmig_nat",host,"5432",user, password)
 			object@datedebut <- strptime("2012-01-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 			object@datefin <-  strptime("2013-01-01 00:00:00", format="%Y-%m-%d %H:%M:%S")
 			object@colonnedebut="ope_date_debut" 

@@ -1,4 +1,11 @@
 context("RequeteODBCwheredate")
+if (interactive()){
+	if (!exists("user")){
+		host <- readline(prompt="Enter host: ")
+		user <- readline(prompt="Enter user: ")
+		password <- readline(prompt="Enter password: ")	
+	}	
+}
 test_that("Test that RequeteODBCwheredate returns rows", {
 			skip_on_cran()
 			# this requires an odbc link to be setup for test here a database bd_contmig_nat used for stacomir
@@ -12,7 +19,7 @@ test_that("Test that RequeteODBCwheredate returns rows", {
 			object@select<- "select * from iav.t_operation_ope"
 			object@where <- "WHERE ope_dic_identifiant=5"
 			object@order_by<-"limit 10"
-			object@baseODBC=c("bd_contmig_nat","postgres","postgres")
+			object@baseODBC=c("bd_contmig_nat",user,password)
 			object <- connect(object)
 			expect_gt(nrow(object@query),0)
 		})
