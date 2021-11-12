@@ -1,24 +1,11 @@
 context("report_mig_char")
 
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("test creating an instance of report_mig_char and connect method (logrami required)",
           {
             skip_on_cran()
             stacomi(database_expected = TRUE, sch ="logrami")
-						o <- options()
-						options(					
-								stacomiR.dbname = "bd_contmig_nat",
-								stacomiR.host ="localhost",
-								stacomiR.port = "5432",
-								stacomiR.user = user,
-								stacomiR.user = password					
-						)	
-            # here parqual is not in the list
+						env_set_test_stacomi()            # here parqual is not in the list
             # so this is equivalent to parqual=NULL
             r_mig_char <- choice_c(
               r_mig_char,
@@ -39,20 +26,13 @@ test_that("test creating an instance of report_mig_char and connect method (logr
               "There should be data in the parquan slot when quantitative parm are selected"
             )
             rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-						options(o)
+						
           })
 
 test_that("test setasqualitative method", {
   skip_on_cran()
   stacomi(database_expected = TRUE, sch = "logrami")
-	o <- options()
-	options(					
-			stacomiR.dbname = "bd_contmig_nat",
-			stacomiR.host ="localhost",
-			stacomiR.port = "5432",
-			stacomiR.user = user,
-			stacomiR.user = password						
-	)	
+	env_set_test_stacomi()
   # here parqual is not in the list
   # so this is equivalent to parqual=NULL
   r_mig_char <- choice_c(
@@ -81,21 +61,14 @@ test_that("test setasqualitative method", {
   expect_true('A124' %in% r_mig_char@data$parqual$car_par_code)
   expect_false('A124' %in% r_mig_char@data$parquan$car_par_code)
   rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-	options(o)
+	
 })
 
 
 test_that("test calcule method", {
   skip_on_cran()
   stacomi(database_expected = TRUE, sch ="logrami")
-	o <- options()
-	options(					
-			stacomiR.dbname = "bd_contmig_nat",
-			stacomiR.host ="localhost",
-			stacomiR.port = "5432",
-			stacomiR.user = user,
-			stacomiR.user = password						
-	)	
+	env_set_test_stacomi()
   r_mig_char <- choice_c(
     r_mig_char,
     dc = c(107, 108, 101),
@@ -130,5 +103,5 @@ test_that("test calcule method", {
       r_mig_char@calcdata$car_par_code_quan
     )), label = "The merge function works and returns both qualitative and quantitative parameters")
   rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-	options(o)
+	
 })

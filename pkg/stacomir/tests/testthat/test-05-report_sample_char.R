@@ -1,10 +1,5 @@
 context("report_sample_char")
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test that view lot_ope_car exists", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
@@ -20,15 +15,7 @@ test_that("Test that view lot_ope_car exists", {
 test_that("Test an instance of report_sample_char loaded with choice_c", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
-			
+			env_set_test_stacomi()			
 			r_sample_char <- new("report_sample_char")
 			#options(warn = -1)
 			r_sample_char <- suppressWarnings(
@@ -48,7 +35,7 @@ test_that("Test an instance of report_sample_char loaded with choice_c", {
 			expect_s4_class(r_sample_char,
 					"report_sample_char")
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 
@@ -56,14 +43,7 @@ test_that("Test methods in report_sample_char", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
 			# overriding user schema to point to iav
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	  
+			env_set_test_stacomi()	
 			r_sample_char <- new("report_sample_char")
 			#options(warn = 2)
 			r_sample_char <- suppressWarnings(
@@ -84,20 +64,12 @@ test_that("Test methods in report_sample_char", {
 			expect_true(nrow(r_sample_char@data) > 0, label = "No data for r_sample_char")
 			r_sample_char <- calcule(r_sample_char, silent = TRUE)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that("Test charge method for report_sample_char", {
 			skip_on_cran()
-			o <- options()
-			
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()		
 			stacomi(database_expected = TRUE)
 			r_sample_char <- new("report_sample_char")
 			#options(warn = 2)
@@ -121,7 +93,7 @@ test_that("Test charge method for report_sample_char", {
 						r_sample_char <- calcule(r_sample_char, silent = TRUE)
 					}, NA)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 #test_that("Test example reportcarlot-example",

@@ -1,24 +1,11 @@
 context("report_mig_interannual")
 
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
 
 test_that("Test an instance of report_mig_interannual loaded with choice_c",
 		{
 			skip_on_cran()
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
 			r_mig_interannual <- new("report_mig_interannual")
 			# the following will load data for size,
 			# parameters 1786 (total size) C001 (size at video control)
@@ -38,22 +25,15 @@ test_that("Test an instance of report_mig_interannual loaded with choice_c",
 			options(warn = 0)
 			expect_s4_class(r_mig_interannual, "report_mig_interannual")
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 
 test_that("Test method summary in report_mig_interannual", {
 			skip_on_cran()
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE)
 			# overriding user schema to point to iav
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
 			r_mig_interannual <- new("report_mig_interannual")
 			# the following will load data for size,
 			# parameters 1786 (total size) C001 (size at video control)
@@ -72,7 +52,7 @@ test_that("Test method summary in report_mig_interannual", {
 			expect_error(summary(object = r_mig_interannual, silent = TRUE), NA)
 			# two warning produced
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)  
+			  
 		})
 #
 #test_that("Test example report_mig_interannual-example",
@@ -97,14 +77,7 @@ test_that("Test that loading two taxa will fail",
 		{
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = "postgres",
-					stacomiR.password = "postgres"					
-			)	
+			env_set_test_stacomi()		
 			r_mig_interannual <- new("report_mig_interannual")
 			# the following will load data for size,
 			# parameters 1786 (total size) C001 (size at video control)
@@ -125,7 +98,7 @@ test_that("Test that loading two taxa will fail",
 
 
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 
@@ -133,15 +106,7 @@ test_that("Test that report_mig_interannual loads missing data with correct warn
 		{
 			skip_on_cran()
 			stacomi(database_expected = TRUE, sch ="logrami")
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
-
+			env_set_test_stacomi()
 			
 			bmi_cha <- new("report_mig_interannual") #châtelrault
 			bmi_cha <- suppressWarnings(
@@ -161,7 +126,7 @@ test_that("Test that report_mig_interannual loads missing data with correct warn
 			supprime(bmi_cha)
 			expect_output(bmi_cha <- connect(bmi_cha, silent = TRUE))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that("Test that different sums are the same, for  report_mig_interannual, report_mig_mult",
@@ -169,14 +134,7 @@ test_that("Test that different sums are the same, for  report_mig_interannual, r
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
 			# overriding user schema
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()
 			# this chunk is not launched from examples but loads the r_mig dataset if connection works
 			r_mig_interannual <- new("report_mig_interannual")
 			# the following will load data for size,
@@ -225,20 +183,13 @@ test_that("Test that different sums are the same, for  report_mig_interannual, r
 					label = "The sum of number in the report_mig are different to the
 							number in the report_annual class")
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that("Test bmi step plot", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()
 			r_mig_interannual <- new("report_mig_interannual")
 			# the following will load data for size,
 			# parameters 1786 (total size) C001 (size at video control)
@@ -256,5 +207,5 @@ test_that("Test bmi step plot", {
 			r_mig_interannual <- connect(r_mig_interannual, silent = TRUE)
 			expect_error(suppressWarnings(plot(r_mig_interannual, plot.type = "step", silent = TRUE),NA))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})

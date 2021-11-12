@@ -1,22 +1,10 @@
 context("report_mig_mult")
 
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 
 test_that("Test an instance of report_mig_mult", {
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected=TRUE)		
 
 			report_mig_mult <- new("report_mig_mult")
@@ -35,7 +23,6 @@ test_that("Test an instance of report_mig_mult", {
 			#options(warn = 0)
 			expect_s4_class(report_mig_mult,
 					"report_mig_mult")
-			options(o)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 
@@ -43,14 +30,7 @@ test_that("Test an instance of report_mig_mult", {
 test_that("Test another instance of report_mig_mult", {
 			
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected=TRUE)	
 
 			
@@ -70,7 +50,7 @@ test_that("Test another instance of report_mig_mult", {
 			#options(warn = 0)
 			expect_s4_class(report_mig_mult,
 					"report_mig_mult")
-			options(o)
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 
@@ -79,14 +59,7 @@ test_that("Tests one instance with error (dc does not exist)",
 		{			
 			skip_on_cran()
 			stacomi(database_expected=TRUE)	
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password					
-			)	
+			env_set_test_stacomi()
 			
 			report_mig_mult <- new("report_mig_mult")
 			options(warn = -1)
@@ -101,21 +74,14 @@ test_that("Tests one instance with error (dc does not exist)",
 							silent = TRUE
 					)
 			)
-			options(o)
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 
 test_that("Test charge method for report_mig_mult",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected=TRUE)	
 
 			
@@ -135,21 +101,14 @@ test_that("Test charge method for report_mig_mult",
 			expect_is(get("report_df", envir = envir_stacomi), "report_df")
 			expect_is(get("report_dc", envir = envir_stacomi), "report_dc")
 			expect_is(get("report_ope", envir = envir_stacomi), "report_ope")
-			options(o)
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 
 test_that("Test connect method for report_mig_mult",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected=TRUE)	
 			
 			report_mig_mult <- new("report_mig_mult")
@@ -173,7 +132,7 @@ test_that("Test connect method for report_mig_mult",
 			expect_gt(nrow(report_df@data), 0)
 			report_dc <- get("report_dc", envir = envir_stacomi)
 			expect_gt(nrow(report_dc@data), 0)
-			options(o)
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 

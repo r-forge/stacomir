@@ -1,20 +1,8 @@
 context("report_mig")
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test an instance of report_mig", {
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE, sch ='iav')
 			report_mig <- new("report_mig")
 			options(warn = -1)
@@ -29,6 +17,7 @@ test_that("Test an instance of report_mig", {
 			options(warn = 0)
 			expect_s4_class(report_mig,
 					"report_mig")
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		})
 
@@ -37,14 +26,7 @@ test_that(
 		"Test an instance of report_mig, check that operations accross two years are split correcly",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE, sch = 'iav')   
 			report_mig <- new("report_mig")
 			options(warn = -1)
@@ -65,7 +47,7 @@ test_that(
 			# the rest are in 1998
 			expect_equal(round(sum(report_mig@calcdata[["dc_6"]][["data"]]$Effectif_total)),
 					8613)
-			options(o)
+			
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 		}
 )
@@ -74,14 +56,7 @@ test_that(
 		"Test another instance of report_mig, check that operations accross two years are split correcly",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE, sch ='iav')			
 			report_mig <- new("report_mig")
 			options(warn = -1)
@@ -103,20 +78,13 @@ test_that(
 			expect_equal(round(sum(report_mig@calcdata[["dc_6"]][["data"]]$Effectif_total)),
 					26454)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		}
 )
 
 test_that("Test connect method", {
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE)
 			# overriding user schema
 
@@ -135,7 +103,7 @@ test_that("Test connect method", {
 			
 			expect_length(r_mig@data, 11)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 #test_that("Test example 02_report_mig",
@@ -155,14 +123,7 @@ test_that("Test connect method", {
 test_that("Summary method works",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE)			
 			# overriding user schema
 			data("r_mig")
@@ -171,20 +132,13 @@ test_that("Summary method works",
 			expect_silent(summary(r_mig, silent = TRUE))		
 
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that("Test writing an example to the database",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE)
 			data("r_mig")
 			r_mig <- calcule(r_mig, silent = TRUE)
@@ -192,22 +146,14 @@ test_that("Test writing an example to the database",
 			# by default in r_mig we don't want to check for multiannual bilan
 			# it is written again in the database
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that(
 		"Test that different sums are the same, for report_mig, report_mig_interannual, report_annual",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password,
-					stacomiR.printquery=TRUE
-			)	
+			env_set_test_stacomi()	
 			stacomi(database_expected = TRUE)
 			data("r_mig")
 			r_mig <- calcule(r_mig, silent = TRUE)
@@ -235,7 +181,7 @@ test_that(
 							number in the report_mig_interannual"
 			)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		}
 )
 
@@ -254,14 +200,7 @@ test_that("print method works",
 test_that("test example for fd80",
 		{
 			skip_on_cran()
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password					
-			)	
+			env_set_test_stacomi()
 			stacomi(database_expected = TRUE, sch ='fd80')
 			bM_EclusierVaux = new("report_mig")
 			bM_EclusierVaux = choice_c(
@@ -278,7 +217,7 @@ test_that("test example for fd80",
 			expect_output(plot(bM_EclusierVaux, silent = FALSE))
 			expect_output(summary(bM_EclusierVaux, silent = FALSE))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 
@@ -286,15 +225,8 @@ test_that("test example with glass eel",
 		{
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
-					bM_Arzal_civ = new("report_mig")
+			env_set_test_stacomi()		
+			bM_Arzal_civ = new("report_mig")
 			bM_Arzal_civ = choice_c(
 					bM_Arzal_civ,
 					dc = 6,
@@ -311,5 +243,5 @@ test_that("test example with glass eel",
 			expect_silent(plot(bM_Arzal_civ, silent = TRUE, bty = "n"))
 			expect_output(summary(bM_Arzal_civ, silent = FALSE))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})

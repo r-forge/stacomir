@@ -1,21 +1,9 @@
 context("report_dc")
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test an instance of report_dc", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()		
 			r_dc <- new("report_dc")
 			r_dc <- choice_c(
 					r_dc,
@@ -40,22 +28,14 @@ test_that("Test an instance of report_dc", {
 					)
 			)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 			
 		})
 
 test_that("report_dc charge method works", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password				
-			)	
-			
+			env_set_test_stacomi()			
 			r_dc <- new("report_dc")
 			r_dc <- choice_c(
 					r_dc,
@@ -68,7 +48,7 @@ test_that("report_dc charge method works", {
 			r_dc <- connect(r_dc, silent = TRUE)
 			expect_equal(nrow(r_dc@data), 7)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 

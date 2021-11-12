@@ -1,22 +1,11 @@
 context("report_mig_env")
 
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("test creating an instance of report_mig_env", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password)
-r_mig_env <- new("report_mig_env")
+			env_set_test_stacomi()
+			r_mig_env <- new("report_mig_env")
 r_mig_env <- choice_c(
 		r_mig_env,
 		dc = c(5, 6, 12),
@@ -38,20 +27,13 @@ expect_true(
 		"Data not loaded in the report_mig_mult part of the object"
 )
 rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-options(o)
+
 })
 
 test_that("test plot method", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = "postgres",
-					stacomiR.password = "postgres"					
-			)	
+			env_set_test_stacomi()		
 			r_mig_env <- new("report_mig_env")
 			r_mig_env <- choice_c(
 					r_mig_env,
@@ -78,5 +60,5 @@ test_that("test plot method", {
 							silent = TRUE
 					))}, NA)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})

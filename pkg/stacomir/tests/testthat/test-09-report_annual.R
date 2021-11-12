@@ -1,22 +1,10 @@
 context("report_annual")
 
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test an instance of report_annual loaded with choice_c", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()	
 			r_ann <- new("report_annual")
 			r_ann <- choice_c(
 					r_ann,
@@ -30,22 +18,14 @@ test_that("Test an instance of report_annual loaded with choice_c", {
 			r_ann <- connect(r_ann, silent = TRUE)
 			expect_s4_class(r_ann, "report_annual")
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 
 test_that("Test methods in report_annual", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
-			# should not produce any error
+			env_set_test_stacomi()			# should not produce any error
 			expect_error({
 						r_ann <- new("report_annual")
 						r_ann <- choice_c(
@@ -63,7 +43,7 @@ test_that("Test methods in report_annual", {
 						dev.new()
 						barplot(r_ann)},		NA)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 #test_that("Test example report_mig_annual-example",
@@ -154,14 +134,7 @@ test_that("test xtable method for report_annual", {
 			
 			skip_on_cran()
 			stacomi(database_expected = FALSE)
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.user = password						
-			)	
+			env_set_test_stacomi()			
 			r_ann <- new("report_annual")
 			r_ann <- choice_c(
 					r_ann,
@@ -220,7 +193,7 @@ test_that("test xtable method for report_annual", {
 					)
 			)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		})
 
 test_that("test plot methods for report_annual", {

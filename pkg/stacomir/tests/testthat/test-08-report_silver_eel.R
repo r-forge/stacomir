@@ -1,24 +1,12 @@
 context("report_silver_eel")
-if (interactive()){
-	if (!exists("user")){
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 
 test_that(
 		"test creating an instance of report_silver_eel with data loaded (fd80 schema required)",
 		{
 			skip_on_cran()
 			stacomi(database_expected = TRUE, sch ='fd80')
-			o <- options()
-			options(					
-					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host ="localhost",
-					stacomiR.port = "5432",
-					stacomiR.user = user,
-					stacomiR.password = password						
-			)	
+			env_set_test_stacomi()		
 			r_silver <- new("report_silver_eel")
 			r_silver <- choice_c(
 					r_silver,
@@ -39,6 +27,6 @@ test_that(
 						stats <- summary(r_silver, silent = TRUE)
 					},NA)
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
-			options(o)
+			
 		}
 )
