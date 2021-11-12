@@ -35,10 +35,11 @@ year/week/month.
 \examples{
 # launching stacomi without selecting the scheme or interface
 stacomi(	database_expected=FALSE)
-# the following script will load data from the two Anguillere monitored in the Somme
-
+# the following script will load data 
+# from the two Anguillere monitored in the Somme
 # If you have a working database
-# the following line of code will create the bilesp dataset from the "iav." schema in the database
+# the following line of code will create the bilesp dataset from the "iav." 
+# schema in the database
 
 \dontrun{
   bilesp<-new("report_species")

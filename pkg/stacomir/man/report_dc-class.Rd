@@ -30,7 +30,8 @@ class allows to draw graphics allowing an overview of the device operation
 
 \examples{
 
-# this option allows to launch the program without the interface to display some of the program features.
+# this option allows to launch the program without the interface to display 
+# some of the program features.
 stacomi(database_expected=FALSE)
 # An example that will work only if the database is present 
 # and the program installed and comprises the schema iav
