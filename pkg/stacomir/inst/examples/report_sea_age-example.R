@@ -4,8 +4,10 @@ stacomi(
 # If you have a working database
 # the following line of code will create the r_seaa dataset from the logrami schema in the database
 \dontrun{
-		stacomi(database_expected=TRUE, sch='logrami')	# overrides the default option sch = 'iav'
-		# prompt for user and password, you can set these in the options, including dbname and host
+		stacomi(database_expected=TRUE, sch='logrami')	
+		# overrides the default option sch = 'iav'
+		# prompt for user and password, you can set these in the options,
+	  # including dbname and host
 		if (interactive()){
 			if (!exists("user")){
 				user <- readline(prompt="Enter user: ")
