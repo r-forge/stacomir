@@ -37,9 +37,10 @@ load_stacomi <- function(...) {
 			test <- FALSE
 		} else {
 			test <- TRUE
+			pool::poolClose(con@connection)		
 		}
 		
-		pool::poolClose(con@connection)		
+		
 		
 		# second test to check that the database is working OK		
 		

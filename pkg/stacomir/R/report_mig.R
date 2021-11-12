@@ -693,33 +693,8 @@ setMethod(
 
 
 
-#deprecated0.6
-##' handler h_report_migwrite
-##' Allows the saving of daily and monthly counts in the database
-##' @note these entries are necessary to run the Interannual Migration class.
-##' then no entry will be written to the database
-##' @param h a handler
-##' @param ... Additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-##' @keywords internal
-#h_report_migwrite = function(h,...) {
-#  if (exists("report_mig",envir_stacomi)) {
-#	report_mig<-get("report_mig",envir_stacomi)
-#  } else {
-#	funout(gettext("You need to launch computation first, clic on calc\n",domain="R-stacomiR"),arret=TRUE)
-#  }
-#  # ecriture du report journalier, ecrit aussi le report mensuel
-#  database_expected<-get("database_expected",envir=envir_stacomi)
-#  if (database_expected) {
-#	write_database(report_mig,silent=FALSE)
-#  }	else {
-#	funout(gettext("no report written to database : database_expected argument=FALSE",domain="R-stacomiR"))
-#  }
-#
-#}
 
-#' Command line method to write the daily and monthly counts to the
-#' t_bilanmigrationjournalier_bjo table
+#' Command line method to write the daily and monthly counts to the t_bilanmigrationjournalier_bjo table
 #'
 #' Daily values are needed to compare migrations from year to year, by the class \link{report_mig_interannual-class}. They are added by
 #' by this function.

@@ -3,8 +3,7 @@
 \name{write_database,report_mig-method}
 \alias{write_database,report_mig-method}
 \alias{write_database.report_mig}
-\title{handler h_report_migwrite
-Allows the saving of daily and monthly counts in the database}
+\title{Command line method to write the daily and monthly counts to the t_bilanmigrationjournalier_bjo table}
 \usage{
 \S4method{write_database}{report_mig}(object, silent = TRUE, check_for_bjo = TRUE)
 }
@@ -15,19 +14,12 @@ Allows the saving of daily and monthly counts in the database}
 
 \item{check_for_bjo}{: do you want to check if data are already present in the bjo table, and delete them,
 this param was added otherwise connect method when called from report_mig_interannual runs in loops}
-
-\item{h}{a handler}
-
-\item{...}{Additional parameters}
 }
 \description{
-handler h_report_migwrite
-Allows the saving of daily and monthly counts in the database
+Daily values are needed to compare migrations from year to year, by the class \link{report_mig_interannual-class}. They are added by
+by this function.
 }
 \note{
-these entries are necessary to run the Interannual Migration class.
-then no entry will be written to the database
-
 the user is asked whether or not he wants to overwrite data only when silent is FALSE, if no
 data are present in the database, the import is done anyway.
 }
@@ -41,35 +33,4 @@ write_database(report_mig=r_mig,silent=FALSE)
 }
 \author{
 Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 }
-\keyword{Command}
-\keyword{Daily}
-\keyword{They}
-\keyword{\link{report_mig_interannual-class}.}
-\keyword{added}
-\keyword{and}
-\keyword{are}
-\keyword{by}
-\keyword{class}
-\keyword{compare}
-\keyword{counts}
-\keyword{daily}
-\keyword{from}
-\keyword{function.}
-\keyword{internal}
-\keyword{line}
-\keyword{method}
-\keyword{migrations}
-\keyword{monthly}
-\keyword{needed}
-\keyword{t_bilanmigrationjournalier_bjo}
-\keyword{table}
-\keyword{the}
-\keyword{this}
-\keyword{to}
-\keyword{values}
-\keyword{write}
-\keyword{year}
-\keyword{year,}
