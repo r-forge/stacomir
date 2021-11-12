@@ -89,12 +89,13 @@ Imports:
     xtable,
     mgcv,
     rlang,
-    pool
+    pool   
 Suggests:
     testthat,
     viridis,
     knitr,
-    rmarkdown
+    rmarkdown,
+    withr
 Author: Cedric Briand [aut, cre],
     Marion Legrand [aut],
     Beaulaton Laurent [ctb],

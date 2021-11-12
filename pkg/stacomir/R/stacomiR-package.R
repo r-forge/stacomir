@@ -1,60 +1,28 @@
-#' @import stringr
-#' @import RColorBrewer
+
+
 #' @import ggplot2
 #' @import RPostgreSQL
 #' @import methods
+#' @import RColorBrewer
 #' @import stacomirtools
+#' @import stringr
 #' @import xtable
-#' @importFrom magrittr %>%
-#' @importFrom dplyr select
-#' @importFrom dplyr group_by
-#' @importFrom dplyr summarize
-#' @importFrom dplyr rename
-#' @importFrom dplyr do
-#' @importFrom dplyr filter
-#' @importFrom dplyr mutate 
-#' @importFrom dplyr min_rank 
-#' @importFrom dplyr first
-#' @importFrom dplyr ungroup
-#' @importFrom dplyr desc
-#' @importFrom intervals Intervals
-#' @importFrom intervals closed<-
-#' @importFrom intervals interval_overlap
-#' @importFrom grid viewport
-#' @importFrom grid pushViewport
-#' @importFrom grid grid.newpage
-#' @importFrom grid grid.layout
-#' @importFrom utils read.csv
-#' @importFrom utils stack
-#' @importFrom utils globalVariables
-#' @importFrom utils select.list write.table data
-#' @importFrom utils txtProgressBar
-#' @importFrom stats ftable
-#' @importFrom stats xtabs
-#' @importFrom stats AIC
-#' @importFrom grDevices dev.new
-#' @importFrom grDevices gray.colors
-#' @importFrom stats sd
-#' @importFrom stats complete.cases
-#' @importFrom reshape2 dcast
-#' @importFrom reshape2 melt
-#' @importFrom lattice barchart trellis.par.get trellis.par.set simpleKey
-#' @importFrom grid gpar
+#' @importFrom dplyr select group_by summarize rename do filter mutate min_rank first ungroup desc
 #' @importFrom graphics layout matplot mtext points polygon segments par axis text legend rect axis.Date abline arrows hist
-#' @importFrom stats as.formula coef na.fail nls pbeta predict sd coefficients
-#' @importFrom grDevices gray rainbow adjustcolor
-#' @importFrom lubridate round_date
-#' @importFrom lubridate floor_date
-#' @importFrom lubridate %m+%
-#' @importFrom lubridate isoweek
-#' @importFrom lubridate years
+#' @importFrom grDevices gray rainbow adjustcolor gray.colors dev.new
+#' @importFrom grid gpar grid.newpage grid.layout pushViewport viewport
 #' @importFrom Hmisc wtd.quantile 
-#' @importFrom Hmisc capitalize 
+#' @importFrom Hmisc capitalize
+#' @importFrom intervals interval_overlap closed<- Intervals 
+#' @importFrom lattice barchart trellis.par.get trellis.par.set simpleKey
+#' @importFrom lubridate round_date floor_date %m+% isoweek years
+#' @importFrom magrittr %>%
 #' @importFrom mgcv gam
-#' @importFrom pool poolClose
-#' @importFrom pool dbExecute
-#' @importFrom pool dbWriteTable
-#' @importFrom pool dbGetQuery
+#' @importFrom pool poolClose dbExecute dbWriteTable dbGetQuery
+#' @importFrom reshape2 dcast melt
+#' @importFrom stats as.formula coef na.fail nls pbeta predict sd coefficients complete.cases sd AIC xtabs ftable
+#' @importFrom utils read.csv stack globalVariables select.list write.table data txtProgressBar
+#' @importFrom withr defer
 NULL
 
 # Variables used in aes arguments generate a note as being assigned to
