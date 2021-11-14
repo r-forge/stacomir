@@ -41,10 +41,12 @@ of the view vue_lot_ope_car
 # launching stacomi without connection to the database
 stacomi(	database_expected=FALSE)
 # If you have a working database
-# the following line of code will create the r_sample_char dataset from the iav (default) schema in the database
+# the following line of code will create the r_sample_char 
+# dataset from the iav (default) schema in the database
 \dontrun{
 	stacomi(database_expected=TRUE)	# uses default option sch = 'iav'
-	# prompt for user and password, you can set these in the options, including dbname and host
+	# prompt for user and password, you can set these in the options, 
+	# including dbname and host
 	if (interactive()){
 		if (!exists("user")){
 			user <- readline(prompt="Enter user: ")

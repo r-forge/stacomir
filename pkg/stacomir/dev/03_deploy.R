@@ -18,10 +18,11 @@ devtools::load_all()
 
 devtools::test() # this will run load_all() see details about classes below for specific tests
 
+devtools::test_coverage()
 devtools::document()
 Sys.setenv("NOT_CRAN"= "true")
 
-
+source(stringr::str_c(getwd(),"/tests/testthat/helper.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-00-stacomir.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-00-zrefclasses.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-01-report_mig_mult.R"))
@@ -37,11 +38,15 @@ test_file(stringr::str_c(getwd(),"/tests/testthat/test-10-report_env.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-11-report_mig_env.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-12-report_mig_char.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-13-report_species.R"))
-
+test_file(stringr::str_c(getwd(),"/tests/testthat/test-14-report_ge_weight.R"))
 devtools::build_readme()
+devtools::build_vignettes()
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check()
+devtools::check( env_vars = c(NOT_CRAN = "false")) 
+# TO SKIP THE TEST AS IN CRAN where skip_on_cran()
+# and try to figure out where tests fail on CRAN
 rhub::check_for_cran()
 
 # Deploy

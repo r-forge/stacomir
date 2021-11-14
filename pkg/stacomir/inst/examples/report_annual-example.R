@@ -37,11 +37,11 @@ xtr_ann<-stacomiR::xtable(r_ann,
 # below not run but one can create a file as following
 \dontrun{
   path=file.path(path.expand(get("datawd",envir=envir_stacomi)),
-	  paste(paste(r_ann@dc@dc_selectionne,collapse="+"),"_",
+	  paste(paste(r_ann@dc@dc_selected,collapse="+"),"_",
 		  paste(r_ann@taxa@data$tax_code,collapse="+"),"_",
 		  paste(r_ann@stage@data$std_code,collapse="+"),"_",
-		  r_ann@anneedebut@annee_selectionnee,":",
-		  r_ann@anneefin@annee_selectionnee,".html",sep=""),fsep ="/")
+		  r_ann@anneedebut@selected_year,":",
+		  r_ann@anneefin@selected_year,".html",sep=""),fsep ="/")
 # here you can add an argument file=path
   print(xtr_ann,type="html")
   
@@ -63,7 +63,7 @@ xtr_ann<-stacomiR::xtable(r_ann,
 # An example with custom arguments for legend.text (overriding plot defauts)
   data(r_ann_adour)
   if (requireNamespace("RColorBrewer", quietly = TRUE)){
-	lesdc<-r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc%in%r_ann_adour@dc@dc_selectionne]
+	lesdc<-r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc%in%r_ann_adour@dc@dc_selected]
     barplot(r_ann_adour,
 		legend.text=lesdc,
 		args.legend=list(x="topleft",bty = "n"),

@@ -4,14 +4,14 @@
 \alias{charge_with_filter,ref_stage-method}
 \title{Loading method for ref_stage referential objects searching only those stages existing for a DC and a Taxon}
 \usage{
-\S4method{charge_with_filter}{ref_stage}(object, dc_selectionne, taxa_selectionne)
+\S4method{charge_with_filter}{ref_stage}(object, dc_selected, taxa_selected)
 }
 \arguments{
 \item{object}{An object of class \link{ref_stage-class}}
 
-\item{dc_selectionne}{The selected counting device}
+\item{dc_selected}{The selected counting device}
 
-\item{taxa_selectionne}{The selected species}
+\item{taxa_selected}{The selected species}
 }
 \value{
 An S4 object of class \link{ref_stage-class}
@@ -21,10 +21,10 @@ Loading method for ref_stage referential objects searching only those stages exi
 }
 \examples{
 \dontrun{
- dc_selectionne=6
-taxa_selectionne=2038
+ dc_selected=6
+taxa_selected=2038
  object=new('ref_stage')
- charge_with_filter(object,dc_selectionne,taxa_selectionne)
+ charge_with_filter(object,dc_selected,taxa_selected)
 }
 }
 \author{

@@ -7,3 +7,5 @@ dev/test_vignette.R
 dev/testthat.R
 dev/cran-comment
 dev.*
+^\.gitlab-ci.yml$
+^LICENSE$

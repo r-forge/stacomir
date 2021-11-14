@@ -5,10 +5,12 @@
 \alias{connect.report_ge_weight}
 \title{connect method for report_Poids_moyen}
 \usage{
-\S4method{connect}{report_ge_weight}(object)
+\S4method{connect}{report_ge_weight}(object, silent = TRUE)
 }
 \arguments{
 \item{object}{An object of class \link{report_ge_weight-class}}
+
+\item{silent}{Should the method be silent}
 }
 \value{
 report_Poids_Moyen request corresponding to user choices, mean weight

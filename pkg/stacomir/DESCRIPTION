@@ -25,7 +25,6 @@ Collate:
     'fungraph.R'
     'fungraph_glasseel.R'
     'funstat.R'
-    'funstat_daily.R'
     'funtable.R'
     'ref_choice.R'
     'ref_coe.R'
@@ -74,10 +73,9 @@ Imports:
     intervals,
     RColorBrewer,
     stringr,
-    RPostgreSQL,
+    RPostgres,
     ggplot2,
     reshape2,
-    sqldf,
     graphics,
     utils,
     stats,

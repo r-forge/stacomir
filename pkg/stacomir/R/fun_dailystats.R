@@ -5,7 +5,8 @@
 #' @param stage A stage
 #' @param DC A counting device
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-funstat_daily = function(tableau, time.sequence, taxa, stage, DC) {
+#' @note to be used in shiny
+fun_dailystats = function(tableau, time.sequence, taxa, stage, DC) {
     mois = months(time.sequence)
     moislab = unique(mois)
     annee = unique(strftime(as.POSIXlt(time.sequence), "%Y"))

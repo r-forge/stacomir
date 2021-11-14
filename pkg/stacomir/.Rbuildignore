@@ -19,3 +19,9 @@ aux$
 log$
 out$
 ^www
+^.*\.Rproj$
+^\.Rproj\.user$
+^doc$
+^Meta$
+^\.gitlab-ci.yml$
+^LICENSE$

@@ -3,7 +3,7 @@
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 libraries=function() {
 necessary = c('ggplot2',
-		'lattice','RColorBrewer','xtable','scales','reshape2','grid','stringr','intervals','RPostgreSQL')  # 'tcltk2','XML', 'Hmisc''svMisc''proto''R2HTML'
+		'lattice','RColorBrewer','xtable','scales','reshape2','grid','stringr','intervals','RPostgres')  # 'tcltk2','XML', 'Hmisc''svMisc''proto''R2HTML'
 if(!all(necessary %in% installed.packages()[, 'Package']))
 	install.packages(necessary[!necessary %in% installed.packages()[, 'Package']], dependencies = TRUE)
 #if (!'XML'%in%installed.packages()[, 'Package']) install.packages("XML", repos = "http://www.omegahat.org/R")
@@ -25,7 +25,7 @@ require('stacomirtools')
 #require('scales')
 #require('intervals')
 ##require('Rcmdr') not done there as is causes the interface to load
-#require('RPostgreSQL')
+#require('RPostgres')
 
 }
 #require('sma')# function is.odd

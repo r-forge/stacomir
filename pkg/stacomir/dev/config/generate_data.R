@@ -1,10 +1,21 @@
 
-
+if (interactive()) {
+	user <- readline(prompt = "Enter user: ")
+	password <- readline(prompt = "Enter password: ")
+	o <- options()
+	options(
+			stacomiR.dbname = "bd_contmig_nat",
+			stacomiR.host = "localhost",
+			stacomiR.port = "5432",
+			stacomiR.user = user,
+			stacomiR.password = password
+	)
+}
 #################################
 # generates a dataset with Durif coefficients
 # source Laurent Beaulaton
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
+
 coef_durif = matrix(NA, nrow = 5, ncol = 6)
 colnames(coef_durif) = c("I", "FII", "FIII", "FIV", "FV", "MII")
 rownames(coef_durif) = c("Constant", "BL", "W", "MD", "FL")
@@ -14,27 +25,16 @@ coef_durif[, 3] = c(-109.014, 0.280,-0.127, 9.108, 1.182)
 coef_durif[, 4] = c(-113.556, 0.218,-0.103, 12.187, 1.230)
 coef_durif[, 5] = c(-128.204, 0.242,-0.136, 12.504, 1.821)
 coef_durif[, 6] = c(-84.672, 0.176,-0.116, 12.218, 1.295)
-devtools::use_data(coef_durif, internal = FALSE, overwrite = TRUE)
+usethis::use_data(coef_durif, internal = FALSE, overwrite = TRUE)
 #################################
 # generates dataset for report_mig_mult
 # from iav three dc with eels
 ##################################
-require(stacomiR)
-stacomi(FALSE, TRUE)
-if (interactive()) {
-  user <- readline(prompt = "Enter user: ")
-  password <- readline(prompt = "Enter password: ")
-  
-}
+
+
+stacomi(TRUE)
 r_mig_mult = new("report_mig_mult")
-o <- options()
-options(
-  stacomiR.dbname = "bd_contmig_nat",
-  stacomiR.host = "localhost",
-  stacomiR.port = "5432",
-  stacomiR.user = user,
-  stacomiR.password = password
-)
+
 sch <- rlang::env_get(envir_stacomi, "sch") # "iav."
 assign("sch", "iav.", envir_stacomi)
 r_mig_mult = choice_c(
@@ -61,8 +61,8 @@ r_mig_mult@taxa@data[, "tax_nom_commun"] <-
 r_mig_mult@stage@data[, "std_libelle"] <-
   iconv(r_mig_mult@stage@data[, "std_libelle"], from = "latin1", to = "UTF8")
 r_mig_mult <- calcule(r_mig_mult, silent = FALSE)
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_mig_mult, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_mig_mult, internal = FALSE, overwrite = TRUE)
 r_mig_mult_ope <- get("report_ope", envir = envir_stacomi)
 r_mig_mult_ope@data$ope_commentaires <-
   iconv(r_mig_mult_ope@data$ope_commentaires,
@@ -82,7 +82,7 @@ r_mig_mult_ope@dc@data[, "type_dc"] <-
 r_mig_mult_ope@dc@data[, "dif_localisation"] <-
   iconv(r_mig_mult_ope@dc@data[, "dif_localisation"], from = "latin1", to =
           "UTF8")
-devtools::use_data(r_mig_mult_ope, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_mult_ope, internal = FALSE, overwrite = TRUE)
 
 
 r_mig_mult_df <- get("report_df", envir = envir_stacomi)
@@ -99,7 +99,7 @@ r_mig_mult_df@data$per_commentaires <-
   iconv(r_mig_mult_df@data$per_commentaires,
         from = "latin1",
         to = "UTF8")
-devtools::use_data(r_mig_mult_df, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_mult_df, internal = FALSE, overwrite = TRUE)
 
 
 r_mig_mult_dc <- get("report_dc", envir = envir_stacomi)
@@ -120,17 +120,23 @@ r_mig_mult_dc@data$per_commentaires <-
         from = "latin1",
         to = "UTF8")
 
-devtools::use_data(r_mig_mult_dc, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_mult_dc, internal = FALSE, overwrite = TRUE)
 #################################
 # generates dataset for report_mig
 # from the vertical slot fishway located at the estuary of the Vilaine (Brittany)
 # Taxa Liza Ramada (Thinlip grey mullet) in 2015
 ##################################
 
-stacomi(database_expected = TRUE)
+stacomi(database_expected = TRUE, sch="iav")
 r_mig = new("report_mig")
-sch <- rlang::env_get(envir_stacomi, "sch") # "iav."
-assign("sch", "iav.", envir_stacomi)
+o <- options()
+options(
+		stacomiR.dbname = "bd_contmig_nat",
+		stacomiR.host = "localhost",
+		stacomiR.port = "5432",
+		stacomiR.user = user,
+		stacomiR.password = password
+)
 r_mig = choice_c(
   r_mig,
   dc = 5,
@@ -155,8 +161,8 @@ r_mig@taxa@data[, "tax_nom_commun"] <-
 r_mig@stage@data[, "std_libelle"] <-
   iconv(r_mig@stage@data[, "std_libelle"], from = "latin1", to = "UTF8")
 r_mig <- calcule(r_mig, silent = TRUE)
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_mig, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_mig, internal = FALSE, overwrite = TRUE)
 
 
 
@@ -176,7 +182,7 @@ r_mig_ope@dc@data[, "type_dc"] <-
 r_mig_ope@dc@data[, "dif_localisation"] <-
   iconv(r_mig_ope@dc@data[, "dif_localisation"], from = "latin1", to = "UTF8")
 
-devtools::use_data(r_mig_ope, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_ope, internal = FALSE, overwrite = TRUE)
 
 
 r_mig_df <- get("report_df", envir = envir_stacomi)
@@ -191,7 +197,7 @@ r_mig_df@data$per_commentaires <-
   iconv(r_mig_df@data$per_commentaires,
         from = "latin1",
         to = "UTF8")
-devtools::use_data(r_mig_df, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_df, internal = FALSE, overwrite = TRUE)
 
 r_mig_dc <- get("report_dc", envir = envir_stacomi)
 r_mig_dc@dc@data[, "ouv_libelle"] <-
@@ -208,12 +214,12 @@ r_mig_dc@data$per_commentaires <-
   iconv(r_mig_dc@data$per_commentaires,
         from = "latin1",
         to = "UTF8")
-devtools::use_data(r_mig_dc, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_dc, internal = FALSE, overwrite = TRUE)
 
 #################################
 # generates dataset for report_df
 ##################################
-require(stacomiR)
+
 stacomi(database_expected = TRUE)
 r_df = new("report_df")
 r_df <- choice_c(
@@ -239,16 +245,16 @@ r_df@data$per_commentaires <-
   iconv(r_df@data$per_commentaires, from = "latin1", to = "UTF8")
 #plot(r_df,plot.type="1")
 #plot(r_df,plot.type="2",title="A nice title")
-setwd("C:/workspace/stacomir/pkg/stacomir")
+
 Sys.setenv(TZ = tz)
-devtools::use_data(r_df, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_df, internal = FALSE, overwrite = TRUE)
 
 
 #################################
 # generates dataset for report_dc
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
+
+
 stacomi(database_expected = TRUE)
 r_dc = new("report_dc")
 r_dc <- choice_c(
@@ -274,14 +280,14 @@ r_dc@dc@data[, "dif_localisation"] <-
   iconv(r_dc@dc@data[, "dif_localisation"], from = "latin1", to = "UTF8")
 r_dc@data$per_commentaires <-
   iconv(r_dc@data$per_commentaires, from = "latin1", to = "UTF8")
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_dc, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_dc, internal = FALSE, overwrite = TRUE)
 Sys.setenv(TZ = tz)
 #################################
 # generates dataset for report_sample_char
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
+
+
 stacomi(database_expected = TRUE)
 r_sample_char <- new("report_sample_char")
 # the following will load data for size,
@@ -332,35 +338,33 @@ r_sample_char@data$val_libelle <-
 r_sample_char@data$par_nom <-
   iconv(r_sample_char@data$par_nom, from = "latin1", to = "UTF8")
 r_sample_char <- calcule(r_sample_char)
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_sample_char, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_sample_char, internal = FALSE, overwrite = TRUE)
 
 #################################
 # generates dataset for report_mig_interannual
+# edited 2021 as stage changed in the db (now PANG)
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
-stacomi(database_expected = TRUE)
-require(stacomiR)
-stacomi(database_expected = TRUE)
 
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "pmp.", envir_stacomi)
+
+
+
+stacomi(database_expected = TRUE, sch ='pmp')
 r_mig_interannual <- new("report_mig_interannual")
 
 r_mig_interannual <- choice_c(
   r_mig_interannual,
   dc = 16,
   taxa = c("Anguilla anguilla"),
-  stage = c("AGJ"),
+  stage = c("PANG"),
   anneedebut = 1984,
   anneefin = 2015,
-  silent = TRUE
+  silent = FALSE
 )
 # this will just test that the object is valid... not really a necessary step for this class
 #r_mig_interannual<-charge(r_mig_interannual,silent=TRUE)
-r_mig_interannual <- connect(r_mig_interannual, silent = TRUE)
-
+r_mig_interannual <- connect(r_mig_interannual, silent = FALSE)
+r_mig_interannual <- calcule(r_mig_interannual, silent = TRUE)
 
 r_mig_interannual@dc@data[, "ouv_libelle"] <-
   iconv(r_mig_interannual@dc@data[, "ouv_libelle"], from = "latin1", to =
@@ -376,16 +380,14 @@ r_mig_interannual@dc@data[, "dif_localisation"] <-
   iconv(r_mig_interannual@dc@data[, "dif_localisation"], from = "latin1", to =
           "UTF8")
 
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_mig_interannual, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_mig_interannual, internal = FALSE, overwrite = TRUE)
 #################################
 # generates dataset for report_annual
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
+
+
 stacomi(database_expected = TRUE)
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "iav.", envir_stacomi)
 r_ann <- new("report_annual")
 r_ann <- choice_c(
   r_ann,
@@ -411,16 +413,15 @@ r_ann@taxa@data[, "tax_nom_commun"] <-
   iconv(r_ann@taxa@data[, "tax_nom_commun"], from = "latin1", to = "UTF8")
 r_ann@stage@data[, "std_libelle"] <-
   iconv(r_ann@stage@data[, "std_libelle"], from = "latin1", to = "UTF8")
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_ann, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_ann, internal = FALSE, overwrite = TRUE)
 
 #################################
 # generates dataset for report_annual : migradour
 ##################################
 
 
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "migradour.", envir_stacomi)
+stacomi(database_expected = TRUE, sch ="migradour")
 r_ann_adour <- new("report_annual")
 r_ann_adour <- choice_c(
   r_ann_adour,
@@ -448,20 +449,17 @@ r_ann_adour@taxa@data[, "tax_nom_commun"] <-
   iconv(r_ann_adour@taxa@data[, "tax_nom_commun"], from = "latin1", to = "UTF8")
 r_ann_adour@stage@data[, "std_libelle"] <-
   iconv(r_ann_adour@stage@data[, "std_libelle"], from = "latin1", to = "UTF8")
-setwd("C:/workspace/stacomir/pkg/stacomir")
-devtools::use_data(r_ann_adour, internal = FALSE, overwrite = TRUE)
+
+usethis::use_data(r_ann_adour, internal = FALSE, overwrite = TRUE)
 
 
 
 #################################
-# generates dataset for reportArgenture : fd80 the somme
+# generates dataset for reportsilver : fd80 the somme
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
-stacomi(database_expected = TRUE)
+
+stacomi(database_expected = TRUE, sch ="fd80")
 r_silver <- new("report_silver_eel")
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "fd80.", envir_stacomi)
 r_silver <- choice_c(
   r_silver,
   dc = c(2, 6),
@@ -496,18 +494,15 @@ r_silver@data$val_libelle <-
 r_silver@data$par_nom <-
   iconv(r_silver@data$par_nom, from = "latin1", to = "UTF8")
 
-devtools::use_data(r_silver, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_silver, internal = FALSE, overwrite = TRUE)
 
 #################################
 # generates dataset for report_ge_weight : iav
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
+
 Sys.setenv(LANG = "EN")
-require(stacomiR)
 stacomi(database_expected = TRUE)
 r_gew <- new("report_ge_weight")
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "iav.", envir_stacomi)
 r_gew@liste <-
   charge(
     object = r_gew@liste,
@@ -534,18 +529,26 @@ r_gew@dc@data[, "type_dc"] <-
 r_gew@dc@data[, "dif_localisation"] <-
   iconv(r_gew@dc@data[, "dif_localisation"], from = "latin1", to = "UTF8")
 r_gew <- calcule(r_gew)
-devtools::use_data(r_gew, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_gew, internal = FALSE, overwrite = TRUE)
 
 
 #################################
 # generates dataset for report_sea_age r_seaa
+#TODO voir avec Marion pourquoi ça charge pas ????
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
-stacomi(database_expected = TRUE)
+
+
+stacomi(database_expected = TRUE, sch="logrami")
+#o <- options()
+#
+#options(
+#		stacomiR.dbname = "bd_contmig_nat",
+#		stacomiR.host = readline(prompt = "Enter host: "),
+#		stacomiR.port = "5432",
+#		stacomiR.user = readline(prompt = "Enter user: "),
+#		stacomiR.password = readline(prompt = "Enter password: ")
+#)
 r_seaa <- new("report_sea_age")
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "logrami.", envir_stacomi)
 
 r_seaa <- choice_c(
   r_seaa,
@@ -585,22 +588,19 @@ r_seaa@data$car_valeur_quantitatif[r_seaa@data$car_par_code == "C001"] <-
   r_seaa@data$car_valeur_quantitatif[r_seaa@data$car_par_code == "C001"] /
   10
 r_seaa <- calcule(r_seaa)
-devtools::use_data(r_seaa, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_seaa, internal = FALSE, overwrite = TRUE)
 
 
 #################################
 # generates dataset for report_mig_interannual with two dc
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
-stacomi(database_expected = TRUE)
+stacomi(database_expected = TRUE, sch="logrami")
 r_mig_interannual_vichy <- new("report_mig_interannual")
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "logrami.", envir_stacomi)
+
 
 r_mig_interannual_vichy <- choice_c(
   r_mig_interannual_vichy,
-  dc = c(107, 108),
+  dc = c(107),
   taxa = c("Salmo salar"),
   stage = c("5"),
   anneedebut = "1997",
@@ -629,15 +629,14 @@ r_mig_interannual_vichy@dc@data[, "dif_localisation"] <-
   iconv(r_mig_interannual_vichy@dc@data[, "dif_localisation"],
         from = "latin1",
         to = "UTF8")
-devtools::use_data(r_mig_interannual_vichy,
+usethis::use_data(r_mig_interannual_vichy,
                    internal = FALSE,
                    overwrite = TRUE)
 
 #################################
 # generates dataset for report_env
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
+
 stacomi(database_expected = TRUE)
 r_env <- new("report_env")
 r_env <- choice_c(
@@ -652,17 +651,15 @@ r_env@stationMesure@data$stm_description <-
   iconv(r_env@stationMesure@data$stm_description,
         from = "latin1",
         to = "UTF8")
-devtools::use_data(r_env, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_env, internal = FALSE, overwrite = TRUE)
 
 #################################
 # generates dataset for report_mig_char
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
-stacomi(database_expected = TRUE)
+
+stacomi(database_expected = TRUE, sch = "logrami")
 r_mig_char <- new("report_mig_char")
-sch <- rlang::env_get(envir_stacomi, "sch")
-assign("sch", "logrami.", envir_stacomi)
+
 # here parqual is not in the list
 # so this is equivalent to parqual=NULL
 r_mig_char <- choice_c(
@@ -687,14 +684,13 @@ r_mig_char@dc@data[, "type_dc"] <-
   iconv(r_mig_char@dc@data[, "type_dc"], from = "latin1", to = "UTF8")
 r_mig_char@dc@data[, "dif_localisation"] <-
   iconv(r_mig_char@dc@data[, "dif_localisation"], from = "latin1", to = "UTF8")
-devtools::use_data(r_mig_char, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_char, internal = FALSE, overwrite = TRUE)
 
 
 #################################
 # generates dataset for report_mig_env
 ##################################
-setwd("C:/workspace/stacomir/pkg/stacomir")
-require(stacomiR)
+
 stacomi(database_expected = TRUE)
 
 r_mig_env <- new("report_mig_env")
@@ -743,4 +739,4 @@ r_mig_env@report_mig_mult@stage@data[, "std_libelle"] <-
         from = "latin1",
         to = "UTF8")
 
-devtools::use_data(r_mig_env, internal = FALSE, overwrite = TRUE)
+usethis::use_data(r_mig_env, internal = FALSE, overwrite = TRUE)
