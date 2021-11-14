@@ -2,8 +2,7 @@
 % Please edit documentation in R/ref_par.R
 \name{charge,ref_par-method}
 \alias{charge,ref_par-method}
-\alias{charge.ref_par}
-\title{Loading method for ref_par referential objects}
+\title{Loading method for Repar referential objects}
 \usage{
 \S4method{charge}{ref_par}(object)
 }
@@ -14,7 +13,7 @@
 An S4 object of class ref_par
 }
 \description{
-Loading method for ref_par referential objects
+Loading method for Repar referential objects
 }
 \examples{
 \dontrun{

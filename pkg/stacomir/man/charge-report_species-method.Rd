@@ -3,7 +3,7 @@
 \name{charge,report_species-method}
 \alias{charge,report_species-method}
 \alias{charge.report_species}
-\title{charge method for report_species}
+\title{handler for calculation}
 \usage{
 \S4method{charge}{report_species}(object, silent = FALSE)
 }
@@ -11,15 +11,44 @@
 \item{object}{An object of class \link{report_species-class}}
 
 \item{silent}{Stops displaying the messages.}
+
+\item{h}{a handler}
+
+\item{...}{Additional parameters}
 }
 \value{
 report_species with slots filled by user choice
 }
 \description{
-Verifies the content of objects when the graphical interface is used, it is not necessary
-to call the charge method if the choice_c method has been used
+internal use
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+
+Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
+\keyword{Verifies}
+\keyword{been}
+\keyword{call}
+\keyword{charge}
+\keyword{choice_c}
+\keyword{content}
+\keyword{for}
+\keyword{graphical}
+\keyword{has}
+\keyword{if}
+\keyword{interface}
 \keyword{internal}
+\keyword{is}
+\keyword{it}
+\keyword{method}
+\keyword{necessary}
+\keyword{not}
+\keyword{objects}
+\keyword{of}
+\keyword{report_species}
+\keyword{the}
+\keyword{to}
+\keyword{used}
+\keyword{used,}
+\keyword{when}

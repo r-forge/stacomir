@@ -3,7 +3,7 @@
 \name{plot,report_ge_weight,missing-method}
 \alias{plot,report_ge_weight,missing-method}
 \alias{plot.report_ge_weight}
-\title{Plot method for report_ge_weight'}
+\title{Internal handler for reg, class \code{\link{report_ge_weight-class}}.}
 \usage{
 \S4method{plot}{report_ge_weight,missing}(x, plot.type = 1, silent = FALSE)
 }
@@ -15,9 +15,13 @@ and end of operation). The ggplot 'p' can be accessed from envir_stacomi using \
 '3' same as '1' but with size according to number.}
 
 \item{silent}{Stops displaying the messages.}
+
+\item{h}{handler}
+
+\item{\dots}{additional arguments passed to the function}
 }
 \description{
-Plot method for report_ge_weight'
+Internal handler for reg, class \code{\link{report_ge_weight-class}}.
 }
 \note{
 the model method provides plots for the fitted models
@@ -25,3 +29,8 @@ the model method provides plots for the fitted models
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
+\keyword{Plot}
+\keyword{for}
+\keyword{internal}
+\keyword{method}
+\keyword{report_ge_weight'}

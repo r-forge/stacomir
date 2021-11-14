@@ -4,16 +4,16 @@
 \alias{charge_with_filter,ref_parqual-method}
 \title{Loading method for Reparqual referential objects searching only those parameters existing for a DC, a Taxon, and a stage}
 \usage{
-\S4method{charge_with_filter}{ref_parqual}(object, dc_selected, taxa_selected, stage_selected)
+\S4method{charge_with_filter}{ref_parqual}(object, dc_selectionne, taxa_selectionne, stage_selectionne)
 }
 \arguments{
 \item{object}{An object of class \link{ref_parqual-class}}
 
-\item{dc_selected}{The dc set in the report object}
+\item{dc_selectionne}{The dc set in the report object}
 
-\item{taxa_selected}{The taxa set in the report object}
+\item{taxa_selectionne}{The taxa set in the report object}
 
-\item{stage_selected}{The stage set in the report object}
+\item{stage_selectionne}{The stage set in the report object}
 }
 \value{
 An S4 object of class \link{ref_parqual-class}
@@ -23,11 +23,11 @@ Loading method for Reparqual referential objects searching only those parameters
 }
 \examples{
 \dontrun{
- dc_selected=6
- taxa_selected=2038
- stage_selected='AGJ'
+ dc_selectionne=6
+ taxa_selectionne=2038
+ stage_selectionne='AGJ'
  object=new('ref_parqual')
- charge_with_filter(object,dc_selected,taxa_selected,stage_selected)
+ charge_with_filter(object,dc_selectionne,taxa_selectionne,stage_selectionne)
 }
 }
 \author{

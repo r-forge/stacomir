@@ -5,7 +5,7 @@
 \alias{ref_df-class}
 \title{Class 'ref_df'}
 \arguments{
-\item{df_selected}{Object of class \code{'integer'} The identifier of the fishway}
+\item{df_selectionne}{Object of class \code{'integer'} The identifier of the fishway}
 
 \item{ouvrage}{Object of class \code{'integer'} The attached dam}
 
@@ -15,7 +15,7 @@
 Representation of a fishway, contains description data of all fishways from
 the database along with the selected fishways (df) (integer)
 Objects from the Class: Objects can be created by calls of the form
-\code{new('ref_df', df_selected=integer(), ouvrage=integer(),
+\code{new('ref_df', df_selectionne=integer(), ouvrage=integer(),
 data=data.frame())}.
 }
 \seealso{

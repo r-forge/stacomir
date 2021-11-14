@@ -2,7 +2,6 @@
 % Please edit documentation in R/ref_par.R
 \name{choice_c,ref_par-method}
 \alias{choice_c,ref_par-method}
-\alias{choice_c.ref_par}
 \title{Command line interface to select a parameter}
 \usage{
 \S4method{choice_c}{ref_par}(object, par, silent = FALSE)

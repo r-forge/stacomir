@@ -19,9 +19,9 @@ this method is loaded to obtain the possible values of a qualitative parameter. 
 }
 \examples{
 \dontrun{
- dc_selected=6
-taxa_selected=2038
- stage_selected='AGJ'
+ dc_selectionne=6
+taxa_selectionne=2038
+ stage_selectionne='AGJ'
  object=new('ref_parqual')
  object<-charge(object)
  charge_complement(object)

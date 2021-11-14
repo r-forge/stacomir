@@ -2,8 +2,7 @@
 % Please edit documentation in R/ref_horodate.R
 \name{choice_c,ref_horodate-method}
 \alias{choice_c,ref_horodate-method}
-\alias{choice_c.ref_horodate}
-\title{Choice_c method for ref_horodate}
+\title{Graphical interface}
 \usage{
 \S4method{choice_c}{ref_horodate}(
   object,
@@ -25,11 +24,19 @@ can also be passed with the date set to the minute \%d/\%m/\%Y \%H:\%M or the da
 \dots are accepted. The choice_c method assigns and}
 
 \item{silent}{Default FALSE, should messages be displayed}
+
+\item{label}{Label for the gframe}
+
+\item{decal}{Default 0, number of years to shift forward or backward}
 }
 \value{
+Selects the date in the graphical interface, and assigns an object of class POSIXt with name nomassign in envir_stacomi
+Command line
+
 An object of class \link{ref_horodate-class} with slot \emph{horodate} set,
  and assigns an object of class POSIXt with name nomassign in envir_stacomi
 }
 \description{
-Choice_c method for ref_horodate
+Graphical interface
 }
+\keyword{internal}

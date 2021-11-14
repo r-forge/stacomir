@@ -12,12 +12,12 @@ Class used to select one or several years
 \describe{
 \item{\code{data}}{A \code{data.frame} with the list of possible years selected as numerics}
 
-\item{\code{selected_year}}{A numeric vector}
+\item{\code{annee_selectionnee}}{A numeric vector}
 }}
 
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new("ref_year", data=data.frame(), selected_year=numeric())}.
+\code{new("ref_year", data=data.frame(), annee_selectionnee=numeric())}.
 }
 
 \seealso{

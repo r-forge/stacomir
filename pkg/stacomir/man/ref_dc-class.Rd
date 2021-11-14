@@ -10,7 +10,7 @@ Description of a control device.
 \section{Slots}{
 
 \describe{
-\item{\code{dc_selected}}{Object of class \code{'integer'}, The selected device}
+\item{\code{dc_selectionne}}{Object of class \code{'integer'}, The selected device}
 
 \item{\code{ouvrage}}{Object of class \code{'integer'}, the attached dam}
 
@@ -22,7 +22,7 @@ table of escapements calculated at the station level.}
 
 \section{Objects from the Class}{
  Objects can be created by calls of the form
-\code{new('ref_dc', dc_selected=integer(), ouvrage=integer(),
+\code{new('ref_dc', dc_selectionne=integer(), ouvrage=integer(),
 data=data.frame())}.
 }
 

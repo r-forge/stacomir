@@ -2,30 +2,29 @@
 % Please edit documentation in R/ref_par.R
 \name{charge_with_filter,ref_par-method}
 \alias{charge_with_filter,ref_par-method}
-\alias{charge_with_filter.ref_par}
-\title{Loading method for \code{ref_par referential} objects searching only those parameters existing for a DC, a Taxa, and a stage}
+\title{Loading method for Repar referential objects searching only those parameters existing for a DC, a Taxa, and a stage}
 \usage{
-\S4method{charge_with_filter}{ref_par}(object, dc_selected, taxa_selected, stage_selected)
+\S4method{charge_with_filter}{ref_par}(object, dc_selectionne, taxa_selectionne, stage_selectionne)
 }
 \arguments{
 \item{object}{An object of class \link{ref_par-class}}
 
-\item{dc_selected}{A counting device selected for the report}
+\item{dc_selectionne}{A counting device selected for the report}
 
-\item{taxa_selected}{The taxa selected for the report}
+\item{taxa_selectionne}{The taxa selected for the report}
 
-\item{stage_selected}{The stage selected for the report}
+\item{stage_selectionne}{The stage selected for the report}
 }
 \value{
 An S4 object of class ref_par
 }
 \description{
-Loading method for \code{ref_par referential} objects searching only those parameters existing for a DC, a Taxa, and a stage
+Loading method for Repar referential objects searching only those parameters existing for a DC, a Taxa, and a stage
 }
 \examples{
 \dontrun{
  object=new('ref_par')
-charge_with_filter(object,dc_selected=6,taxa_selected=2038,stage_selected=c('AGJ','CIV')
+charge_with_filter(object,dc_selectionne=6,taxa_selectionne=2038,stage_selectionne=c('AGJ','CIV')
 }
 }
 \author{

@@ -2,8 +2,7 @@
 % Please edit documentation in R/ref_list.R
 \name{charge,ref_list-method}
 \alias{charge,ref_list-method}
-\alias{charge.ref_list}
-\title{Loading method for ref_list referential objects}
+\title{Loading method for refliste referential objects}
 \usage{
 \S4method{charge}{ref_list}(object, listechoice, label)
 }
@@ -18,7 +17,7 @@
 An object of class ref_list
 }
 \description{
-Loading method for ref_list referential objects
+Loading method for refliste referential objects
 }
 \examples{
 \dontrun{
