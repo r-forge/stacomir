@@ -1,7 +1,7 @@
 
 
 #' @import ggplot2
-#' @import RPostgreSQL
+#' @import RPostgres
 #' @import methods
 #' @import RColorBrewer
 #' @import stacomirtools

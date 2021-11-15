@@ -23,19 +23,17 @@ options(
 		stacomiR.user = user,
 		stacomiR.user = password						
 )	
-  r_mig_mult=new("report_mig_mult")
-  r_mig_mult=choice_c(r_mig_mult,
+  r_mig_mult <- new("report_mig_mult")
+  r_mig_mult <- choice_c(r_mig_mult,
 	  dc=c(5,6,12),
 	  taxa=c("Anguilla anguilla"),
 	  stage=c("AGG","AGJ","CIV"),datedebut="2011-01-01",datefin="2011-12-31")
-  r_mig_mult<-charge(r_mig_mult)
+  r_mig_mult <- charge(r_mig_mult)
   # launching charge will also load classes associated with the report
   # e.g. report_ope, report_df, report_dc
-  r_mig_mult<-connect(r_mig_mult)
+  r_mig_mult <- connect(r_mig_mult)
   # calculations 
-  r_mig_mult<-calcule(r_mig_mult,silent=TRUE)
- 
-
+  r_mig_mult <- calcule(r_mig_mult,silent=TRUE)
 }
 
 # Use this as example if you don't have a connexion to the database
@@ -53,11 +51,11 @@ assign("report_dc",r_mig_mult_dc,envir=envir_stacomi)
 # not shown there as the database and program might not be installed
 
 #Individual plot for all DC, taxa and stage where data present
-#Silent=TRUE to turn off messages
-# not run because of multiple graphical devices
 
+
+
+\dontrun{	
 plot(r_mig_mult,plot.type="standard",silent=TRUE)
-\dontrun{
 # colors in the following order (glass eel)
 # working, stopped, 1...5 types of operation,numbers, weight, 2 unused colors
 # for yellow eel and other taxa
