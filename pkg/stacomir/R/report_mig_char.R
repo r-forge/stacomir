@@ -35,23 +35,32 @@
 #' @example inst/examples/report_mig_char-example.R
 #' @keywords classes
 #' @export
-setClass(Class = "report_mig_char", representation = representation(echantillon = "ref_choice",
-    calcdata = "list", parqual = "ref_parqual", parquan = "ref_parquan"), prototype = list(data = list(),
-    echantillon = new("ref_choice", listechoice = gettext(c("with", "without"), domain = "stacomiR"),
-        selectedvalue = gettext("with", domain = "stacomiR")), calcdata = list(),
-    parqual = new("ref_parqual"), parquan = new("ref_parquan")), contains = "report_sample_char")
+setClass(Class = "report_mig_char", 
+		representation = representation(
+				echantillon = "ref_choice",
+				calcdata = "list", 
+				parqual = "ref_parqual", 
+				parquan = "ref_parquan"), 
+		prototype = list(
+				data = list(),
+				echantillon = new("ref_choice", listechoice = c("with", "without"),
+						selectedvalue = "with"), 
+				calcdata = list(),
+				parqual = new("ref_parqual"),
+				parquan = new("ref_parquan")),
+		contains = "report_sample_char")
 
 
 setValidity("report_mig_char", function(object) {
-    retValue = ""
-    rep4 <- length(object@taxa) == 1
-    if (!rep4)
-        retValue = gettext("This report should be for just one taxa")
-    rep5 <- length(object@parqual) == 1 | length(object@parquan) == 1
-    if (!rep5)
-        retValue = gettext("length(object@parqual)==1|length(object@parquan)==1 not TRUE")
-    return(ifelse(rep4 & rep5, TRUE, retValue))
-})
+			retValue = ""
+			rep4 <- length(object@taxa) == 1
+			if (!rep4)
+				retValue = gettext("This report should be for just one taxa")
+			rep5 <- length(object@parqual) == 1 | length(object@parquan) == 1
+			if (!rep5)
+				retValue = gettext("length(object@parqual)==1|length(object@parquan)==1 not TRUE")
+			return(ifelse(rep4 & rep5, TRUE, retValue))
+		})
 
 
 #' command line interface for report_mig_char class
@@ -63,9 +72,9 @@ setValidity("report_mig_char", function(object) {
 #' @param parquan Quantitative parameter
 #' @param parqual Qualitative parameter
 #' @param horodatedebut The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input
-#' @param horodatefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
-#' @param echantillon Default 'with' can be 'without' (values 'avec' and 'sans') are accepted, checking without modifies the query
-#' in the connect method so that subsamples are not allowed, 
+#' @param horodatefin The finishing date of the report, for this class this will be used to calculate the number of daily steps
+#' @param echantillon 'with' can be 'without', checking without modifies the query
+#' in the connect method so that subsamples are not allowed 
 #' @param silent Default FALSE, if TRUE the program should no display messages
 #' @return An object of class \link{report_sea_age-class}
 #' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then 
@@ -73,44 +82,44 @@ setValidity("report_mig_char", function(object) {
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases choice_c.report_mig_char
 setMethod("choice_c", signature = signature("report_mig_char"), definition = function(object,
-    dc, taxa, stage, parquan = NULL, parqual = NULL, horodatedebut, horodatefin,
-    echantillon = gettext("with", domain = "R-stacomiR"), silent = FALSE) {
-    # code for debug using example
-    # horodatedebut='2012-01-01';horodatefin='2013-12-31';dc=c(107,108,101);taxa=2220;stage=c('5','11','BEC','BER','IND');parquan=c('1786','1785','C001','A124');parqual='COHO';silent=FALSE
-    r_mig_char <- object
-    r_mig_char@dc = charge(r_mig_char@dc)
-    r_mig_char@dc <- choice_c(object = r_mig_char@dc, dc)
-    r_mig_char@taxa <- charge_with_filter(object = r_mig_char@taxa, r_mig_char@dc@dc_selected)
-    r_mig_char@taxa <- choice_c(r_mig_char@taxa, taxa)
-    r_mig_char@stage <- charge_with_filter(object = r_mig_char@stage, r_mig_char@dc@dc_selected,
-        r_mig_char@taxa@data$tax_code)
-    r_mig_char@stage <- choice_c(r_mig_char@stage, stage, silent = silent)
-    r_mig_char@parquan <- charge_with_filter(object = r_mig_char@parquan, dc_selected = r_mig_char@dc@dc_selected,
-        taxa_selected = r_mig_char@taxa@data$tax_code, stage_selected = r_mig_char@stage@data$std_code)
-    if (!is.null(parquan))
-        r_mig_char@parquan <- choice_c(r_mig_char@parquan, parquan, silent = silent)
-    # the method choice_c is written in ref_par, and each time
-    assign("ref_parquan", r_mig_char@parquan, envir_stacomi)
-    r_mig_char@parqual <- charge_with_filter(object = r_mig_char@parqual, r_mig_char@dc@dc_selected,
-        r_mig_char@taxa@data$tax_code, r_mig_char@stage@data$std_code)
-    if (!is.null(parqual)) {
-        r_mig_char@parqual <- choice_c(r_mig_char@parqual, parqual, silent = silent)
-        r_mig_char@parqual <- charge_complement(r_mig_char@parqual)
-    }
-    assign("ref_parqual", r_mig_char@parqual, envir_stacomi)
-    r_mig_char@horodatedebut <- choice_c(object = r_mig_char@horodatedebut, nomassign = "bmC_date_debut",
-        funoutlabel = gettext("Beginning date has been chosen\n", domain = "R-stacomiR"),
-        horodate = horodatedebut, silent = silent)
-    r_mig_char@horodatefin <- choice_c(r_mig_char@horodatefin, nomassign = "bmC_date_fin",
-        funoutlabel = gettext("Ending date has been chosen\n", domain = "R-stacomiR"),
-        horodate = horodatefin, silent = silent)
-    r_mig_char@echantillon <- charge(r_mig_char@echantillon, vecteur = c(gettext("with",
-        domain = "R-stacomiR"), gettext("without", domain = "R-stacomiR")), label = "essai",
-        selected = as.integer(1))
-    r_mig_char@echantillon <- choice_c(r_mig_char@echantillon, selectedvalue = echantillon)
-    validObject(r_mig_char)
-    return(r_mig_char)
-})
+				dc, taxa, stage, parquan = NULL, parqual = NULL, horodatedebut, horodatefin,
+				echantillon = c("with","without"), silent = FALSE) {
+			echantillon <-  match.arg(echantillon)
+			# code for debug using example
+			# horodatedebut='2012-01-01';horodatefin='2013-12-31';dc=c(107,108,101);taxa=2220;stage=c('5','11','BEC','BER','IND');parquan=c('1786','1785','C001','A124');parqual='COHO';silent=FALSE
+			r_mig_char <- object
+			r_mig_char@dc = charge(r_mig_char@dc)
+			r_mig_char@dc <- choice_c(object = r_mig_char@dc, dc)
+			r_mig_char@taxa <- charge_with_filter(object = r_mig_char@taxa, r_mig_char@dc@dc_selected)
+			r_mig_char@taxa <- choice_c(r_mig_char@taxa, taxa)
+			r_mig_char@stage <- charge_with_filter(object = r_mig_char@stage, r_mig_char@dc@dc_selected,
+					r_mig_char@taxa@data$tax_code)
+			r_mig_char@stage <- choice_c(r_mig_char@stage, stage, silent = silent)
+			r_mig_char@parquan <- charge_with_filter(object = r_mig_char@parquan, dc_selected = r_mig_char@dc@dc_selected,
+					taxa_selected = r_mig_char@taxa@data$tax_code, stage_selected = r_mig_char@stage@data$std_code)
+			if (!is.null(parquan))
+				r_mig_char@parquan <- choice_c(r_mig_char@parquan, parquan, silent = silent)
+			# the method choice_c is written in ref_par, and each time
+			assign("ref_parquan", r_mig_char@parquan, envir_stacomi)
+			r_mig_char@parqual <- charge_with_filter(object = r_mig_char@parqual, r_mig_char@dc@dc_selected,
+					r_mig_char@taxa@data$tax_code, r_mig_char@stage@data$std_code)
+			if (!is.null(parqual)) {
+				r_mig_char@parqual <- choice_c(r_mig_char@parqual, parqual, silent = silent)
+				r_mig_char@parqual <- charge_complement(r_mig_char@parqual)
+			}
+			assign("ref_parqual", r_mig_char@parqual, envir_stacomi)
+			r_mig_char@horodatedebut <- choice_c(object = r_mig_char@horodatedebut, nomassign = "bmC_date_debut",
+					funoutlabel = gettext("Beginning date has been chosen\n", domain = "R-stacomiR"),
+					horodate = horodatedebut, silent = silent)
+			r_mig_char@horodatefin <- choice_c(r_mig_char@horodatefin, nomassign = "bmC_date_fin",
+					funoutlabel = gettext("Ending date has been chosen\n", domain = "R-stacomiR"),
+					horodate = horodatefin, silent = silent)
+			r_mig_char@echantillon <- charge(r_mig_char@echantillon, vecteur = c("with","without"), label = "essai",
+					selected = as.integer(1))
+			r_mig_char@echantillon <- choice_c(r_mig_char@echantillon, selectedvalue = echantillon)
+			validObject(r_mig_char)
+			return(r_mig_char)
+		})
 
 #' charge method for report_mig_char
 #' 
@@ -124,62 +133,62 @@ setMethod("choice_c", signature = signature("report_mig_char"), definition = fun
 #' @aliases charge.report_mig_char
 #' @keywords internal
 setMethod("charge", signature = signature("report_mig_char"), definition = function(object,
-    silent = FALSE) {
-    r_mig_char <- object
-    if (exists("bmC_date_debut", envir_stacomi)) {
-        r_mig_char@horodatedebut@horodate <- get("bmC_date_debut", envir_stacomi)
-    } else {
-        funout(gettext("You need to choose the starting date\n", domain = "R-stacomiR"),
-            arret = TRUE)
-    }
-    if (exists("bmC_date_fin", envir_stacomi)) {
-        r_mig_char@horodatefin@horodate <- get("bmC_date_fin", envir_stacomi)
-    } else {
-        funout(gettext("You need to choose the ending date\n", domain = "R-stacomiR"),
-            arret = TRUE)
-    }
-
-    if (exists("ref_dc", envir_stacomi)) {
-        r_mig_char@dc <- get("ref_dc", envir_stacomi)
-    } else {
-        funout(gettext("You need to choose a counting device, clic on validate\n",
-            domain = "R-stacomiR"), arret = TRUE)
-    }
-    if (exists("ref_taxa", envir_stacomi)) {
-        r_mig_char@taxa <- get("ref_taxa", envir_stacomi)
-    } else {
-        funout(gettext("You need to choose a taxa, clic on validate\n", domain = "R-stacomiR"),
-            arret = TRUE)
-    }
-    if (exists("ref_stage", envir_stacomi)) {
-        r_mig_char@stage <- get("ref_stage", envir_stacomi)
-    } else {
-        funout(gettext("You need to choose a stage, clic on validate\n", domain = "R-stacomiR"),
-            arret = TRUE)
-    }
-
-    if (exists("refchoice", envir_stacomi)) {
-        r_mig_char@echantillon <- get("refchoice", envir_stacomi)
-    } else {
-        r_mig_char@echantillon@listechoice <- gettext("with", domain = "R-stacomiR")
-        r_mig_char@echantillon@selected <- as.integer(1)
-    }
-
-    if (!(exists("ref_parquan", envir_stacomi) | exists("ref_parqual", envir_stacomi))) {
-        funout(gettext("You need to choose at least one parameter qualitative or quantitative\n",
-            domain = "R-stacomiR"), arret = TRUE)
-    }
-
-    if (exists("ref_parquan", envir_stacomi)) {
-        r_mig_char@parquan <- get("ref_parquan", envir_stacomi)
-    }
-    if (exists("ref_parqual", envir_stacomi)) {
-        r_mig_char@parqual <- get("ref_parqual", envir_stacomi)
-    }
-
-    stopifnot(validObject(r_mig_char, test = TRUE))
-    return(r_mig_char)
-})
+				silent = FALSE) {
+			r_mig_char <- object
+			if (exists("bmC_date_debut", envir_stacomi)) {
+				r_mig_char@horodatedebut@horodate <- get("bmC_date_debut", envir_stacomi)
+			} else {
+				funout(gettext("You need to choose the starting date\n", domain = "R-stacomiR"),
+						arret = TRUE)
+			}
+			if (exists("bmC_date_fin", envir_stacomi)) {
+				r_mig_char@horodatefin@horodate <- get("bmC_date_fin", envir_stacomi)
+			} else {
+				funout(gettext("You need to choose the ending date\n", domain = "R-stacomiR"),
+						arret = TRUE)
+			}
+			
+			if (exists("ref_dc", envir_stacomi)) {
+				r_mig_char@dc <- get("ref_dc", envir_stacomi)
+			} else {
+				funout(gettext("You need to choose a counting device, clic on validate\n",
+								domain = "R-stacomiR"), arret = TRUE)
+			}
+			if (exists("ref_taxa", envir_stacomi)) {
+				r_mig_char@taxa <- get("ref_taxa", envir_stacomi)
+			} else {
+				funout(gettext("You need to choose a taxa, clic on validate\n", domain = "R-stacomiR"),
+						arret = TRUE)
+			}
+			if (exists("ref_stage", envir_stacomi)) {
+				r_mig_char@stage <- get("ref_stage", envir_stacomi)
+			} else {
+				funout(gettext("You need to choose a stage, clic on validate\n", domain = "R-stacomiR"),
+						arret = TRUE)
+			}
+			
+			if (exists("refchoice", envir_stacomi)) {
+				r_mig_char@echantillon <- get("refchoice", envir_stacomi)
+			} else {
+				r_mig_char@echantillon@listechoice <- gettext("with", domain = "R-stacomiR")
+				r_mig_char@echantillon@selected <- as.integer(1)
+			}
+			
+			if (!(exists("ref_parquan", envir_stacomi) | exists("ref_parqual", envir_stacomi))) {
+				funout(gettext("You need to choose at least one parameter qualitative or quantitative\n",
+								domain = "R-stacomiR"), arret = TRUE)
+			}
+			
+			if (exists("ref_parquan", envir_stacomi)) {
+				r_mig_char@parquan <- get("ref_parquan", envir_stacomi)
+			}
+			if (exists("ref_parqual", envir_stacomi)) {
+				r_mig_char@parqual <- get("ref_parqual", envir_stacomi)
+			}
+			
+			stopifnot(validObject(r_mig_char, test = TRUE))
+			return(r_mig_char)
+		})
 
 #' connect method for report_mig_char
 #' 
@@ -190,58 +199,58 @@ setMethod("charge", signature = signature("report_mig_char"), definition = funct
 #' @return report_mig_char with slot @data filled from the database
 #' @aliases connect.report_mig_char
 setMethod("connect", signature = signature("report_mig_char"), definition = function(object,
-    silent = FALSE) {
-    r_mig_char <- object
-    if (r_mig_char@echantillon@selectedvalue == r_mig_char@echantillon@listechoice[2]) {
-        echantillons = " AND lot_pere IS NULL"
-    } else {
-        echantillons = ""
-    }
-    # data can be selected but not in the database or the inverse
-    parquan <- intersect(r_mig_char@parquan@par_selected, r_mig_char@parquan@data$par_code)
-    parqual <- intersect(r_mig_char@parqual@par_selected, r_mig_char@parqual@data$par_code)
-    if (length(parquan) == 0 & length(parqual) == 0) {
-        stop("You need to choose at least one quantitative or qualitative attribute")
-    } else {
-        if (length(parqual) != 0)
-            {
-                # caracteristique qualitative
-                req = new("RequeteDB")
-                # this query will get characteristics from lot_pere when null
-                req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
-                  " lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
-                  " car_val_identifiant,", " ope_dic_identifiant,", " lot_tax_code,",
-                  " lot_std_code,", " car_par_code", " FROM ", get_schema(), "vue_ope_lot_ech_parqual", " WHERE ope_dic_identifiant in ",
-                  vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
-                  " AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
-                  " AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
-                  " AND car_par_code in ", vector_to_listsql(parqual), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
-                  r_mig_char@horodatedebut@horodate, "', TIMESTAMP '", r_mig_char@horodatefin@horodate,
-                  "')", sep = "")
-                r_mig_char@data[["parqual"]] <- query(req)@query
-            }  # end if (parqual)
-        if (length(parquan) != 0)
-            {
-                # Caracteristique quantitative
-                req = new("RequeteDB")
-                # we round the date to be consistent with daily values from the
-                req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
-                  " lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
-                  " car_valeur_quantitatif,", " ope_dic_identifiant,", " lot_tax_code,",
-                  " lot_std_code,", " car_par_code", " FROM ", get_schema(),
-									"vue_ope_lot_ech_parquan", " WHERE ope_dic_identifiant in ",
-                  vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
-                  " AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
-                  " AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
-                  " AND car_par_code in ", vector_to_listsql(parquan), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
-                  r_mig_char@horodatedebut@horodate, "', TIMESTAMP '", r_mig_char@horodatefin@horodate,
-                  "')", sep = "")
-
-                r_mig_char@data[["parquan"]] <- query(req)@query
-            }  # end if (parquan)
-    }  # end else  
-    return(r_mig_char)
-})
+				silent = FALSE) {
+			r_mig_char <- object
+			if (r_mig_char@echantillon@selectedvalue == "without") {
+				echantillons = " AND lot_pere IS NULL"
+			} else {
+				echantillons = ""
+			}
+			# data can be selected but not in the database or the inverse
+			parquan <- intersect(r_mig_char@parquan@par_selected, r_mig_char@parquan@data$par_code)
+			parqual <- intersect(r_mig_char@parqual@par_selected, r_mig_char@parqual@data$par_code)
+			if (length(parquan) == 0 & length(parqual) == 0) {
+				stop("You need to choose at least one quantitative or qualitative attribute")
+			} else {
+				if (length(parqual) != 0)
+				{
+					# caracteristique qualitative
+					req = new("RequeteDB")
+					# this query will get characteristics from lot_pere when null
+					req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
+							" lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
+							" car_val_identifiant,", " ope_dic_identifiant,", " lot_tax_code,",
+							" lot_std_code,", " car_par_code", " FROM ", get_schema(), "vue_ope_lot_ech_parqual", " WHERE ope_dic_identifiant in ",
+							vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
+							" AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
+							" AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
+							" AND car_par_code in ", vector_to_listsql(parqual), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
+							r_mig_char@horodatedebut@horodate, "', TIMESTAMP '", r_mig_char@horodatefin@horodate,
+							"')", sep = "")
+					r_mig_char@data[["parqual"]] <- query(req)@query
+				}  # end if (parqual)
+				if (length(parquan) != 0)
+				{
+					# Caracteristique quantitative
+					req = new("RequeteDB")
+					# we round the date to be consistent with daily values from the
+					req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
+							" lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
+							" car_valeur_quantitatif,", " ope_dic_identifiant,", " lot_tax_code,",
+							" lot_std_code,", " car_par_code", " FROM ", get_schema(),
+							"vue_ope_lot_ech_parquan", " WHERE ope_dic_identifiant in ",
+							vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
+							" AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
+							" AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
+							" AND car_par_code in ", vector_to_listsql(parquan), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
+							r_mig_char@horodatedebut@horodate, "', TIMESTAMP '", r_mig_char@horodatefin@horodate,
+							"')", sep = "")
+					
+					r_mig_char@data[["parquan"]] <- query(req)@query
+				}  # end if (parquan)
+			}  # end else  
+			return(r_mig_char)
+		})
 
 # deprecated0.6
 ##' handler for report_mig_char
@@ -262,44 +271,44 @@ setMethod("connect", signature = signature("report_mig_char"), definition = func
 #' @param ... Additional parms to the cut method \link[base]{cut}   
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("setasqualitative", signature = signature("report_mig_char"), definition = function(object,
-    par, silent = FALSE, ...) {
-    r_mig_char <- object
-    # par <-'A124' ========= initial checks ================
-    if (class(par) != "character")
-        stop("par should be a character")
-    if (nrow(r_mig_char@data[["parquan"]]) == 0)
-        funout(gettext("No data for quantitative parameter, perhaps you forgot to run the calcule method"))
-    if (!par %in% r_mig_char@parquan@par_selected)
-        funout(gettextf("The parameter %s is not in the selected parameters", par),
-            arret = TRUE)
-    if (!par %in% r_mig_char@parquan@data$par_code)
-        funout(gettextf("No data for this parameter, nothing to do", par), arret = TRUE)
-    # =============================================
-    tab <- r_mig_char@data[["parquan"]]
-    lignes_du_par <- tab$car_par_code == par
-    tab <- tab[lignes_du_par, ]
-    tab$car_valeur_quantitatif <- cut(tab$car_valeur_quantitatif, ...)
-    # tab$car_valeur_quantitatif<-cut(tab$car_valeur_quantitatif,breaks=c(0,1.5,2.5,10),label=c('1','2','3'))
-    tab <- chnames(tab, "car_valeur_quantitatif", "car_val_identifiant")
-    r_mig_char@data[["parquan"]] <- r_mig_char@data[["parquan"]][!lignes_du_par,
-        ]
-    r_mig_char@data[["parqual"]] <- rbind(r_mig_char@data[["parqual"]], tab)
-    # Adding the par to parqual
-    r_mig_char@parqual@par_selected <- c(r_mig_char@parqual@par_selected, par)
-    # removing from parquan
-    r_mig_char@parquan@par_selected <- r_mig_char@parquan@par_selected[-match(par,
-        r_mig_char@parquan@par_selected)]
-    # resetting the right values for valqual
-    r_mig_char@parqual@valqual <- rbind(r_mig_char@parqual@valqual, data.frame(val_identifiant = levels(tab$car_val_identifiant),
-        val_qal_code = par, val_rang = 1:length(levels(tab$car_val_identifiant)),
-        val_libelle = NA))
-
-
-    if (!silent)
-        funout(gettextf("%s lines have been converted from quantitative to qualitative parameters",
-            nrow(tab)))
-    return(r_mig_char)
-})
+				par, silent = FALSE, ...) {
+			r_mig_char <- object
+			# par <-'A124' ========= initial checks ================
+			if (class(par) != "character")
+				stop("par should be a character")
+			if (nrow(r_mig_char@data[["parquan"]]) == 0)
+				funout(gettext("No data for quantitative parameter, perhaps you forgot to run the calcule method"))
+			if (!par %in% r_mig_char@parquan@par_selected)
+				funout(gettextf("The parameter %s is not in the selected parameters", par),
+						arret = TRUE)
+			if (!par %in% r_mig_char@parquan@data$par_code)
+				funout(gettextf("No data for this parameter, nothing to do", par), arret = TRUE)
+			# =============================================
+			tab <- r_mig_char@data[["parquan"]]
+			lignes_du_par <- tab$car_par_code == par
+			tab <- tab[lignes_du_par, ]
+			tab$car_valeur_quantitatif <- cut(tab$car_valeur_quantitatif, ...)
+			# tab$car_valeur_quantitatif<-cut(tab$car_valeur_quantitatif,breaks=c(0,1.5,2.5,10),label=c('1','2','3'))
+			tab <- chnames(tab, "car_valeur_quantitatif", "car_val_identifiant")
+			r_mig_char@data[["parquan"]] <- r_mig_char@data[["parquan"]][!lignes_du_par,
+			]
+			r_mig_char@data[["parqual"]] <- rbind(r_mig_char@data[["parqual"]], tab)
+			# Adding the par to parqual
+			r_mig_char@parqual@par_selected <- c(r_mig_char@parqual@par_selected, par)
+			# removing from parquan
+			r_mig_char@parquan@par_selected <- r_mig_char@parquan@par_selected[-match(par,
+							r_mig_char@parquan@par_selected)]
+			# resetting the right values for valqual
+			r_mig_char@parqual@valqual <- rbind(r_mig_char@parqual@valqual, data.frame(val_identifiant = levels(tab$car_val_identifiant),
+							val_qal_code = par, val_rang = 1:length(levels(tab$car_val_identifiant)),
+							val_libelle = NA))
+			
+			
+			if (!silent)
+				funout(gettextf("%s lines have been converted from quantitative to qualitative parameters",
+								nrow(tab)))
+			return(r_mig_char)
+		})
 
 
 # TODO create a dataframe with only one line per fish for all parameters
@@ -313,36 +322,36 @@ setMethod("setasqualitative", signature = signature("report_mig_char"), definiti
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed
 #' @aliases calcule.report_mig_char
 setMethod("calcule", signature = signature("report_mig_char"), definition = function(object,
-    silent = FALSE) {
-    r_mig_char <- object
-    qual <- r_mig_char@data[["parqual"]]
-    quan <- r_mig_char@data[["parquan"]]
-    if (is.null(qual) & is.null(quan))
-        stop("cannot perform calcule method, no data in either qualitative or quantitative parameters")
-    if (!is.null(qual))
-        qual <- chnames(qual, "car_par_code", "car_par_code_qual")
-    if (!is.null(quan))
-        quan <- chnames(quan, "car_par_code", "car_par_code_quan")
-    if (is.null(qual)) {
-        quaa <- quan
-        quaa$car_par_code_qual = NA
-    } else if (is.null(quan)) {
-        quaa <- qual
-        quaa$car_par_code_quan = NA
-    } else {
-        quaa <- merge(qual, quan, by = c("ope_dic_identifiant", "lot_identifiant",
-            "ope_date_debut", "ope_date_fin", "lot_methode_obtention", "lot_effectif",
-            "lot_tax_code", "lot_std_code"), all.x = TRUE, all.y = TRUE)
-    }
-    quaa = fun_date_extraction(data = quaa, nom_coldt = "ope_date_debut")
-    quaa <- quaa[order(quaa$ope_dic_identifiant, quaa$lot_tax_code, quaa$lot_std_code,
-        quaa$ope_date_debut), ]
-    r_mig_char@calcdata <- quaa
-    if (!silent)
-        funout(gettext("The calculated data are in slot calcdata"))
-    assign("r_mig_char", r_mig_char, envir_stacomi)
-    return(r_mig_char)
-})
+				silent = FALSE) {
+			r_mig_char <- object
+			qual <- r_mig_char@data[["parqual"]]
+			quan <- r_mig_char@data[["parquan"]]
+			if (is.null(qual) & is.null(quan))
+				stop("cannot perform calcule method, no data in either qualitative or quantitative parameters")
+			if (!is.null(qual))
+				qual <- chnames(qual, "car_par_code", "car_par_code_qual")
+			if (!is.null(quan))
+				quan <- chnames(quan, "car_par_code", "car_par_code_quan")
+			if (is.null(qual)) {
+				quaa <- quan
+				quaa$car_par_code_qual = NA
+			} else if (is.null(quan)) {
+				quaa <- qual
+				quaa$car_par_code_quan = NA
+			} else {
+				quaa <- merge(qual, quan, by = c("ope_dic_identifiant", "lot_identifiant",
+								"ope_date_debut", "ope_date_fin", "lot_methode_obtention", "lot_effectif",
+								"lot_tax_code", "lot_std_code"), all.x = TRUE, all.y = TRUE)
+			}
+			quaa = fun_date_extraction(data = quaa, nom_coldt = "ope_date_debut")
+			quaa <- quaa[order(quaa$ope_dic_identifiant, quaa$lot_tax_code, quaa$lot_std_code,
+							quaa$ope_date_debut), ]
+			r_mig_char@calcdata <- quaa
+			if (!silent)
+				funout(gettext("The calculated data are in slot calcdata"))
+			assign("r_mig_char", r_mig_char, envir_stacomi)
+			return(r_mig_char)
+		})
 
 # deprecated0.6
 ##' handler for plot
@@ -403,67 +412,67 @@ setMethod("calcule", signature = signature("report_mig_char"), definition = func
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
 setMethod("plot", signature = signature(x = "report_mig_char", y = "missing"), definition = function(x,
-    color_parm = NULL, plot.type = "qual", silent = FALSE, ...) {
-    r_mig_char <- x
-    if (nrow(r_mig_char@calcdata) == 0)
-        stop("no data in calcdata, have you forgotten to run calculations ?")
-    # transformation du tableau de donnees color_parm<-c('age 1'='red','age
-    # 2'='blue','age 3'='green') color_parm<-c('C001'='red')
-    if (plot.type == "qual")
-        {
-            parlevels <- r_mig_char@parqual@valqual$val_identifiant
-            cs <- colortable(color = color_parm, vec = parlevels, palette = "Dark2")
-            cs <- stacomirtools::chnames(cs, "name", "car_val_identifiant")
-            calcdata <- r_mig_char@calcdata
-            calcdata <- merge(calcdata, cs)
-            g <- ggplot(calcdata) + geom_bar(aes(x = mois, y = lot_effectif, fill = color),
-                stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Number")) +
-                scale_fill_identity(name = gettext("Classes"), labels = cs[, "car_val_identifiant"],
-                  breaks = cs[, "color"], guide = "legend") + theme_bw()
-
-            assign("g", g, envir_stacomi)
-            if (!silent)
-                funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
-                  domain = "R-stacomiR"))
-            print(g)
-        }  #end plot.type = 'qual'
-    if (plot.type == "quant")
-        {
-            calcdata <- r_mig_char@calcdata
-            calcdata$car_par_code_quan[is.na(calcdata$car_par_code_quan)] <- "NA"
-            the_parms <- unique(calcdata$car_par_code_quan)
-            cs <- colortable(color = color_parm, vec = the_parms, palette = "Dark2")
-            cs <- stacomirtools::chnames(cs, "name", "car_par_code_quan")
-            calcdata <- merge(calcdata, cs)
-            g <- ggplot(calcdata) + geom_point(aes(x = ope_date_debut, y = car_valeur_quantitatif,
-                col = color), stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Quantitative parameter")) +
-                scale_colour_identity(name = gettext("Param"), labels = cs[, "car_par_code_quan"],
-                  breaks = cs[, "color"], guide = "legend") + theme_bw()
-            assign("g", g, envir_stacomi)
-            if (!silent)
-                funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
-                  domain = "R-stacomiR"))
-            print(g)
-        }  #end plot.type='quant'
-    if (plot.type == "crossed")
-        {
-            parlevels <- r_mig_char@parqual@valqual$val_identifiant
-            cs <- colortable(color = color_parm, vec = parlevels, palette = "Dark2")
-            cs <- stacomirtools::chnames(cs, "name", "car_val_identifiant")
-            calcdata <- r_mig_char@calcdata
-            calcdata <- merge(calcdata, cs)
-
-            g <- ggplot(calcdata) + geom_point(aes(x = ope_date_debut, y = car_valeur_quantitatif,
-                col = color), stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Number")) +
-                scale_colour_identity(name = gettext("Param"), labels = cs[, "car_val_identifiant"],
-                  breaks = cs[, "color"], guide = "legend") + theme_bw()
-            assign("g", g, envir_stacomi)
-            if (!silent)
-                funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
-                  domain = "R-stacomiR"))
-            print(g)
-        }  #end plot.type='xyplot'
-})
+				color_parm = NULL, plot.type = "qual", silent = FALSE, ...) {
+			r_mig_char <- x
+			if (nrow(r_mig_char@calcdata) == 0)
+				stop("no data in calcdata, have you forgotten to run calculations ?")
+			# transformation du tableau de donnees color_parm<-c('age 1'='red','age
+			# 2'='blue','age 3'='green') color_parm<-c('C001'='red')
+			if (plot.type == "qual")
+			{
+				parlevels <- r_mig_char@parqual@valqual$val_identifiant
+				cs <- colortable(color = color_parm, vec = parlevels, palette = "Dark2")
+				cs <- stacomirtools::chnames(cs, "name", "car_val_identifiant")
+				calcdata <- r_mig_char@calcdata
+				calcdata <- merge(calcdata, cs)
+				g <- ggplot(calcdata) + geom_bar(aes(x = mois, y = lot_effectif, fill = color),
+								stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Number")) +
+						scale_fill_identity(name = gettext("Classes"), labels = cs[, "car_val_identifiant"],
+								breaks = cs[, "color"], guide = "legend") + theme_bw()
+				
+				assign("g", g, envir_stacomi)
+				if (!silent)
+					funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
+									domain = "R-stacomiR"))
+				print(g)
+			}  #end plot.type = 'qual'
+			if (plot.type == "quant")
+			{
+				calcdata <- r_mig_char@calcdata
+				calcdata$car_par_code_quan[is.na(calcdata$car_par_code_quan)] <- "NA"
+				the_parms <- unique(calcdata$car_par_code_quan)
+				cs <- colortable(color = color_parm, vec = the_parms, palette = "Dark2")
+				cs <- stacomirtools::chnames(cs, "name", "car_par_code_quan")
+				calcdata <- merge(calcdata, cs)
+				g <- ggplot(calcdata) + geom_point(aes(x = ope_date_debut, y = car_valeur_quantitatif,
+										col = color), stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Quantitative parameter")) +
+						scale_colour_identity(name = gettext("Param"), labels = cs[, "car_par_code_quan"],
+								breaks = cs[, "color"], guide = "legend") + theme_bw()
+				assign("g", g, envir_stacomi)
+				if (!silent)
+					funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
+									domain = "R-stacomiR"))
+				print(g)
+			}  #end plot.type='quant'
+			if (plot.type == "crossed")
+			{
+				parlevels <- r_mig_char@parqual@valqual$val_identifiant
+				cs <- colortable(color = color_parm, vec = parlevels, palette = "Dark2")
+				cs <- stacomirtools::chnames(cs, "name", "car_val_identifiant")
+				calcdata <- r_mig_char@calcdata
+				calcdata <- merge(calcdata, cs)
+				
+				g <- ggplot(calcdata) + geom_point(aes(x = ope_date_debut, y = car_valeur_quantitatif,
+										col = color), stat = "identity") + xlab(gettext("Month")) + ylab(gettext("Number")) +
+						scale_colour_identity(name = gettext("Param"), labels = cs[, "car_val_identifiant"],
+								breaks = cs[, "color"], guide = "legend") + theme_bw()
+				assign("g", g, envir_stacomi)
+				if (!silent)
+					funout(gettext("Writing the graphical object into envir_stacomi environment : write g=get(\"g\",envir_stacomi) \n",
+									domain = "R-stacomiR"))
+				print(g)
+			}  #end plot.type='xyplot'
+		})
 
 
 #' summary for report_mig_char 
@@ -474,28 +483,28 @@ setMethod("plot", signature = signature(x = "report_mig_char", y = "missing"), d
 #' @aliases summary.report_mig_char
 #' @export
 setMethod("summary", signature = signature(object = "report_mig_char"), definition = function(object,
-    silent = FALSE, ...) {
-    r_mig_char <- object
-    bm <- r_mig_char@calcdata
-    if (nrow(bm) == 0)
-        stop("No data in slot calcdata, did you forget to run the calcule method ?")
-    if (length(unique(bm$annee)) == 1) {
-        table = round(tapply(bm$lot_effectif, list(bm$mois, bm$car_val_identifiant),
-            sum), 1)
-        table <- rbind(table, colSums(table, na.rm = TRUE))
-        rownames(table)[nrow(table)] <- gettext("Sum")
-        if (!silent)
-            print(table)
-        table <- as.data.frame(table)
-    } else {
-        table = round(tapply(bm$lot_effectif, list(bm$annee, bm$mois, bm$car_val_identifiant),
-            sum), 1)
-
-        if (!silent)
-            print(ftable(table))
-    }
-    return(table)
-})
+				silent = FALSE, ...) {
+			r_mig_char <- object
+			bm <- r_mig_char@calcdata
+			if (nrow(bm) == 0)
+				stop("No data in slot calcdata, did you forget to run the calcule method ?")
+			if (length(unique(bm$annee)) == 1) {
+				table = round(tapply(bm$lot_effectif, list(bm$mois, bm$car_val_identifiant),
+								sum), 1)
+				table <- rbind(table, colSums(table, na.rm = TRUE))
+				rownames(table)[nrow(table)] <- gettext("Sum")
+				if (!silent)
+					print(table)
+				table <- as.data.frame(table)
+			} else {
+				table = round(tapply(bm$lot_effectif, list(bm$annee, bm$mois, bm$car_val_identifiant),
+								sum), 1)
+				
+				if (!silent)
+					print(ftable(table))
+			}
+			return(table)
+		})
 
 
 #' xtable function for \link{report_mig_char-class}
@@ -511,53 +520,53 @@ setMethod("summary", signature = signature(object = "report_mig_char"), definiti
 #' @aliases xtable.report_mig_char
 #' @export
 setMethod("xtable", signature = signature("report_mig_char"), definition = function(x,
-    caption = NULL, label = NULL, align = NULL, ...) {
-    r_mig_char <- x
-    dat = r_mig_char@data
-    dc = stringr::str_c(r_mig_char@dc@dc_selected, collapse = " ")
-    tax = stringr::str_c(r_mig_char@taxa@data$tax_code, collapse = " ")
-    std = stringr::str_c(r_mig_char@stage@data$std_code, collapse = " ")
-
-    dat <- summary(r_mig_char, silent = TRUE)
-    if (class(dat) == "data.frame") {
-        xt <- xtable::xtable(dat, ...)
-        if (is.null(align)) {
-            align <- c("l", rep("r", ncol(dat)))
-            align(xt) <- align
-        }
-        if (is.null(display)) {
-            display = c("s", rep("f", ncol(dat)))
-            display(xt) <- display
-        }
-        if (is.null(caption)) {
-            caption = gettextf("Summary for dc %s, taxa %s, stage %s.", dc, tax,
-                std)
-            caption(xt) <- caption
-        }
-        return(xt)
-    } else {
-        # this comes from MIfuns at some stage not available on CRAN
-        ftable2data.frame <- function(x, ...) {
-            y <- format(x, quote = FALSE)
-            z <- data.frame(y[-1, ], stringsAsFactors = FALSE)
-            names(z) <- y[1, ]
-            z
-        }
-        xt <- xtable::xtable(ftable2data.frame(ftable(dat)), ...)
-        if (is.null(align)) {
-            align <- c("l", rep("r", ncol(dat)))
-            align(xt) <- align
-        }
-        if (is.null(display)) {
-            display = c("s", rep("f", ncol(dat)))
-            display(xt) <- display
-        }
-        if (is.null(caption)) {
-            caption = gettextf("Summary for dc %s, taxa %s, stage %s.", dc, tax,
-                std)
-            caption(xt) <- caption
-        }
-        return(xt)
-    }
-})
+				caption = NULL, label = NULL, align = NULL, ...) {
+			r_mig_char <- x
+			dat = r_mig_char@data
+			dc = stringr::str_c(r_mig_char@dc@dc_selected, collapse = " ")
+			tax = stringr::str_c(r_mig_char@taxa@data$tax_code, collapse = " ")
+			std = stringr::str_c(r_mig_char@stage@data$std_code, collapse = " ")
+			
+			dat <- summary(r_mig_char, silent = TRUE)
+			if (class(dat) == "data.frame") {
+				xt <- xtable::xtable(dat, ...)
+				if (is.null(align)) {
+					align <- c("l", rep("r", ncol(dat)))
+					align(xt) <- align
+				}
+				if (is.null(display)) {
+					display = c("s", rep("f", ncol(dat)))
+					display(xt) <- display
+				}
+				if (is.null(caption)) {
+					caption = gettextf("Summary for dc %s, taxa %s, stage %s.", dc, tax,
+							std)
+					caption(xt) <- caption
+				}
+				return(xt)
+			} else {
+				# this comes from MIfuns at some stage not available on CRAN
+				ftable2data.frame <- function(x, ...) {
+					y <- format(x, quote = FALSE)
+					z <- data.frame(y[-1, ], stringsAsFactors = FALSE)
+					names(z) <- y[1, ]
+					z
+				}
+				xt <- xtable::xtable(ftable2data.frame(ftable(dat)), ...)
+				if (is.null(align)) {
+					align <- c("l", rep("r", ncol(dat)))
+					align(xt) <- align
+				}
+				if (is.null(display)) {
+					display = c("s", rep("f", ncol(dat)))
+					display(xt) <- display
+				}
+				if (is.null(caption)) {
+					caption = gettextf("Summary for dc %s, taxa %s, stage %s.", dc, tax,
+							std)
+					caption(xt) <- caption
+				}
+				return(xt)
+			}
+		})
 

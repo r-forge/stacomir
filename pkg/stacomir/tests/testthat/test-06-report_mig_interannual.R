@@ -102,14 +102,35 @@ test_that("Test that loading two taxa will fail",
 		})
 
 
-test_that("Test that report_mig_interannual loads missing data with correct warning",
+test_that("Test that report_mig_interannual displays message when silent = FALSE",
+		{
+			skip_on_cran()
+			stacomi(database_expected = TRUE, sch ="iav")
+			env_set_test_stacomi()			
+			r_mig_interannual <- new("report_mig_interannual")
+			expect_output(
+					r_mig_interannual <- choice_c(
+							r_mig_interannual,
+							dc = 6,
+							taxa = c("Anguilla anguilla"),
+							stage = c("AGJ"),
+							anneedebut = 1997,
+							anneefin = 1998,
+							silent = FALSE
+					), "\\[1\\] Year selected\\\\n\\n\\[1\\] Year selected\\\\n")
+			
+			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
+			
+		})
+
+
+test_that("Test supprime method",
 		{
 			skip_on_cran()
 			stacomi(database_expected = TRUE, sch ="logrami")
-			env_set_test_stacomi()
-			
+			env_set_test_stacomi()			
 			bmi_cha <- new("report_mig_interannual") #châtelrault
-			bmi_cha <- suppressWarnings(
+			bmi_cha <- 
 					choice_c(
 							bmi_cha,
 							dc = c(21),
@@ -119,7 +140,7 @@ test_that("Test that report_mig_interannual loads missing data with correct warn
 							anneefin = "2006",
 							silent = TRUE
 					)
-			)
+			
 			
 			bmi_cha <- charge(bmi_cha, silent = TRUE)
 			# deleting all data to ensure everything is loaded
@@ -137,56 +158,38 @@ test_that("Test that different sums are the same, for  report_mig_interannual, r
 			env_set_test_stacomi()
 			# this chunk is not launched from examples but loads the r_mig dataset if connection works
 			r_mig_interannual <- new("report_mig_interannual")
-			# the following will load data for size,
-			# parameters 1786 (total size) C001 (size at video control)
-			# dc 5 and 6 are fishways located on the Arzal dam
-			# two stages are selected
 			r_mig_interannual <- choice_c(
 					r_mig_interannual,
 					dc = 6,
 					taxa = c("Anguilla anguilla"),
 					stage = c("AGJ"),
-					anneedebut = 1997,
-					anneefin = 1997,
+					anneedebut = 1996,
+					anneefin = 1996,
 					silent = TRUE
 			)
-			r_mig_interannual <- connect(r_mig_interannual, silent = TRUE)
-			bmM <- as(r_mig_interannual, "report_mig_mult")
-			# we still need to load the associated classes properly
-			bmM 
-			# so we need to launch the choice method.
-			bmM <- choice_c(
-					bmM,
-					dc = bmM@dc@dc_selectionne,
-					taxa = bmM@taxa@data$tax_nom_latin,
-					stage = bmM@stage@data$std_code,
-					datedebut = as.character(bmM@timestep@dateDebut),
-					datefin = as.character(as.POSIXlt(end_date(bmM@timestep))),
+			r_mig_interannual <- connect(r_mig_interannual, silent=TRUE)
+
+			nb_r_mig_interannual <- sum(r_mig_interannual@data[r_mig_interannual@data$"bjo_labelquantite"=="Effectif_total","bjo_valeur" ])
+			r_mig_mult <- new("report_mig_mult")
+			r_mig_mult <- choice_c(
+					r_mig_mult,
+					dc = 6,
+					taxa = c("Anguilla anguilla"),
+					stage = c("AGJ"),
+					datedebut = "1996-01-01",
+					datefin = "1997-01-01",
 					silent = TRUE
 			)
-			bmM <- charge(bmM, silent = TRUE)
-			bmM <- connect(bmM, silent = TRUE)
-			bmM <- calcule(bmM, silent = TRUE)
-			
-			expect_equal(floor(sum(bmM@calcdata[["dc_6"]][["data"]]$Effectif_total)),
-					floor(sum(r_mig_interannual@data$bjo_valeur[r_mig_interannual@data$bjo_labelquantite ==
-													"Effectif_total"])))
-			######################
-			# Test for report_annual
-			#####################
-			r_ann = as(r_mig_interannual, "report_annual")
-			r_ann <- connect(r_ann, silent = TRUE)
-			# we test that the report_annual has the same number as
-			# report_mig
-			expect_equal(floor(sum(bmM@calcdata[["dc_6"]][["data"]]$Effectif_total)),
-					floor(r_ann@data$effectif[1]),
-					label = "The sum of number in the report_mig are different to the
-							number in the report_annual class")
+			r_mig_mult <- charge(r_mig_mult, silent=TRUE)
+			r_mig_mult <- connect(r_mig_mult, silent=TRUE)
+			r_mig_mult <- calcule(r_mig_mult, silent=TRUE)
+			nb_r_mig_mult = sum(r_mig_mult@calcdata$dc_6$data$Effectif_total)
+			expect_equal(round(nb_r_mig_interannual),round(nb_r_mig_mult))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 			
 		})
 
-test_that("Test bmi step plot", {
+test_that("Test bmi plots", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
 			env_set_test_stacomi()
@@ -204,8 +207,18 @@ test_that("Test bmi step plot", {
 					anneefin = 2015,
 					silent = TRUE
 			)
+			expect_output(plot(r_mig_interannual, plot.type = "step", silent = FALSE),
+					"\\[1\\] Attention : you have to complete a migration summary for at least one of the selected year before launching a inter-annual summary")
 			r_mig_interannual <- connect(r_mig_interannual, silent = TRUE)
+			r_mig_interannual <- calcule(r_mig_interannual, silent = TRUE)
 			expect_error(suppressWarnings(plot(r_mig_interannual, plot.type = "step", silent = TRUE),NA))
+			expect_error(plot(r_mig_interannual, plot.type = "line", silent = TRUE),NA)
+			expect_error(suppressWarnings(plot(r_mig_interannual, plot.type = "standard", silent = TRUE),NA))
+			expect_error(plot(r_mig_interannual, plot.type = "barchart", silent = TRUE),NA)
+			expect_error(plot(r_mig_interannual, plot.type = "pointrange", silent = TRUE),NA)
+			expect_error(plot(r_mig_interannual, plot.type = "density", silent = TRUE),NA)		
+			expect_error(suppressWarnings(plot(r_mig_interannual, plot.type = "seasonal", silent = TRUE),NA))
+			expect_error(plot(r_mig_interannual, plot.type = "", silent = FALSE))
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 			
 		})

@@ -171,8 +171,7 @@ test_that(
 					bila@data$effectif,
 					label = "The sum of number in the report_mig are different to the
 							number in the report_annual class"
-			)
-			
+			)			
 			bili <- connect(bili, check = TRUE, silent = TRUE)
 			expect_equal(
 					sum(r_mig@calcdata$dc_5$data$Effectif_total),
@@ -245,3 +244,5 @@ test_that("test example with glass eel",
 			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 			
 		})
+
+

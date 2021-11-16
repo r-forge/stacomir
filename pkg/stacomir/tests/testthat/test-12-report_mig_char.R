@@ -105,3 +105,61 @@ test_that("test calcule method", {
   rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
 	
 })
+
+
+test_that("test charge method", {
+			skip_on_cran()
+			stacomi(database_expected = TRUE, sch ="logrami")
+			env_set_test_stacomi()
+			r_mig_char <- choice_c(
+					r_mig_char,
+					dc = c(107, 108, 101),
+					taxa = c("Salmo salar"),
+					stage = c('5', '11', 'BEC', 'BER', 'IND'),
+					parquan = c('A124', 'C001'),
+					parqual = NULL,
+					horodatedebut = "2012-01-01",
+					horodatefin = "2012-12-31",
+					echantillon= "with",
+					silent = TRUE
+			)
+			expect_error(r_mig_char <- charge(r_mig_char), NA)						
+			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
+			
+		})
+
+test_that("test plot xtable summary method", {
+			skip_on_cran()
+			stacomi(database_expected = TRUE, sch ="logrami")
+			env_set_test_stacomi()
+			r_mig_char <- choice_c(
+					r_mig_char,
+					dc = c(107, 108, 101),
+					taxa = c("Salmo salar"),
+					stage = c('5', '11', 'BEC', 'BER', 'IND'),
+					parquan = c('A124', 'C001'),
+					parqual = NULL,
+					horodatedebut = "2012-01-01",
+					horodatefin = "2012-12-31",
+					silent = TRUE
+			)
+			r_mig_char <- connect(r_mig_char)
+			r_mig_char <- calcule(r_mig_char, silent = TRUE)
+      expect_error(suppressWarnings(plot(r_mig_char, plot.type = "quant", silent = TRUE)), NA)
+			
+			# now with a qualitative parm
+			r_mig_char <- setasqualitative(
+					r_mig_char,
+					par = 'A124',
+					silent = TRUE,
+					breaks = c(0, 1.5, 2.5, 10),
+					label = c("age 1", "age 2", "age 3")
+			)
+			r_mig_char <- calcule(r_mig_char, silent = TRUE)
+			expect_error(suppressWarnings(plot(r_mig_char, plot.type = "quant", silent = TRUE)), NA)
+			expect_error(suppressWarnings(plot(r_mig_char, plot.type = "crossed", silent = TRUE)), NA)
+			expect_output(summary(r_mig_char))
+			expect_error(xtable(r_mig_char), NA)
+			rm(list = ls(envir = envir_stacomi), envir = envir_stacomi)
+			
+		})

@@ -76,6 +76,7 @@ test_that("report_dc plot method works", {
 
 
 test_that("report_dc summary method works", {
+			skip_on_os("linux")
 			stacomi(database_expected = FALSE)
 			data(r_dc)
 			r_dc <- r_dc
@@ -85,7 +86,6 @@ test_that("report_dc summary method works", {
 
 
 test_that("report_dc print method works", {
-			skip_on_cran()
 			stacomi(database_expected = FALSE)
 			data(r_dc)
 			r_dc <- r_dc

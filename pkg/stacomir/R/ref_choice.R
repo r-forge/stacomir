@@ -52,13 +52,13 @@ setMethod("choice_c", signature = signature("ref_choice"), definition = function
     selectedvalue) {
 
     if (length(selectedvalue) > 1)
-        stop("valeurchoisie should be a vector of length 1")
+        stop("selectedvalue should be a vector of length 1")
     if (class(selectedvalue) == "numeric")
         selectedvalue <- as.character(selectedvalue)
     # the charge method must be performed before
 
     if (!selectedvalue %in% object@listechoice) {
-        stop(stringr::str_c("The selected valeur,", selectedvalue, " not in the list of possible values :",
+        stop(stringr::str_c("selectedvalue,", selectedvalue, " not in the list of possible values :",
             stringr::str_c(object@listechoice, collapse = ",")))
     } else {
         object@selectedvalue <- selectedvalue

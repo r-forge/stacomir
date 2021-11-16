@@ -71,15 +71,15 @@ test_that("Complement to example",
 			path = file.path(
 					path.expand(get("datawd", envir = envir_stacomi)),
 					paste(
-							paste(r_ann@dc@dc_selectionne, collapse = "+"),
+							paste(r_ann@dc@dc_selected, collapse = "+"),
 							"_",
 							paste(r_ann@taxa@data$tax_code, collapse = "+"),
 							"_",
 							paste(r_ann@stage@data$std_code, collapse = "+"),
 							"_",
-							r_ann@anneedebut@annee_selectionnee,
+							r_ann@anneedebut@selected_year,
 							":",
-							r_ann@anneefin@annee_selectionnee,
+							r_ann@anneefin@selected_year,
 							".html",
 							sep = ""
 					),
@@ -115,7 +115,7 @@ test_that("Complement to example",
 			data(r_ann_adour)
 			if (requireNamespace("RColorBrewer", quietly = TRUE)) {
 				lesdc <-
-						r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc %in% r_ann_adour@dc@dc_selectionne]
+						r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc %in% r_ann_adour@dc@dc_selected]
 				barplot(
 						r_ann_adour,
 						legend.text = lesdc,
@@ -167,15 +167,15 @@ test_that("test xtable method for report_annual", {
 			path = file.path(
 					path.expand(get("datawd", envir = envir_stacomi)),
 					paste(
-							paste(r_ann@dc@dc_selectionne, collapse = "+"),
+							paste(r_ann@dc@dc_selected, collapse = "+"),
 							"_",
 							paste(r_ann@taxa@data$tax_code, collapse = "+"),
 							"_",
 							paste(r_ann@stage@data$std_code, collapse = "+"),
 							"_",
-							r_ann@anneedebut@annee_selectionnee,
+							r_ann@anneedebut@selected_year,
 							":",
-							r_ann@anneefin@annee_selectionnee,
+							r_ann@anneefin@selected_year,
 							".html",
 							sep = ""
 					),
@@ -201,7 +201,7 @@ test_that("test plot methods for report_annual", {
 			dev.new()
 			if (requireNamespace("RColorBrewer", quietly = TRUE)) {
 				lesdc <-
-						r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc %in% r_ann_adour@dc@dc_selectionne]
+						r_ann_adour@dc@data$dc_code[r_ann_adour@dc@data$dc %in% r_ann_adour@dc@dc_selected]
 				expect_error({
 							barplot(
 									r_ann_adour,

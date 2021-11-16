@@ -79,6 +79,21 @@ test_that("Test that working environment is created",{
 			
 		})
 
+test_that("Test get_schema",{
+			skip_on_cran()
+			env_set_test_stacomi()
+			stacomi(database_expected=TRUE)
+			sch <- get_schema()
+			expect_equal(sch,"iav.")		
+			rm("sch", envir=envir_stacomi)
+			sch <- get_schema(default="volga.")
+			expect_equal(sch,"volga.")
+			stacomi(database_expected = TRUE,  sch = "logrami")
+			sch <- get_schema()
+			expect_equal(sch,"logrami.")
+			org <- get_org()
+			expect_equal(org,"LOGRAMI")
+		})
 
 # pour schema rlang::env_get(envir_stacomi, "sch")
 context(stringr::str_c("Database integrity"))
@@ -134,8 +149,8 @@ test_that("Test that tickets have been launched",
 
 test_that("All foreign keys are present",
 		{
-			env_set_test_stacomi()	
 			skip_on_cran()
+			env_set_test_stacomi()	
 			skip_if_not(test_foreign_keys,"skipping foreign key test, set options in test/helper to change this")
   		req=new("RequeteDB")
 			env_set_test_stacomi()	 

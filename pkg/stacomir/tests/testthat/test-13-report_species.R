@@ -51,10 +51,10 @@ test_that("test calcule method report_species", {
 		})
 
 test_that("test that plot method works", {
-			stacomi(database_expected = FALSE)	
+			skip_on_cran()
+			stacomi(database_expected = TRUE)	
 			bilesp <- new("report_species")
-			# split is one of "none", "year", "week", "month
-			
+			# split is one of "none", "year", "week", "month			
 			bilesp <- choice_c(
 					bilesp,
 					dc = c(5, 6, 12),
@@ -88,8 +88,8 @@ test_that("test that plot method works", {
 		})
 
 test_that("test that summary method works", {
-
-			stacomi(database_expected = FALSE)
+			skip_on_cran()
+			stacomi(database_expected = TRUE)
 			bilesp <- new("report_species")
 			# split is one of "none", "year", "week", "month
 			

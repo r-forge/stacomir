@@ -6,7 +6,6 @@ test_that("Test an instance of report_mig_mult", {
 			skip_on_cran()
 			env_set_test_stacomi()
 			stacomi(database_expected=TRUE)		
-
 			report_mig_mult <- new("report_mig_mult")
 			#options(warn = -1)
 			report_mig_mult <- suppressWarnings(
@@ -31,9 +30,7 @@ test_that("Test another instance of report_mig_mult", {
 			
 			skip_on_cran()
 			env_set_test_stacomi()
-			stacomi(database_expected=TRUE)	
-
-			
+			stacomi(database_expected=TRUE)				
 			report_mig_mult <- new("report_mig_mult")
 			#options(warn = -1)
 			report_mig_mult <- suppressWarnings(
@@ -82,9 +79,7 @@ test_that("Test charge method for report_mig_mult",
 		{
 			skip_on_cran()
 			env_set_test_stacomi()
-			stacomi(database_expected=TRUE)	
-
-			
+			stacomi(database_expected=TRUE)				
 			report_mig_mult <- new("report_mig_mult")
 			options(warn = -1)
 			report_mig_mult <- choice_c(
@@ -109,8 +104,7 @@ test_that("Test connect method for report_mig_mult",
 		{
 			skip_on_cran()
 			env_set_test_stacomi()
-			stacomi(database_expected=TRUE)	
-			
+			stacomi(database_expected=TRUE)				
 			report_mig_mult <- new("report_mig_mult")
 			options(warn = -1)
 			report_mig_mult <- choice_c(

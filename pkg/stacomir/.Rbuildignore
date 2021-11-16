@@ -25,3 +25,5 @@ out$
 ^Meta$
 ^\.gitlab-ci.yml$
 ^LICENSE$
+^cran-comments.md$
+^test/testhat/\~*\.*

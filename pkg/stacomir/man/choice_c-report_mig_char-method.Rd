@@ -14,7 +14,7 @@
   parqual = NULL,
   horodatedebut,
   horodatefin,
-  echantillon = gettext("with", domain = "R-stacomiR"),
+  echantillon = c("with", "without"),
   silent = FALSE
 )
 }
@@ -34,10 +34,10 @@ these should match the ref.tr_taxon_tax referential table in the stacomi databas
 
 \item{horodatedebut}{The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input}
 
-\item{horodatefin}{The finishing date of the report, for this class this will be used to calculate the number of daily steps.}
+\item{horodatefin}{The finishing date of the report, for this class this will be used to calculate the number of daily steps}
 
-\item{echantillon}{Default 'with' can be 'without' (values 'avec' and 'sans') are accepted, checking without modifies the query
-in the connect method so that subsamples are not allowed,}
+\item{echantillon}{'with' can be 'without', checking without modifies the query
+in the connect method so that subsamples are not allowed}
 
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
