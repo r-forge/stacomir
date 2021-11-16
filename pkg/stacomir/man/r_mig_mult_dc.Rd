@@ -24,7 +24,7 @@ video counting...), 5 unknown operation.}
 }
   \item{dc}{the \code{ref_dc} the DC with 4 slots
   \describe{
-   \item{dc_selectionne}{the selected device}
+   \item{dc_selected}{the selected device}
      \item{ouvrage}{the dam}
    \item{station}{the monitoring station, a section of river}
    \item{data}{A dataset of all dc present in the database with 10 observations}

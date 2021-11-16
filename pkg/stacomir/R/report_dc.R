@@ -50,6 +50,7 @@ setMethod(
 		signature = signature("report_dc"),
 		definition = function(object, silent = FALSE) {
 			#object<-report_dc
+			if (length(object@dc@dc_selected)==0) stop("No selected dc in repor_dc@dc@dc_selected, did you forget to use the method charge ?")
 			req <- new("RequeteDBwheredate")
 			req@select = sql <- paste(
 					"SELECT",
@@ -61,7 +62,7 @@ setMethod(
 					" per_tar_code,",
 					" tar_libelle AS libelle",
 					" FROM  ",
-					rlang::env_get(envir_stacomi, "sch"),
+					get_schema(),
 					"t_periodefonctdispositif_per per",
 					" INNER JOIN ref.tr_typearretdisp_tar tar ON tar.tar_code=per.per_tar_code",
 					sep = ""
@@ -73,7 +74,7 @@ setMethod(
 			req@order_by <- "ORDER BY per_date_debut"
 			req@and <-
 					paste("AND per_dis_identifiant in ",
-							vector_to_listsql(object@dc@dc_selectionne))
+							vector_to_listsql(object@dc@dc_selected))
 			#req@where=#defini dans la methode DBwheredate
 			req <-
 					stacomirtools::query(req) # appel de la methode connect de l'object DBWHEREDATE
@@ -295,7 +296,7 @@ setMethod(
 				if (is.null(main))
 					main <-
 							gettextf("Operation of the counting device %s",
-									report_dc@dc@dc_selectionne)
+									report_dc@dc@dc_selected)
 				# graphic
 				#modification of the order
 				
@@ -433,7 +434,7 @@ setMethod(
 					)
 					legend(
 							x = "bottom",
-							legend = gettext("Func.", "Stop", "Normal func.", domain = "R-stacomiR"),
+							legend = gettext("Func.", "Stop", "Normal func", domain = "R-stacomiR"),
 							pch = c(16, 16),
 							col = c(mypalette[4], mypalette[6], mypalette[1]),
 							#horiz=TRUE,
@@ -495,10 +496,10 @@ setMethod(
 						x = debut,
 						y = 0.6,
 						legend = gettext(
-								"Normal oper.",
+								"Normal oper",
 								"Operational stop",
 								"Stop",
-								"Dysfunct.",
+								"Dysfunct",
 								"Unknown",
 								domain = "R-stacomiR"
 						),
@@ -542,7 +543,7 @@ setMethod(
 				if (is.null(main))
 					main <-
 							gettext("Working of the counting device",
-									report_dc@dc@dc_selectionne)
+									report_dc@dc@dc_selected)
 				
 				#report_dc<-r_dc; require(RGtk2); require(lubridate);require(ggplot2);main=NULL;silent=FALSE;plot.type="4"
 				t_periodefonctdispositif_per = report_dc@data
@@ -572,16 +573,16 @@ setMethod(
 										"5" = "#191917"
 								),
 								labels = gettext(
-										"Normal oper.",
+										"Normal oper",
 										"Operational stop",
 										"Stop",
-										"Dysfunct.",
+										"Dysfunct",
 										"Unknown",
 										domain = "R-stacomiR"
 								)
 						) +
 						#scale_colour_manual("type",values=c("1"="#40CA2C","2"="#C8B22D","3"="#AB3B26","4"="#B46BED","5"="#B8B8B8"),
-						#		labels = gettext("Normal oper.","Operational stop","Stop","Dysfunct.","Unknown")+		)
+						#		labels = gettext("Normal oper","Operational stop","Stop","Dysfunct","Unknown")+		)
 						ggtitle(main) +
 						ylab("Heure") + theme(
 								plot.background = element_rect(fill = "black"),
@@ -634,7 +635,7 @@ setMethod(
 			sortie2 <- stringr::str_c(
 					"report_dc=choice_c(report_dc,",
 					"dc=",
-					x@dc@dc_selectionne,
+					x@dc@dc_selected,
 					",",
 					"horodatedebut=",
 					shQuote(as.character(x@horodatedebut@horodate)),
@@ -691,7 +692,7 @@ setMethod(
 					path.expand(get("datawd", envir = envir_stacomi)),
 					paste(
 							"t_periodefonctdispositif_per_DC_",
-							report_dc@dc@dc_selectionne,
+							report_dc@dc@dc_selected,
 							"_",
 							annee,
 							".csv",
@@ -712,7 +713,7 @@ setMethod(
 							path.expand(get("datawd", envir = envir_stacomi)),
 							paste(
 									"t_periodefonctdispositif_per_DC_",
-									report_dc@dc@dc_selectionne,
+									report_dc@dc@dc_selected,
 									"_",
 									annee,
 									".html",
@@ -728,7 +729,7 @@ setMethod(
 					t_periodefonctdispositif_per,
 					caption = gettextf(
 							"t_periodefonctdispositif_per_DC_%s_%s",
-							report_dc@dc@dc_selectionne,
+							report_dc@dc@dc_selected,
 							annee
 					),
 					top = TRUE,
@@ -737,10 +738,10 @@ setMethod(
 					append = FALSE,
 					digits = 2
 			)
-			print(gettextf("summary statistics for CD=%s", report_dc@dc@dc_selectionne),
+			print(gettextf("summary statistics for CD=%s", report_dc@dc@dc_selected),
 					domain = "R-stacomiR")
 			print(gettextf("dc_code=%s", report_dc@dc@data[report_dc@dc@data$dc ==
-											report_dc@dc@dc_selectionne, "dc_code"], domain = "R-stacomiR"))
+											report_dc@dc@dc_selected, "dc_code"], domain = "R-stacomiR"))
 			duree <-
 					difftime(
 							t_periodefonctdispositif_per$per_date_fin,
@@ -754,12 +755,12 @@ setMethod(
 			funout(gettext("Duration in days (operation type):", domain = "R-stacomiR"))
 			funout(paste(
 							gettext(
-									"Normal oper.",
+									"Normal oper",
 									"Operational stop",
 									"Stop",
-									"Dysfunct.",
+									"Dysfunct",
 									"Unknown",
-									gettext("Func.", "Stop", "Normal func.", domain = "R-stacomiR")
+									gettext("Func.", "Stop", "Normal func", domain = "R-stacomiR")
 							),
 							" :",
 							sommes,

@@ -57,12 +57,6 @@ setGeneric("write_database", def = function(object, ...) standardGeneric("write_
 #' @author cedric.briand
 #' @export
 setGeneric("getvalue", def = function(object, ...) standardGeneric("getvalue"))
-#' Generic method to forward outputs
-#' @param object Object
-#' @param ... Additional parms
-#' @author cedric.briand
-#' @export
-setGeneric("createmessage", def = function(object, ...) standardGeneric("createmessage"))
 #' Generic method to transform quantitative par into a qualitative one
 #' @param object Object
 #' @param ... Additional parms 
@@ -77,58 +71,6 @@ setGeneric(
 		"end_date",
 		def = function(object, ...)
 			standardGeneric("end_date")
-)
-
-#' Generic method for getting the beginning date for current time step
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setGeneric(
-		"currentstart_date",
-		def = function(object, ...)
-			standardGeneric("currentstart_date")
-)
-
-#' Generic method for getting the ending date for current time step
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setGeneric(
-		"current_end_date",
-		def = function(object, ...)
-			standardGeneric("current_end_date")
-)
-
-
-#' Generic method the get starting date
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setGeneric(
-		"getdateDebut",
-		def = function(object, ...)
-			standardGeneric("getdateDebut")
-)
-
-#' Generic method to set the starting date
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setGeneric(
-		"set_starting_date",
-		def = function(object, ...)
-			standardGeneric("set_starting_date")
-)
-
-
-#' Generic method to get the string value of time step
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setGeneric(
-		"get_step_label",
-		def = function(object, ...)
-			standardGeneric("get_step_label")
 )
 
 

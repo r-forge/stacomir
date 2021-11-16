@@ -18,7 +18,7 @@
 #' @family referential objects
 #' @keywords classes
 setClass(Class = "ref_coe", representation = representation(data = "data.frame",
-    datedebut = "POSIXlt", datefin = "POSIXlt"), prototype = prototype(data = data.frame()))
+				datedebut = "POSIXlt", datefin = "POSIXlt"), prototype = prototype(data = data.frame()))
 
 #' loads the coefficients for the period defined in class
 #' 
@@ -35,19 +35,18 @@ setClass(Class = "ref_coe", representation = representation(data = "data.frame",
 #' charge(object) 
 #' }
 setMethod("charge", signature = signature("ref_coe"), definition = function(object) {
-    requete = new("RequeteDBwheredate")
-    requete@datedebut = object@datedebut
-    requete@datefin = object@datefin
-    requete@colonnedebut = "coe_date_debut"
-    requete@colonnefin = "coe_date_fin"
-    requete@datefin = as.POSIXlt(object@datefin)
-    requete@select = stringr::str_c("select * from ", rlang::env_get(envir_stacomi,
-        "sch"), "tj_coefficientconversion_coe")
-    requete@and = " and  coe_tax_code='2038' and coe_std_code='CIV' and coe_qte_code='1'"
-    requete <- query(requete)
-    object@data <- requete@query
-    return(object)
-})
+			requete = new("RequeteDBwheredate")
+			requete@datedebut = object@datedebut
+			requete@datefin = object@datefin
+			requete@colonnedebut = "coe_date_debut"
+			requete@colonnefin = "coe_date_fin"
+			requete@datefin = as.POSIXlt(object@datefin)
+			requete@select = stringr::str_c("select * from ", get_schema(), "tj_coefficientconversion_coe")
+			requete@and = " and  coe_tax_code='2038' and coe_std_code='CIV' and coe_qte_code='1'"
+			requete <- query(requete)
+			object@data <- requete@query
+			return(object)
+		})
 
 
 #' supprime method for 'ref_coe' class
@@ -59,24 +58,27 @@ setMethod("charge", signature = signature("ref_coe"), definition = function(obje
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
 setMethod("supprime", signature = signature("ref_coe"), definition = function(object,
-    tax, std, silent = FALSE) {
-    # object<-r_gew@coe;tax=2038;std='CIV' getting the data to import
-
-    # here I assume that dc_selectionne will be unique (no report with several
-    # dc)
-    requete = new("RequeteDBwheredate")
-    requete@datedebut <- object@datedebut
-    requete@datefin <- object@datefin
-    requete@colonnedebut <- "coe_date_debut"
-    requete@colonnefin <- "coe_date_fin"
-    requete@select = stringr::str_c("DELETE from ", rlang::env_get(envir_stacomi,
-        "sch"), "tj_coefficientconversion_coe ")
-    requete@and = str_c(" and  coe_tax_code='", tax, "' and coe_std_code='", std,
-        "' and coe_qte_code='1'")
-    requete <- stacomirtools::query(requete)
-    if (!silent)
-        funout(gettextf("%s rows deleted from table tj_coefficientconversion_coe",
-            nrow(object@data), domain = "R-stacomiR"))
-    return(invisible(NULL))
-})
+				tax, std, silent = FALSE) {
+			# object<-r_gew@coe;tax=2038;std='CIV' getting the data to import
+			
+			# here I assume that dc_selected will be unique (no report with several
+			# dc)
+			req = new("RequeteDB")
+			req@sql <- stringr::str_c(
+					"WITH deleted AS (", 
+					"DELETE FROM ", get_schema(), "tj_coefficientconversion_coe ",
+					"WHERE coe_date_debut >= '",object@datedebut,"'",
+					" AND coe_date_fin  <= '", object@datefin, "'",
+					" AND  coe_tax_code='", tax, "' and coe_std_code='", std,
+					"' and coe_qte_code='1'",
+					" RETURNING *)",
+					" SELECT * FROM deleted"
+			)
+			del <- stacomirtools::getquery(query(req))
+			nr <- nrow(del)
+			if (!silent)
+				funout(gettextf("%s rows deleted from table tj_coefficientconversion_coe",
+								nr, domain = "R-stacomiR"))
+			return(invisible(NULL))
+		})
 

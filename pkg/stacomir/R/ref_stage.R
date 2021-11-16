@@ -30,30 +30,30 @@ setMethod("charge", signature = signature("ref_stage"), definition = function(ob
 })
 #' Loading method for ref_stage referential objects searching only those stages existing for a DC and a Taxon
 #' @param object An object of class \link{ref_stage-class}
-#' @param dc_selectionne The selected counting device
-#' @param taxa_selectionne The selected species
+#' @param dc_selected The selected counting device
+#' @param taxa_selected The selected species
 
 #' @return An S4 object of class \link{ref_stage-class}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
-#'  dc_selectionne=6
-#'taxa_selectionne=2038
+#'  dc_selected=6
+#'taxa_selected=2038
 #'  object=new('ref_stage')
-#'  charge_with_filter(object,dc_selectionne,taxa_selectionne)
+#'  charge_with_filter(object,dc_selected,taxa_selected)
 #' }
 setMethod("charge_with_filter", signature = signature("ref_stage"), definition = function(object,
-    dc_selectionne, taxa_selectionne) {
+    dc_selected, taxa_selected) {
     requete = new("RequeteDBwhere")
     requete@select = paste("SELECT DISTINCT ON (std_code) std_code, std_libelle",
-        " FROM ", rlang::env_get(envir_stacomi, "sch"), "tg_dispositif_dis", " JOIN ",
-        rlang::env_get(envir_stacomi, "sch"), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
+        " FROM ", get_schema(), "tg_dispositif_dis", " JOIN ",
+        get_schema(), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
         " JOIN ref.tr_stadedeveloppement_std on lot_std_code=std_code", sep = "")
-    requete@where = paste("where dis_identifiant in ", vector_to_listsql(dc_selectionne),
+    requete@where = paste("where dis_identifiant in ", vector_to_listsql(dc_selected),
         sep = "")
-    requete@and = paste("and lot_tax_code in ", vector_to_listsql(taxa_selectionne),
+    requete@and = paste("and lot_tax_code in ", vector_to_listsql(taxa_selected),
         sep = "")
     requete@order_by = "ORDER BY std_code"
     requete <- stacomirtools::query(requete)  # appel de la methode connect de l'object requeteDB

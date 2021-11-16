@@ -41,7 +41,7 @@ setMethod("connect", signature = signature("report_env"), definition = function(
     requete@colonnefin = "env_date_fin"
     requete@select = paste("SELECT", " env_date_debut,", " env_date_fin,", " env_methode_obtention,",
         " val_libelle as env_val_identifiant,", " env_valeur_quantitatif,", " env_stm_identifiant",
-        " FROM ", rlang::env_get(envir_stacomi, "sch"), "tj_conditionenvironnementale_env",
+        " FROM ", get_schema(), "tj_conditionenvironnementale_env",
         " LEFT JOIN ref.tr_valeurparametrequalitatif_val on env_val_identifiant=val_identifiant",
         sep = "")
     requete@order_by <- "ORDER BY env_stm_identifiant, env_date_debut"

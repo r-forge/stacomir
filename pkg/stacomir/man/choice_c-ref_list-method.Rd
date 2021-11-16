@@ -2,7 +2,8 @@
 % Please edit documentation in R/ref_list.R
 \name{choice_c,ref_list-method}
 \alias{choice_c,ref_list-method}
-\title{Choice method for ref_list referential objects}
+\alias{choice_c.ref_list}
+\title{Choice_c method for ref_list referential objects}
 \usage{
 \S4method{choice_c}{ref_list}(object, selectedvalue)
 }
@@ -10,26 +11,14 @@
 \item{object}{An object of class \link{ref_list-class}}
 
 \item{selectedvalue}{the value selected in the combo}
-
-\item{is.enabled}{A boolean indicating whether the frame is enabled when first displayed, default to TRUE}
 }
 \description{
-Choice method for ref_list referential objects
+Choice_c method for ref_list referential objects
 }
 \note{
 the choice method assigns an object of class refList named ref_list in the environment envir_stacomi
-
-the choice method assigns an object of class refList named ref_list in the environment envir_stacomi
 }
 \examples{
- 
-\dontrun{
- object=new('ref_list')
-win=gwindow()
-group=ggroup(container=win,horizontal=FALSE)
-object<-charge(object,vecteur=c('choice1','choice2'),label='please choose')
-choice(object)
-}
  
 \dontrun{
 object=new('ref_list')
@@ -39,13 +28,4 @@ object<-choice_c(object)
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
-\keyword{Choice_c}
-\keyword{for}
-\keyword{internal}
-\keyword{method}
-\keyword{objects}
-\keyword{ref_list}
-\keyword{referential}

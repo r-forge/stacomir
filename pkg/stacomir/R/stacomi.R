@@ -12,7 +12,7 @@ load_stacomi <- function(...) {
 	database_expected <- get("database_expected", envir_stacomi)  # logical true or false
 	
 	if (database_expected) {
-		sch <- get("sch", envir = envir_stacomi)
+		sch <- get_schema()
 		dbname  <- options("stacomiR.dbname")[[1]]
 		host <- options("stacomiR.host")[[1]]
 		port <- options("stacomiR.port")[[1]]

@@ -80,18 +80,18 @@ setMethod("choice_c", signature = signature("report_mig_char"), definition = fun
     r_mig_char <- object
     r_mig_char@dc = charge(r_mig_char@dc)
     r_mig_char@dc <- choice_c(object = r_mig_char@dc, dc)
-    r_mig_char@taxa <- charge_with_filter(object = r_mig_char@taxa, r_mig_char@dc@dc_selectionne)
+    r_mig_char@taxa <- charge_with_filter(object = r_mig_char@taxa, r_mig_char@dc@dc_selected)
     r_mig_char@taxa <- choice_c(r_mig_char@taxa, taxa)
-    r_mig_char@stage <- charge_with_filter(object = r_mig_char@stage, r_mig_char@dc@dc_selectionne,
+    r_mig_char@stage <- charge_with_filter(object = r_mig_char@stage, r_mig_char@dc@dc_selected,
         r_mig_char@taxa@data$tax_code)
     r_mig_char@stage <- choice_c(r_mig_char@stage, stage, silent = silent)
-    r_mig_char@parquan <- charge_with_filter(object = r_mig_char@parquan, dc_selectionne = r_mig_char@dc@dc_selectionne,
-        taxa_selectionne = r_mig_char@taxa@data$tax_code, stage_selectionne = r_mig_char@stage@data$std_code)
+    r_mig_char@parquan <- charge_with_filter(object = r_mig_char@parquan, dc_selected = r_mig_char@dc@dc_selected,
+        taxa_selected = r_mig_char@taxa@data$tax_code, stage_selected = r_mig_char@stage@data$std_code)
     if (!is.null(parquan))
         r_mig_char@parquan <- choice_c(r_mig_char@parquan, parquan, silent = silent)
     # the method choice_c is written in ref_par, and each time
     assign("ref_parquan", r_mig_char@parquan, envir_stacomi)
-    r_mig_char@parqual <- charge_with_filter(object = r_mig_char@parqual, r_mig_char@dc@dc_selectionne,
+    r_mig_char@parqual <- charge_with_filter(object = r_mig_char@parqual, r_mig_char@dc@dc_selected,
         r_mig_char@taxa@data$tax_code, r_mig_char@stage@data$std_code)
     if (!is.null(parqual)) {
         r_mig_char@parqual <- choice_c(r_mig_char@parqual, parqual, silent = silent)
@@ -211,9 +211,8 @@ setMethod("connect", signature = signature("report_mig_char"), definition = func
                 req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
                   " lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
                   " car_val_identifiant,", " ope_dic_identifiant,", " lot_tax_code,",
-                  " lot_std_code,", " car_par_code", " FROM ", rlang::env_get(envir_stacomi,
-                    "sch"), "vue_ope_lot_ech_parqual", " WHERE ope_dic_identifiant in ",
-                  vector_to_listsql(r_mig_char@dc@dc_selectionne), echantillons,
+                  " lot_std_code,", " car_par_code", " FROM ", get_schema(), "vue_ope_lot_ech_parqual", " WHERE ope_dic_identifiant in ",
+                  vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
                   " AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
                   " AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
                   " AND car_par_code in ", vector_to_listsql(parqual), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
@@ -229,9 +228,9 @@ setMethod("connect", signature = signature("report_mig_char"), definition = func
                 req@sql = paste("SELECT ", " ope_date_debut,", " ope_date_fin,",
                   " lot_methode_obtention,", " lot_identifiant ,", " lot_effectif,",
                   " car_valeur_quantitatif,", " ope_dic_identifiant,", " lot_tax_code,",
-                  " lot_std_code,", " car_par_code", " FROM ", rlang::env_get(envir_stacomi,
-                    "sch"), "vue_ope_lot_ech_parquan", " WHERE ope_dic_identifiant in ",
-                  vector_to_listsql(r_mig_char@dc@dc_selectionne), echantillons,
+                  " lot_std_code,", " car_par_code", " FROM ", get_schema(),
+									"vue_ope_lot_ech_parquan", " WHERE ope_dic_identifiant in ",
+                  vector_to_listsql(r_mig_char@dc@dc_selected), echantillons,
                   " AND lot_tax_code in ", vector_to_listsql(r_mig_char@taxa@data$tax_code),
                   " AND lot_std_code in ", vector_to_listsql(r_mig_char@stage@data$std_code),
                   " AND car_par_code in ", vector_to_listsql(parquan), " AND (ope_date_debut, ope_date_fin) OVERLAPS (TIMESTAMP '",
@@ -515,7 +514,7 @@ setMethod("xtable", signature = signature("report_mig_char"), definition = funct
     caption = NULL, label = NULL, align = NULL, ...) {
     r_mig_char <- x
     dat = r_mig_char@data
-    dc = stringr::str_c(r_mig_char@dc@dc_selectionne, collapse = " ")
+    dc = stringr::str_c(r_mig_char@dc@dc_selected, collapse = " ")
     tax = stringr::str_c(r_mig_char@taxa@data$tax_code, collapse = " ")
     std = stringr::str_c(r_mig_char@stage@data$std_code, collapse = " ")
 

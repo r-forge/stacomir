@@ -275,6 +275,28 @@ colortable<-function(color=NULL, vec, palette="Set2", color_function="brewer.pal
 #' @return nblignes Assigned in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
-funout<-function(text,arret=FALSE,...){
+funout <- function(text,arret=FALSE,...){
 	if(arret) stop(text) else print(text,quote=FALSE,...)
+}
+
+#' this function gets the schema from envir stacomi and throws warning
+#' 
+#' @param default passed to rlang::get_env
+#' @return sch The schema in envir_stacomi
+#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @keywords internal
+get_schema <- function(default=NULL){
+	if (!exists("envir_stacomi")) stop("envir_stacomi not created did you run stacomi() ?")
+	sch <- rlang::env_get(envir_stacomi, "sch", default=default)
+	if (is.null(sch)) stop("program failure, sch not in envir_stacomi")
+	return(sch)
+}
+
+#' this function gets the name of the stucture as it is set in the database
+#' 
+#' @return The name of the structure (org_code)
+#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @keywords internal
+get_org <- function(){
+return(toupper(gsub("\\.", "", get_schema())))
 }

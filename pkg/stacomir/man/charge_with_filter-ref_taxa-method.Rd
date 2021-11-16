@@ -4,12 +4,12 @@
 \alias{charge_with_filter,ref_taxa-method}
 \title{Loading method for ref_taxa referential objects searching only taxa existing for a DC}
 \usage{
-\S4method{charge_with_filter}{ref_taxa}(object, dc_selectionne)
+\S4method{charge_with_filter}{ref_taxa}(object, dc_selected)
 }
 \arguments{
 \item{object}{An object of class \link{ref_taxa-class}}
 
-\item{dc_selectionne}{A counting device selected, only taxa attached to this dc are selected}
+\item{dc_selected}{A counting device selected, only taxa attached to this dc are selected}
 }
 \value{
 An S4 object of class ref_taxa
@@ -19,9 +19,9 @@ Loading method for ref_taxa referential objects searching only taxa existing for
 }
 \examples{
 \dontrun{
- dc_selectionne=6
+ dc_selected=6
  object=new('ref_taxa')
- charge_with_filter(object,dc_selectionne=dc_selectionne)}
+ charge_with_filter(object,dc_selected=dc_selected)}
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}

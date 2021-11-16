@@ -35,7 +35,7 @@ for later use by the print.xtable method.}
 
 \item{auto}{see xtable}
 
-\item{dc_name}{A string indicating the names of the DC, in the order of  x@dc@dc_selectionne
+\item{dc_name}{A string indicating the names of the DC, in the order of  x@dc@dc_selected
 if not provided DC codes are used.}
 
 \item{tax_name}{A string indicating the names of the taxa, if not provided latin names are used}

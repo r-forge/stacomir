@@ -3,7 +3,7 @@
 \name{calcule,report_ge_weight-method}
 \alias{calcule,report_ge_weight-method}
 \alias{calcule.report_ge_weight}
-\title{Internal handler for reg, class \code{\link{report_ge_weight-class}}.}
+\title{Calcule method for report_ge_weight}
 \usage{
 \S4method{calcule}{report_ge_weight}(object, silent = FALSE)
 }
@@ -11,19 +11,10 @@
 \item{object}{An object of class \code{\link{report_ge_weight-class}}}
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed, only warnings and errors}
-
-\item{h}{handler}
-
-\item{\dots}{additional arguments passed to the function}
 }
 \description{
-Internal handler for reg, class \code{\link{report_ge_weight-class}}.
+Calcule method for report_ge_weight
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
-\keyword{Calcule}
-\keyword{for}
-\keyword{internal}
-\keyword{method}
-\keyword{report_ge_weight}

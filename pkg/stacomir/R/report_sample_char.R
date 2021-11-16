@@ -37,14 +37,14 @@ setClass(Class = "report_sample_char", representation = representation(data = "A
 setMethod("connect", signature = signature("report_sample_char"), definition = function(object,
     silent = FALSE) {
     requete <- new("RequeteDBwheredate")
-    requete@select = paste("SELECT * FROM ", rlang::env_get(envir_stacomi, "sch"),
+    requete@select = paste("SELECT * FROM ", get_schema(),
         "vue_lot_ope_car", sep = "")
     requete@colonnedebut = "ope_date_debut"
     requete@colonnefin = "ope_date_fin"
     requete@datedebut <- object@horodatedebut@horodate
     requete@datefin <- object@horodatefin@horodate
     requete@order_by = "ORDER BY ope_date_debut"
-    requete@and = paste(" AND ope_dic_identifiant in ", vector_to_listsql(object@dc@dc_selectionne),
+    requete@and = paste(" AND ope_dic_identifiant in ", vector_to_listsql(object@dc@dc_selected),
         " AND lot_tax_code in ", vector_to_listsql(object@taxa@data$tax_code), " AND lot_std_code in ",
         vector_to_listsql(object@stage@data$std_code), " AND car_par_code in ", vector_to_listsql(object@par@par_selected),
         sep = "")
@@ -133,17 +133,17 @@ setMethod("choice_c", signature = signature("report_sample_char"), definition = 
     # anguilla';stage=c('CIV','AGJ');par=c(1785,1786,1787,'C001');horodatedebut='2010-01-01';horodatefin='2015-12-31'
     report_sample_char <- object
     report_sample_char@dc = charge(report_sample_char@dc)
-    # loads and verifies the dc this will set dc_selectionne slot
+    # loads and verifies the dc this will set dc_selected slot
     report_sample_char@dc <- choice_c(object = report_sample_char@dc, dc)
     # only taxa present in the report_mig are used
     report_sample_char@taxa <- charge_with_filter(object = report_sample_char@taxa,
-        report_sample_char@dc@dc_selectionne)
+        report_sample_char@dc@dc_selected)
     report_sample_char@taxa <- choice_c(report_sample_char@taxa, taxa)
     report_sample_char@stage <- charge_with_filter(object = report_sample_char@stage,
-        report_sample_char@dc@dc_selectionne, report_sample_char@taxa@data$tax_code)
+        report_sample_char@dc@dc_selected, report_sample_char@taxa@data$tax_code)
     report_sample_char@stage <- choice_c(report_sample_char@stage, stage)
     report_sample_char@par <- charge_with_filter(object = report_sample_char@par,
-        report_sample_char@dc@dc_selectionne, report_sample_char@taxa@data$tax_code,
+        report_sample_char@dc@dc_selected, report_sample_char@taxa@data$tax_code,
         report_sample_char@stage@data$std_code)
     report_sample_char@par <- choice_c(report_sample_char@par, par, silent = silent)
     report_sample_char@horodatedebut <- choice_c(object = report_sample_char@horodatedebut,
@@ -283,7 +283,7 @@ setMethod("print", signature = signature("report_sample_char"), definition = fun
     ...) {
     sortie1 <- "report_sample_char=new('report_sample_char')"
     sortie2 <- stringr::str_c("report_sample_char=choice_c(report_sample_char,",
-        "dc=c(", stringr::str_c(x@dc@dc_selectionne, collapse = ","), "),", "taxa=c(",
+        "dc=c(", stringr::str_c(x@dc@dc_selected, collapse = ","), "),", "taxa=c(",
         stringr::str_c(shQuote(x@taxa@data$tax_nom_latin), collapse = ","), "),",
         "stage=c(", stringr::str_c(shQuote(x@stage@data$std_code), collapse = ","),
         "),", "par=c(", stringr::str_c(shQuote(x@par@par_selected), collapse = ","),

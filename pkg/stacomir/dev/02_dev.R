@@ -36,6 +36,7 @@ devtools::build_vignettes()
 ## Code Coverage----
 ## Set the code coverage service ("codecov" or "coveralls")
 usethis::use_coverage()
+tools::update_pkg_po("C:/workspace/stacomir/pkg/stacomir")
 
 # Create a summary readme for the testthat subdirectory
 covrpage::covrpage()
@@ -78,4 +79,6 @@ usethis::use_gitlab_ci()
 # You're now set! ----
 # go to dev/03_deploy.R
 rstudioapi::navigateToFile("dev/03_deploy.R")
+
+
 

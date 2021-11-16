@@ -15,7 +15,7 @@ into the tj_caracteristiquelot_car table in the user's scheme}
 }
 \description{
 The sea age characteristic is calculated from the measured or calculated size of salmon and with a size/age rule
-defined by the user . the name of the database is retrieved from the base link
+defined by the user.
 }
 \author{
 Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}

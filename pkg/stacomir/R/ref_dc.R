@@ -3,13 +3,13 @@
 #' Description of a control device.
 #'
 #' @include create_generic.R
-#' @slot dc_selectionne Object of class \code{'integer'}, The selected device
+#' @slot dc_selected Object of class \code{'integer'}, The selected device
 #' @slot ouvrage Object of class \code{'integer'}, the attached dam
 #' @slot station Object of class \code{'character'}, the attached migration monitoring station, this is necessary to join the
 #' table of escapements calculated at the station level.
 #' @slot data Object of class \code{'data.frame'} data pertaining to the control device
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new('ref_dc', dc_selectionne=integer(), ouvrage=integer(),
+#' \code{new('ref_dc', dc_selected=integer(), ouvrage=integer(),
 #' data=data.frame())}.
 #' @author cedric.briand'at'eptb-vilaine.fr
 #' @keywords classes
@@ -17,13 +17,13 @@
 setClass(
     Class = "ref_dc",
     representation = representation(
-        dc_selectionne = "integer",
+        dc_selected = "integer",
         ouvrage = "integer",
         station = "character",
         data = "data.frame"
     ),
     prototype = prototype(
-        dc_selectionne = integer(),
+        dc_selected = integer(),
         ouvrage = integer(),
         station = character(),
         data = data.frame()
@@ -35,18 +35,18 @@ setClass(
 setValidity(
     "ref_dc",
     method = function(object) {
-        if (length(object@dc_selectionne) != 0) {
+        if (length(object@dc_selected) != 0) {
             if (nrow(object@data) > 0) {
-                concord <- object@dc_selectionne %in% object@data$dc
+                concord <- object@dc_selected %in% object@data$dc
                 if (any(!concord)) {
-                    return(paste("No data for DC", object@dc_selectionne[!concord]))
+                    return(paste("No data for DC", object@dc_selected[!concord]))
                     
                 } else {
                     return(TRUE)
                 }
             } else {
                 return(
-                    "You tried to set a value for dc_selectionne without initializing the data slot"
+                    "You tried to set a value for dc_selected without initializing the data slot"
                 )
             }
         } else
@@ -81,22 +81,22 @@ setMethod(
             " tdc_libelle as type_DC,",
             "sta_code",
             " FROM ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "tg_dispositif_dis",
             " JOIN ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "t_dispositifcomptage_dic ON dic_dis_identifiant =dis_identifiant",
             " JOIN ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "t_dispositiffranchissement_dif ON dif_dis_identifiant=dic_dif_identifiant",
             " JOIN ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "tj_dfesttype_dft ON dif_dis_identifiant=dft_df_identifiant",
             " JOIN ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "t_ouvrage_ouv on dif_ouv_identifiant=ouv_identifiant",
             " JOIN ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "t_station_sta on ouv_sta_code=sta_code",
             " JOIN ref.tr_typedf_tdf ON tdf_code=dft_tdf_code",
             " JOIN ref.tr_typedc_tdc ON dic_tdc_code=tdc_code",
@@ -147,15 +147,15 @@ setMethod(
             stop("NA values dc")
         
         
-        object@dc_selectionne <- dc
+        object@dc_selected <- dc
         validObject(object)
         # the method validObject verifies that the dc is in the data slot of
         # ref_dc  
         
         object@station <-
-            as.character(object@data$sta_code[object@data$dc %in% object@dc_selectionne])
+            as.character(object@data$sta_code[object@data$dc %in% object@dc_selected])
         object@ouvrage <-
-            object@data$dif_ouv_identifiant[object@data$dc %in% object@dc_selectionne]
+            object@data$dif_ouv_identifiant[object@data$dc %in% object@dc_selected]
         assign("ref_dc", object, envir = envir_stacomi)
         return(object)
     }

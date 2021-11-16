@@ -108,7 +108,7 @@
 #' }
 #'   \item{dc}{the \code{ref_dc} the DC with 4 slots
 #'   \describe{
-#'    \item{dc_selectionne}{the selected device}
+#'    \item{dc_selected}{the selected device}
 #'      \item{ouvrage}{the dam}
 #'    \item{station}{the monitoring station, a section of river}
 #'    \item{data}{A dataset of all dc present in the database with 10 observations}
@@ -236,7 +236,8 @@
 #' operational at the same location and provides one of the longest series of eel migration. 
 #' For this reason,
 #' the dataset has been loaded as an example for the report_mig_interannual-class. It has been
-#' kindly provided by the parc du Marais Poitevin.
+#' kindly provided by the parc du Marais Poitevin. The stage corresponds to small eels (elvers)
+#' less than 150 mmm stage name 'PANG'
 #' @format An object of class \link{report_mig_interannual-class} with data loaded.
 #' @keywords data
 "r_mig_interannual"

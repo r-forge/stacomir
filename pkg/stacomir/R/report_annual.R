@@ -125,22 +125,19 @@ setMethod(
     req = new("RequeteDB")
     ##############################
     ##############################"
-    anneedebut =	r_ann@anneedebut@annee_selectionnee
-    anneefin = r_ann@anneefin@annee_selectionnee
-    dc = vector_to_listsql(r_ann@dc@dc_selectionne)
+    anneedebut =	r_ann@anneedebut@selected_year
+    anneefin = r_ann@anneefin@selected_year
+    dc = vector_to_listsql(r_ann@dc@dc_selected)
     tax = vector_to_listsql(r_ann@taxa@data$tax_code)
     std = vector_to_listsql(r_ann@stage@data$std_code)
     
     reqdiff = new("RequeteDB")
-    #For Marion
-    #sch<-rlang::env_get(envir_stacomi, "sch") # "iav."
-    #assign("sch","iav.",envir_stacomi)
     
     reqdiff@sql = paste(
       "select *, extract(year  from ope_date_debut) as annee_debut, extract(year  from ope_date_fin) as annee_fin	FROM ",
-      rlang::env_get(envir_stacomi, "sch"),
+      get_schema(),
       "t_operation_ope  join ",
-      rlang::env_get(envir_stacomi, "sch"),
+      get_schema(),
       "t_lot_lot on lot_ope_identifiant=ope_identifiant
 							where ope_dic_identifiant in ",
       dc,
@@ -220,10 +217,10 @@ setMethod(
       req@sql = paste(
         " select sum(lot_effectif) as effectif, annee, ope_dic_identifiant,lot_tax_code, lot_std_code  from
 								(select *, extract(year  from ope_date_debut) as annee FROM ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_operation_ope ",
         " join ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_lot_lot on lot_ope_identifiant=ope_identifiant where ope_dic_identifiant in",
         dc,
         " and extract(year from ope_date_debut)>=",
@@ -278,15 +275,15 @@ setMethod(
     r_ann <- object
     r_ann@dc = charge(r_ann@dc)
     # loads and verifies the dc
-    # this will set dc_selectionne slot
+    # this will set dc_selected slot
     r_ann@dc <- choice_c(object = r_ann@dc, dc)
     # only taxa present in the report_mig are used
     r_ann@taxa <-
-      charge_with_filter(object = r_ann@taxa, r_ann@dc@dc_selectionne)
+      charge_with_filter(object = r_ann@taxa, r_ann@dc@dc_selected)
     r_ann@taxa <- choice_c(r_ann@taxa, taxa)
     r_ann@stage <-
       charge_with_filter(object = r_ann@stage,
-                         r_ann@dc@dc_selectionne,
+                         r_ann@dc@dc_selected,
                          r_ann@taxa@data$tax_code)
     r_ann@stage <- choice_c(r_ann@stage, stage)
     
@@ -320,7 +317,7 @@ setMethod(
 #' @param digits default 0
 #' @param display see xtable
 #' @param auto see xtable
-#' @param dc_name A string indicating the names of the DC, in the order of  x@dc@dc_selectionne
+#' @param dc_name A string indicating the names of the DC, in the order of  x@dc@dc_selected
 #' if not provided DC codes are used.
 #' @param tax_name A string indicating the names of the taxa, if not provided latin names are used
 #' @param std_name A string indicating the stages names, if not provided then std_libelle are used
@@ -343,7 +340,7 @@ setMethod(
     dat = r_ann@data
     tax = r_ann@taxa@data$tax_code
     std = r_ann@stage@data$std_code
-    dc = r_ann@dc@dc_selectionne
+    dc = r_ann@dc@dc_selected
     # giving names by default if NULL else checking that arguments dc_name, tax_name, std_name
     #have the right length
     if (is.null(dc_name))

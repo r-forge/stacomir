@@ -29,23 +29,23 @@ setMethod("charge", signature = signature("ref_taxa"), definition = function(obj
 
 #' Loading method for ref_taxa referential objects searching only taxa existing for a DC
 #' @param object An object of class \link{ref_taxa-class}
-#' @param dc_selectionne A counting device selected, only taxa attached to this dc are selected
+#' @param dc_selected A counting device selected, only taxa attached to this dc are selected
 #' @return An S4 object of class ref_taxa
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples \dontrun{
-#'  dc_selectionne=6
+#'  dc_selected=6
 #'  object=new('ref_taxa')
-#'  charge_with_filter(object,dc_selectionne=dc_selectionne)}
+#'  charge_with_filter(object,dc_selected=dc_selected)}
 setMethod("charge_with_filter", signature = signature("ref_taxa"), definition = function(object,
-    dc_selectionne) {
+    dc_selected) {
     requete = new("RequeteDBwhere")
     requete@select = paste("SELECT DISTINCT ON (tax_rang) tax_code, tax_nom_latin, tax_nom_commun, tax_ntx_code, tax_tax_code",
-        " FROM ", rlang::env_get(envir_stacomi, "sch"), "tg_dispositif_dis", " JOIN ",
-        rlang::env_get(envir_stacomi, "sch"), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
+        " FROM ", get_schema(), "tg_dispositif_dis", " JOIN ",
+        get_schema(), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
         " JOIN ref.tr_taxon_tax on lot_tax_code=tax_code", sep = "")
-    requete@where = paste("where dis_identifiant in", vector_to_listsql(dc_selectionne))
+    requete@where = paste("where dis_identifiant in", vector_to_listsql(dc_selected))
     requete@order_by = "ORDER BY tax_rang ASC"
     requete <- stacomirtools::query(requete)
     object@data <- requete@query

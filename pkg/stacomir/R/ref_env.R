@@ -25,7 +25,7 @@ setClass(Class = "ref_env", representation = representation(data = "data.frame")
 setMethod("charge", signature = signature("ref_env"), definition = function(object) {
     requete = new("RequeteDB")
     requete@sql = paste("SELECT stm_identifiant, stm_libelle, stm_sta_code, stm_par_code, stm_description",
-        " FROM ", rlang::env_get(envir_stacomi, "sch"), "tj_stationmesure_stm", " ORDER BY stm_identifiant;",
+        " FROM ", get_schema(), "tj_stationmesure_stm", " ORDER BY stm_identifiant;",
         sep = "")
     requete@silent = TRUE
     requete <- stacomirtools::query(requete)

@@ -13,14 +13,14 @@ fun_write_monthly<-function(report_mig,resum,silent){
 	# below not the most elegant way to do it but efficient
 	
 	t_reportmigrationmensuel_bme=stacomirtools::killfactor(
-			cbind(report_mig@dc@dc_selectionne,
+			cbind(report_mig@dc@dc_selected,
 					report_mig@taxa@data$tax_code,
 					report_mig@stage@data$std_code,
 					unique(strftime(as.POSIXlt(report_mig@time.sequence),"%Y")), # une valeur
 					rep(rownames(resum),(ncol(resum)-2)), # nb of month except columns report and label
 					stack(resum, select=c(2:(ncol(resum)-1))),# stack re-ordonne les tab de donnees !  
 					format(Sys.time(), "%Y-%m-%d %H:%M:%S"),
-					substr(toupper(rlang::env_get(envir_stacomi, "sch")), 1, nchar(toupper(rlang::env_get(envir_stacomi, "sch")))-1)
+					get_org()
 			)
 	)
 	
@@ -31,7 +31,7 @@ fun_write_monthly<-function(report_mig,resum,silent){
 	# ecriture dans la base...
 	
 	for (i in 1:nrow(t_reportmigrationmensuel_bme)) {
-		sql=paste("INSERT INTO ",rlang::env_get(envir_stacomi, "sch"),"t_bilanmigrationmensuel_bme (",			
+		sql=paste("INSERT INTO ",get_schema(),"t_bilanmigrationmensuel_bme (",			
 				"bme_dis_identifiant,bme_tax_code,bme_std_code,bme_annee,bme_labelquantite,bme_valeur,bme_mois,bme_horodateexport,bme_org_code)",
 				" VALUES ('",paste(t_reportmigrationmensuel_bme[i,],collapse="','"),"');",sep="")
 		con <- new("ConnectionDB")

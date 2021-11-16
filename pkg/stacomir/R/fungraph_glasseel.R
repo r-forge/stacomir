@@ -79,7 +79,7 @@ fungraph_glasseel = function(report_mig,
   }
   
   if (is.null(dc))
-    dc = report_mig@dc@dc_selectionne[1]
+    dc = report_mig@dc@dc_selected[1]
   annee = paste(unique(strftime(as.POSIXlt(time.sequence), "%Y")), collapse =
                   ",")
   mois = months(time.sequence)

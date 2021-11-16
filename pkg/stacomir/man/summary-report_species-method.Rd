@@ -3,7 +3,7 @@
 \name{summary,report_species-method}
 \alias{summary,report_species-method}
 \alias{summary.report_species}
-\title{handler for summary report_species, internal use}
+\title{summary for report_species}
 \usage{
 \S4method{summary}{report_species}(object, silent = FALSE)
 }
@@ -11,28 +11,10 @@
 \item{object}{An object of class \code{\link{report_species-class}}}
 
 \item{silent}{Should the program stay silent or display messages, default FALSE}
-
-\item{h}{a handler}
 }
 \description{
-handler for summary report_species, internal use
+generate csv and html output in the user data directory
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-
-Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 }
-\keyword{and}
-\keyword{csv}
-\keyword{data}
-\keyword{directory}
-\keyword{for}
-\keyword{generate}
-\keyword{html}
-\keyword{in}
-\keyword{internal}
-\keyword{output}
-\keyword{report_species}
-\keyword{summary}
-\keyword{the}
-\keyword{user}

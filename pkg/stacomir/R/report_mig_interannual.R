@@ -116,10 +116,10 @@ setMethod(
 			
 			
 			fn_connect <- function() {
-				les_annees = (object@start_year@annee_selectionnee):(object@end_year@annee_selectionnee)
+				les_annees = (object@start_year@selected_year):(object@end_year@selected_year)
 				tax = object@taxa@data$tax_code
 				std = object@stage@data$std_code
-				dic = object@dc@dc_selectionne
+				dic = object@dc@dc_selected
 				requete = new("RequeteDBwhere")
 				requete@where = paste(
 						"WHERE bjo_annee IN ",
@@ -134,7 +134,7 @@ setMethod(
 				)
 				requete@select = paste(
 						"SELECT * FROM ",
-						rlang::env_get(envir_stacomi, "sch"),
+						get_schema(),
 						"t_bilanmigrationjournalier_bjo",
 						sep = ""
 				)
@@ -159,7 +159,7 @@ setMethod(
 				#----------------------------------------------------------------------
 				# MAIN LOOP, there can be several dic
 				#----------------------------------------------------------------------
-				dic <- object@dc@dc_selectionne
+				dic <- object@dc@dc_selected
 				for (i in 1:length(dic)) {
 					#i=1
 					############################################
@@ -198,8 +198,8 @@ setMethod(
 					# as we have changed the report_annual to split data between years
 					# some unwanted data might step in outside the year range
 					# we correct for that
-					compared_numbers <- compared_numbers[compared_numbers$annee >= object@start_year@annee_selectionnee &
-									compared_numbers$annee <= object@end_year@annee_selectionnee, ]
+					compared_numbers <- compared_numbers[compared_numbers$annee >= object@start_year@selected_year &
+									compared_numbers$annee <= object@end_year@selected_year, ]
 					
 					#-------------------------------------------------------------------------------------
 					# First test, if missing data, the program will propose to load the data by running report_mig
@@ -338,7 +338,7 @@ setMethod(
 			# Final check for data
 			# index of data already present in the database
 			#-------------------------------------------------------------------------------------
-			les_annees = object@start_year@annee_selectionnee:object@end_year@annee_selectionnee
+			les_annees = object@start_year@selected_year:object@end_year@selected_year
 			index = unique(object@data$bjo_annee) %in% les_annees
 			# s'il manque des donnees pour certaines annees selectionnnees"
 			if (!silent) {
@@ -381,16 +381,16 @@ setMethod(
 		definition = function(object)
 		{
 			# recuperation des annees taxa et stage concernes
-			les_annees = (object@start_year@annee_selectionnee):(object@end_year@annee_selectionnee)
+			les_annees = (object@start_year@selected_year):(object@end_year@selected_year)
 			tax = object@taxa@data$tax_code
 			std = object@stage@data$std_code
-			dic = object@dc@dc_selectionne
+			dic = object@dc@dc_selected
 			con = new("ConnectionDB")
 			con <- connect(con)
 			on.exit(pool::poolClose(con@connection))
 			sql = stringr::str_c(
 					"DELETE from ",
-					rlang::env_get(envir_stacomi, "sch"),
+					get_schema(),
 					"t_bilanmigrationjournalier_bjo ",   
 					" WHERE bjo_annee IN (",
 					paste(les_annees, collapse = ","),
@@ -405,7 +405,7 @@ setMethod(
 			
 			sql = stringr::str_c(
 					"DELETE from ",
-					rlang::env_get(envir_stacomi, "sch"),
+					get_schema(),
 					"t_bilanmigrationmensuel_bme ",    
 					" WHERE bme_annee IN (",
 					paste(les_annees, collapse = ","),
@@ -520,18 +520,18 @@ setMethod(
 			report_mig_interannual <- object
 			report_mig_interannual@dc = charge(report_mig_interannual@dc)
 			# loads and verifies the dc
-			# this will set dc_selectionne slot
+			# this will set dc_selected slot
 			report_mig_interannual@dc <-
 					choice_c(object = report_mig_interannual@dc, dc)
 			# only taxa present in the report_mig are used
 			report_mig_interannual@taxa <-
-					charge_with_filter(object = report_mig_interannual@taxa, report_mig_interannual@dc@dc_selectionne)
+					charge_with_filter(object = report_mig_interannual@taxa, report_mig_interannual@dc@dc_selected)
 			report_mig_interannual@taxa <-
 					choice_c(report_mig_interannual@taxa, taxa)
 			report_mig_interannual@stage <-
 					charge_with_filter(
 							object = report_mig_interannual@stage,
-							report_mig_interannual@dc@dc_selectionne,
+							report_mig_interannual@dc@dc_selected,
 							report_mig_interannual@taxa@data$tax_code
 					)
 			report_mig_interannual@stage <-
@@ -931,7 +931,7 @@ setMethod(
 							paste(min(dat$annee), max(dat$annee), collapse = ":"),
 							", ",
 							report_mig_interannual@dc@data$dis_commentaires[report_mig_interannual@dc@data$dc ==
-											report_mig_interannual@dc@dc_selectionne]
+											report_mig_interannual@dc@dc_selected]
 					)
 					soustitre = paste(
 							report_mig_interannual@taxa@data$tax_nom_latin,
@@ -1617,13 +1617,13 @@ setMethod(
 							timesplit_ = timesplit
 					)
 					datadic1 <-
-							dplyr::select_(datadic,
+							dplyr::select(datadic,
 									timesplit,
 									"bjo_annee",
 									"bjo_valeur",
 									"bjo_labelquantite")
 					datadic1 <-
-							dplyr::group_by_(datadic1, "bjo_annee", timesplit, "bjo_labelquantite")
+							dplyr::group_by(datadic1, "bjo_annee", timesplit, "bjo_labelquantite")
 					datadic1 <- dplyr::summarize(datadic1, bjo_valeur = sum(bjo_valeur))
 					datadic1 <-
 							dplyr::ungroup(datadic1) %>% dplyr::filter(bjo_labelquantite == "Effectif_total")
@@ -1754,7 +1754,7 @@ setMethod(
 			dat$Annee = as.factor(dat$Annee)
 			dat = dat[, -1]
 			tmp = dat$Jour
-			DC = object@dc@dc_selectionne
+			DC = object@dc@dc_selected
 			dat <- chnames(dat, "Jour", "debut_pas")
 			# debut_pas must be column name in tableau
 			listDC <- list()

@@ -217,25 +217,6 @@ setAs("ref_timestepChar", "ref_timestep",   # from to
       })
 # timestep=as(timestepChar,"ref_timestep")
 
-#' Generic method to get current time step
-#' @param object An object
-#' @param ... Additional parameters passed to the method
-setGeneric(
-  "getnocurrent_step",
-  def = function(object, ...)
-    standardGeneric("getnocurrent_step")
-)
-#' Gets the current time step of an object of class \link{ref_timestep-class}
-#' @param object An object of class \link{ref_timestep-class}
-#' @return the current time step of the object
-#' @keywords internal
-setMethod(
-  "getnocurrent_step",
-  signature = signature("ref_timestep"),
-  definition = function(object)
-    object@nocurrent_step
-)
-
 
 #' Gets the final horodate for an object of class \link{ref_timestep-class}
 #' @param object An object of class \link{ref_timestep-class}
@@ -252,93 +233,6 @@ setMethod(
   }
 )
 
-
-#' Gets the starting date of a time step for an object of class \link{ref_timestep-class}
-#' @param object An object of class \link{ref_timestep-class}
-#' @return current_start_date, The starting date for the current timestep
-#' @keywords internal
-setMethod(
-  "currentstart_date",
-  signature = signature("ref_timestep"),
-  definition = function(object) {
-    current_start_date = object@dateDebut + object@step_duration * object@nocurrent_step
-    # bug cht heure
-    if (object@step_duration == 86400) {
-      current_start_date = Hmisc::roundPOSIXt(current_start_date, "days")
-    }
-    return(current_start_date)
-  }
-)
-
-
-#' Gets the ending date of a time step for an object of class \link{ref_timestep-class}
-#' @param object An object of class \link{ref_timestep-class}
-#' @return Currentend_date, The ending date for the current timestep
-setMethod(
-  "current_end_date",
-  signature = signature("ref_timestep"),
-  definition = function(object) {
-    the_current_end_date = object@dateDebut + object@step_duration * (object@nocurrent_step +
-                                                                        as.integer(1))
-    if (object@step_duration == 86400) {
-      the_current_end_date = Hmisc::roundPOSIXt(the_current_end_date, "days")
-    }
-    return(the_current_end_date)
-  }
-)
-
-
-#' Returns the starting date as character
-#' @param object An object of class \link{ref_timestep-class}
-#' @param ... Additional parameters passed to the method
-#' @keywords internal
-setMethod(
-  "getdateDebut",
-  signature = signature("ref_timestep"),
-  definition = function(object) {
-    return (strftime(as.POSIXlt(object@dateDebut), format = "%Y-%m-%d %H:%M:%S"))
-  }
-)
-
-
-
-#' Sets starting date from a character
-#'
-#'
-#' @param object An object of class \link{ref_timestep-class}
-#' @param string Character string of type"\%Y-\%m-\%d \%H:\%M:\%S" or "\%Y-\%m-\%d".
-#' this allows to use either horodate or date
-#' @return An object of class \link{ref_timestep-class}
-#' @keywords internal
-setMethod(
-  "set_starting_date",
-  signature = signature("ref_timestep"),
-  definition = function(object, string) {
-    object@dateDebut = if (!is.na(strptime(string, format = "%Y-%m-%d %H:%M:%S")))
-      strptime(string, format = "%Y-%m-%d %H:%M:%S")
-    else
-      strptime(string, format = "%Y-%m-%d")
-    return(object)
-  }
-)
-
-
-
-
-
-#' Gets the string value of time step
-#'
-#' @param object An object of class \link{ref_timestep-class}
-#' @return A string corresponding to the value of current time step
-#' @keywords internal
-setMethod(
-  "get_step_label",
-  signature = signature("ref_timestep"),
-  definition = function(object) {
-    ret = paste(Lesref_timestep$Labelref_timestep)
-    return (ret)
-  }
-)
 
 
 

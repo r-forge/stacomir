@@ -31,33 +31,32 @@ setMethod("charge", signature = signature("ref_parqual"), definition = function(
 
 #' Loading method for Reparqual referential objects searching only those parameters existing for a DC, a Taxon, and a stage
 #' @param object An object of class \link{ref_parqual-class}
-#' @param dc_selectionne The dc set in the report object
-#' @param taxa_selectionne The taxa set in the report object
-#' @param stage_selectionne The stage set in the report object
+#' @param dc_selected The dc set in the report object
+#' @param taxa_selected The taxa set in the report object
+#' @param stage_selected The stage set in the report object
 #' @return An S4 object of class \link{ref_parqual-class}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
-#'  dc_selectionne=6
-#'  taxa_selectionne=2038
-#'  stage_selectionne='AGJ'
+#'  dc_selected=6
+#'  taxa_selected=2038
+#'  stage_selected='AGJ'
 #'  object=new('ref_parqual')
-#'  charge_with_filter(object,dc_selectionne,taxa_selectionne,stage_selectionne)
+#'  charge_with_filter(object,dc_selected,taxa_selected,stage_selected)
 #' }
 setMethod("charge_with_filter", signature = signature("ref_parqual"), definition = function(object,
-    dc_selectionne, taxa_selectionne, stage_selectionne) {
+    dc_selected, taxa_selected, stage_selected) {
     requete = new("RequeteDBwhere")
     requete@select = paste("SELECT DISTINCT ON (par_code) par_code, par_nom", " FROM ",
-        rlang::env_get(envir_stacomi, "sch"), "tg_dispositif_dis", " JOIN ", rlang::env_get(envir_stacomi,
-            "sch"), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
-        " JOIN ", rlang::env_get(envir_stacomi, "sch"), "tj_caracteristiquelot_car on car_lot_identifiant=lot_identifiant",
+        get_schema(), "tg_dispositif_dis", " JOIN ", get_schema(), "t_dispositifcomptage_dic on dis_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_operation_ope on ope_dic_identifiant=dic_dis_identifiant",
+        " JOIN ", get_schema(), "t_lot_lot on lot_ope_identifiant=ope_identifiant",
+        " JOIN ", get_schema(), "tj_caracteristiquelot_car on car_lot_identifiant=lot_identifiant",
         " JOIN ref.tg_parametre_par on par_code=car_par_code", " JOIN ref.tr_parametrequalitatif_qal ON tr_parametrequalitatif_qal.qal_par_code::text = tg_parametre_par.par_code::text",
         sep = "")
-    requete@where = paste("where dis_identifiant in ", vector_to_listsql(dc_selectionne))
-    requete@and = paste("and lot_tax_code in ", vector_to_listsql(taxa_selectionne),
-        " and lot_std_code in ", vector_to_listsql(stage_selectionne), sep = "")
+    requete@where = paste("where dis_identifiant in ", vector_to_listsql(dc_selected))
+    requete@and = paste("and lot_tax_code in ", vector_to_listsql(taxa_selected),
+        " and lot_std_code in ", vector_to_listsql(stage_selected), sep = "")
     requete@order_by = "ORDER BY par_code"
     requete <- stacomirtools::query(requete)
     object@data <- requete@query
@@ -71,9 +70,9 @@ setMethod("charge_with_filter", signature = signature("ref_parqual"), definition
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
-#'  dc_selectionne=6
-#'taxa_selectionne=2038
-#'  stage_selectionne='AGJ'
+#'  dc_selected=6
+#'taxa_selected=2038
+#'  stage_selected='AGJ'
 #'  object=new('ref_parqual')
 #'  object<-charge(object)
 #'  charge_complement(object)

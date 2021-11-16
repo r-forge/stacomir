@@ -10,7 +10,7 @@
 validity_year = function(object)
 {
   rep1 = class(object@data) == "data.frame"
-  rep2 = class(object@annee_selectionnee) == "numeric"
+  rep2 = class(object@selected_year) == "numeric"
   
   return(ifelse(rep1 & rep2, TRUE, FALSE))
 }
@@ -20,19 +20,19 @@ validity_year = function(object)
 #'
 #' Class used to select one or several years
 #' @section Objects from the Class: Objects can be created by calls of the form
-#' \code{new("ref_year", data=data.frame(), annee_selectionnee=numeric())}.
+#' \code{new("ref_year", data=data.frame(), selected_year=numeric())}.
 #' @include create_generic.R
 #' @slot data A \code{data.frame} with the list of possible years selected as numerics
-#' @slot annee_selectionnee A numeric vector
+#' @slot selected_year A numeric vector
 #' @keywords classes
 #' @family referential objects
 #' @author cedric.briand"at"eptb-vilaine.fr
 setClass(
   Class = "ref_year",
   representation =
-    representation(data = "data.frame", annee_selectionnee = "numeric"),
+    representation(data = "data.frame", selected_year = "numeric"),
   validity = validity_year,
-  prototype = prototype(data = data.frame(), annee_selectionnee = numeric())
+  prototype = prototype(data = data.frame(), selected_year = numeric())
 )
 
 #' Loading method for ref_year referential objects
@@ -57,7 +57,7 @@ setMethod(
     if (objectreport == "report_mig_interannual") {
       if (exists("ref_dc", envir_stacomi)) {
         dc <- get("ref_dc", envir_stacomi)
-        and1 <- paste(" AND bjo_dis_identifiant =", dc@dc_selectionne)
+        and1 <- paste(" AND bjo_dis_identifiant =", dc@dc_selected)
       } else {
         and1 <- ""
       }
@@ -78,7 +78,7 @@ setMethod(
       }
       requete@sql = paste(
         "select  DISTINCT ON (bjo_annee) bjo_annee from ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_bilanmigrationjournalier_bjo where bjo_identifiant>0 ",
         # I want and statements to not have to choose the order
         # the where statement is always verified
@@ -90,7 +90,7 @@ setMethod(
     } else if (objectreport == "report_ge_weight") {
       requete@sql = paste(
         "select  DISTINCT ON (year) year from( select date_part('year', ope_date_debut) as year from ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_operation_ope) as tabletemp",
         sep = ""
       )
@@ -100,7 +100,7 @@ setMethod(
         dc <- get("ref_dc", envir_stacomi)
         and1 <-
           paste(" AND ope_dic_identifiant in ",
-                vector_to_listsql(dc@dc_selectionne))
+                vector_to_listsql(dc@dc_selected))
       } else {
         and1 <- ""
       }
@@ -123,9 +123,9 @@ setMethod(
       }
       requete@sql = paste(
         "select  DISTINCT ON (year) year from (select date_part('year', ope_date_debut) as year from ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_operation_ope JOIN ",
-        rlang::env_get(envir_stacomi, "sch"),
+        get_schema(),
         "t_lot_lot on lot_ope_identifiant=ope_identifiant",
         " WHERE lot_lot_identifiant is null",
         and1,
@@ -193,7 +193,7 @@ setMethod(
         )
       )
     }
-    object@annee_selectionnee <- annee
+    object@selected_year <- annee
     
     assign(nomassign, object, envir_stacomi)
     if (!silent)

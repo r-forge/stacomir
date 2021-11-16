@@ -16,6 +16,7 @@ in the Sevre Niortaise, Marais Poitevin. Also refurbished several times since 19
 operational at the same location and provides one of the longest series of eel migration. 
 For this reason,
 the dataset has been loaded as an example for the report_mig_interannual-class. It has been
-kindly provided by the parc du Marais Poitevin.
+kindly provided by the parc du Marais Poitevin. The stage corresponds to small eels (elvers)
+less than 150 mmm stage name 'PANG'
 }
 \keyword{data}

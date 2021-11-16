@@ -84,7 +84,7 @@ setMethod(
 		definition = function(object, silent = FALSE) {
 			requete <- new("RequeteDBwheredate")
 			requete@select = paste("SELECT * FROM ",
-					rlang::env_get(envir_stacomi, "sch"),
+					get_schema(),
 					"vue_lot_ope_car",
 					sep = "")
 			requete@colonnedebut = "ope_date_debut"
@@ -94,7 +94,7 @@ setMethod(
 			requete@order_by = "ORDER BY ope_date_debut"
 			requete@and = paste(
 					" AND ope_dic_identifiant in ",
-					vector_to_listsql(object@dc@dc_selectionne),
+					vector_to_listsql(object@dc@dc_selected),
 					" AND lot_tax_code in ",
 					vector_to_listsql(object@taxa@data$tax_code),
 					" AND lot_std_code in ",
@@ -241,21 +241,21 @@ setMethod(
 			r_seaa <- object
 			r_seaa@dc = charge(r_seaa@dc)
 			# loads and verifies the dc
-			# this will set dc_selectionne slot
+			# this will set dc_selected slot
 			r_seaa@dc <- choice_c(object = r_seaa@dc, dc)
 			# only taxa present in the report_mig are used
 			r_seaa@taxa <-
-					charge_with_filter(object = r_seaa@taxa, r_seaa@dc@dc_selectionne)
+					charge_with_filter(object = r_seaa@taxa, r_seaa@dc@dc_selected)
 			r_seaa@taxa <- choice_c(r_seaa@taxa, taxa)
 			r_seaa@stage <-
 					charge_with_filter(object = r_seaa@stage,
-							r_seaa@dc@dc_selectionne,
+							r_seaa@dc@dc_selected,
 							r_seaa@taxa@data$tax_code)
 			r_seaa@stage <- choice_c(r_seaa@stage, stage, silent = silent)
 			r_seaa@par <-
 					charge_with_filter(
 							object = r_seaa@par,
-							r_seaa@dc@dc_selectionne,
+							r_seaa@dc@dc_selected,
 							r_seaa@taxa@data$tax_code,
 							r_seaa@stage@data$std_code
 					)
@@ -399,12 +399,13 @@ setMethod(
 						ylab("Effectif")
 				print(p)
 				assign("p", p, envir = envir_stacomi)
-				funout(
-						gettext(
-								"The graphical object is written is env_stacomi, type p<-get('p',envir=envir_stacomi)",
-								domain = "R-stacomiR"
-						)
-				)
+				if (!silent){
+					funout(
+							gettext(
+									"The graphical object is written is env_stacomi, type p<-get('p',envir=envir_stacomi)",
+									domain = "R-stacomiR"
+							)
+					)}
 				
 			}
 			######################################
@@ -429,12 +430,14 @@ setMethod(
 						facet_grid(ope_dic_identifiant ~ .)
 				print(p)
 				assign("p", p, envir = envir_stacomi)
-				funout(
-						gettext(
-								"The graphical object is written is env_stacomi, type p<-get('p',envir=envir_stacomi)",
-								domain = "R-stacomiR"
-						)
-				)
+				if (!silent){
+					funout(
+							gettext(
+									"The graphical object is written is env_stacomi, type p<-get('p',envir=envir_stacomi)",
+									domain = "R-stacomiR"
+							)
+					)
+				}
 			}
 			
 		}
@@ -467,7 +470,7 @@ setMethod(
 				datdc <-	dat[dat$ope_dic_identifiant == ndc[i], ]
 				dc_code <- r_seaa@dc@data$dc_code[r_seaa@dc@data$dc == ndc[i]]
 				ouvrage <-
-						gsub("[\r\n]", "", r_seaa@dc@data[r_seaa@dc@data$dc == r_seaa@dc@dc_selectionne[i], "ouv_libelle"])
+						gsub("[\r\n]", "", r_seaa@dc@data[r_seaa@dc@data$dc == r_seaa@dc@dc_selected[i], "ouv_libelle"])
 				dc <- as.character(unique(datdc$ope_dic_identifiant))
 				result[[dc]] <- list()
 				result[[dc]][["ouvrage"]] <- ouvrage
@@ -493,8 +496,7 @@ setMethod(
 #' into the tj_caracteristiquelot_car table in the user's scheme
 #'
 #' The sea age characteristic is calculated from the measured or calculated size of salmon and with a size/age rule
-#' defined by the user . the name of the database is retrieved from the base link
-#'
+#' defined by the user. 
 #' @param object an object of class \link{report_sea_age-class}
 #' @param silent : Default FALSE, if TRUE the program should no display messages.
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
@@ -542,31 +544,32 @@ setMethod(
 					r_seaa@calcdata$data$age,
 					as.integer(NA),
 					comment,
-					substr(toupper(rlang::env_get(
-											envir_stacomi, "sch"
-									)), 1, nchar(toupper(
-											rlang::env_get(envir_stacomi, "sch")
-									)) - 1)
+					get_org()
 			)
 			#--------------
 			# writing the table in the database
 			#--------------
-			sql <-
-					stringr::str_c(
-							"INSERT INTO ",
-							rlang::env_get(envir_stacomi, "sch"),
-							"tj_caracteristiquelot_car 	SELECT * FROM  bam;"
-					)
 			con <- new("ConnectionDB")
 			con <- connect(con)
 			on.exit(pool::poolClose(con@connection))
-			invisible(utils::capture.output(pool::dbExecute(con@connection, statement = sql)))
+			pool::dbWriteTable(con@connection, 
+					name = "bam", 
+					value=bam, 
+					temporary=TRUE)	
 			
+			sql <-
+					stringr::str_c(
+							"INSERT INTO ",
+							get_schema(),
+							"tj_caracteristiquelot_car 	SELECT * FROM  bam;"
+					)
 			
+			pool::dbExecute(con@connection, statement = sql)
 			
 			if (!silent) {
 				funout(gettextf("Writing  %s age values in the database \n", nrow(bam)))
 			}
+			return(invisible(NULL))
 		}
 )
 
@@ -585,7 +588,7 @@ setMethod(
 			sortie2 <- stringr::str_c(
 					"r_seaa=choice_c(r_seaa,",
 					"dc=c(",
-					stringr::str_c(x@dc@dc_selectionne, collapse = ","),
+					stringr::str_c(x@dc@dc_selected, collapse = ","),
 					"),",
 					"taxa=c(",
 					stringr::str_c(shQuote(x@taxa@data$tax_nom_latin), collapse = ","),
@@ -635,18 +638,17 @@ setMethod(
 				if (!silent)
 					funout(gettext("No data to remove"), arret = TRUE)
 			}
-			requete = new("RequeteDBwhere")
-			requete@select = stringr::str_c("DELETE from ",
-					rlang::env_get(envir_stacomi, "sch"),
-					"tj_caracteristiquelot_car ")
-			requete@where = paste(
+			con = new("ConnectionDB")
+			con <- connect(con)
+			on.exit(pool::poolClose(con@connection))
+			sql =  stringr::str_c("DELETE from ", 
+					get_schema(),
+					"tj_caracteristiquelot_car ",
 					"WHERE car_lot_identifiant IN ",
 					vector_to_listsql(data_in_base$lot_identifiant),
-					" AND car_par_code='A124';",
-					sep = ""
+					" AND car_par_code='A124';"					
 			)
-			invisible(utils::capture.output(requete <-
-									stacomirtools::query(requete)))
+			pool::dbExecute(con@connection, statement = sql)			
 			return(invisible(NULL))
 		}
 

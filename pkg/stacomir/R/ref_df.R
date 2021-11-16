@@ -3,28 +3,28 @@
 #' Representation of a fishway, contains description data of all fishways from
 #' the database along with the selected fishways (df) (integer)
 #' Objects from the Class: Objects can be created by calls of the form
-#' \code{new('ref_df', df_selectionne=integer(), ouvrage=integer(),
+#' \code{new('ref_df', df_selected=integer(), ouvrage=integer(),
 #' data=data.frame())}.  
-#' @param df_selectionne Object of class \code{'integer'} The identifier of the fishway
+#' @param df_selected Object of class \code{'integer'} The identifier of the fishway
 #' @param ouvrage Object of class \code{'integer'} The attached dam
 #' @param data Object of class \code{'data.frame'} Data concerning the fishway
 #' @author cedric.briand'at'eptb-vilaine.fr
 #' @family referential objects
-setClass(Class = "ref_df", representation = representation(df_selectionne = "integer",
+setClass(Class = "ref_df", representation = representation(df_selected = "integer",
 				ouvrage = "integer", data = "data.frame"))
 
 setValidity("ref_df", method = function(object) {
-			if (length(object@df_selectionne) != 0) {
+			if (length(object@df_selected) != 0) {
 				if (nrow(object@data) > 0) {
-					concord <- object@df_selectionne %in% object@data$df
+					concord <- object@df_selected %in% object@data$df
 					if (any(!concord)) {
-						return(paste("No data for DF", object@df_selectionne[!concord]))
+						return(paste("No data for DF", object@df_selected[!concord]))
 						
 					} else {
 						return(TRUE)
 					}
 				} else {
-					return("You tried to set a value for df_selectionne without initializing the data slot")
+					return("You tried to set a value for df_selected without initializing the data slot")
 				}
 			} else return(TRUE)
 			
@@ -43,10 +43,9 @@ setMethod("charge", signature = signature("ref_df"), definition = function(objec
 			requete@sql = paste("select dis_identifiant as DF,", " dis_date_creation,", " dis_date_suppression,",
 					" dis_commentaires,", " dif_ouv_identifiant,", " ouv_libelle,", " dif_code as DF_code,",
 					" dif_localisation,", " dif_orientation,", " tdf_libelle as type_DF", " from ",
-					rlang::env_get(envir_stacomi, "sch"), "tg_dispositif_dis", " JOIN ", rlang::env_get(envir_stacomi,
-							"sch"), "t_dispositiffranchissement_dif ON dif_dis_identifiant=dis_identifiant",
-					" JOIN ", rlang::env_get(envir_stacomi, "sch"), "tj_dfesttype_dft ON dif_dis_identifiant=dft_df_identifiant",
-					" JOIN ", rlang::env_get(envir_stacomi, "sch"), "t_ouvrage_ouv on dif_ouv_identifiant=ouv_identifiant",
+					get_schema(), "tg_dispositif_dis", " JOIN ", get_schema(), "t_dispositiffranchissement_dif ON dif_dis_identifiant=dis_identifiant",
+					" JOIN ", get_schema(), "tj_dfesttype_dft ON dif_dis_identifiant=dft_df_identifiant",
+					" JOIN ", get_schema(), "t_ouvrage_ouv on dif_ouv_identifiant=ouv_identifiant",
 					" JOIN ref.tr_typedf_tdf ON tdf_code=dft_tdf_code", " ORDER BY dis_identifiant;",
 					sep = "")
 			requete <- stacomirtools::query(requete)
@@ -86,8 +85,8 @@ setMethod("choice_c", signature = signature("ref_df"), definition = function(obj
 			}
 			if (any(is.na(df)))
 				stop("NA values df")
-			object@df_selectionne <- df
-			object@ouvrage = object@data$dif_ouv_identifiant[object@data$df %in% object@df_selectionne]
+			object@df_selected <- df
+			object@ouvrage = object@data$dif_ouv_identifiant[object@data$df %in% object@df_selected]
 			validObject(object)
 			# the method validObject verifies that the df is in the data slot of
 			# ref_df  

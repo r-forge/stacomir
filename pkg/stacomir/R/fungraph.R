@@ -79,7 +79,7 @@ fungraph = function(report_mig,
   }
   
   if (is.null(dc))
-    dc = report_mig@dc@dc_selectionne[1]
+    dc = report_mig@dc@dc_selected[1]
   annee = unique(strftime(as.POSIXlt(time.sequence), "%Y"))[1]
   mois = months(time.sequence)
   jour = strftime(as.POSIXlt(time.sequence), "%j")

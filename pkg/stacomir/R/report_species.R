@@ -39,17 +39,19 @@ setMethod("connect", signature = signature("report_species"), definition = funct
     silent = FALSE) {
     bilesp <- object
     requete = new("RequeteDB")
-    anneedebut = bilesp@anneedebut@annee_selectionnee
-    anneefin = bilesp@anneefin@annee_selectionnee
+    anneedebut = bilesp@anneedebut@selected_year
+    anneefin = bilesp@anneefin@selected_year
     requete@sql = paste("SELECT lot_identifiant, ope_date_debut, ope_date_fin,",
         " lot_effectif, lot_tax_code, lot_std_code, tax_nom_latin, std_libelle,",
         " date_part('year', ope_date_debut) as annee,", " date_part('month',ope_date_debut) as mois,",
-        " date_part('week',ope_date_debut) as semaine", " FROM ", rlang::env_get(envir_stacomi,
-            "sch"), "t_operation_ope", " INNER JOIN ", rlang::env_get(envir_stacomi,
-            "sch"), "t_lot_lot ON ope_identifiant=lot_ope_identifiant", " INNER JOIN ref.tr_taxon_tax on tax_code=lot_tax_code",
+        " date_part('week',ope_date_debut) as semaine", " FROM ", 
+				get_schema(), 
+				"t_operation_ope", " INNER JOIN ", 
+				get_schema(),
+				"t_lot_lot ON ope_identifiant=lot_ope_identifiant", " INNER JOIN ref.tr_taxon_tax on tax_code=lot_tax_code",
         " INNER JOIN ref.tr_stadedeveloppement_std on std_code=lot_std_code", " WHERE extract(year from ope_date_debut)>=",
         anneedebut, " AND extract(year from ope_date_debut)<=", anneefin, " AND ope_dic_identifiant in",
-        vector_to_listsql(bilesp@dc@dc_selectionne), " AND lot_lot_identifiant IS NULL",
+        vector_to_listsql(bilesp@dc@dc_selected), " AND lot_lot_identifiant IS NULL",
         " AND lot_effectif IS NOT NULL", sep = "")
     requete <- stacomirtools::query(requete)
     if (requete@status != "success")
@@ -64,6 +66,7 @@ setMethod("connect", signature = signature("report_species"), definition = funct
 
 
 #' command line interface for \link{report_species-class}
+#' 
 #' @param object An object of class \link{report_species-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param anneedebut The starting the first year, passed as character or integer
@@ -79,7 +82,7 @@ setMethod("choice_c", signature = signature("report_species"), definition = func
     # dc=c(5,6);anneedebut='1996';anneefin='2016';split='none';silent=TRUE
     bilesp <- object
     bilesp@dc = charge(bilesp@dc)
-    # loads and verifies the dc this will set dc_selectionne slot
+    # loads and verifies the dc this will set dc_selected slot
     bilesp@dc <- choice_c(object = bilesp@dc, dc)
     # only taxa present in the report_mig are used
     bilesp@split = charge(object = bilesp@split, listechoice = c("none", "week",
@@ -97,19 +100,6 @@ setMethod("choice_c", signature = signature("report_species"), definition = func
     assign("bilesp", bilesp, envir = envir_stacomi)
     return(bilesp)
 })
-
-# deprecated0.6
-##' handler for calculation 
-##' 
-##' internal use
-##' @param h a handler
-##' @param ... Additional parameters
-##' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-##' @keywords internal
-# hbilespcalc=function(h,...){ if (exists('bilesp',envir_stacomi)) {
-# bilesp<-get('bilesp',envir_stacomi) } else { funout(gettext('No data
-# named bilesp in envir_stacomi',domain='R-stacomiR'),arret=TRUE) }
-# bilesp<-charge(bilesp) bilesp<-connect(bilesp) bilesp<-calcule(bilesp) }
 
 
 #' charge method for report_species
@@ -173,7 +163,7 @@ setMethod("charge", signature = signature("report_species"), definition = functi
 setMethod("calcule", signature = signature("report_species"), definition = function(object,
     silent = FALSE) {
     bilesp <- object
-    DC = as.numeric(bilesp@dc@dc_selectionne)
+    DC = as.numeric(bilesp@dc@dc_selected)
     # update of refliste which does not need calcul button pushed
     tableEspeces = bilesp@data
     if (nrow(tableEspeces) == 0)
@@ -233,8 +223,8 @@ setMethod("plot", signature(x = "report_species", y = "missing"), definition = f
     nb = length(unique(bilesp@calcdata$taxa_stage))
     g <- ggplot(bilesp@calcdata)
     g <- g + geom_col(aes(x = "", y = Effectif, fill = taxa_stage)) + ggtitle(paste("report Especes, DC",
-        str_c(bilesp@dc@dc_selectionne, collapse = "+"), bilesp@anneedebut@annee_selectionnee,
-        "=>", bilesp@anneefin@annee_selectionnee)) + xlab("") + ylab(gettext("Number",
+        str_c(bilesp@dc@dc_selected, collapse = "+"), bilesp@anneedebut@selected_year,
+        "=>", bilesp@anneefin@selected_year)) + xlab("") + ylab(gettext("Number",
         domain = "R-stacomiR"))
     # theme(axis.line.x=element_line('none'))+theme(axis.title.x=
     # element_text('none'))
@@ -278,16 +268,10 @@ setMethod("plot", signature(x = "report_species", y = "missing"), definition = f
     return(invisible(NULL))
 })
 
-# deprecated0.6
-##' handler for summary report_species, internal use
-##' @param h a handler
-##' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-##' @keywords internal
-# hsummarybilesp=function(h) { if (exists('bilesp',envir_stacomi)) {
-# bilesp<-get('bilesp',envir_stacomi) } else { funout(gettext('No data
-# named bilesp in envir_stacomi',domain='R-stacomiR'),arret=TRUE) } }
+
 
 #' summary for report_species 
+#' 
 #'  generate csv and html output in the user data directory
 #' @param object An object of class \code{\link{report_species-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
@@ -299,8 +283,8 @@ setMethod("summary", signature = signature(object = "report_species"), definitio
     bilesp <- object
     if (nrow(bilesp@calcdata) == 0)
         stop("No data in the calcdata slot, did you forget to run calculations ?")
-    loc <- str_c(str_c(bilesp@dc@dc_selectionne, collapse = "+"), bilesp@anneedebut@annee_selectionnee,
-        bilesp@anneefin@annee_selectionnee, sep = "_")
+    loc <- str_c(str_c(bilesp@dc@dc_selected, collapse = "+"), bilesp@anneedebut@selected_year,
+        bilesp@anneefin@selected_year, sep = "_")
 
     path = file.path(normalizePath(path.expand(get("datawd", envir = envir_stacomi))),
         paste("tableEspece", loc, ".csv", sep = ""), fsep = "\\")

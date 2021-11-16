@@ -81,7 +81,7 @@ setMethod(
   definition = function(object, silent = FALSE) {
     requete <- new("RequeteDBwheredate")
     requete@select = paste("SELECT * FROM ",
-                           rlang::env_get(envir_stacomi, "sch"),
+                           get_schema(),
                            "vue_lot_ope_car",
                            sep = "")
     requete@colonnedebut = "ope_date_debut"
@@ -91,7 +91,7 @@ setMethod(
     requete@order_by = "ORDER BY ope_date_debut"
     requete@and = paste(
       " AND ope_dic_identifiant in ",
-      vector_to_listsql(object@dc@dc_selectionne),
+      vector_to_listsql(object@dc@dc_selected),
       " AND lot_tax_code in ",
       vector_to_listsql(object@taxa@data$tax_code),
       " AND lot_std_code in ",
@@ -213,21 +213,21 @@ setMethod(
     r_silver <- object
     r_silver@dc = charge(r_silver@dc)
     # loads and verifies the dc
-    # this will set dc_selectionne slot
+    # this will set dc_selected slot
     r_silver@dc <- choice_c(object = r_silver@dc, dc)
     # only taxa present in the report_mig are used
     r_silver@taxa <-
-      charge_with_filter(object = r_silver@taxa, r_silver@dc@dc_selectionne)
+      charge_with_filter(object = r_silver@taxa, r_silver@dc@dc_selected)
     r_silver@taxa <- choice_c(r_silver@taxa, taxa)
     r_silver@stage <-
       charge_with_filter(object = r_silver@stage,
-                         r_silver@dc@dc_selectionne,
+                         r_silver@dc@dc_selected,
                          r_silver@taxa@data$tax_code)
     r_silver@stage <- choice_c(r_silver@stage, stage)
     r_silver@par <-
       charge_with_filter(
         object = r_silver@par,
-        r_silver@dc@dc_selectionne,
+        r_silver@dc@dc_selected,
         r_silver@taxa@data$tax_code,
         r_silver@stage@data$std_code
       )
@@ -276,7 +276,7 @@ setMethod(
       )
     }
     arg = r_silver@data
-    lesdc <- r_silver@dc@dc_selectionne
+    lesdc <- r_silver@dc@dc_selected
     parquant <- c("1786", "A111", "BBBB", "CCCC", "PECT")
     parqual <- c("CONT", "LINP")
     for (i in 1:length(lesdc)) {
@@ -440,9 +440,9 @@ setMethod(
       factor(datdc$stage, levels = c("I", "FII", "FIII", "FIV", "FV", "MII"))
     datdc$ope_dic_identifiant <- as.factor(datdc$ope_dic_identifiant)
     datdc$ouv <- NA
-    for (i in 1:length(r_silver@dc@dc_selectionne)) {
-      datdc$ouv[datdc$ope_dic_identifiant == r_silver@dc@dc_selectionne[i]] <-
-        r_silver@dc@data[r_silver@dc@data$dc == r_silver@dc@dc_selectionne[i], "ouv_libelle"]
+    for (i in 1:length(r_silver@dc@dc_selected)) {
+      datdc$ouv[datdc$ope_dic_identifiant == r_silver@dc@dc_selected[i]] <-
+        r_silver@dc@data[r_silver@dc@data$dc == r_silver@dc@dc_selected[i], "ouv_libelle"]
     }
     
     
@@ -968,7 +968,7 @@ setMethod(
     for (i in 1:length(dat)) {
       datdc <-	dat[[i]]
       ouvrage <-
-        r_silver@dc@data[r_silver@dc@data$dc == r_silver@dc@dc_selectionne[i], "ouv_libelle"]
+        r_silver@dc@data[r_silver@dc@data$dc == r_silver@dc@dc_selected[i], "ouv_libelle"]
       dc <- as.character(unique(datdc$ope_dic_identifiant))
       result[[dc]] <- list()
       result[[dc]][["ouvrage"]] <- ouvrage
@@ -1024,7 +1024,7 @@ setMethod(
     sortie2 <- stringr::str_c(
       "r_silver=choice_c(r_silver,",
       "dc=c(",
-      stringr::str_c(x@dc@dc_selectionne, collapse = ","),
+      stringr::str_c(x@dc@dc_selected, collapse = ","),
       "),",
       "taxa=c(",
       stringr::str_c(shQuote(x@taxa@data$tax_nom_latin), collapse = ","),

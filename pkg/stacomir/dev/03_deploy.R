@@ -15,7 +15,7 @@
 rm(list=ls(all.names = TRUE))
 #formatR::tidy_dir(path="/inst/examples")
 devtools::load_all() 
-
+tools::update_pkg_po("C:/workspace/stacomir")
 devtools::test() # this will run load_all() see details about classes below for specific tests
 
 devtools::test_coverage()
@@ -44,6 +44,8 @@ devtools::build_vignettes()
 ## Run checks ----
 ## Check the package before sending to prod
 devtools::check()
+
+devtools::check(args="run-dontrun")
 devtools::check( env_vars = c(NOT_CRAN = "false")) 
 # TO SKIP THE TEST AS IN CRAN where skip_on_cran()
 # and try to figure out where tests fail on CRAN

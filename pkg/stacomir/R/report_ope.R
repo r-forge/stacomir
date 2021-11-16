@@ -42,7 +42,7 @@ setMethod(
   definition = function(object, silent = FALSE) {
     # object<-report_ope
     req <- new("RequeteDBwheredate")
-    lesdc <- object@dc@dc_selectionne
+    lesdc <- object@dc@dc_selected
     req@colonnedebut = "ope_date_debut"
     req@colonnefin = "ope_date_debut"
     req@order_by = "ORDER BY ope_dic_identifiant, ope_date_debut"
@@ -52,7 +52,7 @@ setMethod(
       as.POSIXlt(object@horodatefin@horodate + as.difftime("23:59:59"))
     req@select <-
       paste("SELECT * FROM  ",
-            rlang::env_get(envir_stacomi, "sch"),
+            get_schema(),
             "t_operation_ope ")
     req@and = paste("AND ope_dic_identifiant in",
                     stringr::str_c("(", stringr::str_c(lesdc, collapse = ","), ")"))

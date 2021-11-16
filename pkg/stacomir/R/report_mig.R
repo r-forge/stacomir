@@ -132,15 +132,15 @@ setMethod(
 			report_mig <- object
 			report_mig@dc = charge(report_mig@dc)
 			# loads and verifies the dc
-			# this will set dc_selectionne slot
+			# this will set dc_selected slot
 			report_mig@dc <- choice_c(object = report_mig@dc, dc)
 			# only taxa present in the report_mig are used
 			report_mig@taxa <-
-					charge_with_filter(object = report_mig@taxa, report_mig@dc@dc_selectionne)
+					charge_with_filter(object = report_mig@taxa, report_mig@dc@dc_selected)
 			report_mig@taxa <- choice_c(report_mig@taxa, taxa)
 			report_mig@stage <-
 					charge_with_filter(object = report_mig@stage,
-							report_mig@dc@dc_selectionne,
+							report_mig@dc@dc_selected,
 							report_mig@taxa@data$tax_code)
 			report_mig@stage <- choice_c(report_mig@stage, stage)
 			report_mig@timestep <-
@@ -169,7 +169,7 @@ setMethod(
 			# funout(gettext("launching updateplot \n",domain="R-stacomiR"))
 			if (exists("ref_dc", envir_stacomi)) {
 				report_mig@dc <- get("ref_dc", envir_stacomi)
-				dc <- report_mig@dc@dc_selectionne
+				dc <- report_mig@dc@dc_selected
 				df <- report_mig@dc@data$df[report_mig@dc@data$dc %in% dc]
 			} else {
 				funout(
@@ -458,7 +458,7 @@ setMethod(
 			sortie2 <- stringr::str_c(
 					"report_mig=choice_c(report_mig,",
 					"dc=c(",
-					stringr::str_c(x@dc@dc_selectionne, collapse = ","),
+					stringr::str_c(x@dc@dc_selected, collapse = ","),
 					"),",
 					"taxa=c(",
 					stringr::str_c(shQuote(x@taxa@data$tax_nom_latin), collapse = ","),
@@ -523,7 +523,7 @@ setMethod(
 					funout(gettext("Statistics about migration :\n", domain = "R-stacomiR"))
 				taxa = report_mig@taxa@data[1, "tax_nom_latin"]
 				stage = report_mig@stage@data[1, "std_libelle"]
-				dc = as.numeric(report_mig@dc@dc_selectionne)[1]
+				dc = as.numeric(report_mig@dc@dc_selected)[1]
 				data <- report_mig@calcdata[[stringr::str_c("dc_", dc)]][["data"]]
 				if (!is.null(data)) {
 					if (nrow(data) > 0) {
@@ -601,7 +601,7 @@ setMethod(
 			} else if (plot.type == "step") {
 				taxa  <-  as.character(report_mig@taxa@data$tax_nom_latin)
 				stage  <-  as.character(report_mig@stage@data$std_libelle)
-				dc  <-  as.numeric(report_mig@dc@dc_selectionne)
+				dc  <-  as.numeric(report_mig@dc@dc_selected)
 				if (report_mig@timestep@step_duration == 86400 &
 						report_mig@timestep@step_duration == 86400) {
 					grdata <- report_mig@calcdata[[stringr::str_c("dc_", dc)]][["data"]]
@@ -622,7 +622,7 @@ setMethod(
 							unique(strftime(as.POSIXlt(report_mig@time.sequence), "%Y"))[1]
 					dis_commentaire <-
 							as.character(report_mig@dc@data$dis_commentaires[report_mig@dc@data$dc %in%
-													report_mig@dc@dc_selectionne])
+													report_mig@dc@dc_selected])
 					update_geom_defaults("line", aes(size = 2))
 					
 					p <- ggplot(grdata) +
@@ -726,7 +726,7 @@ setMethod(
 				stop("the report_mig should be of class report_mig")
 			if (class(silent) != "logical")
 				stop("the silent argument should be a logical")
-			dc = as.numeric(report_mig@dc@dc_selectionne)[1]
+			dc = as.numeric(report_mig@dc@dc_selected)[1]
 			data = report_mig@calcdata[[stringr::str_c("dc_", dc)]][["data"]]
 			# keep one line if there is one species in one day with as much up as down...
 			if (nrow(data) > 1)
@@ -759,7 +759,7 @@ setMethod(
 			
 			if ("Poids_total" %in% colnames(data)) {
 				aat_reportmigrationjournalier_bjo = cbind(
-						report_mig@dc@dc_selectionne,
+						report_mig@dc@dc_selected,
 						report_mig@taxa@data$tax_code,
 						report_mig@stage@data$std_code,
 						annee,
@@ -791,15 +791,10 @@ setMethod(
 												"coe_valeur_coefficient"
 										)]),
 						Sys.time(),
-						substr(toupper(
-										rlang::env_get(envir_stacomi, "sch")
-								), 1, nchar(toupper(
-												rlang::env_get(envir_stacomi, "sch")
-										)) - 1)
-				)
+						get_org())
 			} else {
 				aat_reportmigrationjournalier_bjo = cbind(
-						report_mig@dc@dc_selectionne,
+						report_mig@dc@dc_selected,
 						report_mig@taxa@data$tax_code,
 						report_mig@stage@data$std_code,
 						annee,
@@ -823,11 +818,7 @@ setMethod(
 												"coe_valeur_coefficient"
 										)]),
 						Sys.time(),
-						substr(toupper(
-										rlang::env_get(envir_stacomi, "sch")
-								), 1, nchar(toupper(
-												rlang::env_get(envir_stacomi, "sch")
-										)) - 1)
+						get_org()
 				)
 			}
 			aat_reportmigrationjournalier_bjo = stacomirtools::killfactor(aat_reportmigrationjournalier_bjo[!is.na(aat_reportmigrationjournalier_bjo$values), ])
@@ -853,41 +844,41 @@ setMethod(
 			# in loop when the write_database is called from within the report_mig_interannual connect method
 			# check = FALSE tells the method not to check for missing data (we don't want that check when the
 			# write database is called from the report_mig class
-      # so far bil@data has no data
-
+			# so far bil@data has no data
+			
 			if (check_for_bjo)			bil = connect(bil, silent = silent, check = FALSE)	# now should have data in the data slot		
 			
 			confirm = function() {
-			 	supprime(bil)
+				supprime(bil)
 				con <- new("ConnectionDB")
 				con <- connect(con)
 				on.exit(pool::poolClose(con@connection))
 				pool::dbWriteTable(con@connection, 
-								name = "aat_reportmigrationjournalier_bjo", 
-								value=aat_reportmigrationjournalier_bjo, 
-								temporary=TRUE)	
+						name = "aat_reportmigrationjournalier_bjo", 
+						value=aat_reportmigrationjournalier_bjo, 
+						temporary=TRUE)	
 				sql <-
 						stringr::str_c(
 								"INSERT INTO ",
-								rlang::env_get(envir_stacomi, "sch"),
+								get_schema(),
 								"t_bilanmigrationjournalier_bjo (",
 								"bjo_dis_identifiant,bjo_tax_code,bjo_std_code,bjo_annee,bjo_jour,bjo_valeur,bjo_labelquantite,bjo_horodateexport,bjo_org_code)",
 								" SELECT * FROM  aat_reportmigrationjournalier_bjo;"
 						)
 				# con already created above
-	
-	      #CHECKME : i removed the capture output is it OK
-	      # utils::capture.output(pool::dbExecute(con@connection, statement = sql))		
+				
+				#CHECKME : i removed the capture output is it OK
+				# utils::capture.output(pool::dbExecute(con@connection, statement = sql))		
 				pool::dbExecute(con@connection, statement = sql)	
 				
 				if (!silent) {
 					funout(gettextf("Writing daily summary in the database %s \n", annee))
 				}
-		
+				
 				# ecriture egalement du report mensuel
 				taxa = as.character(report_mig@taxa@data$tax_nom_latin)
 				stage = as.character(report_mig@stage@data$std_libelle)
-				DC = as.numeric(report_mig@dc@dc_selectionne)
+				DC = as.numeric(report_mig@dc@dc_selected)
 				tableau <- report_mig@calcdata[[stringr::str_c("dc_", DC)]][["data"]]
 				resum = funstat(
 						tableau = tableau,
@@ -901,9 +892,9 @@ setMethod(
 			}#end function hconfirm
 			
 			# below we write if !silent and "yes", if silent and if no data in the db
-      # we don't write write !only don't write if not silent and "no" 
-      # 
-
+			# we don't write write !only don't write if not silent and "no" 
+			# 
+			
 			if (nrow(bil@data) > 0) # this means also check_for_bjo
 			{
 				if (!silent) {
