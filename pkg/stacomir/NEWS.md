@@ -1,9 +1,15 @@
 # stacomiR 0.6.0
 
+stacomir based on gwidget was dropped from CRAN in May 2020, it has been completely reprogrammed to remove all dependence to
+gwidget and the graphical interface will be a new shiny package (under developpement). Stacomirtools has been rewritten and submitted to CRAN 
+to connect via pool and DBI.
+
+* added import to package  `rlang` 
+* Change to adapt to new dplyr format `dplyr:n()` instead of `n()` see dplyr breaking change in version 1.0.0
 * adapted to stacomirtools new connection and connection options (using pool and DBI instead of RODC)
 * removed all dependency to gwidgetRGTK2 so in practise there is no longer a graphical interface, the shiny package is due soon.
 * added code of conduct
-* rewrote unit tests
+* rewrote unit tests increased coverage from 50 to 78 %
 
 # stacomiR 0.5.4.4 (not released on CRAN)
 

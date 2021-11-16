@@ -26,4 +26,4 @@ out$
 ^\.gitlab-ci.yml$
 ^LICENSE$
 ^cran-comments.md$
-^test/testhat/\~*\.*
+^tests/testhat/\*\.csv

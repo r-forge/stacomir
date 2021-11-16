@@ -75,7 +75,8 @@ test_that("test that plot method works", {
 
 test_that("test that model method works", {
 			stacomi(database_expected = FALSE)	
-			data("r_gew")			
+			data("r_gew")		
+			assign("datawd","", envir = envir_stacomi)
 			# First model with nls, see Guerault and Desaunay (1993) 
 			expect_output(model(r_gew,model.type="seasonal"))
 			expect_output(model(r_gew,model.type="seasonal1"))
@@ -86,7 +87,8 @@ test_that("test that model method works", {
 test_that("test supprime method ref_coe et write method report_ge_weight", {
 			skip_on_cran()
 			stacomi(database_expected = TRUE)
-			env_set_test_stacomi()		
+			env_set_test_stacomi()	
+			assign("datawd","", envir = envir_stacomi)
 			r_gew <- new("report_ge_weight")
 			r_gew <- choice_c(r_gew,
 					dc=c(6),			
