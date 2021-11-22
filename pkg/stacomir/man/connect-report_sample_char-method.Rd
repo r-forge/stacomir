@@ -13,7 +13,7 @@
 \item{silent}{Boolean if TRUE messages are not displayed}
 }
 \value{
-An object of class \link{report_sample_char-class}
+An object of class \link{report_sample_char-class} with slot data \code{@data} filled
 }
 \description{
 connect method for report_sample_char

@@ -40,11 +40,13 @@ setClass(Class = "report_ge_weight", representation = representation(data = "dat
 				coe = new("ref_coe"), liste = new("ref_list")))
 
 #' connect method for report_Poids_moyen
-#' @param object An object of class \link{report_ge_weight-class}
-#' @param silent Should the method be silent
-#' @return report_Poids_Moyen request corresponding to user choices, mean weight
+#' 
+#' The connect method adapts queries according to user choices, mean weight
 #'  w is calculated as car_valeur_quantitatif/lot_effectif. These coefficients are stored in the database,
 #' and the connect method loads them from the table using the \link{ref_coe-class}
+#' @param object An object of class \link{report_ge_weight-class}
+#' @param silent Should the method be silent
+#' @return An object of class \link{report_ge_weight-class}  with slots data and coe filled from the database
 #' @note dates for the request are from august to august (a glass eel season)
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases connect.report_ge_weight
@@ -85,11 +87,11 @@ setMethod("connect", signature = signature("report_ge_weight"), definition = fun
 #' command line interface for \link{report_ge_weight-class}
 #' @param object An object of class \link{report_ge_weight-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
-#' @param anneedebut The starting the first year, passed as charcter or integer
+#' @param anneedebut The starting the first year, passed as character or integer
 #' @param anneefin the finishing year, must be > anneedebut (minimum one year in august to the next in august)
 #' @param selectedvalue A character to select and object in the \link{ref_list-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed
-#' @return An object of class \link{report_ge_weight-class}
+#' @return An object of class \link{report_ge_weight-class}  with data selected
 #' The choice_c method fills in the data slot for classes \link{ref_dc-class} \link{ref_year-class}
 #' \link{ref_coe-class} \link{ref_list-class}
 #' @aliases choice_c.report_ge_weight
@@ -123,8 +125,11 @@ setMethod("choice_c", signature = signature("report_ge_weight"), definition = fu
 
 
 #' Calcule method for report_ge_weight
-#' @param object An object of class \code{\link{report_ge_weight-class}}
+#' @param object An object of class \link{report_ge_weight-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed, only warnings and errors
+#' @return An object of class  \link{report_ge_weight-class} with  \code{@calcdata[["data"]]} (essentially a selection of 
+#' columns and renaming from \code{@data}) and \code{coe} daily coefficients extracted from the database 
+#' \code{@calcdata[["coe"]]} and prepared for graphs
 #' @aliases calcule.report_ge_weight
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("calcule", signature = signature("report_ge_weight"), definition = function(object,
@@ -158,7 +163,8 @@ setMethod("calcule", signature = signature("report_ge_weight"), definition = fun
 #' @param plot.type Default '1'. '1' plot of mean weight of glass eel against the mean date of operation (halfway between start,
 #' and end of operation). The ggplot 'p' can be accessed from envir_stacomi using \code{get('p',envir_stacomi)}. '2' standard plot of current coefficent.
 #' '3' same as '1' but with size according to number.
-#' @param silent Stops displaying the messages.
+#' @param silent Stops displaying the messages
+#' @return Nothing, called for its side effect of plotting data
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases plot.report_ge_weight
 #' @export
@@ -202,6 +208,7 @@ setMethod("plot", signature(x = "report_ge_weight", y = "missing"), definition =
 				if (!silent)
 					funout(gettext("object p assigned to envir_stacomi", domain = "R-stacomiR"))
 			}
+			return(invisible(NULL))
 		})
 
 
@@ -211,6 +218,7 @@ setMethod("plot", signature(x = "report_ge_weight", y = "missing"), definition =
 #' @param object An object of class \link{report_ge_weight-class}
 #' @param model.type default 'seasonal', 'seasonal1','seasonal2','manual'. 
 #' @param silent Default FALSE, if TRUE the program should no display messages
+#' @return An object of class \link{report_ge_weight-class} with \code{@calcdata[["import_coe"]]} filled.
 #' @details 
 #' Depending on model.type several models are produced
 #' \itemize{
@@ -488,7 +496,7 @@ setMethod("model", signature(object = "report_ge_weight"), definition = function
 #' from the database, those will be deleted first. 
 #' @param object An object of class \link{report_ge_weight-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed
-#' @return An object of class \link{report_ge_weight-class}
+#' @return Nothing, called for its side effect of writing to the database
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases write_database.report_ge_weight
 setMethod("write_database", signature = signature("report_ge_weight"), definition = function(object,

@@ -33,7 +33,7 @@ setClass(
 #' @param object An object of class \link{report_ope-class}
 #' load data from the operation table, one dataset per DC
 #' @param silent Boolean, TRUE removes messages.
-#' @return  An object of class \link{report_ope-class}
+#' @return  An object of class \link{report_ope-class} with slot data \code{@data} filled
 #' @aliases connect.report_ope
 #' @author cedric.briand
 setMethod(
@@ -73,7 +73,7 @@ setMethod(
 #' assigned to envir_stacomi
 #' @param object An object of class \link{report_ope-class}
 #' @param silent Keeps program silent
-#' @return  An object of class \link{report_ope-class}
+#' @return  An object of class \link{report_ope-class}  with slots filled from values assigned in \code{envir_stacomi} environment
 #' @aliases charge.report_ope
 #' @author cedric.briand
 #' @keywords internal

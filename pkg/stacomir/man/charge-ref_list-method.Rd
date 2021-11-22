@@ -15,7 +15,9 @@
 \item{label}{A label for refliste}
 }
 \value{
-An object of class ref_list
+An S4 object of class \link{ref_list-class}
+
+An S4 object of class \link{ref_list-class}
 }
 \description{
 Loading method for ref_list referential objects

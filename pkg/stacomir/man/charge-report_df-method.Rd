@@ -13,7 +13,7 @@
 \item{silent}{Keeps program silent}
 }
 \value{
-An object of class \link{report_df-class}
+An object of class \link{report_df-class}  with data set from values assigned in \code{envir_stacomi} environment
 }
 \description{
 used by the graphical interface to retrieve the objects of referential classes

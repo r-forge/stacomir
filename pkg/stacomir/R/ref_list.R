@@ -1,6 +1,6 @@
 #' Class 'ref_list'
 #' 
-#' Enables to load a 'ref_choice' object fom a list given by a 'report' object
+#' Enables to load a 'ref_list' object from a list given by a 'report' object
 #' @param liste choice='character' A vector of character to choose within a droplist
 #' @param label='character' the title of the box
 #' @section Objects from the Class: Objects can be created by calls of the form
@@ -17,10 +17,11 @@ setClass(Class = "ref_list", representation = representation(listechoice = "char
 
 #' Loading method for ref_list referential objects
 #' @aliases charge.ref_list
-#' @return An object of class ref_list
+#' @return An S4 object of class \link{ref_list-class} 
 #' @param object An object of class \link{ref_list-class}
 #' @param listechoice A character vector setting the possible values in which the user can select
 #' @param label A label for refliste
+#' @return An S4 object of class \link{ref_list-class} 
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -39,6 +40,7 @@ setMethod("charge", signature = signature("ref_list"), definition = function(obj
 #' @aliases choice_c.ref_list
 #' @param object An object of class \link{ref_list-class}
 #' @param selectedvalue the value selected in the combo
+#' @return An S4 object of class \link{ref_list-class} 
 #' @note the choice method assigns an object of class refList named ref_list in the environment envir_stacomi
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples  
@@ -50,13 +52,13 @@ setMethod("charge", signature = signature("ref_list"), definition = function(obj
 setMethod("choice_c", signature = signature("ref_list"), definition = function(object,
     selectedvalue) {
     if (length(selectedvalue) > 1)
-        stop("selectedvalue should be a vector of length 1")
+        stop("valeurchoisie should be a vector of length 1")
     if (class(selectedvalue) == "numeric")
         selectedvalue <- as.character(selectedvalue)
     # the charge method must be performed before
 
     if (!selectedvalue %in% object@listechoice) {
-        stop(stringr::str_c("The selected value,", selectedvalue, " not in the list of possible values :",
+        stop(stringr::str_c("The selected valeur,", selectedvalue, " not in the list of possible values :",
             stringr::str_c(object@listechoice, collapse = ",")))
     } else {
         object@selectedvalue <- selectedvalue

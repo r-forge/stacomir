@@ -9,6 +9,9 @@ load_stacomi(...)
 \arguments{
 \item{...}{Other arguments}
 }
+\value{
+Nothing
+}
 \description{
 Internal function, tests the connection and if it works loads the stacomi interface
 }

@@ -10,7 +10,7 @@
 #' the status of either the fishway or DC. In the database four types of operation are set,  "1"=normal operation,
 #' "2"=Device stopped in normal operation (ie lift ascending, high tide...),
 #' "3"="Stopped for maintenance or other problem",
-#' "4"="Works but not fully operational, ie flow problem, flood, clogged with debris...",
+#' "4"="Works but not fully operational,i.e.flow problem, flood, clogged with debris...",
 #' "5"="Not known")
 #'
 #' @include ref_df.R
@@ -48,7 +48,7 @@ setClass(
 #' @param object An object of class \link{report_df-class}
 #' loads the working periods and type of arrest or disfunction of the DF
 #' @param silent Boolean, TRUE removes messages.
-#' @return  An object of class \code{report_df}
+#' @return  An object of class \code{report_df} with slot data filled from the database
 #' @aliases connect.report_df
 #' @author cedric.briand
 setMethod(
@@ -97,7 +97,7 @@ setMethod(
 #' assigned to envir_stacomi
 #' @param object An object of class \link{report_df-class}
 #' @param silent Keeps program silent
-#' @return  An object of class \link{report_df-class}
+#' @return  An object of class \link{report_df-class}  with data set from values assigned in \code{envir_stacomi} environment
 #' @aliases charge.report_df
 #' @keywords internal
 setMethod(
@@ -146,7 +146,7 @@ setMethod(
 #' @param horodatedebut A POSIXt or Date or character to fix the date of beginning of the report
 #' @param horodatefin A POSIXt or Date or character to fix the last date of the report
 #' @param silent Should program be silent or display messages
-#' @return An object of class \link{ref_df-class} with slots filled
+#' @return An object of class \link{ref_df-class}  with data selected
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases choice_c.report_df
 setMethod(
@@ -586,14 +586,14 @@ setMethod(
 )
 
 
-#' Handler for barchart for report_df class from the graphical interface
+#' Internal use, function used in the graphical interface to create a barchart for report_df class
 #'
 #' @note The program cuts periods which overlap between two month
-#' @param h handler
 #' @param ... additional parameters
+#' @return Nothing, called for its side effect of plotting data
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
-funbarchartDF = function(h, ...) {
+funbarchartDF = function(...) {
 	report_df <- get("report_df", envir = envir_stacomi)
 	report_df <- charge(report_df)
 	report_df <- connect(report_df)
@@ -602,13 +602,15 @@ funbarchartDF = function(h, ...) {
 				arret = TRUE)
 	}
 	plot(report_df, plot.type = 1, silent = FALSE)
+	return(invisible(NULL))
 }
 
 
-#' Handler for barchart for report_df class from the graphical interface
+#' Internal use barchart for report_df class from the graphical interface
 #'
 #' @note The program cuts periods which overlap between two month
 #' @param ... additional parameters
+#' @return Nothing, called for its side effect of plotting data
 #' @keywords internal
 funbarchart1DF = function(...) {
 	report_df <- get("report_df", envir = envir_stacomi)
@@ -619,10 +621,13 @@ funbarchart1DF = function(...) {
 				arret = TRUE)
 	}
 	plot(report_df, plot.type = 2, silent = FALSE)
+	return(invisible(NULL))
 }
+
 #' Internal use, rectangles to describe the DF work for report_df class,
-#' graphical interface handler
+#' 
 #' @param ... additional parameters
+#' @return Nothing, called for its side effect of plotting data
 #' @keywords internal
 funboxDF = function(...) {
 	report_df <- get("report_df", envir = envir_stacomi)
@@ -634,11 +639,13 @@ funboxDF = function(...) {
 				arret = TRUE)
 	}
 	plot(report_df, plot.type = 3, silent = FALSE)
+	return(invisible(NULL))
 	
 }
 
 #' Function to plot calendar like graph, internal use
 #' @param ... additional parameters
+#' @return Nothing, called for its side effect of plotting data
 #' @keywords internal
 funchartDF = function(...) {
 	report_df <- get("report_df", envir = envir_stacomi)
@@ -650,11 +657,13 @@ funchartDF = function(...) {
 				arret = TRUE)
 	}
 	plot(report_df, plot.type = 4, silent = FALSE)
+	return(invisible(NULL))
 	
 }
 
 #' Table output for report_df class
 #' @param ... additional parameters
+#' @return Nothing, called for its side effect of running summary
 #' @keywords internal
 funtableDF = function(...) {
 	report_df <- get("report_df", envir = envir_stacomi)
@@ -666,13 +675,14 @@ funtableDF = function(...) {
 				arret = TRUE)
 	}
 	summary(report_df)
+	return(invisible(NULL))
 }
 
 
 #' Method to print the command line of the object
 #' @param x An object of class report_df
 #' @param ... Additional parameters passed to print
-#' @return NULL
+#' @return Nothing, called for its side effect of printing data
 #' @author cedric.briand
 #' @aliases print.report_df
 #' @export
@@ -704,6 +714,7 @@ setMethod(
 #' @param object An object of class \code{\link{report_df-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters (not used there)
+#' @return Nothing, called for its side effect of writing html, csv files and printing summary
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases summary.report_df
 #' @export
@@ -732,47 +743,54 @@ setMethod(
 					),
 					fsep = "\\"
 			)
-			write.table(
-					t_periodefonctdispositif_per,
-					file = path1,
-					row.names = FALSE,
-					col.names = TRUE,
-					sep = ";"
+			res <- tryCatch(
+					write.table(
+							t_periodefonctdispositif_per,
+							file = path1,
+							row.names = FALSE,
+							col.names = TRUE,
+							sep = ";"
+					), error = function(e) e,
+					finally =
+							if (!silent)	funout(gettextf("Writing of %s \n", path1, domain = "R-stacomiR"))
 			)
-			if (!silent)
-				funout(gettextf("Writing of %s \n", path1))
-			path1html <- file.path(
-					path.expand(get("datawd", envir = envir_stacomi)),
-					paste(
-							"t_periodefonctdispositif_per_DF_",
-							report_df@df@df_selected,
-							"_",
-							annee,
-							".html",
-							sep = ""
-					),
-					fsep = "\\"
-			)
-			if (!silent)
-				funout(gettextf(
-								"Writing of %s this might take a while, please be patient ...\n",
-								path1html
-						))
-			funhtml(
-					t_periodefonctdispositif_per,
-					caption = paste(
-							"t_periodefonctdispositif_per_DF_",
-							report_df@df@df_selected,
-							"_",
-							annee,
-							sep = ""
-					),
-					top = TRUE,
-					outfile = path1html,
-					clipboard = FALSE,
-					append = FALSE,
-					digits = 2
-			)
+			if (inherits(res, "simpleError")) {
+				warnings("The table could not be reported, please modify datawd with options(stacomiR.path='path/to/directory'")
+			} else {
+				
+				path1html <- file.path(
+						path.expand(get("datawd", envir = envir_stacomi)),
+						paste(
+								"t_periodefonctdispositif_per_DF_",
+								report_df@df@df_selected,
+								"_",
+								annee,
+								".html",
+								sep = ""
+						),
+						fsep = "\\"
+				)
+				if (!silent)
+					funout(gettextf(
+									"Writing of %s this might take a while, please be patient ...\n",
+									path1html
+							))
+				funhtml(
+						t_periodefonctdispositif_per,
+						caption = paste(
+								"t_periodefonctdispositif_per_DF_",
+								report_df@df@df_selected,
+								"_",
+								annee,
+								sep = ""
+						),
+						top = TRUE,
+						outfile = path1html,
+						clipboard = FALSE,
+						append = FALSE,
+						digits = 2
+				)
+			}
 			t_periodefonctdispositif_per <- report_df@data
 			print(gettextf("summary statistics for DF=%s", report_df@df@df_selected))
 			print(gettextf("df_code=%s", report_df@df@data[report_df@df@data$df ==
@@ -816,6 +834,6 @@ setMethod(
 							),
 							" :",
 							sommes, "(", perc, "%)", sep = ""))
-			
+			return(invisible(NULL))	
 		}
 )

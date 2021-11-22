@@ -9,6 +9,9 @@ fundensityreport_sample_char(...)
 \arguments{
 \item{...}{Additional parameters}
 }
+\value{
+Nothing, calls the plot method \code{plot.type = "1"} on data assigned in envir_stacomi
+}
 \description{
 assigns an object g in envir_stacomi for eventual modification of the plot
 }

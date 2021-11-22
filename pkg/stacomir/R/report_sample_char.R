@@ -31,7 +31,7 @@ setClass(Class = "report_sample_char", representation = representation(data = "A
 #' 
 #' @param object An object of class \link{report_sample_char-class}
 #' @param silent Boolean if TRUE messages are not displayed
-#' @return An object of class \link{report_sample_char-class} 
+#' @return An object of class \link{report_sample_char-class} with slot data \code{@data} filled
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases connect.report_sample_char
 setMethod("connect", signature = signature("report_sample_char"), definition = function(object,
@@ -64,7 +64,7 @@ setMethod("connect", signature = signature("report_sample_char"), definition = f
 #' @param object An object of class \link{report_sample_char-class} 
 #' @return An object of class \link{report_sample_char-class} with slots filled with user choice
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
-#' @return An object of the class
+#' @return An object of the class \link{report_sample_char-class} with slots filled from values assigned in \code{envir_stacomi} environment
 #' @aliases charge.report_sample_char
 #' @keywords internal
 setMethod("charge", signature = signature("report_sample_char"), definition = function(object) {
@@ -112,6 +112,9 @@ setMethod("charge", signature = signature("report_sample_char"), definition = fu
 
 
 #' command line interface for report_sample_char class
+#' 
+#' #' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then 
+#' uses the choice_c methods of these object to select the data.
 #' @param object An object of class \link{report_sample_char-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param taxa Either a species name in latin or the SANDRE code for species (ie 2038=Anguilla anguilla),
@@ -121,9 +124,7 @@ setMethod("charge", signature = signature("report_sample_char"), definition = fu
 #' @param horodatedebut The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input
 #' @param horodatefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
 #' @param silent Boolean, if TRUE, information messages are not displayed
-#' @return An object of class \link{report_mig-class}
-#' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then 
-#' uses the choice_c methods of these object to select the data.
+#' @return An object of class \link{report_mig-class} with data selected
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases choice_c.report_sample_char
 setMethod("choice_c", signature = signature("report_sample_char"), definition = function(object,
@@ -160,6 +161,7 @@ setMethod("choice_c", signature = signature("report_sample_char"), definition = 
 #' In that class, most treatments are done in the query, this method checks that data are available and fills information for year, month, two weeks, week, doy 
 #' @param object An object of class \code{\link{report_sample_char-class}} 
 #' @param silent Boolean, if TRUE, information messages are not displayed, only warnings and errors
+#' @return An object of class \code{\link{report_sample_char-class}} with slot \code{@data} filled
 #' @aliases calcule.report_sample_char
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("calcule", signature = signature("report_sample_char"), definition = function(object,
@@ -208,7 +210,8 @@ setMethod("calcule", signature = signature("report_sample_char"), definition = f
 #' @param x An object of class report_sample_char
 #' @param plot.type One of '1','violin plot'. Defaut to \code{1} , can also be \code{2} boxplot or 
 #' \code{3} points. 
-#' @param silent Stops displaying the messages.
+#' @param silent Stops displaying the messages
+#' @return Nothing, called for its side effect, plotting
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases plot.report_sample_char
 #' @export
@@ -261,15 +264,18 @@ setMethod("plot", signature(x = "report_sample_char", y = "missing"), definition
 })
 
 #' summary for report_sample_char 
+#' 
 #' @param object An object of class \code{\link{report_sample_char-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters
+#' @return Nothing, called for its side effect of printing a summary
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases summary.report_sample_char
 #' @export
 setMethod("summary", signature = signature(object = "report_sample_char"), definition = function(object,
     silent = FALSE, ...) {
     Hmisc::describe(object@data)
+		return(invisible(NULL))
 })
 
 #' Method to print the command line of the object
@@ -301,6 +307,7 @@ setMethod("print", signature = signature("report_sample_char"), definition = fun
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
 #' @param ... Additional parameters
+#' @return Nothing, calls the plot method \code{plot.type = "1"} on data assigned in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
 fundensityreport_sample_char = function(...) {
@@ -309,12 +316,15 @@ fundensityreport_sample_char = function(...) {
     report_sample_char <- connect(report_sample_char)
     report_sample_char <- calcule(report_sample_char)
     plot(report_sample_char, plot.type = "1")
+		return(invisible(NULL))
+
 }
 
 #' Boxplots for ggplot2
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
 #' @param ... Additional parameters
+#' @return Nothing, calls plot method \code{plot.type = "2"} on data assigned in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
 funboxplotreport_sample_char = function(...) {
@@ -330,6 +340,7 @@ funboxplotreport_sample_char = function(...) {
 #' 
 #' assigns an object g in envir_stacomi for eventual modification of the plot
 #' @param ... Additional parameters
+#' @return Nothing, calls plot method \code{plot.type = "3"} on data assigned in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
 funpointreport_sample_char = function(...) {

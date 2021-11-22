@@ -16,6 +16,9 @@
 
 \item{...}{Additional parameters}
 }
+\value{
+Nothing, called for its side effect of plotting data
+}
 \description{
 h_report_envgraph Internal method
 }

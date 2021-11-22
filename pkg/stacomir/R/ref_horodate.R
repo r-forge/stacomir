@@ -28,48 +28,6 @@ setClass(
   validity = validity_ref_horodate,
   prototype = prototype(horodate = Hmisc::roundPOSIXt(Sys.time(), "years"))
 )
-# date= new("Horodate")
-#retourne la date en format character
-setGeneric(
-  "getref_horodate",
-  def = function(object, ...)
-    standardGeneric("getref_horodate")
-)
-setMethod(
-  "getref_horodate",
-  signature = signature("ref_horodate"),
-  definition = function(object) {
-    return (strftime(as.POSIXlt(object@horodate), format = "%Y-%m-%d %H:%M:%S"))
-  }
-)
-
-#Fixe la date de debut e partir d'un champ charactere de type "%Y-%m-%d %H:%M:%S"
-setGeneric(
-  "setref_horodate",
-  def = function(object, ...)
-    standardGeneric("setref_horodate")
-)
-
-
-
-
-#' Method to set the Horodate
-#' @param object An object of class \link{ref_horodate-class}
-#' @param string A string representing an horodate in the format "\%Y-\%m-\%d \%H:\%M:\%S"
-#' @return An Object of class "ref_horodate"
-#' @author cedric.briand
-#' @keywords internal
-setMethod(
-  "setref_horodate",
-  signature = signature("ref_horodate"),
-  definition = function(object, string) {
-    object@horodate = strptime(string, format = "%Y-%m-%d %H:%M:%S")
-    return(object)
-  }
-)
-# retourne l'annee d'avant l'annee en cours
-
-
 
 
 #' Choice_c method for ref_horodate

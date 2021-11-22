@@ -76,7 +76,7 @@ Trying to launch as test database with postgres failed on distant computers for 
 
 # stacomiR 0.5.3
 
-* Langage with poedit (@cedric and @timothee).
+* Language with poedit (@cedric and @timothee).
 
 * suppress all assignments to .globalEnv.
 

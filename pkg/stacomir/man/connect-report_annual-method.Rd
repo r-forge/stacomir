@@ -17,7 +17,7 @@ not count subsamples.}
 \value{
 An instantiated object with values filled with user choice
 
-A dataframe with column effectif, comprising the sum of report_mig counts
+An object of class \link{report_annual-class} including a dataframe with column effectif, comprising the sum of report_mig counts
 }
 \description{
 connect method for report_annual class

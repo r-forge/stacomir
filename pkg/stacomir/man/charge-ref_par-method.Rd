@@ -12,6 +12,8 @@
 }
 \value{
 An S4 object of class ref_par
+
+An S4 object of class \link{ref_par-class}
 }
 \description{
 Loading method for ref_par referential objects

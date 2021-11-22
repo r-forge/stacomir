@@ -19,6 +19,7 @@
 #' @param color_ope Default NULL, a vector of color for the operations. Default to brewer.pal(4,"Paired")
 #' @param ... additional parameters passed to plot, main, ylab, cex.main, font.main, type, xlim, ylim, lty, bty, pch
 #' it is not possible to change xlim
+#' @return No return value, called for side effects
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 fungraph_glasseel = function(report_mig,
                              table,
@@ -30,6 +31,8 @@ fungraph_glasseel = function(report_mig,
                              color = NULL,
                              color_ope = NULL,
                              ...) {
+	oldpar <- par(no.readonly = TRUE) 
+	on.exit(par(oldpar))  
   # color=null
   # color calculation
   if (is.null(color)) {
@@ -627,5 +630,5 @@ fungraph_glasseel = function(report_mig,
     stack = TRUE
   )
   print(bar, position = c(0, 0, 1, .25), newpage = FALSE)
-  
+  return(invisible(NULL))
 }

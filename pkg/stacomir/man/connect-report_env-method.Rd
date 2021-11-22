@@ -13,7 +13,7 @@
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
 \value{
-an object of report_env class
+An object of class \link{report_env-class} with slot data filled from the database
 }
 \description{
 connect method for report_env class

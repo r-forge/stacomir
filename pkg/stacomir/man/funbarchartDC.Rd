@@ -10,7 +10,7 @@ funbarchartDC(...)
 \item{...}{Additional parameters}
 }
 \value{
-assigns the data frame \code{periodeDC} allowing to build the lattice graph in the environment envir_stacomi
+Nothing, assigns the data frame \code{periodeDC} allowing to build the lattice graph in the environment envir_stacomi
 }
 \description{
 Function to create a barchart (lattice) corresponding to the periods

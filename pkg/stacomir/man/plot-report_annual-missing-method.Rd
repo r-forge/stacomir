@@ -17,6 +17,9 @@
         \item{plot.type="point": ggplot+geom_point}'
 }}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Plot method for report_annual
 }

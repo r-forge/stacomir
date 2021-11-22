@@ -12,6 +12,9 @@
 
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
+\value{
+An object of class \link{report_env-class} with data set from values assigned in \code{envir_stacomi} environment
+}
 \description{
 charge method for report_env class
 }

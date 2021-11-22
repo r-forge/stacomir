@@ -13,7 +13,7 @@
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
 \value{
-nothing
+Nothing, called for its side effect of deleting data in the database
 }
 \description{
 supprime method for report_mig_interannual class

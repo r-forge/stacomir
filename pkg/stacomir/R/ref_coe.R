@@ -25,7 +25,7 @@ setClass(Class = "ref_coe", representation = representation(data = "data.frame",
 #' 
 #' The slots datedebut and datefin have to be filled before using charge
 #' @param object An object of class \link{ref_coe-class}
-#' @return Object of class ref_coe
+#' @return An object of class \link{ref_coe-class} 
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -54,7 +54,7 @@ setMethod("charge", signature = signature("ref_coe"), definition = function(obje
 #' @param tax '2038=Anguilla anguilla'
 #' @param std 'CIV=civelle'
 #' @param silent Default FALSE, if TRUE the program should no display messages
-#' @return nothing
+#' @return Nothing, called for side effect
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
 setMethod("supprime", signature = signature("ref_coe"), definition = function(object,

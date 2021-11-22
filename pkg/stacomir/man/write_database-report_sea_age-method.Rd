@@ -13,6 +13,9 @@ into the tj_caracteristiquelot_car table in the user's scheme}
 
 \item{silent}{: Default FALSE, if TRUE the program should no display messages.}
 }
+\value{
+Nothing, called for its side effect of writing data to the database
+}
 \description{
 The sea age characteristic is calculated from the measured or calculated size of salmon and with a size/age rule
 defined by the user.

@@ -12,6 +12,9 @@
 
 \item{...}{Additional parameters passed to print}
 }
+\value{
+NULL, prints data in the console
+}
 \description{
 Method to print the command line of the object
 }

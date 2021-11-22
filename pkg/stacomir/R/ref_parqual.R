@@ -66,7 +66,7 @@ setMethod("charge_with_filter", signature = signature("ref_parqual"), definition
 #'  Loads an additional dataset
 #' this method is loaded to obtain the possible values of a qualitative parameter. Here data only contains one line
 #' @param object An object of class \link{ref_parqual-class}
-#' @return An S4 object of class ref_parqual with the valqual slot filled
+#' @return An S4 object of class \link{ref_parqual-class} with the valqual slot filled
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{

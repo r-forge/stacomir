@@ -13,7 +13,7 @@
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class report_species with data slot filled
+An object of class \link{report_species-class} with data slot filled with slot data \code{@data} filled
 }
 \description{
 connect method for report_species

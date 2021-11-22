@@ -34,6 +34,9 @@ create an xtable objet to be later used by the print.xtable method.}
 
 \item{...}{Additional parameters}
 }
+\value{
+A xtable
+}
 \description{
 xtable function for \link{report_mig_char-class}
 create an xtable objet to be later used by the print.xtable method.

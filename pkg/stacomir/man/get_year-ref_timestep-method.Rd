@@ -9,6 +9,9 @@
 \arguments{
 \item{object}{An object of class \link{ref_timestep-class}}
 }
+\value{
+A numeric with year or vector of years corresponding to the timestep
+}
 \description{
 Gets the year or a vector of years corresponding to the timestep ("ref_timestep") object
 }

@@ -13,7 +13,7 @@
 \item{silent}{Boolean default FALSE, if TRUE information messages not displayed}
 }
 \value{
-report_mig_char with slot @data filled from the database
+An object of class \link{report_mig_char-class}  with list in \code{@data$parquan} and \code{@data$parqual} filled in from the database
 }
 \description{
 uses the report_mig_mult method

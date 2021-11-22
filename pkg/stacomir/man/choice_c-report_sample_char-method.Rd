@@ -35,12 +35,11 @@ these should match the ref.tr_taxon_tax referential table in the stacomi databas
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class \link{report_mig-class}
-The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then 
-uses the choice_c methods of these object to select the data.
+An object of class \link{report_mig-class} with data selected
 }
 \description{
-command line interface for report_sample_char class
+#' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then 
+uses the choice_c methods of these object to select the data.
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}

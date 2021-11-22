@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_dc-class}}
 }
 \value{
-Object of class ref_dc
+an object of class ref_dc with data loaded
 }
 \description{
 Method to load the counting devices of the control station

@@ -2,7 +2,7 @@
 % Please edit documentation in R/ref_textbox.R
 \name{choice_c,ref_textbox-method}
 \alias{choice_c,ref_textbox-method}
-\title{Choice_c method for ReTextBox referential objects}
+\title{Choice_c method for ref_textbox referential objects}
 \usage{
 \S4method{choice_c}{ref_textbox}(object, value, nomassign = "ref_textbox")
 }
@@ -13,8 +13,11 @@
 
 \item{nomassign}{The name with which the object will be assigned in envir_stacomi}
 }
+\value{
+An S4 object of class \link{ref_textbox-class} label selected
+}
 \description{
-Choice_c method for ReTextBox referential objects
+Choice_c method for ref_textbox referential objects
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}

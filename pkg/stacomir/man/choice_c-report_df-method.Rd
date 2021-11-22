@@ -19,7 +19,7 @@
 \item{silent}{Should program be silent or display messages}
 }
 \value{
-An object of class \link{ref_df-class} with slots filled
+An object of class \link{ref_df-class}  with data selected
 }
 \description{
 The choice_c method fills in the data slot for ref_df, and then

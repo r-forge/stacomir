@@ -12,6 +12,9 @@
 
 \item{silent}{Should the function remain silent (boolean)}
 }
+\value{
+An object of class \link{report_mig_env-class} with data set from values assigned in \code{envir_stacomi} environment
+}
 \description{
 #' Unique the other report classes where the charge method is only used by the graphical interface
 to collect and test objects in the environment envir_stacomi, and see if the right choices have

@@ -12,7 +12,7 @@
 \item{id}{one of 'jour', 'semaine', 'quinzaine', 'mois'}
 }
 \value{
-'a character to be used in seq.POSIXt
+A character to be used in seq.POSIXt
 }
 \description{
 Returns the POSIXt value of a given name

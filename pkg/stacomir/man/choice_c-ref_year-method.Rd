@@ -23,6 +23,9 @@
 
 \item{silent}{Stops messages from being displayed if silent=TRUE, default FALSE}
 }
+\value{
+object An object of class \link{ref_year-class} with year selected
+}
 \description{
 The choice_c method will issue a warning if the year is not present in the database
 Allows the selection of year and the assignment in environment envir_stacomi

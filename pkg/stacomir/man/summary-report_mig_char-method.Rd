@@ -14,6 +14,9 @@
 
 \item{...}{Additional parameters}
 }
+\value{
+A table with the summary
+}
 \description{
 summary for report_mig_char
 }

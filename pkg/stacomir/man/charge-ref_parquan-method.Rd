@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_parquan-class}}
 }
 \value{
-An S4 object of class ref_parquan
+An S4 object of class \link{ref_parquan-class} with data loaded
 }
 \description{
 Loading method for Reparquan referential objects

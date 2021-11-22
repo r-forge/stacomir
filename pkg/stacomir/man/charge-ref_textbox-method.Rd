@@ -2,7 +2,7 @@
 % Please edit documentation in R/ref_textbox.R
 \name{charge,ref_textbox-method}
 \alias{charge,ref_textbox-method}
-\title{Loading method for ReTextBox referential objects}
+\title{Loading method for ref_textbox referential objects}
 \usage{
 \S4method{charge}{ref_textbox}(object, title, label)
 }
@@ -14,10 +14,10 @@
 \item{label}{A label for the TextBox}
 }
 \value{
-An S4 object of class ref_textbox
+An S4 object of class \link{ref_textbox-class}
 }
 \description{
-Loading method for ReTextBox referential objects
+Loading method for ref_textbox referential objects
 }
 \examples{
 \dontrun{

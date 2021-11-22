@@ -42,6 +42,9 @@ for the fishway or DC, measured, calculated, expert, direct observation. If null
 \item{...}{additional parameters passed to matplot, main, ylab, ylim, lty, pch, bty, cex.main,
 it is currenly not a good idea to change xlim (numbers are wrong, the month plot covers all month, and legend placement is wrong}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 This graph is for species other than glass eel
 }

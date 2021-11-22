@@ -148,7 +148,7 @@
 #'     \item{per_tar_code}{The type of operation ('1'=normal operation,
 #'              '2'=Device stopped in normal operation (ie lift ascending, high tide...),
 #'    '3'='Stopped for maintenance or other problem',
-#'              '4'='Works but not fully operational, ie flow problem, flood, clogged with debris...',
+#'              '4'='Works but not fully operational,i.e.flow problem, flood, clogged with debris...',
 #'              '5'='Not known')}
 #'     \item{libelle}{label corresponding to per_tar_code}
 #'            }

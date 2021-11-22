@@ -12,6 +12,9 @@
 
 \item{silent}{Stops messages from being displayed if silent=TRUE, default FALSE}
 }
+\value{
+object An object of class \link{report_annual-class} with data set from values assigned in \code{envir_stacomi} environment
+}
 \description{
 Method used by the graphical interface to load data and check that all choices have
 been made by the user

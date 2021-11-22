@@ -72,7 +72,7 @@ setValidity("report_silver_eel", function(object)
 #'
 #' @param object An object of class \link{report_silver_eel-class}
 #' @param silent Boolean if TRUE messages are not displayed
-#' @return An object of class \link{report_silver_eel-class}
+#' @return An object of class \link{report_silver_eel-class} with slot data \code{@data} filled
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases connect.report_silver_eel
 setMethod(
@@ -116,7 +116,7 @@ setMethod(
 #' choice_c method
 #' @param object An object of class \link{report_silver_eel-class}
 #' @param h a handler
-#' @return An object of class \link{report_silver_eel-class} with slots filled with user choice
+#' @return An object of class \link{report_silver_eel-class}  with slots filled from values assigned in \code{envir_stacomi} environment
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @return An object of the class
 #' @aliases charge.report_silver_eel
@@ -182,6 +182,9 @@ setMethod(
 
 
 #' command line interface for report_silver_eel class
+#' 
+#' #' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
+#' uses the choice_c methods of these object to select the data.
 #' @param object An object of class \link{report_silver_eel-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param taxa '2038=Anguilla anguilla',
@@ -193,8 +196,6 @@ setMethod(
 #' @param horodatefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
 #' @param silent Boolean, if TRUE, information messages are not displayed
 #' @return An object of class \link{report_mig-class}
-#' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
-#' uses the choice_c methods of these object to select the data.
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases choice_c.report_silver_eel
 setMethod(
@@ -312,7 +313,7 @@ setMethod(
                             jour_an = TRUE,
                             jour_mois = FALSE)
       # extracting the dc from the array
-      # all parms are there but some are null, ie val_libelle is null for quantitative parm and
+      # all parms are there but some are null,i.e.val_libelle is null for quantitative parm and
       # car_valeur_quantitatif is null for for qualitative parms
       matqual <- reshape2::acast(
         arg[arg$ope_dic_identifiant == lesdc[i], ],
@@ -395,7 +396,9 @@ setMethod(
 #' with a size weight analysis and regression using robust regression (rlm more robust to the presence of outliers)}
 #' 			\item{plot.type="4"}{ Lattice cloud plot of Pankurst~ Body Length ~ weight)}
 #' }
-#' @param silent Stops displaying the messages.
+#' @param silent Stops displaying the messages
+#' @return A lattice xy.plot if \code{plot.type =1}, a lattice barchart if \code{plot.type=2}, nothing but plots a series of graphs in 
+#' a single plot if \code{plot.type=3}, a lattice cloud object if \code{plot.type=4}
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases plot.report_silver_eel
 #' @importFrom stats update
@@ -404,14 +407,15 @@ setMethod(
   "plot",
   signature(x = "report_silver_eel", y = "missing"),
   definition = function(x,
-                        plot.type = "1",
+                        plot.type = c("1","2","3","4"),
                         silent = FALSE) {
     #r_silver<-r_sample_char;require(ggplot2);plot.type="1"
     #browser()
+			oldpar <- par(no.readonly = TRUE) 
+			on.exit(par(oldpar))  
     r_silver <- x
-    plot.type <- as.character(plot.type)# to pass also characters
-    if (!plot.type %in% c("1", "2", "3", "4"))
-      stop('plot.type must be 1,2,3 or 4')
+		plot.type <- as.character(plot.type)# to pass also characters
+		plot.type <- match.arg(plot.type)
     if (exists("r_silver", envir_stacomi)) {
       r_silver <- get("r_silver", envir_stacomi)
     } else {
@@ -853,7 +857,6 @@ setMethod(
         axes = FALSE
       )
       
-      
     }
     if (plot.type == "4") {
       #creating a shingle with some overlaps
@@ -918,6 +921,7 @@ setMethod(
 #' @param object An object of class \code{\link{report_silver_eel-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters
+#' @return A list per DC with statistic for Durif stages, Pankhurst, MD Eye diameter, BL body length and weight W
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases summary.report_silver_eel
 #' @export
@@ -1012,7 +1016,7 @@ setMethod(
 #' Method to print the command line of the object
 #' @param x An object of class report_silver_eel
 #' @param ... Additional parameters passed to print
-#' @return NULL
+#' @return NULL, prints data in the console
 #' @author cedric.briand
 #' @aliases print.report_silver_eel
 #' @export
@@ -1058,6 +1062,7 @@ setMethod(
 #' assigns an object g in envir_stacomi for eventual modification of the plot
 #' @param action, action 1,2,3 or 4 corresponding to plot
 #' @param ... Additional parameters
+#' @return Nothing
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
 funplotreport_silver_eel = function(action, ...) {
@@ -1071,30 +1076,12 @@ funplotreport_silver_eel = function(action, ...) {
 }
 
 
-##' table function
-##'
-##' funtablereport_silver_eel shows a table of results in gdf
-##' @param h handler passed by the graphical interface
-##' @param ... Additional parameters
-##' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
-##' @keywords internal
-#funtablereport_silver_eel = function(h, ...) {
-#  r_silver = charge(r_silver)
-#  r_silver <- connect(r_silver)
-#  vue_ope_lot = r_silver@requete@query # on recupere le data.frame
-#  assign("r_silver", r_silver, envir_stacomi)#assign("r_silver",vue_ope_lot,envir_stacomi)
-#  funout(gettext("Size (BL mm)", domain = "R-stacomiR"))
-#  vue_ope_lot[is.na(vue_ope_lot)] <- ""
-#  vue_ope_lot$ope_date_debut = as.character(vue_ope_lot$ope_date_debut)
-#  vue_ope_lot$ope_date_fin = as.character(vue_ope_lot$ope_date_fin)
-#  gdf(vue_ope_lot, container = TRUE)
-#}
-
 
 #' Function to calculate the stages from Durif
 #'
 #' @param data A dataset with columns BL, W, Dv, Dh, FL corresponding to body length (mm),
 #' Weight (g), vertical eye diameter (mm), vertical eye diameter (mm), and pectoral fin length (mm)
+#' @returns A data.frame with durif stages per individual
 #' @author Laurent Beaulaton \email{laurent.beaulaton"at"onema.fr}
 #' @export
 fun_stage_durif = function(data) {

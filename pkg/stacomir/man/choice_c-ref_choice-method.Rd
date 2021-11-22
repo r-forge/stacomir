@@ -2,17 +2,20 @@
 % Please edit documentation in R/ref_choice.R
 \name{choice_c,ref_choice-method}
 \alias{choice_c,ref_choice-method}
-\title{Choice_c method for refchoix referential objects}
+\title{Choice_c method for ref_choice referential objects}
 \usage{
 \S4method{choice_c}{ref_choice}(object, selectedvalue)
 }
 \arguments{
-\item{object}{An object of class \link{ref_list-class}}
+\item{object}{An object of class \link{ref_choice-class}}
 
 \item{selectedvalue}{the value selected in the combo}
 }
+\value{
+An S4 object of class \link{ref_choice-class}
+}
 \description{
-Choice_c method for refchoix referential objects
+Choice_c method for ref_choice referential objects
 }
 \examples{
  

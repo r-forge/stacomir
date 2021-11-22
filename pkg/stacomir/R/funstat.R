@@ -8,6 +8,7 @@
 #' @param stage The Stage
 #' @param DC  The counting device
 #' @param silent Message displayed or not
+#' @return No return value, called for side effects
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
 funstat = function(tableau, time.sequence, taxa, stage, DC, silent) {

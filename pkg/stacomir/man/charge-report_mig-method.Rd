@@ -13,7 +13,7 @@
 \item{silent}{Should the program be returning messages}
 }
 \value{
-An object of class \link{report_mig-class} with slots filled by user choice
+An object of class \link{report_mig-class} with slots filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 this method creates additional classes in envir_stacomi for later use in plot (operations,

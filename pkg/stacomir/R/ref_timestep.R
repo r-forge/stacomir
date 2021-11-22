@@ -238,6 +238,7 @@ setMethod(
 
 #' Gets the year or a vector of years corresponding to the timestep ("ref_timestep") object
 #' @param object An object of class \link{ref_timestep-class}
+#' @return A numeric with year or vector of years corresponding to the timestep
 #' @keywords internal
 setMethod(
   "get_year",

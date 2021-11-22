@@ -17,14 +17,14 @@ it should match the ref.tr_taxon_tax referential table in the stacomi database, 
 
 \item{stage}{A stage code matching the ref.tr_stadedeveloppement_std table in the stacomi database, see \link{choice_c,ref_stage-method}}
 
-\item{anneedebut}{The starting the first year, passed as charcter or integer}
+\item{anneedebut}{The starting the first year, passed as character or integer}
 
 \item{anneefin}{the finishing year}
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class \link{report_mig_interannual-class}
+An object of class \link{report_mig_interannual-class} with data selected
 The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class} and two slots of \link{ref_year-class}
 }
 \description{

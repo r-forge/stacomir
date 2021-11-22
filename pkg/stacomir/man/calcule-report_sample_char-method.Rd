@@ -12,6 +12,9 @@
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed, only warnings and errors}
 }
+\value{
+An object of class \code{\link{report_sample_char-class}} with slot \code{@data} filled
+}
 \description{
 In that class, most treatments are done in the query, this method checks that data are available and fills information for year, month, two weeks, week, doy
 }

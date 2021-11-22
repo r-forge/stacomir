@@ -16,6 +16,9 @@ and generate csv and html output in the user data directory}
 
 \item{...}{Additional parameters (not used there)}
 }
+\value{
+Nothing, runs funstat and funtable method for each DC
+}
 \description{
 summary for report_mig_mult 
 calls functions funstat and funtable to create migration overviews

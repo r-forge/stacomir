@@ -34,6 +34,7 @@ setValidity("ref_par", method = function(object) {
 #' @param object An object of class \link{ref_par-class}
 #' @return An S4 object of class ref_par
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' @return An S4 object of class \link{ref_par-class} 
 #' @examples 
 #' \dontrun{
 #'  object=new('ref_par')
@@ -55,12 +56,12 @@ setMethod("charge", signature = signature("ref_par"), definition = function(obje
 #' @param dc_selected A counting device selected for the report 
 #' @param taxa_selected The taxa selected for the report
 #' @param stage_selected The stage selected for the report
-#' @return An S4 object of class ref_par
+#' @return An S4 object of class \link{ref_par-class} 
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
 #'  object=new('ref_par')
-#' charge_with_filter(object,dc_selected=6,taxa_selected=2038,stage_selected=c('AGJ','CIV')
+#' charge_with_filter(object,dc_selected=6,taxa_selected=2038,stage_selected=c('AGJ','CIV'))
 #' }
 setMethod("charge_with_filter", signature = signature("ref_par"), definition = function(object,
     dc_selected, taxa_selected, stage_selected) {
@@ -86,7 +87,7 @@ setMethod("charge_with_filter", signature = signature("ref_par"), definition = f
 
 #' Command line interface to select a parameter
 #' 
-#' the choice_c method is intendedto have the same behaviour as choice (which creates a
+#' the choice_c method is intended to have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line. 
 #' If an objectreport is passed as a parameter, the method will do a charge_with_filter to select only the taxa present in the counting devices.
 #' @aliases choice_c.ref_par

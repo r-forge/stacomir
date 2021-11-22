@@ -96,7 +96,7 @@ setValidity("report_mig", function(object)
 #' uses the report_mig_mult method
 #' @param object An object of class \link{report_mig-class}
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed
-#' @return report_mig with slot @data filled from the database
+#' @return report_mig with slot \code{@data} filled from the database
 #' @aliases connect.report_mig
 setMethod(
 		"connect",
@@ -111,6 +111,9 @@ setMethod(
 		}
 )
 #' command line interface for report_mig class
+#' 
+#' The choice_c method fills in the data slot for ref_dc, ref_taxa, ref_stage, and refref_timestep_daily and then
+#' uses the choice_c methods of these object to select the data.
 #' @param object An object of class \link{report_mig-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param taxa Either a species name in latin or the SANDRE code for species (ie 2038=Anguilla anguilla),
@@ -118,9 +121,7 @@ setMethod(
 #' @param stage A stage code matching the ref.tr_stadedeveloppement_std table in the stacomi database see \link{choice_c,ref_stage-method}
 #' @param datedebut The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input
 #' @param datefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
-#' @return An object of class \link{report_mig-class}
-#' The choice_c method fills in the data slot for ref_dc, ref_taxa, ref_stage, and refref_timestep_daily and then
-#' uses the choice_c methods of these object to select the data.
+#' @return An object of class \link{report_mig-class} with data selected
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases choice_c.report_mig
 setMethod(
@@ -156,7 +157,7 @@ setMethod(
 #' used by the graphical interface, it is necessary to run charge for report_mig.
 #' @param object An object of class \code{\link{report_mig-class}}
 #' @param silent Should the program be returning messages
-#' @return An object of class \link{report_mig-class} with slots filled by user choice
+#' @return An object of class \link{report_mig-class} with slots filled from values assigned in \code{envir_stacomi} environment
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases charge.report_mig
 setMethod(
@@ -498,6 +499,7 @@ setMethod(
 #' (8:11) numbers, weight, NULL, NULL (if glass eel), (8:11)  measured, calculated, expert, direct observation for other taxa. If null will be set to brewer.pal(12,"Paired")[c(8,10,4,6,1,2,3,5,7)]
 #' @param color_ope Default NULL, argument passed for the plot.type="standard" method. A vector of color for the operations. Default to brewer.pal(4,"Paired")
 #' @param ... Additional arguments passed to matplot or plot if plot.type="standard", see ... in \link{fungraph_glasseel} and \link{fungraph}
+#' @return Nothing, called for its side effect
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases plot.report_mig
 #' @export
@@ -668,7 +670,10 @@ setMethod(
 			} else {
 				stop("unrecognised plot.type argument, plot.type should either be standard or step")
 			}
+			return(invisible(NULL))
 		}
+		
+		
 )
 
 
@@ -678,6 +683,7 @@ setMethod(
 #' @param object An object of class \code{\link{report_mig-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters (not used there)
+#' @return Nothing, calls the \link{summary.report_mig_mult} method
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases summary.report_mig
 #' @export
@@ -687,7 +693,9 @@ setMethod(
 		definition = function(object, silent = FALSE, ...) {
 			report_mig_mult <- as(object, "report_mig_mult")
 			summary(report_mig_mult, silent = silent)
+			return(invisible(NULL))
 		}
+
 )
 
 
@@ -704,6 +712,7 @@ setMethod(
 #' this param was added otherwise connect method when called from report_mig_interannual runs in loops
 #' @note the user is asked whether or not he wants to overwrite data only when silent is FALSE, if no
 #' data are present in the database, the import is done anyway. 
+#' @return Nothing, just writes data into the database
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @examples
 #' \dontrun{
@@ -914,6 +923,8 @@ setMethod(
 				}				
 			} else { # no data in bjo so we write anyways
 				confirm()
-			}			
+			}	
+			return(invisible(NULL))
+			
 		}
 )

@@ -18,6 +18,9 @@
 
 \item{silent}{Default FALSE, if TRUE the program should no display messages.}
 }
+\value{
+Nothing, called for its side effect of plotting
+}
 \description{
 Plots of various type for report_sea_age
 }

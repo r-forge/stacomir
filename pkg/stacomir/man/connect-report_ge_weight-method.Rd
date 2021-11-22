@@ -13,12 +13,12 @@
 \item{silent}{Should the method be silent}
 }
 \value{
-report_Poids_Moyen request corresponding to user choices, mean weight
- w is calculated as car_valeur_quantitatif/lot_effectif. These coefficients are stored in the database,
-and the connect method loads them from the table using the \link{ref_coe-class}
+An object of class \link{report_ge_weight-class}  with slots data and coe filled from the database
 }
 \description{
-connect method for report_Poids_moyen
+The connect method adapts queries according to user choices, mean weight
+ w is calculated as car_valeur_quantitatif/lot_effectif. These coefficients are stored in the database,
+and the connect method loads them from the table using the \link{ref_coe-class}
 }
 \note{
 dates for the request are from august to august (a glass eel season)

@@ -8,11 +8,11 @@
 setClass(Class = "ref_textbox", representation = representation(title = "character",
     label = "character"))
 
-#' Loading method for ReTextBox referential objects
+#' Loading method for ref_textbox referential objects
 #' @param object An object of class \link{ref_textbox-class}
 #' @param title A title for the frame
 #' @param label A label for the TextBox
-#' @return An S4 object of class ref_textbox
+#' @return An S4 object of class \link{ref_textbox-class}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -27,13 +27,13 @@ setMethod("charge", signature = signature("ref_textbox"), definition = function(
 })
 
 
-#' Choice_c method for ReTextBox referential objects
-#' 
-#' 
-#' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' Choice_c method for ref_textbox referential objects
+#'
 #' @param object An object of class \link{ref_textbox-class}
 #' @param value The value to set
 #' @param nomassign  The name with which the object will be assigned in envir_stacomi
+#' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' @return An S4 object of class \link{ref_textbox-class} label selected
 setMethod("choice_c", signature = signature("ref_textbox"), definition = function(object,
     value, nomassign = "ref_textbox") {
     object@label <- value

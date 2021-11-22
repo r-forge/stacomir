@@ -31,7 +31,7 @@ setValidity("ref_df", method = function(object) {
 		})
 #' Loading method for DF referential objects
 #' @param object An object of class \link{ref_df-class}
-#' @return An object of class ref_df
+#' @return An object of class ref_df with df loaded
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -56,7 +56,7 @@ setMethod("charge", signature = signature("ref_df"), definition = function(objec
 
 #' Command line interface to choose a fishway
 #' 
-#' the choice_c method is intendedto have the same behaviour as choice (which creates a
+#' the choice_c method is intended to have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line.  The parameters for dF are transformed to integer as the ref_df only 
 #' takes integer in the df slots. 
 #' DF are third in hierarchy in the stacomi database Station>ouvrage>DF>DC>operation. This class is only used in the
@@ -64,6 +64,7 @@ setMethod("charge", signature = signature("ref_df"), definition = function(objec
 #' @param object an object of class \link{ref_df-class}
 #' @param df a character vector of df chosen
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' @return An object of class ref_df with df selected
 #' @examples
 #' \dontrun{
 #' win=gwindow()
@@ -79,9 +80,9 @@ setMethod("choice_c", signature = signature("ref_df"), definition = function(obj
 			if (class(df) == "numeric") {
 				df <- as.integer(df)
 			} else if (class(df) == "character") {
-				options(warn = -1)
-				df = as.integer(as.numeric(df))
-				options(warn = 0)
+				
+				suppressWarnings(expr = {df <- as.integer(as.numeric(df))})
+
 			}
 			if (any(is.na(df)))
 				stop("NA values df")

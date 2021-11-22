@@ -13,7 +13,7 @@
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
 \value{
-report_mig_mult with slots filled by user choice
+An object of class \link{report_mig_mult-class} with slots filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 Unique the other report classes where the charge method is only used by the graphical interface 

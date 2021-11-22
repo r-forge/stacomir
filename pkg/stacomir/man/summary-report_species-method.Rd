@@ -12,6 +12,9 @@
 
 \item{silent}{Should the program stay silent or display messages, default FALSE}
 }
+\value{
+nothing, but writes summary in \code{get("datawd", envir = envir_stacomi)}, and prints output
+}
 \description{
 generate csv and html output in the user data directory
 }

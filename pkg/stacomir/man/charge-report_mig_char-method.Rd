@@ -13,7 +13,7 @@
 \item{silent}{Default FALSE, if TRUE the program should not display messages}
 }
 \value{
-\link{report_mig_char-class} with slots filled by user choice
+\link{report_mig_char-class}  with slot filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 Used by the graphical interface to collect and test objects in the environment envir_stacomi, 

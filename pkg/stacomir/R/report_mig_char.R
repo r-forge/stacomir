@@ -128,7 +128,7 @@ setMethod("choice_c", signature = signature("report_mig_char"), definition = fun
 #' if the choice is made from the command line using the choice_c method.
 #' @param object An object of class \link{report_mig_char-class}
 #' @param silent Default FALSE, if TRUE the program should not display messages
-#' @return \link{report_mig_char-class} with slots filled by user choice
+#' @return \link{report_mig_char-class}  with slot filled from values assigned in \code{envir_stacomi} environment
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases charge.report_mig_char
 #' @keywords internal
@@ -196,7 +196,7 @@ setMethod("charge", signature = signature("report_mig_char"), definition = funct
 #' uses the report_mig_mult method
 #' @param object An object of class \link{report_mig_char-class}
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed
-#' @return report_mig_char with slot @data filled from the database
+#' @return An object of class \link{report_mig_char-class}  with list in \code{@data$parquan} and \code{@data$parqual} filled in from the database
 #' @aliases connect.report_mig_char
 setMethod("connect", signature = signature("report_mig_char"), definition = function(object,
 				silent = FALSE) {
@@ -269,6 +269,8 @@ setMethod("connect", signature = signature("report_mig_char"), definition = func
 #' @param par The code of a quantitative parameter
 #' @param silent Default FALSE, if TRUE the program should not display messages
 #' @param ... Additional parms to the cut method \link[base]{cut}   
+#' @return An object of class \link{ref_parquan-class} with lines removed from \code{r@data[["parquan"]]}
+#' and added (after transformation to qualitative values) in \code{r@data[["parqal"]]}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("setasqualitative", signature = signature("report_mig_char"), definition = function(object,
 				par, silent = FALSE, ...) {
@@ -318,8 +320,9 @@ setMethod("setasqualitative", signature = signature("report_mig_char"), definiti
 #' a single dataframe with one line per qualitative and quantitative pair. This methods allow to 
 #' cross one quantity (e.g. length) with a qualitative parameter (e.g. sex).
 #' 
-#' @param object An object of class \code{\link{report_mig_char-class}} 
+#' @param object An object of class \link{report_mig_char-class}
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed
+#' @return An object of class \link{report_mig_char-class} with slot \code{@calcdata} filled
 #' @aliases calcule.report_mig_char
 setMethod("calcule", signature = signature("report_mig_char"), definition = function(object,
 				silent = FALSE) {
@@ -408,6 +411,7 @@ setMethod("calcule", signature = signature("report_mig_char"), definition = func
 #' parameters (if plot.type=qual).
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed
 #' @param ... Additional parameters
+#' @return Nothing, called for its side effect of plotting data
 #' @aliases plot.report_mig_char
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
@@ -472,6 +476,7 @@ setMethod("plot", signature = signature(x = "report_mig_char", y = "missing"), d
 									domain = "R-stacomiR"))
 				print(g)
 			}  #end plot.type='xyplot'
+			return(invisible(NULL))
 		})
 
 
@@ -479,6 +484,7 @@ setMethod("plot", signature = signature(x = "report_mig_char", y = "missing"), d
 #' @param object An object of class \code{\link{report_mig_char-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters
+#' @return A table with the summary
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases summary.report_mig_char
 #' @export
@@ -517,6 +523,7 @@ setMethod("summary", signature = signature(object = "report_mig_char"), definiti
 #' @param display see xtable
 #' @param auto see xtable
 #' @param ... Additional parameters
+#' @return A xtable
 #' @aliases xtable.report_mig_char
 #' @export
 setMethod("xtable", signature = signature("report_mig_char"), definition = function(x,

@@ -28,7 +28,7 @@ setClass(Class = "report_env", representation = representation(stationMesure = "
 #' connect method for report_env class
 #' @param object An object of class \link{report_env-class}
 #' @param silent Default FALSE, if TRUE the program should no display messages
-#' @return an object of report_env class
+#' @return An object of class \link{report_env-class} with slot data filled from the database
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases connect.report_env
 setMethod("connect", signature = signature("report_env"), definition = function(object,
@@ -54,14 +54,15 @@ setMethod("connect", signature = signature("report_env"), definition = function(
     return(object)
 })
 #' command line interface for report_env class
+#' 
+#' The choice_c method fills in the data slot for \link{ref_env-class} by runnning the charge method of this object.
+#' It then runs the choice method on this object. It also applies the choice method for objects of class \link{ref_horodate-class}
 #' @param object An object of class \link{report_env-class}
 #' @param stationMesure A character, the code of the monitoring station, which records environmental parameters \link{choice_c,ref_env-method}
 #' @param datedebut The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input
 #' @param datefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed.
-#' @return An object of class \link{report_env-class}
-#' The choice_c method fills in the data slot for ref_env and  and then 
-#' uses the choice_c methods of these object to select the data.
+#' @return An object of class \link{report_env-class} with data selected
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases choice_c.report_env
 setMethod("choice_c", signature = signature("report_env"), definition = function(object,
@@ -86,6 +87,7 @@ setMethod("choice_c", signature = signature("report_env"), definition = function
 #' @param silent Default FALSE, if TRUE the program should no display messages
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases charge.report_env
+#' @return An object of class \link{report_env-class} with data set from values assigned in \code{envir_stacomi} environment
 #' @keywords internal
 setMethod("charge", signature = signature("report_env"), definition = function(object,
     silent) {
@@ -126,6 +128,7 @@ setMethod("charge", signature = signature("report_env"), definition = function(o
 #' Plot method for report_env
 #' @param x An object of class \link{report_env-class}
 #' @param silent Stops displaying the messages
+#' @return Nothing, called for its side effect of plotting data
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases plot.report_env
 #' @export
@@ -175,5 +178,5 @@ setMethod("plot", signature(x = "report_env", y = "missing"), definition = funct
         funout(gettext("No environmental conditions values for selected monitoring stations (report_env.R)\n",
             domain = "R-stacomiR"), arret = TRUE)
     }
-
+		return(invisible(NULL))
 })

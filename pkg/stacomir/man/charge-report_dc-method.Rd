@@ -13,7 +13,7 @@
 \item{silent}{boolean, default FALSE, if TRUE messages are not displayed.}
 }
 \value{
-An object of class \link{report_dc-class}
+object An object of class \link{report_dc-class} with data set from values assigned in \code{envir_stacomi} environment
 }
 \description{
 used by the graphical interface to retrieve the objects of referential classes

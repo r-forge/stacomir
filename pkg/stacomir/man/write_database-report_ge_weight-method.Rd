@@ -13,7 +13,7 @@
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class \link{report_ge_weight-class}
+Nothing, called for its side effect of writing to the database
 }
 \description{
 Data will be written in tj_coefficientconversion_coe table, if the class retrieves some data

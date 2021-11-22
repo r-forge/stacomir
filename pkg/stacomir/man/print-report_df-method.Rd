@@ -12,6 +12,9 @@
 
 \item{...}{Additional parameters passed to print}
 }
+\value{
+Nothing, called for its side effect of printing data
+}
 \description{
 Method to print the command line of the object
 }

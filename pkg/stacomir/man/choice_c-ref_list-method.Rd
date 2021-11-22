@@ -12,6 +12,9 @@
 
 \item{selectedvalue}{the value selected in the combo}
 }
+\value{
+An S4 object of class \link{ref_list-class}
+}
 \description{
 Choice_c method for ref_list referential objects
 }

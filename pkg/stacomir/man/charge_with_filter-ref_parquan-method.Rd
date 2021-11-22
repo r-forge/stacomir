@@ -2,7 +2,7 @@
 % Please edit documentation in R/ref_parquan.R
 \name{charge_with_filter,ref_parquan-method}
 \alias{charge_with_filter,ref_parquan-method}
-\title{Loading method for Reparquan referential objects searching only those parameters existing for a DC, a Taxon, and a stage}
+\title{Loading method for Reparquan referential objects searching only those parameters existing for a DC (counting device), a Taxon, and a stage}
 \usage{
 \S4method{charge_with_filter}{ref_parquan}(object, dc_selected, taxa_selected, stage_selected)
 }
@@ -16,10 +16,10 @@
 \item{stage_selected}{The stage set in the report object}
 }
 \value{
-An S4 object of class ref_parqualn
+An S4 object of class \link{ref_parquan-class} with data loaded showing available parameters for one DC
 }
 \description{
-Loading method for Reparquan referential objects searching only those parameters existing for a DC, a Taxon, and a stage
+Loading method for Reparquan referential objects searching only those parameters existing for a DC (counting device), a Taxon, and a stage
 }
 \examples{
 \dontrun{

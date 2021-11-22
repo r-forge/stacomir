@@ -10,4 +10,3 @@ dev.*
 ^\.gitlab-ci.yml$
 ^LICENSE$
 ^cran-comments.md$
-^tests/testhat/\*\.csv

@@ -10,7 +10,7 @@ setClass(Class = "ref_parquan", contains = "ref_par")
 
 #' Loading method for Reparquan referential objects
 #' @param object An object of class \link{ref_parquan-class}
-#' @return An S4 object of class ref_parquan
+#' @return An S4 object of class \link{ref_parquan-class} with data loaded
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -29,12 +29,12 @@ setMethod("charge", signature = signature("ref_parquan"), definition = function(
 })
 
 
-#' Loading method for Reparquan referential objects searching only those parameters existing for a DC, a Taxon, and a stage
+#' Loading method for Reparquan referential objects searching only those parameters existing for a DC (counting device), a Taxon, and a stage
 #' @param object An object of class \link{ref_parquan-class}
 #' @param dc_selected The dc set in the report object
 #' @param taxa_selected The taxa set in the report object
 #' @param stage_selected The stage set in the report object
-#' @return An S4 object of class ref_parqualn
+#' @return An S4 object of class \link{ref_parquan-class} with data loaded showing available parameters for one DC
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{

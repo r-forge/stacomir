@@ -14,6 +14,9 @@
 
 \item{...}{Additional parameters}
 }
+\value{
+The summary
+}
 \description{
 summary for report_sea_age
 }

@@ -93,17 +93,17 @@ r_silver<-calcule(r_silver)
 plot(r_silver, plot.type=1)
 
 # number per month or year and Durif's stage (year if number of dc >1)
-plot(r_silver, plot.type=2)
+plot(r_silver, plot.type="2")
 
 # plot showing fulton's coefficient, and size weight graphs
 # inspired from Acou et al., 2009 
 # Differential Production and Condition Indices of Premigrant
 # Eels in Two Small Atlantic Coastal Catchments
 # of France
-plot(r_silver, plot.type=3)
+plot(r_silver, plot.type="3")
 # get a list of summary data and print output to screen
 
-plot(r_silver, plot.type=4)
+plot(r_silver, plot.type="4")
 # print a summary statistic, and save the output in a list for later use
 stats<-summary(r_silver)
 }

@@ -13,7 +13,7 @@
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class  \link{report_mig_interannual-class}
+An object of class  \link{report_mig_interannual-class} with slots set from values assigned in \code{envir_stacomi} environment
 }
 \description{
 loading method for report_mig_interannual class

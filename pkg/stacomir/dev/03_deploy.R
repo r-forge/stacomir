@@ -18,7 +18,7 @@ devtools::load_all()
 tools::update_pkg_po("C:/workspace/stacomir")
 devtools::test() # this will run load_all() see details about classes below for specific tests
 
-devtools::test_coverage()
+devtools::test_coverage() # 78.13% 
 devtools::document()
 Sys.setenv("NOT_CRAN"= "true")
 
@@ -49,16 +49,19 @@ devtools::check(args="run-dontrun")
 devtools::check( env_vars = c(NOT_CRAN = "false")) 
 # TO SKIP THE TEST AS IN CRAN where skip_on_cran()
 # and try to figure out where tests fail on CRAN
-rhub::check_for_cran()
 
-# Deploy
+devtools::check_rhub()
+devtools::check_win_devel()
+22# Deploy
 
 ## Local, CRAN or Package Manager ---- 
 ## This will build a tar.gz that can be installed locally, 
 ## sent to CRAN, or to a package manager
 devtools::build()
-
-## RStudio ----
+devtools::spell_check()
+devtools::release()
+devtools::install()
+11## RStudio ----
 ## If you want to deploy on RStudio related platforms
 golem::add_rstudioconnect_file()
 golem::add_shinyappsio_file()

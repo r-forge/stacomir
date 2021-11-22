@@ -17,7 +17,7 @@
 \item{stage_selected}{The stage selected for the report}
 }
 \value{
-An S4 object of class ref_par
+An S4 object of class \link{ref_par-class}
 }
 \description{
 Loading method for \code{ref_par referential} objects searching only those parameters existing for a DC, a Taxa, and a stage
@@ -25,7 +25,7 @@ Loading method for \code{ref_par referential} objects searching only those param
 \examples{
 \dontrun{
  object=new('ref_par')
-charge_with_filter(object,dc_selected=6,taxa_selected=2038,stage_selected=c('AGJ','CIV')
+charge_with_filter(object,dc_selected=6,taxa_selected=2038,stage_selected=c('AGJ','CIV'))
 }
 }
 \author{

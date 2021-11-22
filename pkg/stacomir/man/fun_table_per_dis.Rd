@@ -13,10 +13,10 @@ period (see table ref.tr_typearretdisp_tar)}
 \item{tempsdebut}{ref.tr_typearretdisp_tar(per_date_debut) starting
 timestamp of the period}
 
-\item{tempsfin}{The posgres column ref.tr_typearretdisp_tar(per_date_fin) ending timestamp of
+\item{tempsfin}{The postgres column ref.tr_typearretdisp_tar(per_date_fin) ending timestamp of
 the period}
 
-\item{libelle}{The posgres column ref.tr_typearretdisp_tar(libelle )description of the period
+\item{libelle}{The postgres column ref.tr_typearretdisp_tar(libelle )description of the period
 type}
 
 \item{date}{Boolean, should the function return a POSIXt or date value}

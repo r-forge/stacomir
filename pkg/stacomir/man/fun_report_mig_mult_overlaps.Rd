@@ -17,6 +17,9 @@ be converted to 'daily' values assuming that the migration was regular over time
 returns one row per taxa, stages, counting device. It does not account for the destination of taxa. It returns
 separate rows for quantities and numbers. Several columns are according to the type of measure (MESURE, CALCULE, PONCTUEL or EXPERT).}
 }
+\value{
+A data.frame with daily migrations
+}
 \description{
 Function to calculate daily migration from migration monitoring whose length is more than one day,
 this calculation relies on the (false) assumption that migration is evenly spread over time.

@@ -14,6 +14,9 @@
 
 \item{...}{Additional parameters (not used there)}
 }
+\value{
+Nothing, called for its side effect of writing html, csv files and printing summary
+}
 \description{
 summary for report_dc, write csv and html output, and prints summary statistics
 }

@@ -10,7 +10,7 @@
 \item{label='character'}{the title of the box}
 }
 \description{
-Enables to load a 'ref_choice' object fom a list given by a 'report' object
+Enables to load a 'ref_list' object from a list given by a 'report' object
 }
 \section{Objects from the Class}{
  Objects can be created by calls of the form

@@ -372,7 +372,7 @@ setMethod(
 
 #' supprime method for report_mig_interannual class, deletes values in table t_bilanmigrationjournalier_bjo
 #' @param object An object of class \link{report_mig_interannual-class}
-#' @return nothing
+#' @return nothing, called for its side effect, removing lines from the database
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases supprime.report_mig_interannual
 setMethod(
@@ -425,7 +425,7 @@ setMethod(
 #' loading method for report_mig_interannual class
 #' @param object An object of class \link{report_mig_interannual-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed
-#' @return An object of class  \link{report_mig_interannual-class}
+#' @return An object of class  \link{report_mig_interannual-class} with slots set from values assigned in \code{envir_stacomi} environment
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases charge.report_mig_interannual
 #' @keywords internal
@@ -498,10 +498,10 @@ setMethod(
 #' @param taxa Either a species name in latin or the SANDRE code for species (ie 2038=Anguilla anguilla),
 #' it should match the ref.tr_taxon_tax referential table in the stacomi database, see \link{choice_c,ref_taxa-method}
 #' @param stage A stage code matching the ref.tr_stadedeveloppement_std table in the stacomi database, see \link{choice_c,ref_stage-method}
-#' @param anneedebut The starting the first year, passed as charcter or integer
+#' @param anneedebut The starting the first year, passed as character or integer
 #' @param anneefin the finishing year
 #' @param silent Boolean, if TRUE, information messages are not displayed
-#' @return An object of class \link{report_mig_interannual-class}
+#' @return An object of class \link{report_mig_interannual-class} with data selected
 #' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class} and two slots of \link{ref_year-class}
 #' @aliases choice_c.report_mig_interannual
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
@@ -571,12 +571,12 @@ setMethod(
 #' first fish was seen, then the days (or period) corresponding to 5, 50 , 95, and 100 percent of the migration.
 #' The duration of 90% of the migraton between Q5 and Q95 is also of interest.
 #'
-#' @param object An object of class \code{\link{report_mig_interannual-class}}
+#' @param object An object of class \link{report_mig_interannual-class}
 #' @param silent Boolean, if TRUE, information messages are not displayed, only warnings and errors
 #' @param timesplit One of "day","week","month","2 weeks", "jour","semaine","quinzaine","mois"
-#' @note The class report_mig does not handle escapement rates nor
+#' @note The class report_mig_interannual does not handle escapement rates nor
 #' 'devenir' i.e. the destination of the fishes.
-#' @return report_mig with calcdata slot filled.
+#' @return An object of class \link{report_mig_interannual-class} with calcdata slot filled.
 #' @aliases calcule.report_mig_interannual
 #' @author Marion Legrand
 setMethod(
@@ -837,10 +837,10 @@ fun_report_mig_interannual = function(dat,
 
 #' Plot method for report_mig_interannual
 #'
-#' Several of these plots are scaled against the same year, ie the comparison is based on
+#' Several of these plots are scaled against the same year,i.e.the comparison is based on
 #' year 2000, meaning that day 1 would correspond to the first date of 2000,  which is also a
 #' saturday, the last day of the week.
-#' @param x An object of class report_mig_interannual
+#' @param x An object of class \link{report_mig_interannual-class}
 #' @param plot.type Default standard
 #' @param timesplit Used for plot.type barchart or dotplot, Default mois (month) other possible values are semaine (week), quinzaine (2 weeks),
 #' English values within parenthesis are also accepted.
@@ -856,6 +856,7 @@ fun_report_mig_interannual = function(dat,
 #' 		\item{plot.type="pointrange": Pointrange graphs, different periods can be chosen with argument timesplit}
 #'      \item{plot.type="seasonal": plot to display summary statistics about the migration period}
 #' }
+#' @return Nothing, called for its side effect of plotting
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases plot.report_mig_interannual
 #' @export
@@ -1212,10 +1213,10 @@ setMethod(
 						tmp <- dat0[selection, ]
 						tmp[tmp$valeur >= tmp$moyenne, "comp"] <- ">=moy"
 						tmp[tmp$valeur < tmp$moyenne, "comp"] <- "<moy"
-						options(warn = -1)
-						tmp[tmp$valeur == tmp$maxtab, "comp"] <- "max"
-						tmp[tmp$valeur == tmp$mintab, "comp"] <- "min"
-						options(warn = 0)
+						suppressWarnings({
+									tmp[tmp$valeur == tmp$maxtab, "comp"] <- "max"
+									tmp[tmp$valeur == tmp$mintab, "comp"] <- "min"
+								})
 						tmp[tmp$moyenne == 0, "comp"] <- "0"
 						
 						tmp$annee <- as.factor(as.numeric(as.character(tmp$annee)))
@@ -1396,10 +1397,10 @@ setMethod(
 						tmp <- dat0[selection, ]
 						tmp[tmp$valeur >= tmp$moyenne, "comp"] <- ">=moy"
 						tmp[tmp$valeur < tmp$moyenne, "comp"] <- "<moy"
-						options(warn = -1)
-						tmp[tmp$valeur == tmp$maxtab, "comp"] <- "max"
-						tmp[tmp$valeur == tmp$mintab, "comp"] <- "min"
-						options(warn = 0)
+						suppressWarnings({
+									tmp[tmp$valeur == tmp$maxtab, "comp"] <- "max"
+									tmp[tmp$valeur == tmp$mintab, "comp"] <- "min"
+								})
 						tmp[tmp$moyenne == 0, "comp"] <- "0"
 						tmp$annee = as.factor(as.numeric(as.character(tmp$annee)))
 						if (timesplit == "mois") {
@@ -1701,7 +1702,7 @@ setMethod(
 							)
 					)
 			}
-			
+			return(invisible(NULL))	
 		}
 )
 

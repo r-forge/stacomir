@@ -2,7 +2,30 @@
 
 Dear CRAN administrator
 
-This is a new release of stacomir for integration on CRAN.
+This is a new release of stacomir for integration on CRAN. 
+Following a first release on Monday and advices from Gregor Seyer 
+
+> Please add \value to .Rd files regarding exported methods ...
+
+ => \value have been added for all files using @export along with a documentation of changes in classes
+ when the object exported is the class itself in class methods.
+ 
+> Please make sure that you do not change the user's options, par or
+> working directory. If you really have to do so within functions, please
+> ensure with an immediate call of on.exit() that the settings are reset
+> when the function is exited. e.g.:
+> ...
+> oldpar <- par(no.readonly = TRUE)    # code line i
+> on.exit(par(oldpar))            # code line i + 1
+> ...
+> par(mfrow=c(2,2))            # somewhere after
+> ... 
+
+ => Options and par have been screened for and corrected
+
+> : Unexecutable code in man
+
+=> Fixed thank you !
 
 Sincerely yours
 
@@ -12,8 +35,8 @@ Cédric Briand
 
 Passing all tests on my local machine (windows) R4.1.2 (requires a database installed)
    
-* [ FAIL 0 | WARN 0 | SKIP 0 | PASS 243 ]
-* code coverage : 78 %
+* [ FAIL 0 | WARN 0 | SKIP 0 | PASS 245 ]
+* code coverage : 79.2 %
 
 ## CHECKS
 

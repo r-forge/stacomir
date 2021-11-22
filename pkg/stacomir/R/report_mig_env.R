@@ -66,6 +66,7 @@ setMethod(
   }
 )
 #' command line interface for report_env class
+#' 
 #' @param object An object of class \link{report_env-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param taxa '2038=Anguilla anguilla',
@@ -76,9 +77,7 @@ setMethod(
 #' @param datefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
 #' @param silent Boolean default FALSE, if TRUE information messages not displayed.
 #' @aliases choice_c.report_mig_env
-#' @return An object of class \link{report_env-class}
-#' The choice_c method fills in the data slot for ref_env and  and then
-#' uses the choice_c methods of these object to select the data.
+#' @return An object of class \link{report_env-class} with data selected
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 setMethod(
   "choice_c",
@@ -124,6 +123,7 @@ setMethod(
 #' and needs to be called from the command line (see examples)
 #' @param object An object of class \link{report_mig_env-class}
 #' @param silent Should the function remain silent (boolean)
+#' @return An object of class \link{report_mig_env-class} with data set from values assigned in \code{envir_stacomi} environment
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases charge.report_mig_env
 setMethod(
@@ -183,6 +183,7 @@ setMethod(
 #' @param silent Stops displaying the messages.
 #' @param color_station A named vector of station color (e.g. c("temp_gabion"="red","coef_maree"="blue","phases_lune"="green")) default null
 #' @param color_dc A named vector giving the color for each dc default null (e.g. c("5"="#4D4D4D","6"="#E6E6E6","12"="#AEAEAE"))
+#' @return Nothing, called for its side effect of plotting 
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases plot.report_mig_env
 #' @export
@@ -382,6 +383,6 @@ setMethod(
           "the ggplot object has been assigned to envir_stacomi, type g<-get('g',envir_stacomi)"
         )
       )
-    
+    return(invisible(NULL))
   }
 )# end function

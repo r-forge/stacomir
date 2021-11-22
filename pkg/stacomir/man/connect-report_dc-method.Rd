@@ -13,7 +13,7 @@
 \item{silent}{boolean, default FALSE, if TRUE messages are not displayed}
 }
 \value{
-An object of class \link{report_dc-class}
+An object of class \link{report_dc-class} with slot data filled from the database
 }
 \description{
 loads the working periods and type of arrest or disfunction of the DC

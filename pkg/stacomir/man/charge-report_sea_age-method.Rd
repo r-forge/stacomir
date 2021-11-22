@@ -14,6 +14,8 @@
 }
 \value{
 An object of class \link{report_sea_age-class} with slots filled with user choice
+
+An object of class \link{report_sea_age-class} with slots filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 It is not necessary to run this method if the choice_c method has been run.

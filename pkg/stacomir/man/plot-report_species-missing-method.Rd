@@ -20,7 +20,10 @@
 different values, use unique(bilesp@calcdata$taxa_stage) to get that number. The color applies to both
 pie and barchart plots}
 
-\item{silent}{Stops displaying the messages.}
+\item{silent}{Stops displaying the messages}
+}
+\value{
+Nothing, called for producing plots
 }
 \description{
 Plot method for report_species

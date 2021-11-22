@@ -15,6 +15,9 @@
 \item{check_for_bjo}{: do you want to check if data are already present in the bjo table, and delete them,
 this param was added otherwise connect method when called from report_mig_interannual runs in loops}
 }
+\value{
+Nothing, just writes data into the database
+}
 \description{
 Daily values are needed to compare migrations from year to year, by the class \link{report_mig_interannual-class}. They are added by
 by this function.

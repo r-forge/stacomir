@@ -37,10 +37,10 @@ setClass(
 
 #' Loading method for ref_year referential objects
 #'
-#' Selects year available either in the bjo table (if report_object==report_migInterannelle) or in the t_operation_ope table
-#' @param object An object of class ref_year
-#' @param objectreport The object report, default "report_ge_weight" other possible value report_mig_interannual
-#' @return object An object of class ref_year with slot data filled with the selected value
+#' Selects year available either in the bjo table if report_object==report_mig_interannual) or in the t_operation_ope table
+#' @param object An object of class \link{ref_year-class}
+#' @param objectreport The object report, default \code{report_ge_weight} other possible value report_mig_interannual
+#' @return object An object of class \link{ref_year-class} with slot data filled with the available years for the corresponding report
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @examples
 #' \dontrun{
@@ -156,6 +156,7 @@ setMethod(
 #' @param nomassign The name to be assigned in envir_stacomi
 #' @param funoutlabel The label that appears in funout
 #' @param silent Stops messages from being displayed if silent=TRUE, default FALSE
+#' @return object An object of class \link{ref_year-class} with year selected
 #' @examples
 #' \dontrun{
 #' object=new("ref_year")

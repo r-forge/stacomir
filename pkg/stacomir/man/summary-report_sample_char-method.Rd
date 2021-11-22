@@ -14,6 +14,9 @@
 
 \item{...}{Additional parameters}
 }
+\value{
+Nothing, called for its side effect of printing a summary
+}
 \description{
 summary for report_sample_char
 }

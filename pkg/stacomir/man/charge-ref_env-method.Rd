@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_env-class}}
 }
 \value{
-An S4 object of class ref_env
+An S4 object of class ref_env with data loaded from the database
 }
 \description{
 Loading method for ref_env referential object

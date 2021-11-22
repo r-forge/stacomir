@@ -9,6 +9,9 @@ funtableDF(...)
 \arguments{
 \item{...}{additional parameters}
 }
+\value{
+Nothing, called for its side effect of running summary
+}
 \description{
 Table output for report_df class
 }

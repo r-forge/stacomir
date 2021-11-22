@@ -29,6 +29,9 @@
 
 \item{...}{Additional arguments passed to matplot or plot if plot.type='standard', see ... in \link{fungraph_glasseel} and \link{fungraph}}
 }
+\value{
+Nothing, called for its side effect of plotting
+}
 \description{
 \itemize{
   \item{plot.type='standard'}{calls \code{\link{fungraph}} and \code{\link{fungraph_glasseel}} functions to plot as many 'report_mig'

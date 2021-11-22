@@ -13,7 +13,7 @@
 \value{
 An object of class \link{report_sample_char-class} with slots filled with user choice
 
-An object of the class
+An object of the class \link{report_sample_char-class} with slots filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 this method verifies that boxes have been clicked in the user interface and gets the objects pasted in 

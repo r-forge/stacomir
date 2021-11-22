@@ -13,7 +13,7 @@
 \item{h}{a handler}
 }
 \value{
-An object of class \link{report_silver_eel-class} with slots filled with user choice
+An object of class \link{report_silver_eel-class}  with slots filled from values assigned in \code{envir_stacomi} environment
 
 An object of the class
 }

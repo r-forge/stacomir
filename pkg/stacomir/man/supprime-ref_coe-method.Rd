@@ -16,7 +16,7 @@
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
 \value{
-nothing
+Nothing, called for side effect
 }
 \description{
 supprime method for 'ref_coe' class

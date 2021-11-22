@@ -2,16 +2,17 @@
 % Please edit documentation in R/report_df.R
 \name{funboxDF}
 \alias{funboxDF}
-\title{Internal use, rectangles to describe the DF work for report_df class,
-graphical interface handler}
+\title{Internal use, rectangles to describe the DF work for report_df class,}
 \usage{
 funboxDF(...)
 }
 \arguments{
 \item{...}{additional parameters}
 }
+\value{
+Nothing, called for its side effect of plotting data
+}
 \description{
 Internal use, rectangles to describe the DF work for report_df class,
-graphical interface handler
 }
 \keyword{internal}

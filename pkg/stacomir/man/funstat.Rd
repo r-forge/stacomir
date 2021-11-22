@@ -21,6 +21,9 @@ EXPERT,PONCTUEL,Effectif_total,taux_d_echappement,coe_valeur_coefficient}
 
 \item{silent}{Message displayed or not}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 Function to calculate statistics per month
 }

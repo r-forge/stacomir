@@ -24,7 +24,7 @@ these should match the ref.tr_taxon_tax referential table in the stacomi databas
 \item{silent}{Should messages be hided default FALSE}
 }
 \value{
-An object of class \link{report_mig_mult-class}
+An object of class \link{report_mig_mult-class} with data selected
 }
 \description{
 The choice_c method fills in the data slot for ref_dc, ref_taxa, ref_stage and then 

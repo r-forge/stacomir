@@ -11,6 +11,9 @@
 
 \item{dc}{a character vector of dc chosen}
 }
+\value{
+An object of class ref_dc with dc selected
+}
 \description{
 the choice_c method is intended to have the same behaviour as choice (which creates a
 widget in the graphical interface) but from the command line.  The parameters for dc are transformed to integer as the ref_dc only

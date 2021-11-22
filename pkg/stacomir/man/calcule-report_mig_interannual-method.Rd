@@ -8,14 +8,14 @@
 \S4method{calcule}{report_mig_interannual}(object, silent = FALSE, timesplit = "mois")
 }
 \arguments{
-\item{object}{An object of class \code{\link{report_mig_interannual-class}}}
+\item{object}{An object of class \link{report_mig_interannual-class}}
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed, only warnings and errors}
 
 \item{timesplit}{One of "day","week","month","2 weeks", "jour","semaine","quinzaine","mois"}
 }
 \value{
-report_mig with calcdata slot filled.
+An object of class \link{report_mig_interannual-class} with calcdata slot filled.
 }
 \description{
 Performs the calculation of seasonal coefficients for the plot(plot.type="seasonal") method. The numbers
@@ -25,7 +25,7 @@ first fish was seen, then the days (or period) corresponding to 5, 50 , 95, and 
 The duration of 90% of the migraton between Q5 and Q95 is also of interest.
 }
 \note{
-The class report_mig does not handle escapement rates nor
+The class report_mig_interannual does not handle escapement rates nor
 'devenir' i.e. the destination of the fishes.
 }
 \author{

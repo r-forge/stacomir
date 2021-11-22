@@ -56,7 +56,7 @@ setValidity("report_mig_mult", function(object) {
 #' 
 #' @param object An object of class \link{report_mig_mult-class}
 #' @param silent Default FALSE, if TRUE the program should no display messages
-#' @return report_mig_mult with slots filled by user choice
+#' @return An object of class \link{report_mig_mult-class} with slots filled from values assigned in \code{envir_stacomi} environment
 #' @aliases charge.report_mig_mult
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("charge", signature = signature("report_mig_mult"), definition = function(object,
@@ -140,7 +140,7 @@ setMethod("charge", signature = signature("report_mig_mult"), definition = funct
 #' @param datedebut The starting date as a character, formats like \code{\%Y-\%m-\%d} or \code{\%d-\%m-\%Y} can be used as input
 #' @param datefin The finishing date of the report, for this class this will be used to calculate the number of daily steps.
 #' @param silent Should messages be hided default FALSE
-#' @return An object of class \link{report_mig_mult-class}
+#' @return An object of class \link{report_mig_mult-class} with data selected
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases choice_c.report_mig_mult
 setMethod("choice_c", signature = signature("report_mig_mult"), definition = function(object,
@@ -282,7 +282,10 @@ setMethod("calcule", signature = signature("report_mig_mult"), definition = func
 #' this method loads data from the database for report_mig but also fills the table of conversion coefficient, if 
 #' the taxa is eel. It also calls connect method for \link{report_df-class}, 
 #' \link{report_dc-class} and \link{report_ope-class} associated with the report
-#' and used by the \link{fungraph} and \link{fungraph_glasseel} functions.
+#' and used by the \link{fungraph} and \link{fungraph_glasseel} functions. As a side effect it assigns
+#' objects 	\link{report_dc-class}, \link{report_df-class} and \link{report_ope-class} in environment \code{envir_stacomi}
+
+
 #' @param object An object of class \link{report_mig_mult-class}
 #' @param silent Boolean, if TRUE messages are not displayed
 #' @return An object of class \link{report_mig_mult-class} with slot @data filled from the database
@@ -386,6 +389,7 @@ setMethod("connect", signature = signature("report_mig_mult"), definition = func
 #' (8:11) numbers, weight, NULL, NULL (if glass eel), (8:11)  measured, calculated, expert, direct observation for other taxa. If null will be set to brewer.pal(12,'Paired')[c(8,10,4,6,1,2,3,5,7)]
 #' @param color_ope Default NULL, argument passed for the plot.type='standard' method. A vector of color for the operations. Default to brewer.pal(4,'Paired')
 #' @param ... Additional arguments passed to matplot or plot if plot.type='standard', see ... in \link{fungraph_glasseel} and \link{fungraph}
+#' @return Nothing, called for its side effect of plotting
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases plot.report_mig_mult
 #' @export
@@ -552,6 +556,7 @@ setMethod("plot", signature(x = "report_mig_mult", y = "missing"), definition = 
 				
 			}
 			# ==========================end / type=3=============================  
+			return(invisible(NULL))
 		})
 
 
@@ -561,6 +566,7 @@ setMethod("plot", signature(x = "report_mig_mult", y = "missing"), definition = 
 #' @param object An object of class \code{\link{report_mig_mult-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters (not used there)
+#' @return Nothing, runs funstat and funtable method for each DC
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @aliases summary.report_mig_mult
 #' @export
@@ -654,6 +660,7 @@ setMethod("print", signature = signature("report_mig_mult"), definition = functi
 #' be converted to 'daily' values assuming that the migration was regular over time. The function
 #' returns one row per taxa, stages, counting device. It does not account for the destination of taxa. It returns
 #' separate rows for quantities and numbers. Several columns are according to the type of measure (MESURE, CALCULE, PONCTUEL or EXPERT).
+#' @return A data.frame with daily migrations
 #' @seealso calcule,report_mig_mult-method
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
@@ -842,7 +849,7 @@ fun_report_mig_mult_overlaps <- function(time.sequence, datasub, negative = FALS
 #' the total weight is 'Poids_total'+'poids_depuis_effectifs' and corresponds to weighed glass eel plus glass eel number converted in weights.
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @export
-fun_report_mig_mult <- function(time.sequence, datasub, negative = FALSE) {    # sqldf.options<-get('sqldf.options',envir_stacomi) browser()
+fun_report_mig_mult <- function(time.sequence, datasub, negative = FALSE) {    
 	df.ts = data.frame(debut_pas = time.sequence, fin_pas = time.sequence + as.difftime(1,
 					units = "days"), ts_id = strftime(time.sequence, format = "%j"), stringsAsFactors = FALSE)
 	datasub$ts_id <- strftime(datasub$ope_date_debut, format = "%j")
@@ -888,7 +895,7 @@ fun_report_mig_mult <- function(time.sequence, datasub, negative = FALSE) {    #
 	# relative difference: 0.000996741 so rounded values by 2 digits are
 	# not equal ???? # changed test to 0.1 
 	# 2021 same issue when running the vignette but don't see any difference in the browser() ?
-  # maybe due to different time settings on the machine so it's converted to a warning
+	# maybe due to different time settings on the machine so it's converted to a warning
 	if (!abs(round(sum(datasub$value, na.rm = TRUE), 2) - round(sum(datasub2$value,
 							na.rm = TRUE), 2)) < 0.1) warnings(
 				paste("the numbers are different between raw numbers",
@@ -921,7 +928,7 @@ fun_report_mig_mult <- function(time.sequence, datasub, negative = FALSE) {    #
 #' @param tableau Table issued from report_mig
 #' @param time.sequence Time sequence from report_mig
 #' @param silent If silent=TRUE do not display messages
-#' @return tableau, the data frame
+#' @return tableau, the data frame with weight converted to numbers
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 fun_weight_conversion = function(tableau, time.sequence, silent) {
 	if (!silent)
@@ -966,10 +973,11 @@ fun_weight_conversion = function(tableau, time.sequence, silent) {
 	return(tableau)
 }
 
-#' returns a table where all components within the list calcdata are aggregated
+#' Calculates a data.frame where all components within the list calcdata are aggregated
 #' and formatted for plot
 #' @param object An object of class \link{report_mig_mult-class}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' @return A data.frame
 #' @export
 fun_aggreg_for_plot <- function(object) {
 	if (class(object) != "report_mig_mult")

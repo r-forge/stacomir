@@ -14,6 +14,9 @@
 
 \item{...}{Additional parameters}
 }
+\value{
+A list per DC with statistic for Durif stages, Pankhurst, MD Eye diameter, BL body length and weight W
+}
 \description{
 summary for report_silver_eel
 }

@@ -41,7 +41,7 @@ dataframe}
 \item{heure}{logical, add column with hour}
 }
 \value{
-data The dataframe with date column filled
+The dataframe with date column filled
 }
 \description{
 This function extracts temporal characteristics from a dataframe

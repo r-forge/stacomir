@@ -16,6 +16,9 @@
 
 \item{silent}{Stops displaying the messages.}
 }
+\value{
+Nothing, called for its side effect of plotting
+}
 \description{
 Plot method for report_mig_env
 }

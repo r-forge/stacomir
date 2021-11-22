@@ -7,6 +7,7 @@
 #' @param report_mig an object of class \code{\linkS4class{report_mig}}
 #' @param resum data frame with summary per month
 #' @param silent Suppresses messages
+#' @return No return value, called for side effects
 #' @export
 fun_write_monthly<-function(report_mig,resum,silent){
 	# voir essai_table_reportmensuel.sql pour le format du tableau
@@ -40,6 +41,6 @@ fun_write_monthly<-function(report_mig,resum,silent){
 		invisible(utils::capture.output(pool::dbExecute(con@connection, statement = sql)))
 	} # end for
 	if (!silent) funout(gettext("Writing monthly summary in the database\n",domain="R-stacomiR"))
-	
+	return(invisible(NULL))
 } # end function
 

@@ -9,6 +9,9 @@ funchartDF(...)
 \arguments{
 \item{...}{additional parameters}
 }
+\value{
+Nothing, called for its side effect of plotting data
+}
 \description{
 Function to plot calendar like graph, internal use
 }

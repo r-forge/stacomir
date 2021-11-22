@@ -11,6 +11,9 @@ funplotreport_silver_eel(action, ...)
 
 \item{...}{Additional parameters}
 }
+\value{
+Nothing
+}
 \description{
 assigns an object g in envir_stacomi for eventual modification of the plot
 }

@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_stage-class}}
 }
 \value{
-An S4 object of class ref_stage
+An S4 object of class \link{ref_stage-class} with all stages available in the database
 }
 \description{
 Loading method for ref_stage referential objects

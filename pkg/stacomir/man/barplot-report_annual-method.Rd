@@ -14,6 +14,9 @@
 
 \item{...}{additional arguments passed to barplot}
 }
+\value{
+No return value, called for side effects
+}
 \description{
 barplot method for object \link{report_annual-class}
 }

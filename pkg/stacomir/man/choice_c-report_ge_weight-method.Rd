@@ -12,7 +12,7 @@
 
 \item{dc}{A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}}
 
-\item{anneedebut}{The starting the first year, passed as charcter or integer}
+\item{anneedebut}{The starting the first year, passed as character or integer}
 
 \item{anneefin}{the finishing year, must be > anneedebut (minimum one year in august to the next in august)}
 
@@ -21,7 +21,7 @@
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class \link{report_ge_weight-class}
+An object of class \link{report_ge_weight-class}  with data selected
 The choice_c method fills in the data slot for classes \link{ref_dc-class} \link{ref_year-class}
 \link{ref_coe-class} \link{ref_list-class}
 }

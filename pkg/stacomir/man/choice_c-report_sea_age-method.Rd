@@ -42,11 +42,10 @@ these should match the ref.tr_taxon_tax referential table in the stacomi databas
 }
 \value{
 An object of class \link{report_sea_age-class}
-The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
-uses the choice_c methods of these object to select the data.
 }
 \description{
-command line interface for report_sea_age class
+#' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
+uses the choice_c methods of these object to select the data.
 }
 \author{
 Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}

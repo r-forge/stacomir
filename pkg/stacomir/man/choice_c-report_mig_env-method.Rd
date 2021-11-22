@@ -35,9 +35,7 @@ these should match the ref.tr_taxon_tax referential table in the stacomi databas
 \item{silent}{Boolean default FALSE, if TRUE information messages not displayed.}
 }
 \value{
-An object of class \link{report_env-class}
-The choice_c method fills in the data slot for ref_env and  and then
-uses the choice_c methods of these object to select the data.
+An object of class \link{report_env-class} with data selected
 }
 \description{
 command line interface for report_env class

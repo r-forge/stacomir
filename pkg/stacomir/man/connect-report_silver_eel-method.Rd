@@ -13,7 +13,7 @@
 \item{silent}{Boolean if TRUE messages are not displayed}
 }
 \value{
-An object of class \link{report_silver_eel-class}
+An object of class \link{report_silver_eel-class} with slot data \code{@data} filled
 }
 \description{
 connect method for report_silver_eel

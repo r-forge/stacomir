@@ -11,7 +11,7 @@
 \item{object}{An object of class \link{report_mig_interannual-class}}
 }
 \value{
-nothing
+nothing, called for its side effect, removing lines from the database
 }
 \description{
 supprime method for report_mig_interannual class, deletes values in table t_bilanmigrationjournalier_bjo

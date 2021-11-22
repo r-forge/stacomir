@@ -17,7 +17,7 @@ setClass(Class = "ref_choice", representation = representation(listechoice = "AN
 #' Loading method for Refchoice referential objects
 #' 
 #' @family referential objects
-#' @return An S4 object of class ref_choice
+#' @return An S4 object of class \link{ref_choice-class} 
 #' @param object An object of class ref_choice
 #' @param vecteur A vector of name, see example code.
 #' @param label Labels for the choices
@@ -38,9 +38,10 @@ setMethod("charge", signature = signature("ref_choice"), definition = function(o
 })
 
 
-#' Choice_c method for refchoix referential objects
-#' @param object An object of class \link{ref_list-class}
+#' Choice_c method for ref_choice referential objects
+#' @param object An object of class \link{ref_choice-class}
 #' @param selectedvalue the value selected in the combo
+#' @return An S4 object of class \link{ref_choice-class} 
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples  
 #' \dontrun{
@@ -52,13 +53,13 @@ setMethod("choice_c", signature = signature("ref_choice"), definition = function
     selectedvalue) {
 
     if (length(selectedvalue) > 1)
-        stop("selectedvalue should be a vector of length 1")
+        stop("valeurchoisie should be a vector of length 1")
     if (class(selectedvalue) == "numeric")
         selectedvalue <- as.character(selectedvalue)
     # the charge method must be performed before
 
     if (!selectedvalue %in% object@listechoice) {
-        stop(stringr::str_c("selectedvalue,", selectedvalue, " not in the list of possible values :",
+        stop(stringr::str_c("The selected valeur,", selectedvalue, " not in the list of possible values :",
             stringr::str_c(object@listechoice, collapse = ",")))
     } else {
         object@selectedvalue <- selectedvalue

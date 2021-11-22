@@ -7,7 +7,7 @@
 funout(text, arret = FALSE, ...)
 }
 \arguments{
-\item{text}{The text to displayin the R 
+\item{text}{The text to displaying the R 
 console and later in shiny}
 
 \item{arret}{Should this cause the program to stop ?}

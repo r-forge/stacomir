@@ -15,7 +15,7 @@ fun_weight_conversion(tableau, time.sequence, silent)
 \item{silent}{If silent=TRUE do not display messages}
 }
 \value{
-tableau, the data frame
+tableau, the data frame with weight converted to numbers
 }
 \description{
 returns a table where weights and number are calculated from number and weights respectively

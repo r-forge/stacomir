@@ -14,6 +14,8 @@
 }
 \value{
 report_species with slots filled by user choice
+
+An object of class \link{report_species-class} with slots filled from values assigned in \code{envir_stacomi} environment
 }
 \description{
 Verifies the content of objects when the graphical interface is used, it is not necessary

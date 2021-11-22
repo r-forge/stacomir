@@ -66,7 +66,7 @@ stacomi(	database_expected=FALSE)
   plot(bilesp, plot.type="barplot", silent=FALSE)
   #length(unique(bilesp@calcdata$taxa_stage)) # 15
   # here creating a vector of length 15 with nice blending colours
-	if (requireNamespace("grDevices", quietly = TRUE) {
+	if (requireNamespace("grDevices", quietly = TRUE)) {
 	mycolorrampblue <-
 			grDevices::colorRampPalette(c("#395B74", "#010F19"))
 	mycolorrampyellow <-

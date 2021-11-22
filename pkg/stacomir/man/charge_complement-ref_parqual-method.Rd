@@ -11,7 +11,7 @@ this method is loaded to obtain the possible values of a qualitative parameter. 
 \item{object}{An object of class \link{ref_parqual-class}}
 }
 \value{
-An S4 object of class ref_parqual with the valqual slot filled
+An S4 object of class \link{ref_parqual-class} with the valqual slot filled
 }
 \description{
 Loads an additional dataset

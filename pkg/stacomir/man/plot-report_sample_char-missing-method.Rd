@@ -13,7 +13,10 @@
 \item{plot.type}{One of '1','violin plot'. Defaut to \code{1} , can also be \code{2} boxplot or 
 \code{3} points.}
 
-\item{silent}{Stops displaying the messages.}
+\item{silent}{Stops displaying the messages}
+}
+\value{
+Nothing, called for its side effect, plotting
 }
 \description{
 Plots of various type for reportcarlot

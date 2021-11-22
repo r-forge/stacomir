@@ -11,6 +11,8 @@
 }
 \value{
 An S4 object of class ref_taxa
+
+An S4 object of class \link{ref_taxa-class} with all taxa loaded from the database
 }
 \description{
 Loading method for ref_taxa referential objects

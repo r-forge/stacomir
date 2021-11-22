@@ -17,7 +17,7 @@
 \item{...}{additional parameters}
 }
 \value{
-report_mig with slot @data filled from the database
+report_mig with slot \code{@data} filled from the database
 }
 \description{
 internal use

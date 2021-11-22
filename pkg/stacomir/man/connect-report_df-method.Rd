@@ -14,7 +14,7 @@ loads the working periods and type of arrest or disfunction of the DF}
 \item{silent}{Boolean, TRUE removes messages.}
 }
 \value{
-An object of class \code{report_df}
+An object of class \code{report_df} with slot data filled from the database
 }
 \description{
 connect method for report_df

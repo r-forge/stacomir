@@ -6,9 +6,9 @@
 #' period (see table ref.tr_typearretdisp_tar)
 #' @param tempsdebut ref.tr_typearretdisp_tar(per_date_debut) starting
 #' timestamp of the period
-#' @param tempsfin The posgres column ref.tr_typearretdisp_tar(per_date_fin) ending timestamp of
+#' @param tempsfin The postgres column ref.tr_typearretdisp_tar(per_date_fin) ending timestamp of
 #' the period
-#' @param libelle The posgres column ref.tr_typearretdisp_tar(libelle )description of the period
+#' @param libelle The postgres column ref.tr_typearretdisp_tar(libelle )description of the period
 #' type
 #' @param date Boolean, should the function return a POSIXt or date value
 #' @return  A list

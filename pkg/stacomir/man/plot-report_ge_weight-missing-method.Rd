@@ -14,7 +14,10 @@
 and end of operation). The ggplot 'p' can be accessed from envir_stacomi using \code{get('p',envir_stacomi)}. '2' standard plot of current coefficent.
 '3' same as '1' but with size according to number.}
 
-\item{silent}{Stops displaying the messages.}
+\item{silent}{Stops displaying the messages}
+}
+\value{
+Nothing, called for its side effect of plotting data
 }
 \description{
 Plot method for report_ge_weight'

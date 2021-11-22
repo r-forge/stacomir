@@ -8,9 +8,12 @@
 \S4method{calcule}{report_mig_char}(object, silent = FALSE)
 }
 \arguments{
-\item{object}{An object of class \code{\link{report_mig_char-class}}}
+\item{object}{An object of class \link{report_mig_char-class}}
 
 \item{silent}{Boolean default FALSE, if TRUE information messages not displayed}
+}
+\value{
+An object of class \link{report_mig_char-class} with slot \code{@calcdata} filled
 }
 \description{
 Merges the content of the list elements 'parqual' and 'parquan' in the data slot, and creates

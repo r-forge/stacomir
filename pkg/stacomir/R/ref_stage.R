@@ -14,7 +14,7 @@ setClass(Class = "ref_stage", representation = representation(data = "data.frame
 
 #' Loading method for ref_stage referential objects
 #' @param object An object of class \link{ref_stage-class}
-#' @return An S4 object of class ref_stage
+#' @return An S4 object of class \link{ref_stage-class} with all stages available in the database
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -28,12 +28,13 @@ setMethod("charge", signature = signature("ref_stage"), definition = function(ob
     object@data <- req@query
     return(object)
 })
+
+
 #' Loading method for ref_stage referential objects searching only those stages existing for a DC and a Taxon
 #' @param object An object of class \link{ref_stage-class}
 #' @param dc_selected The selected counting device
 #' @param taxa_selected The selected species
-
-#' @return An S4 object of class \link{ref_stage-class}
+#' @return An S4 object of class \link{ref_stage-class} listing all stages available for one DC and one taxon
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
@@ -67,12 +68,13 @@ setMethod("charge_with_filter", signature = signature("ref_stage"), definition =
 
 #' choice_c method for ref_stage
 #' 
-#' the choice_c method is intendedto have the same behaviour as choice (which creates a
+#' the choice_c method is intended to have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line. The values passed to the choice_c method
 #' for stage is the code.  Any numeric value will be discarded
 #' @param object An object of class \link{ref_stage-class}
 #' @param stage the vector of stages chosen
 #' @param silent Boolean, if TRUE, information messages are not displayed
+#' @return An S4 object of class \link{ref_stage-class} with the stage selected in the data slot
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples
 #' \dontrun{

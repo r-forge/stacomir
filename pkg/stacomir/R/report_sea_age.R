@@ -75,7 +75,7 @@ setValidity("report_sea_age", function(object)
 #'
 #' @param object An object of class \link{report_sea_age-class}
 #' @param silent Default FALSE, if TRUE the program should no display messages
-#' @return An object of class \link{report_sea_age-class}
+#' @return An object of class \link{report_sea_age-class} with slot data \code{@data} filled
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases connect.report_sea_age
 setMethod(
@@ -121,6 +121,7 @@ setMethod(
 #' @param h a handler
 #' @return An object of class \link{report_sea_age-class} with slots filled with user choice
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @return An object of class \link{report_sea_age-class} with slots filled from values assigned in \code{envir_stacomi} environment
 #' @aliases charge.report_sea_age
 #' @keywords internal
 setMethod(
@@ -197,6 +198,9 @@ setMethod(
 
 
 #' command line interface for report_sea_age class
+#' 
+#' #' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
+#' uses the choice_c methods of these object to select the data.
 #' @param object An object of class \link{report_sea_age-class}
 #' @param dc A numeric or integer, the code of the dc, coerced to integer,see \link{choice_c,ref_dc-method}
 #' @param taxa '2220=Salmo salar',
@@ -209,8 +213,6 @@ setMethod(
 #' @param limit2hm Size limit of a salmon for a two sea winter fish
 #' @param silent Default FALSE, if TRUE the program should no display messages
 #' @return An object of class \link{report_sea_age-class}
-#' The choice_c method fills in the data slot for classes \link{ref_dc-class}, \link{ref_taxa-class}, \link{ref_stage-class}, \link{ref_par-class} and two slots of \link{ref_horodate-class} and then
-#' uses the choice_c methods of these object to select the data.
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases choice_c.report_sea_age
 setMethod(
@@ -342,6 +344,7 @@ setMethod(
 #' 		\item{plot.type="2"}{Density plot by sea age and dc}
 #' }
 #' @param silent Default FALSE, if TRUE the program should no display messages.
+#' @return Nothing, called for its side effect of plotting
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases plot.report_sea_age
 #' @export
@@ -439,7 +442,7 @@ setMethod(
 					)
 				}
 			}
-			
+			return(invisible(NULL))
 		}
 )
 
@@ -447,6 +450,7 @@ setMethod(
 #' @param object An object of class \link{report_sea_age-class}
 #' @param silent Default FALSE, if TRUE the program should no display messages.
 #' @param ... Additional parameters
+#' @return The summary
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases summary.report_sea_age
 #' @export
@@ -499,6 +503,7 @@ setMethod(
 #' defined by the user. 
 #' @param object an object of class \link{report_sea_age-class}
 #' @param silent : Default FALSE, if TRUE the program should no display messages.
+#' @return Nothing, called for its side effect of writing data to the database
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases write_database.report_sea_age
 #' @export
@@ -622,7 +627,7 @@ setMethod(
 #' supprime method for report_mig_interannual class
 #' @param object An object of class \link{report_sea_age-class}
 #' @param silent Default FALSE, if TRUE the program should no display messages
-#' @return nothing
+#' @return Nothing, called for its side effect of deleting data in the database
 #' @aliases supprime.report_sea_age
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @export

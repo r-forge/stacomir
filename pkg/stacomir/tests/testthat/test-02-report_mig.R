@@ -238,6 +238,7 @@ test_that("test example with glass eel",
 			bM_Arzal_civ <- connect(bM_Arzal_civ, silent = TRUE)
 			bM_Arzal_civ <- calcule(bM_Arzal_civ, silent = TRUE)
 			expect_silent(plot(bM_Arzal_civ, silent = TRUE))
+			expect_error(plot(bM_Arzal_civ, plot.type="step", silent = TRUE), NA)
 			# some additional arguments passed to plot via ...
 			expect_silent(plot(bM_Arzal_civ, silent = TRUE, bty = "n"))
 			expect_output(summary(bM_Arzal_civ, silent = FALSE))

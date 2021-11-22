@@ -14,7 +14,7 @@ setClass(Class = "ref_env", representation = representation(data = "data.frame")
     prototype = prototype(data = data.frame()))
 
 #' Loading method for ref_env referential object
-#' @return An S4 object of class ref_env
+#' @return An S4 object of class ref_env with data loaded from the database
 #' @param object An object of class \link{ref_env-class}
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples 
@@ -37,10 +37,11 @@ setMethod("charge", signature = signature("ref_env"), definition = function(obje
 
 #' Command line interface to select a monitoring  station
 #' 
-#' the choice_c method is intendedto have the same behaviour as choice (which creates a
+#' the choice_c method is intended to have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line. 
 #' @param object an object of class ref_env
 #' @param stationMesure a character vector of the monitoring station code (corresponds to stm_libelle in the tj_stationmesure_stm table)
+#' @return an object of class \link{ref_env-class} with the monitoring station selected
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod("choice_c", signature = signature("ref_env"), definition = function(object,
     stationMesure) {

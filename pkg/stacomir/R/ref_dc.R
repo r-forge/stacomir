@@ -58,7 +58,7 @@ setValidity(
 
 #' Method to load the counting devices of the control station
 #' @param object An object of class \link{ref_dc-class}
-#' @return Object of class ref_dc
+#' @return an object of class ref_dc with data loaded
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 setMethod(
     "charge",
@@ -124,6 +124,7 @@ setMethod(
 #' @param object an object of class ref_dc
 #' @param dc a character vector of dc chosen
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
+#' @return An object of class ref_dc with dc selected
 #' @examples
 #' \dontrun{
 #' win=gwindow()

@@ -10,7 +10,7 @@ get_schema(default = NULL)
 \item{default}{passed to rlang::get_env}
 }
 \value{
-sch The schema in envir_stacomi
+The schema in envir_stacomi
 }
 \description{
 this function gets the schema from envir stacomi and throws warning

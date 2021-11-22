@@ -3,18 +3,14 @@
 ^README\.md$
 ^README\.html$
 ^README\.log$
-^NEWS.md$
-^NEWS.md.html$
 ^README.md.html$
-^.NEWS.md.html$
 ^.README.md.html$
-^cran-comments.md$
-^cran-comments$
 ^paper\.bib$
 ^paper\.md$
 ^CODE_OF_CONDUCT\.md$
 ^dev
 ^\.dbeaver/
+dbeaver
 aux$
 log$
 out$
@@ -26,4 +22,5 @@ out$
 ^\.gitlab-ci.yml$
 ^LICENSE$
 ^cran-comments.md$
-^tests/testhat/\*\.csv
+tests/testhat/\~import_coe20092015\.csv
+^CRAN-RELEASE$

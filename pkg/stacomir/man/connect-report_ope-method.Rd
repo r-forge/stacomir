@@ -14,7 +14,7 @@ load data from the operation table, one dataset per DC}
 \item{silent}{Boolean, TRUE removes messages.}
 }
 \value{
-An object of class \link{report_ope-class}
+An object of class \link{report_ope-class} with slot data \code{@data} filled
 }
 \description{
 connect method for report_ope

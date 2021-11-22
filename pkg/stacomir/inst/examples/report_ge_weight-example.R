@@ -23,7 +23,7 @@ stacomi(
   #create an instance of the class
   r_gew<-new("report_ge_weight")
   r_gew@liste<-charge(object=r_gew@liste,listechoice=c("=1",">1","tous"),label="")
-  # here I'm using weights when number are larger than 1 ie wet weight
+  # here I'm using weights when number are larger than 1i.e.wet weight
   # always choose a date from one year to the next eg 2010 to 2011
   # as the dates are from august to august
   r_gew<-choice_c(r_gew,

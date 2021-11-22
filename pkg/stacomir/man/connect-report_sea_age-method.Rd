@@ -13,7 +13,7 @@
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
 \value{
-An object of class \link{report_sea_age-class}
+An object of class \link{report_sea_age-class} with slot data \code{@data} filled
 }
 \description{
 connect method for report_sea_age

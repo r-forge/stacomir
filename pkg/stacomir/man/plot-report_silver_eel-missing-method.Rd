@@ -5,7 +5,7 @@
 \alias{plot.report_silver_eel}
 \title{Plots of various type for report_silver_eel}
 \usage{
-\S4method{plot}{report_silver_eel,missing}(x, plot.type = "1", silent = FALSE)
+\S4method{plot}{report_silver_eel,missing}(x, plot.type = c("1", "2", "3", "4"), silent = FALSE)
 }
 \arguments{
 \item{x}{An object of class \link{report_silver_eel-class}}
@@ -21,7 +21,11 @@ with a size weight analysis and regression using robust regression (rlm more rob
             \item{plot.type="4"}{ Lattice cloud plot of Pankurst~ Body Length ~ weight)}
 }}
 
-\item{silent}{Stops displaying the messages.}
+\item{silent}{Stops displaying the messages}
+}
+\value{
+A lattice xy.plot if \code{plot.type =1}, a lattice barchart if \code{plot.type=2}, nothing but plots a series of graphs in 
+a single plot if \code{plot.type=3}, a lattice cloud object if \code{plot.type=4}
 }
 \description{
 Plots of various type for report_silver_eel

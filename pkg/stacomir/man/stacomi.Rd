@@ -13,6 +13,9 @@ stacomi(database_expected=TRUE, datawd = "~", sch = "iav")
 
 \item{sch}{The schema in the stacomi database default 'iav.'}
 }
+\value{
+Nothing, called for its side effect of loading
+}
 \description{
 When \code{database_expected=FALSE} a connection to the database is not expected. Therefore test are run by calling examples object stored in Rdata.
 To change the language use Sys.setenv(LANG = 'fr') or Sys.setenv(LANG = 'en')

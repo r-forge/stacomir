@@ -42,7 +42,7 @@ setClass(
 #' loads the working periods and type of arrest or disfunction of the DC
 #' @param object An object of class \link{report_dc-class}
 #' @param silent boolean, default FALSE, if TRUE messages are not displayed
-#' @return  An object of class \link{report_dc-class}
+#' @return  An object of class \link{report_dc-class} with slot data filled from the database
 #' @aliases connect.report_dc
 #' @author cedric.briand
 setMethod(
@@ -93,7 +93,8 @@ setMethod(
 #' @param object An object of class \link{report_dc-class}
 #' @param silent boolean, default FALSE, if TRUE messages are not displayed.
 #' @aliases charge.report_dc
-#' @return  An object of class \link{report_dc-class}
+#' @return object An object of class \link{report_dc-class} with data set from values assigned in \code{envir_stacomi} environment
+
 #' @keywords internal
 setMethod(
 		"charge",
@@ -140,7 +141,7 @@ setMethod(
 #' @param horodatefin A POSIXt or Date or character to fix the last date of the report
 #' @param silent Should program be silent or display messages
 #' @aliases choice_c.report_dc
-#' @return An object of class \link{ref_dc-class} with slots filled
+#' @return An object of class \link{ref_dc-class} with data selected
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @export
 setMethod(
@@ -257,7 +258,7 @@ setMethod(
 				z = 0 # compteur tableau t_periodefonctdispositif_per_mois
 				for (j in 1:nrow(t_periodefonctdispositif_per)) {
 					#cat( j
-		      setTxtProgressBar(progress_bar,j / nrow(t_periodefonctdispositif_per))
+					setTxtProgressBar(progress_bar,j / nrow(t_periodefonctdispositif_per))
 					if (j > 1)
 						t_periodefonctdispositif_per_mois = rbind(t_periodefonctdispositif_per_mois,
 								t_periodefonctdispositif_per[j, ])
@@ -605,7 +606,7 @@ setMethod(
 
 #' Function to create a barchart (lattice) corresponding to the periods
 #' @param ... Additional parameters
-#' @return assigns the data frame \code{periodeDC} allowing to build the lattice graph in the environment envir_stacomi
+#' @return Nothing, assigns the data frame \code{periodeDC} allowing to build the lattice graph in the environment envir_stacomi
 #' @keywords internal
 #' @author cedric.briand
 funbarchartDC = function(...) {
@@ -616,6 +617,7 @@ funbarchartDC = function(...) {
 		funout(gettext("No data for this counting device\n"), arret = TRUE)
 	}
 	plot(report_dc, plot.type = 1, silent = FALSE)
+	return(invisible(NULL))
 }
 
 
@@ -623,7 +625,7 @@ funbarchartDC = function(...) {
 #' Method to print the command line of the object.
 #' @param x An object of class report_dc
 #' @param ... Additional parameters passed to print
-#' @return NULL
+#' @return Nothing, called for its side effect
 #' @author cedric.briand
 #' @aliases print.report_dc
 #' @export
@@ -650,8 +652,9 @@ setMethod(
 		}
 )
 
-#' FuntableDC create a table output for report_dc class
+#' funtableDC create a table output for report_dc class
 #' @param ... Additional parameters
+#' @return Nothing, calls the summary method on data assigned in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
 funtableDC = function(...) {
@@ -663,12 +666,14 @@ funtableDC = function(...) {
 		funout(gettext("No data for this counting device\n"), arret = TRUE)
 	}
 	summary(report_dc)
+	return(invisible(NULL))
 }
 
 #' summary for report_dc, write csv and html output, and prints summary statistics
 #' @param object An object of class \code{\link{report_dc-class}}
 #' @param silent Should the program stay silent or display messages, default FALSE
 #' @param ... Additional parameters (not used there)
+#' @return Nothing, called for its side effect of writing html, csv files and printing summary
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @aliases summary.report_dc
 #' @export
@@ -700,14 +705,21 @@ setMethod(
 					),
 					fsep = "\\"
 			)
-			write.table(
-					t_periodefonctdispositif_per,
-					file = path1,
-					row.names = FALSE,
-					col.names = TRUE,
-					sep = ";"
+			res <- tryCatch(
+					write.table(
+							t_periodefonctdispositif_per,
+							file = path1,
+							row.names = FALSE,
+							col.names = TRUE,
+							sep = ";"
+					), error = function(e) e,
+					finally =
+							if (!silent)	funout(gettextf("Writing of %s \n", path1, domain = "R-stacomiR"))
 			)
-			funout(gettext("Writing of %s \n", path1, domain = "R-stacomiR"))
+			if (inherits(res, "simpleError")) {
+				warnings("The table could not be reported, please modify datawd with options(stacomiR.path='path/to/directory'")
+			} else {
+				# reports works anyways, write html
 			path1html <-
 					file.path(
 							path.expand(get("datawd", envir = envir_stacomi)),
@@ -738,6 +750,7 @@ setMethod(
 					append = FALSE,
 					digits = 2
 			)
+		}
 			print(gettextf("summary statistics for CD=%s", report_dc@dc@dc_selected),
 					domain = "R-stacomiR")
 			print(gettextf("dc_code=%s", report_dc@dc@data[report_dc@dc@data$dc ==
@@ -781,6 +794,6 @@ setMethod(
 							),
 							" :",
 							sommes, "(", perc, "%)", sep = ""))
-			
+			return(invisible(NULL))
 		}
 )

@@ -16,7 +16,7 @@
 \item{selected}{An integer indicating which object is selected at launch}
 }
 \value{
-An S4 object of class ref_choice
+An S4 object of class \link{ref_choice-class}
 }
 \description{
 Loading method for Refchoice referential objects

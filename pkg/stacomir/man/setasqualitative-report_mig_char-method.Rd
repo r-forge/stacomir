@@ -17,6 +17,10 @@
 
 \item{h}{handler}
 }
+\value{
+An object of class \link{ref_parquan-class} with lines removed from \code{r@data[["parquan"]]}
+and added (after transformation to qualitative values) in \code{r@data[["parqal"]]}
+}
 \description{
 internal use
 }

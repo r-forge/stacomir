@@ -8,7 +8,7 @@
 \S4method{plot}{report_mig_interannual,missing}(x, plot.type = "standard", timesplit = "mois", silent = FALSE)
 }
 \arguments{
-\item{x}{An object of class report_mig_interannual}
+\item{x}{An object of class \link{report_mig_interannual-class}}
 
 \item{plot.type}{Default standard}
 
@@ -28,8 +28,11 @@ latest if silent=TRUE, or it can be selected in the droplist. It is highlighted 
      \item{plot.type="seasonal": plot to display summary statistics about the migration period}
 }}
 }
+\value{
+Nothing, called for its side effect of plotting
+}
 \description{
-Several of these plots are scaled against the same year, ie the comparison is based on
+Several of these plots are scaled against the same year,i.e.the comparison is based on
 year 2000, meaning that day 1 would correspond to the first date of 2000,  which is also a
 saturday, the last day of the week.
 }

@@ -17,7 +17,7 @@
 ## Add one line by package you want to add as dependency
 #usethis::use_package("shinydashboard")
 usethis::use_dev_package("stacomirtools", remote = "Remotes: gitlab::git@forgemia.inra.fr:stacomi/stacomirtools.git")
-
+usethis::use_build_ignore(".dbeaver")
 
 ## Add internal datasets ----
 ## If you have data in your package

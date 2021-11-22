@@ -16,6 +16,7 @@ setClass(Class = "ref_taxa", representation = representation(data = "data.frame"
 #' @return An S4 object of class ref_taxa
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @param object An object of class \link{ref_taxa-class}
+#' @return An S4 object of class \link{ref_taxa-class} with all taxa loaded from the database
 #' @examples \dontrun{
 #'  object=new('ref_taxa')
 #'  charge(object)}
@@ -30,7 +31,7 @@ setMethod("charge", signature = signature("ref_taxa"), definition = function(obj
 #' Loading method for ref_taxa referential objects searching only taxa existing for a DC
 #' @param object An object of class \link{ref_taxa-class}
 #' @param dc_selected A counting device selected, only taxa attached to this dc are selected
-#' @return An S4 object of class ref_taxa
+#' @return An S4 object of class \link{ref_taxa-class} with all taxa present on a DC (counting device)
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples \dontrun{
 #'  dc_selected=6
@@ -55,11 +56,12 @@ setMethod("charge_with_filter", signature = signature("ref_taxa"), definition = 
 
 #' choice_c method for ref_taxa
 #' 
-#' the choice_cc method is intendedto have the same behaviour as choice (which creates a
+#' the choice_cc method is intended to have the same behaviour as choice (which creates a
 #' widget in the graphical interface) but from the command line. The values passed to the choice_c method
 #' for taxa can be either numeric (2038 = Anguilla anguilla) or character.  
 #' @param object An object from the class ref_taxa
 #' @param taxa The vector of taxa, can be either code (numeric) or latin name
+#' @return An S4 object of class \link{ref_taxa-class} with data filtered according to the taxa
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples
 #' \dontrun{

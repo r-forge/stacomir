@@ -14,7 +14,7 @@
 \item{taxa_selected}{The selected species}
 }
 \value{
-An S4 object of class \link{ref_stage-class}
+An S4 object of class \link{ref_stage-class} listing all stages available for one DC and one taxon
 }
 \description{
 Loading method for ref_stage referential objects searching only those stages existing for a DC and a Taxon

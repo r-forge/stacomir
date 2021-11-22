@@ -18,6 +18,7 @@
 #' @param color_ope Default NULL, a vector of color for the operations. Default to brewer.pal(4,"Paired")
 #' @param ... additional parameters passed to matplot, main, ylab, ylim, lty, pch, bty, cex.main,
 #' it is currenly not a good idea to change xlim (numbers are wrong, the month plot covers all month, and legend placement is wrong
+#' @return No return value, called for side effects
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 fungraph = function(report_mig,
                     tableau,
@@ -36,7 +37,8 @@ fungraph = function(report_mig,
   # color=null
   # color calculation
   
-  
+	oldpar <- par(no.readonly = TRUE) 
+	on.exit(par(oldpar))  
   if (is.null(color)) {
     tp <- RColorBrewer::brewer.pal(12, "Paired")
     mypalette = c(

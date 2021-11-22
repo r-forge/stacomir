@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_df-class}}
 }
 \value{
-An object of class ref_df
+An object of class ref_df with df loaded
 }
 \description{
 Loading method for DF referential objects

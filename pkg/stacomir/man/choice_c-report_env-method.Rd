@@ -19,12 +19,11 @@
 \item{silent}{Boolean default FALSE, if TRUE information messages not displayed.}
 }
 \value{
-An object of class \link{report_env-class}
-The choice_c method fills in the data slot for ref_env and  and then 
-uses the choice_c methods of these object to select the data.
+An object of class \link{report_env-class} with data selected
 }
 \description{
-command line interface for report_env class
+The choice_c method fills in the data slot for \link{ref_env-class} by runnning the charge method of this object.
+It then runs the choice method on this object. It also applies the choice method for objects of class \link{ref_horodate-class}
 }
 \author{
 Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}

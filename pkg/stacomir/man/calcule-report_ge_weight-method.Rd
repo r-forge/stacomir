@@ -8,9 +8,14 @@
 \S4method{calcule}{report_ge_weight}(object, silent = FALSE)
 }
 \arguments{
-\item{object}{An object of class \code{\link{report_ge_weight-class}}}
+\item{object}{An object of class \link{report_ge_weight-class}}
 
 \item{silent}{Boolean, if TRUE, information messages are not displayed, only warnings and errors}
+}
+\value{
+An object of class  \link{report_ge_weight-class} with  \code{@calcdata[["data"]]} (essentially a selection of 
+columns and renaming from \code{@data}) and \code{coe} daily coefficients extracted from the database 
+\code{@calcdata[["coe"]]} and prepared for graphs
 }
 \description{
 Calcule method for report_ge_weight

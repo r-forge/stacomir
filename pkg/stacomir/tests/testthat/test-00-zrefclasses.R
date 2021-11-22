@@ -60,6 +60,19 @@ test_that("Test that ref_df choice_c method loads character, numeric, but not ru
 							suppressWarnings(choice_c(ref_df,	"semoule")))
 		})
 
+context("ref_dc")
+
+test_that("Test ref_dc ",
+		{
+			skip_on_cran()
+			stacomi(database_expected=TRUE)
+			env_set_test_stacomi()
+			ref_dc <- new("ref_dc")
+			ref_dc <- charge(ref_dc)
+			expect_silent(ref_dc <- choice_c(ref_dc,	6))
+
+		})
+
 context("ref_taxa")
 
 test_that("Test ref_taxa charge",

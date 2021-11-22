@@ -16,6 +16,9 @@ glass eel or yellow eels.}
 
 \item{silent}{Default FALSE, if TRUE the program should no display messages}
 }
+\value{
+An object of class \link{report_ge_weight-class} with \code{@calcdata[["import_coe"]]} filled.
+}
 \description{
 model method for report_ge_weight' 
 this method uses samples collected over the season to model the variation in weight of

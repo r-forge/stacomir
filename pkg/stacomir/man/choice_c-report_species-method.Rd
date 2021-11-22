@@ -21,7 +21,7 @@
 \item{silent}{Boolean, if TRUE, information messages are not displayed}
 }
 \value{
-An object of class \link{report_species-class}
+An object of class \link{report_species-class} with data selected
 }
 \description{
 command line interface for \link{report_species-class}

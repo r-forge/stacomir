@@ -21,6 +21,9 @@ parameters (if plot.type=qual).}
 
 \item{h}{handler}
 }
+\value{
+Nothing, called for its side effect of plotting data
+}
 \description{
 handler for plot
 }

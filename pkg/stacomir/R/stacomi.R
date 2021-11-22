@@ -4,6 +4,7 @@
 #' @note \code{base} is copied by stacomi into envir_stacomi. Same for \code{database_expected}
 #' 
 #' @param ... Other arguments
+#' @return Nothing
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @keywords internal
 load_stacomi <- function(...) {
@@ -88,6 +89,7 @@ load_stacomi <- function(...) {
 #' @param database_expected Boolean, if \code{TRUE} pre launch tests will be run to test the connection validity
 #' @param datawd The data working directory
 #' @param sch The schema in the stacomi database default 'iav.'
+#' @return Nothing, called for its side effect of loading
 #' @usage stacomi(database_expected=TRUE, datawd = "~", sch = "iav")
 #' @author Cedric Briand \email{cedric.briand'at'eptb-vilaine.fr}
 #' @examples

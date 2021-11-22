@@ -11,8 +11,11 @@
 
 \item{taxa}{The vector of taxa, can be either code (numeric) or latin name}
 }
+\value{
+An S4 object of class \link{ref_taxa-class} with data filtered according to the taxa
+}
 \description{
-the choice_cc method is intendedto have the same behaviour as choice (which creates a
+the choice_cc method is intended to have the same behaviour as choice (which creates a
 widget in the graphical interface) but from the command line. The values passed to the choice_c method
 for taxa can be either numeric (2038 = Anguilla anguilla) or character.
 }

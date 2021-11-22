@@ -234,7 +234,7 @@ Working examples
 
 Examples are provided with each of the class, you can access them simply by
 typing `? report_mig_mult`.
-The program is intented to be used in conjuntion with the database, to test it
+The program is intended to be used in conjuntion with the database, to test it
 without access, use the argument
 `database_expected=FALSE`.
 
@@ -287,7 +287,7 @@ The previous line generates data not only about the report_mig_mult class,
 but also runs dependent classes which describe how the fishway (DF) and counting
 devices (DC) have been operated. Sometimes there are no data but only because
 the camera was not working. There are also information about the operations
-(e.g. periods at wich a trap content has been evaluated). Here we load what
+(e.g. periods at which a trap content has been evaluated). Here we load what
 would have been generated if we had run the previous lines.
 
 

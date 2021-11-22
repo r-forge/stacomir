@@ -3,6 +3,7 @@
 #' 
 #' 
 #' @param \dots additional arguments passed to the function
+#' @return Nothing
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 quitte=function(...){
 	# all gWidgets object are assigned in .GlobalEnv, the other are in envir_stacomi
@@ -81,7 +82,7 @@ fun_char_spe<-function(text){
 #' 
 #' 
 #' @param vect a character vector
-#' @return listsql a list of value
+#' @return A list of value
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @export
 vector_to_listsql<-function(vect)
@@ -184,7 +185,7 @@ split_per_day<-function(data,horodatedebut,horodatefin){
 #' @param jour_an logical, add column with day of year
 #' @param jour_mois logical, add column with day of month
 #' @param heure logical, add column with hour
-#' @return data The dataframe with date column filled
+#' @return The dataframe with date column filled
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @export
 fun_date_extraction=function(data, # tableau de donnees e importer
@@ -268,7 +269,7 @@ colortable<-function(color=NULL, vec, palette="Set2", color_function="brewer.pal
 #' this function displays text and will be used to convey stacomiR message in shiny
 #' 
 #' 
-#' @param text The text to displayin the R 
+#' @param text The text to displaying the R 
 #' console and later in shiny
 #' @param arret Should this cause the program to stop ?
 #' @param ... Additional parameters passed to print
@@ -282,7 +283,7 @@ funout <- function(text,arret=FALSE,...){
 #' this function gets the schema from envir stacomi and throws warning
 #' 
 #' @param default passed to rlang::get_env
-#' @return sch The schema in envir_stacomi
+#' @return The schema in envir_stacomi
 #' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
 #' @keywords internal
 get_schema <- function(default=NULL){

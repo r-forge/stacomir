@@ -10,7 +10,7 @@
 \item{object}{An object of class \link{ref_coe-class}}
 }
 \value{
-Object of class ref_coe
+An object of class \link{ref_coe-class}
 }
 \description{
 The slots datedebut and datefin have to be filled before using charge

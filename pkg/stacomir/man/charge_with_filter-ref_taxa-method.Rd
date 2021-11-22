@@ -12,7 +12,7 @@
 \item{dc_selected}{A counting device selected, only taxa attached to this dc are selected}
 }
 \value{
-An S4 object of class ref_taxa
+An S4 object of class \link{ref_taxa-class} with all taxa present on a DC (counting device)
 }
 \description{
 Loading method for ref_taxa referential objects searching only taxa existing for a DC
