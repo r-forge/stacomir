@@ -1,10 +1,10 @@
 ---
-title: "StacomiR"
+title: "StacomiR- A package for fish migration monitoring"
 author: "Marion Legrand, Cedric Briand"
-date: "2020-03-04"
+date: "2022-01-21"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{StacomiR- A package for fish migration monitoring}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 
@@ -57,11 +57,32 @@ Launch the graphical interface
 stacomi()
 ```
 
-The program can be launched to use from the command line
+The program can be launched with options
 
+* `stacomiR.dbname`: databasename 
+* `stacomiR.host`: the name of the host, default to ["localhost"] 
+* `stacomiR.port`: the name of the port, default to ["5432"] 
+* `stacomiR.user`: a string with the user name e.g. ["postgres"]
+* `stacomiR.password`: a string with the user password 
+* `stacomiR.ODBClink`: a string with name of the ODBC link, this options is used
+  by stacomirtools to use ODBC connexion it is currently deprecated
+* `stacomiR.path`: a string with the path to where some output are written,
+  defaut '~' path to the user document folder in windows
+* `stacomiR.printqueries`: a boolean, default FALSE,
+  with the side effect of printing queries to the console
+  
 
 ```r
-stacomi(gr_interface = FALSE, login_window = TRUE, database_expected = TRUE)
+#here is an example to connect with interactive use
+options(
+		stacomiR.dbname = "bd_contmig_nat",
+		stacomiR.host = readline(prompt = "Enter host: "),
+		stacomiR.port = "5432",
+		stacomiR.user = readline(prompt = "Enter user: "),
+		stacomiR.password = readline(prompt = "Enter password: ")
+)
+# the schema of connection is passed by sch
+stacomi(database_expected = TRUE, sch= "iav")
 ```
 
 
@@ -206,7 +227,7 @@ Working examples
 Examples are provided with each of the class, you can access them simply by
 typing `? report_mig_mult`.
 The program is intented to be used in conjuntion with the database, to test it
-without access, use the arguments `login_windows=FALSE` and
+without access, use the argument
 `database_expected=FALSE`.
 
 
@@ -238,29 +259,29 @@ weight in numbers.
 
 
 ```r
-   stacomi(
-	  
-	  database_expected=TRUE)	
-  r_mig_mult=new("report_mig_mult")
-  r_mig_mult=choice_c(r_mig_mult,
-	  dc=c(5,6,12),
-	  taxa=c("Anguilla anguilla"),
-	  stage=c("AGG","AGJ","CIV"),
-      datedebut="2011-01-01",
-      datefin="2011-12-31")
-  r_mig_mult<-charge(r_mig_mult)
-  # launching charge will also load classes associated with the report
-  # e.g. report_ope, report_df, report_dc
-  r_mig_mult<-connect(r_mig_mult)
-  # calculations 
-  r_mig_mult<-calcule(r_mig_mult,silent=TRUE)
+require(stacomiR)
+stacomi(
+		database_expected=TRUE)	
+r_mig_mult=new("report_mig_mult")
+r_mig_mult=choice_c(r_mig_mult,
+		dc=c(5,6,12),
+		taxa=c("Anguilla anguilla"),
+		stage=c("AGG","AGJ","CIV"),
+		datedebut="2011-01-01",
+		datefin="2011-12-31")
+r_mig_mult<-charge(r_mig_mult)
+# launching charge will also load classes associated with the report
+# e.g. report_ope, report_df, report_dc
+r_mig_mult<-connect(r_mig_mult)
+# calculations 
+r_mig_mult<-calcule(r_mig_mult,silent=TRUE)
 ```
 
 The previous line generates data not only about the report_mig_mult class,
 but also runs dependent classes which describe how the fishway (DF) and counting
 devices (DC) have been operated. Sometimes there are no data but only because
 the camera was not working. There are also information about the operations
-(e.g. periods at wich a trap content has been evaluated). Here we load what
+(e.g. periods at which a trap content has been evaluated). Here we load what
 would have been generated if we had run the previous lines.
 
 
@@ -275,9 +296,9 @@ periods) (middle), a summary of migration per month (bottom).
 ```r
 # Without a connection at the database we can launch these lines to generate the graph
 # To obtain titles in french use Sys.setenv(LANG = "fr")
+require(stacomiR)
 stacomi(
-	
-	database_expected=FALSE)	
+		database_expected=FALSE)	
 data("r_mig_mult")
 data("r_mig_mult_ope")
 assign("report_ope",r_mig_mult_ope,envir=envir_stacomi)
@@ -285,28 +306,25 @@ data("r_mig_mult_df")
 assign("report_df",r_mig_mult_df,envir=envir_stacomi)
 data("r_mig_mult_dc")
 assign("report_dc",r_mig_mult_dc,envir=envir_stacomi)
-r_mig_mult<-calcule(r_mig_mult,silent=TRUE) 
+r_mig_mult <- calcule(r_mig_mult,silent=TRUE) 
 
 # To avoid call to dev.new() which creates a device per stage, DC, taxa, we simplify 
 # the object as dev.new() causes knitr to crash:
-r_mig_mult@taxa@data<- r_mig_mult@taxa@data[1,]
-r_mig_mult@stage@data<-r_mig_mult@stage@data[3,]
-r_mig_mult@dc@dc_selectionne<-r_mig_mult@dc@dc_selectionne[3]
+r_mig_mult@taxa@data <- r_mig_mult@taxa@data[1,]
+r_mig_mult@stage@data <- r_mig_mult@stage@data[3,]
+r_mig_mult@dc@dc_selected <- r_mig_mult@dc@dc_selected[3]
 
-plot(r_mig_mult,plot.type="standard",silent=TRUE)
+plot(r_mig_mult, plot.type="standard", silent=TRUE)
 ```
-
-![plot of chunk rmmstd](../man/figures/README-rmmstd-1.png)
 
 Summary of migration for different stages and counting devices
 
 
 ```r
 
-  plot(r_mig_mult,plot.type="multiple",silent=TRUE)
+plot(r_mig_mult,plot.type="multiple",silent=TRUE)
+#> Error in object@calcdata[[i]]: indice hors limites
 ```
-
-![plot of chunk rmmmult](../man/figures/README-rmmmult-1.png)
 
 
 #### Silver eels
@@ -329,30 +347,22 @@ data("coef_durif")
 # here is an example of output 
 data("r_silver")
 r_silver <- calcule(r_silver)
-plot(r_silver, plot.type=3)
-```
-
-![plot of chunk silver](../man/figures/README-silver-1.png)
-
-```r
+#> Error in funout(gettext("No data of silver or yellow eel on the selected period", : No data of silver or yellow eel on the selected period
+plot(r_silver, plot.type="3")
+#> Error in dat[[i]]: indice hors limites
 #######################################
 # To use the function fun_stage_durif manually
 # create a matrix with columns BL","W","Dv","Dh","FL"
 #############################################
 # here it is extracted from the data at hand
 silver_eel<-as.matrix(r_silver@calcdata[[1]][,c("BL","W","Dv","Dh","FL")])
+#> Error in r_silver@calcdata[[1]]: indice hors limites
 head(silver_eel) # to see the first lines
-#>        BL    W    Dv    Dh    FL
-#> 25710 830 1074  8.14  8.70 39.79
-#> 25711 714  740  8.24  8.52 38.04
-#> 25712 720  755  6.92  6.87 34.01
-#> 25713 860 1101 10.53 10.43 44.47
-#> 25714 716  752  7.42  8.76 33.78
-#> 25715 690  622  7.83  9.25 29.58
+#> Error in head(silver_eel): objet 'silver_eel' introuvable
 stage <- fun_stage_durif(silver_eel) # apply the function to the matrix
+#> Error in fun_stage_durif(silver_eel): objet 'silver_eel' introuvable
 stage[1:10] # look at the first 10 elements in vector silver
-#>  25710  25711  25712  25713  25714  25715  25716  25717  25718  25719 
-#> "FIII" "FIII" "FIII"  "FIV" "FIII" "FIII"   "FV"   "FV" "FIII" "FIII"
+#> Error in stage[1:10]: objet de type 'closure' non indiçable
 ```
 
 ### R-GTK2 graphical interface

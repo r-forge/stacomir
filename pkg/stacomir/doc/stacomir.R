@@ -75,12 +75,12 @@ r_mig_mult@taxa@data <- r_mig_mult@taxa@data[1,]
 r_mig_mult@stage@data <- r_mig_mult@stage@data[3,]
 r_mig_mult@dc@dc_selected <- r_mig_mult@dc@dc_selected[3]
 
-plot(r_mig_mult,plot.type="standard",silent=TRUE)
+plot(r_mig_mult, plot.type="standard", silent=TRUE)
 
 
-## ----rmmmult,eval=TRUE,echo=TRUE,fig.height = 4, fig.width = 6----------------
-
-plot(r_mig_mult,plot.type="multiple",silent=TRUE)
+## ----rmmmult,eval=FALSE,echo=TRUE,fig.height = 4, fig.width = 6---------------
+#  
+#  plot(r_mig_mult,plot.type="multiple",silent=TRUE)
 
 ## ----silver,eval=TRUE,echo=TRUE,message=FALSE,warning=FALSE,fig.height = 4, fig.width = 6,fig.keep="all"----
 require(stacomiR)
@@ -89,7 +89,7 @@ data("coef_durif")
 # here is an example of output 
 data("r_silver")
 r_silver <- calcule(r_silver)
-plot(r_silver, plot.type=3)
+plot(r_silver, plot.type="3")
 #######################################
 # To use the function fun_stage_durif manually
 # create a matrix with columns BL","W","Dv","Dh","FL"

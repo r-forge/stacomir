@@ -1,6 +1,6 @@
 Package: stacomiR
-Version: 0.6.0
-Date: 2021-11-16
+Version: 0.6.0.7
+Date: 2022-07-16
 Title: Fish Migration Monitoring
 Authors@R: c(person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"),
 	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"),
@@ -24,6 +24,7 @@ Collate:
     'fun_write_monthly.R'
     'fungraph.R'
     'fungraph_glasseel.R'
+    'funschema.R'
     'funstat.R'
     'funtable.R'
     'ref_choice.R'
@@ -67,7 +68,7 @@ LazyData: true
 Depends:
     R (>= 4.0.0),
     methods,
-    stacomirtools (>= 0.6.0)
+    stacomirtools (>= 0.6.0.1)
 Imports:
     magrittr,
     intervals,
@@ -88,7 +89,8 @@ Imports:
     mgcv,
     rlang,
     pool,
-    withr   
+    withr,
+    scales   
 Suggests:
     testthat,
     viridis,
@@ -101,6 +103,6 @@ Author: Cedric Briand [aut, cre],
     Lafage Denis [ctb],
     Grall Sebastien [ctb]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.0
 NeedsCompilation: no
 VignetteBuilder: knitr

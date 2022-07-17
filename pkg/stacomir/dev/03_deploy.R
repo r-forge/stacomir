@@ -10,15 +10,15 @@
 ######################################
 #### CURRENT FILE: DEPLOY SCRIPT #####
 ######################################
-
+# setwd("C:\\workspace\\stacomir")
 # Test your app
 rm(list=ls(all.names = TRUE))
 #formatR::tidy_dir(path="/inst/examples")
 devtools::load_all() 
-tools::update_pkg_po("C:/workspace/stacomir")
+Sys.setenv("LANGUAGE" = "en") # otherwise problems when running from Rstudio
 devtools::test() # this will run load_all() see details about classes below for specific tests
 
-devtools::test_coverage() # 78.13% 
+devtools::test_coverage() # 78 => 82.17
 devtools::document()
 Sys.setenv("NOT_CRAN"= "true")
 
@@ -40,9 +40,15 @@ test_file(stringr::str_c(getwd(),"/tests/testthat/test-12-report_mig_char.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-13-report_species.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-14-report_ge_weight.R"))
 devtools::build_readme()
-devtools::build_vignettes()
+devtools::build_vignettes() # TODO remettre eval=TRUE pour code 
 ## Run checks ----
 ## Check the package before sending to prod
+
+
+tools::update_pkg_po(getwd())
+
+
+
 devtools::check()
 
 devtools::check(args="run-dontrun")
@@ -51,17 +57,24 @@ devtools::check( env_vars = c(NOT_CRAN = "false"))
 # and try to figure out where tests fail on CRAN
 
 devtools::check_rhub()
-devtools::check_win_devel()
-22# Deploy
+  # this type 10 or 11 or 12
+  devtools::check_win_devel()
+rhub::check_on_windows()
+rhub::check(platform="macos-highsierra-release-cran")
+rhub::check_for_cran()
+# Deploy
 
 ## Local, CRAN or Package Manager ---- 
 ## This will build a tar.gz that can be installed locally, 
 ## sent to CRAN, or to a package manager
 devtools::build()
 devtools::spell_check()
+tools::showNonASCIIfile("data/coef_durif.rda")
+tools:::.check_package_datasets(".")
 devtools::release()
 devtools::install()
-11## RStudio ----
+
+
 ## If you want to deploy on RStudio related platforms
 golem::add_rstudioconnect_file()
 golem::add_shinyappsio_file()

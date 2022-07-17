@@ -84,6 +84,49 @@ test_that("Test ref_taxa charge",
 			expect_silent(ref_taxa <- charge(ref_taxa))
 		})
 
+
+
+test_that("Test choice method for reftaxa ",
+		{
+			skip_on_cran()
+			stacomi(database_expected=TRUE)
+			env_set_test_stacomi()
+			ref_taxa <- new("ref_taxa")
+			ref_taxa <- charge(ref_taxa)
+			ref_taxa <- choice_c(ref_taxa,"2038")
+			expect_equal(ref_taxa@taxa_selected,"2038")
+			ref_taxa <- choice_c(ref_taxa,"2038")
+			expect_equal(ref_taxa@taxa_selected,"2038")
+			ref_taxa <- choice_c(ref_taxa,"Anguilla anguilla")
+			expect_equal(ref_taxa@taxa_selected,"2038")
+		})
+
+
+context("ref_stage")
+
+test_that("Test ref_stage charge",
+		{
+			skip_on_cran()
+			stacomi(database_expected=TRUE)
+			env_set_test_stacomi()
+			ref_stage <- new("ref_stage")
+			expect_silent(ref_stage <- charge(ref_stage))
+		})
+
+test_that("Test choice_c method for ref_stage ",
+		{
+			skip_on_cran()
+			stacomi(database_expected=TRUE)
+			env_set_test_stacomi()
+			ref_stage <- new("ref_stage")
+			ref_stage <- charge(ref_stage)
+			ref_stage <- choice_c(ref_stage,"CIV")
+			expect_equal(ref_stage@stage_selected,"CIV")
+		})
+
+
+
+
 context("ref_coe")
 
 
@@ -161,4 +204,19 @@ test_that("Test that ref_parquan works",
 			ref_parquan <- choice_c(ref_parquan,"1786")
 			expect_identical(ref_parquan@par_selected,"1786")
 
+		})
+
+context("ref_env")
+test_that("Test that ref_env works",
+		{
+			skip_on_cran()
+			stacomi(database_expected=TRUE)
+			env_set_test_stacomi()			
+			ref_env <- new("ref_env")
+			ref_env <- charge(ref_env)
+			nr1 <- nrow(ref_env@data)
+			expect_gt(nr1,0, label = "nrow ref_env@data", expected.label = "0")
+			ref_env <- choice_c(ref_env, stationMesure="temp_gabion")
+			expect_identical(ref_env@env_selected,"temp_gabion")
+			
 		})
