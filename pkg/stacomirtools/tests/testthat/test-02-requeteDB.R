@@ -1,13 +1,8 @@
 context("RequeteDB")
-if (interactive()){
-	if (!exists("user")){
-		host <- readline(prompt="Enter host: ")
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test that RequeteDB works on a database ", {
 			skip_on_cran()
+			env_set_test_stacomi()
 			object <-new("RequeteDB")
 			object@sql <- "select * from iav.t_lot_lot limit 10"
 			object@dbname <- "bd_contmig_nat"
@@ -22,6 +17,7 @@ test_that("Test that RequeteDB works on a database ", {
 
 test_that("Test that RequeteDB works when passed arguments base", {
 			skip_on_cran()
+			env_set_test_stacomi()
 			object <-new("RequeteDB")
 			base <-
 					c("bd_contmig_nat", host, "5432", user, password)
@@ -32,14 +28,15 @@ test_that("Test that RequeteDB works when passed arguments base", {
 		})
 
 test_that("Test that RequeteDB works when using options", {
-			skip_on_cran()
+			skip_on_cran()	
+			
 			o <- options()
 			options(					
 							stacomiR.dbname = "bd_contmig_nat",
-							stacomiR.host = host,
+							stacomiR.host = "localhost",
 							stacomiR.port = "5432",
-							stacomiR.user = user,
-							stacomiR.password = password					
+							stacomiR.user = "postgres",
+							stacomiR.password = "postgres"					
 					)	
 			object <-new("RequeteDB")
 			object@sql <- "select * from iav.t_lot_lot limit 10"
@@ -56,7 +53,7 @@ test_that("Test that RequeteDB does not work when using wrong options and no bas
 			o <- options()
 			options(					
 					stacomiR.dbname = "bd_contmig_nat",
-					stacomiR.host = host,
+					stacomiR.host = "localhost",
 					stacomiR.port = "5432",
 					stacomiR.user = "",
 					stacomiR.password = ""					
@@ -70,6 +67,7 @@ test_that("Test that RequeteDB does not work when using wrong options and no bas
 
 test_that("Test that RequeteDB returns the sql string when options(stacomiR.printquery=TRUE) ", {
 			skip_on_cran()
+			env_set_test_stacomi()
 			o <- options()
 			options(					
 					stacomiR.printqueries = TRUE

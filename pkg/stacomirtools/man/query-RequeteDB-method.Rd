@@ -46,5 +46,5 @@ object<-query(object)
 }
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 }

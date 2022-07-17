@@ -1,13 +1,8 @@
 context("RequeteDBwheredate")
-if (interactive()){
-	if (!exists("user")){
-		host <- readline(prompt="Enter host: ")
-		user <- readline(prompt="Enter user: ")
-		password <- readline(prompt="Enter password: ")	
-	}	
-}
+
 test_that("Test that RequeteDBwheredate works on a database ", {
 			skip_on_cran()
+			env_set_test_stacomi()
 			object <-new("RequeteDBwheredate")
 			base=c("bd_contmig_nat",host,"5432",user, password)
 			object@datedebut <- strptime("2012-01-01 00:00:00", format="%Y-%m-%d %H:%M:%S")

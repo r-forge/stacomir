@@ -23,5 +23,5 @@ induk(c(1,1,2,2,2,3))
 
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 }

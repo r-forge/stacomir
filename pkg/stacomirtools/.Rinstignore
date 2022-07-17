@@ -1,2 +1,4 @@
 inst/config/test.R
 dev
+^\.gitlab-ci.yml$
+LICENSE

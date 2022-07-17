@@ -1,7 +1,7 @@
 # Nom fichier :        RequeteDB.R 
 #' @title RequeteDB class 
 #' @note Inherits from ConnectionDB
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @slot sql "character"
 #' @slot query "data.frame"
 #' @slot open logical is the connection left open after the request ?
@@ -13,7 +13,8 @@ setClass(Class="RequeteDB",
 		prototype = list(silent=TRUE,open=FALSE),
 		contains="ConnectionDB")
 
-#' generic query function for  
+#' generic query function for 
+#' @aliases query.RequeteDB
 #' @param object an object
 #' @param ... additional parameters passed to query
 setGeneric("query", def=function(object, ...) standardGeneric("query"))
@@ -24,7 +25,7 @@ setGeneric("query", def=function(object, ...) standardGeneric("query"))
 #' it should be a vector with dbname host port user and password (in this order) 
 #' @note assign("showmerequest",1,envir=envir_stacomi) allows to print all queries passing on the class RequeteDB
 #' @return An object of class RequeteDB
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @importFrom DBI dbGetQuery
 #' @examples 
 #' showClass("RequeteDB")

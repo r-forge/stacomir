@@ -30,7 +30,7 @@ validity_DB=function(object)
 
 #' @title ConnectionDB class 
 #' @note Mother class for connection, opens the connection but does not shut it
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @slot dbname name of the database, length 1
 #' @slot host host default "localhost", length 1
 #' @slot port port of the database default "5432", length 1
@@ -72,10 +72,11 @@ setClass(Class="ConnectionDB",
 #constructor
 
 #' connect method for ConnectionDB class
+#' @aliases connect.ConnectionDB
 #' @param object An object of class ConnectionDB
 #' @param base a string with values for dbname, host, port, user, password, in this order.
 #' @return a connection with slot filled
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
 #' object <- new("ConnectionDB")
@@ -145,19 +146,16 @@ setMethod("connect", signature=signature("ConnectionDB"),
 			
 			tryCatch(pool::dbGetInfo(currentConnection), error = connection_error)
 			
-			object@connection=currentConnection # an DBI object
-			
-			if(pool::dbGetInfo(currentConnection)$valid)
-				object@status = "Connection OK"
-			else
-				object@status = "Something went wrong"
+			object@connection <- currentConnection # a DBI object
+			if (any(class(object@connection)=="Pool")){
+				if(pool::dbGetInfo(currentConnection)$valid)
+					object@status = "Connection OK"
+				else
+					object@status = "Something went wrong"
+			}
 			
 			if (!object@silent){
-				if(exists("envir_stacomi")){
-					print(object@status)
-				} else {
-					print(object@status)
-				}
+				print(object@status)				
 			} 
 			
 			return(object)

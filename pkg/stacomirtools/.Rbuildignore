@@ -5,3 +5,7 @@ out$
 ^dev
 ^README\.Rmd$
 ^www
+^\.gitlab-ci.yml$
+^LICENSE$
+^cran-comments.md$
+^CRAN-RELEASE$

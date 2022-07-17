@@ -1,6 +1,6 @@
 #' @title RequeteODBC class 
 #' @note Inherits from ConnectionODBC
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @slot sql "character"
 #' @slot query "data.frame"
 #' @slot open logical is the connection left open after the request ?
@@ -13,10 +13,12 @@ setClass(Class="RequeteODBC",
 		contains="ConnectionODBC")
 
 #' connect method loads a request to the database and returns either an error or a data.frame
+#'
+#' @aliases connect.RequeteODBC
 #' @note assign("showmerequest",1,envir=envir_stacomi) allows to print all queries passing on the class RequeteDB
 #' @param object an object of class RequeteODBC
 #' @return An object of class RequeteODBC
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples 
 #' showClass("RequeteODBC")
 #' \dontrun{
@@ -81,7 +83,8 @@ setMethod("connect",signature=signature("RequeteODBC"),definition=function(objec
 				#the Currentconnection object ie a character vector
 				object@connection<-tryCatch(eval(e), error=paste(msg3 ,object@baseODBC)) 
 				# un object S3 RODBC
-				if (class(object@connection)=="RODBC") {
+				# 29/04/2022 changed class to inherits after NOTE in check
+				if (inherits(object@connection,"RODBC")) {
 					if (!object@silent) cat(msg4)
 					object@etat=msg4# success
 				} else {

@@ -40,5 +40,5 @@ see \pkg{xtable} for further description, an xtable is created and printed
 to html format
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 }

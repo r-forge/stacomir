@@ -1,0 +1,44 @@
+# stacomirtools 0.6.0
+
+Dear CRAN administrator
+
+This is a new release of stacomirtool for integration on CRAN.
+
+Sincerely yours
+
+Cédric Briand
+
+
+  
+## R CMD check results
+
+With no error, no warnings and no notes.
+
+* 64bit windows (R 4.1.1 & R 4.1.2) My machine
+* pc-linux-gnu (R 4.1.2) R-Forge
+* Fedora Linux (R Under development 2021-10-23 r81086)
+* Ubuntu Linux 20.04 (R Under development 2021-10-23 r81086)
+* Windows Server 2008 R2 SP1, R-devel, 32/64 bit (R Under development 2021-10-23
+  r81086)
+  
+# TESTS
+
+Passing all checks on my local machine (windows) R4.1.2 {requires a database
+installed} and on linux 
+
+# NEWS
+
+## stacomirtools 0.6.0
+
+stacomir based on gwidget was dropped from CRAN in May 2020, it will soon switch
+to only command line interface (reprogrammed to remove all dependence to
+gwidget) and the graphical interface will be a new shiny package. So basically
+we need to add connection class that work in LINUX in stacomirtools.
+
+* Rewrote classes for connections using DBI and pool.
+* The connection settings can now be made using options.
+* Added unit tests to all classes.
+* now documented using Roxygen.
+* Connector classes using RODBC are now marked as deprecated and will fire note
+  deprecated.
+

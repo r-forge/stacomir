@@ -34,5 +34,5 @@ chnames(object = df, old_variable_name = c("wrong_name"),
 
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 }

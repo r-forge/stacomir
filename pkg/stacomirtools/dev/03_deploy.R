@@ -17,19 +17,23 @@
 ## Check the package before sending to prod
 #usethis::use_build_ignore(".dbeaver")
 # delete namespace before loading again...
+# setwd("C:\\workspace\\stacomirtools")
 devtools::load_all()
 devtools::document()
 devtools::build_readme()
-devtools::test()
-
+# todo edit connection to localhost (in odbc link) before testing
+devtools::test() 
 #roxygen2::roxygenise(clean = TRUE) # marche pas si les .Rd ont été écrits à la main il faut les supprimer
-Sys.setenv("NOT_CRAN"= "false") # to set checks without testhat testthat
+
 devtools::check()
-rhub::check_for_cran()
+ch <- rhub::check_for_cran(show_status = FALSE)
+ch$update()
+ch$livelog(3)
+
 
 previous_checks <- rhub::list_package_checks(
 		email = "cedric.briand00@gmail.com",
-		howmany = 4)
+		howmany = 8)
 group_id <- previous_checks$group[1]
 group_check <- rhub::get_check(group_id)
 group_check$browse()
@@ -40,5 +44,7 @@ group_check$browse()
 ## sent to CRAN, or to a package manager
 devtools::build()
 devtools::install()
-
-
+devtools::spell_check()
+devtools::check_win_devel()
+devtools::release()
+3

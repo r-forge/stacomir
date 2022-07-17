@@ -26,10 +26,12 @@ setAs("RequeteDBwheredate","RequeteDBwhere",function(from,to){
 			return(requeteDBwhere)
 		})
 #' query method loads a request to the database and returns either an error or a data.frame
+#' 
+#' @aliases query.RequeteDBwheredate
 #' @param object an object of class RequeteDBwheredate
 #' @param ... further arguments passed to the query method, base will be passed to ConnectionDB to set the connection parameters,
 #' @return An object of class RequeteDBwheredate
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples 
 #' \dontrun{
 #' object<-new("RequeteDBwheredate")

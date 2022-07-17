@@ -16,5 +16,5 @@ df
 very usefull function used to "kill" the factors, noticeably after loading with 'ODBC'
 }
 \author{
-Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 }

@@ -13,7 +13,7 @@
 #' @param digits the number of digits
 #' @param ...  additional parameters to be passed to the function
 #' @return an xtable
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @export
 funhtml=function(data,caption=NULL,top=TRUE,outfile=NULL,clipboard=FALSE,append=TRUE,digits=NULL,...){
 	
@@ -38,7 +38,7 @@ funhtml=function(data,caption=NULL,top=TRUE,outfile=NULL,clipboard=FALSE,append=
 #' @param old_variable_name a character vector with old variables names
 #' @param new_variable_name a character vector with new variables names
 #' @return object
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples
 #' 
 #' df <- data.frame("var1" = c("blue","red"), "var2" = c("nice","ugly"))
@@ -78,7 +78,7 @@ chnames=function(object,
 #' 
 #' @param a a vector
 #' @return the index unique values within a vector
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples
 #' 
 #' induk(c(1,1,2,2,2,3))
@@ -94,7 +94,7 @@ induk=function(a){
 #' 
 #' @param df a data.frame
 #' @return df
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @export
 killfactor=function(df){
 	for (i in 1:ncol(df))
@@ -114,7 +114,7 @@ killfactor=function(df){
 #' 
 #' 
 #' @param d a dataframe
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @export
 ex<-function(d=NULL){
 	if (is.null(d)){
@@ -206,7 +206,7 @@ is.even=function (x)
 #' 
 #' 
 #' @param tab a flat table
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples
 #' 
 #' df <- data.frame("var1" = c("blue","red"), "var2" = c("nice","ugly"))

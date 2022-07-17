@@ -12,7 +12,7 @@ validity_ODBC=function(object)
 
 #' @title ConnectionODBC class 
 #' @note Mother class for connection, opens the connection but does not shut it
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @slot baseODBC "vector" (of length 3, character)
 #' @slot silent "logical" 
 #' @slot etat "ANY" # can be -1 or string
@@ -36,13 +36,15 @@ setClass(Class="ConnectionODBC",
 #' generic connect function for baseODBC
 #' @param object an object
 #' @param ... additional arguments passed on to the connect method 
+#' @aliases connect.generic
 #' @export   
 setGeneric("connect",def=function(object,...) standardGeneric("connect"))
 
 #' connect method for ConnectionODBC class
+#' @aliases connect.ConnectionODBC
 #' @param object an object of class ConnectionODBC
 #' @return a connection with slot filled
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples 
 #' ##this wont be run as the user need to manually configure the connection before using it
 #' \dontrun{
@@ -73,8 +75,9 @@ setMethod("connect",signature=signature("ConnectionODBC"),definition=function(ob
 			}	
 			connection_error <- paste(gettext("Connection failed :\n",object@baseODBC[1]))
 
-			currentConnection<-tryCatch(eval(e), error=connection_error) 
-			if (class(currentConnection)=="RODBC") {
+			currentConnection <- tryCatch(eval(e), error=connection_error) 
+			# 29/04/2022 changed class to inherits after NOTE in check
+			if (inherits(currentConnection,"RODBC")) {
 				if (!object@silent){				
 						print(gettext("Connection successful"))
 				} 
