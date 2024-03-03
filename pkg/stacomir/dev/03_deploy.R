@@ -12,15 +12,34 @@
 ######################################
 # setwd("C:\\workspace\\stacomir")
 # Test your app
+# options("stacomiR.printqueries"=TRUE)
 rm(list=ls(all.names = TRUE))
 #formatR::tidy_dir(path="/inst/examples")
 devtools::load_all() 
 Sys.setenv("LANGUAGE" = "en") # otherwise problems when running from Rstudio
-devtools::test() # this will run load_all() see details about classes below for specific tests
+options(					
+		stacomiR.dbname = "bd_contmig_nat_test",
+		stacomiR.host ="localhost",
+		stacomiR.port = "5432",
+		stacomiR.user = "test",
+		stacomiR.password = "test"				
+)
 
-devtools::test_coverage() # 78 => 82.17
-devtools::document()
+# GO TO helper.R called before everything to change options.
+devtools::test() # this will run load_all() see details about classes below for specific tests
+#test_local() # check a package during R CMD check
+test <- capture.output(devtools::test(reporter="junit")) 
+# pour gitlab
+XML::saveXML(XML::xmlParse(test[grep("?xml version",test):length(test)]), file="C:/temp/test.xml")
+co <- covr::package_coverage(type="all", quiet=FALSE, clean=FALSE)
+covr:::print.coverage(co)
+covr::report(co, file.path("dev/codecoverage_report", paste0("stacomiR-report.html")))
+# this is only 42 % without NOT_CRAN"
+devtools::test_coverage(type="all", quiet=FALSE, clean=TRUE) # 78 => 85 # devtools::test_coverage(file = "dev/coverage.html")
+
+
 Sys.setenv("NOT_CRAN"= "true")
+
 
 source(stringr::str_c(getwd(),"/tests/testthat/helper.R"))
 test_file(stringr::str_c(getwd(),"/tests/testthat/test-00-stacomir.R"))
@@ -44,13 +63,13 @@ devtools::build_vignettes() # TODO remettre eval=TRUE pour code
 ## Run checks ----
 ## Check the package before sending to prod
 
-
+devtools::document()
 tools::update_pkg_po(getwd())
-
+# TODO use poedit to open po file save mo file when finished
 
 
 devtools::check()
-
+devtools::check_man()
 devtools::check(args="run-dontrun")
 devtools::check( env_vars = c(NOT_CRAN = "false")) 
 # TO SKIP THE TEST AS IN CRAN where skip_on_cran()
@@ -58,10 +77,14 @@ devtools::check( env_vars = c(NOT_CRAN = "false"))
 
 devtools::check_rhub()
   # this type 10 or 11 or 12
-  devtools::check_win_devel()
+devtools::check_win_devel()
+devtools::check_mac_release()
+rhub::check(".")
 rhub::check_on_windows()
 rhub::check(platform="macos-highsierra-release-cran")
 rhub::check_for_cran()
+rhub::check(platform = 'ubuntu-rchk')
+rhub::check_with_sanitizers()
 # Deploy
 
 ## Local, CRAN or Package Manager ---- 

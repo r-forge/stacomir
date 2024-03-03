@@ -1,6 +1,6 @@
 Package: stacomiR
-Version: 0.6.0.7
-Date: 2022-07-16
+Version: 0.6.1
+Date: 2024-03-03
 Title: Fish Migration Monitoring
 Authors@R: c(person("Cedric", "Briand", role = c("aut", "cre"), email = "cedric.briand00@gmail.com"),
 	      person("Marion", "Legrand", role = "aut", email="tableau-salt-loire@logrami.fr"),
@@ -15,8 +15,9 @@ Description: Graphical outputs and treatment for a database of fish pass
     English. See <http://stacomir.r-forge.r-project.org/> for more information on
     'STACOMI'.     
 License: GPL (>= 2)
-URL: http://stacomir.r-forge.r-project.org/
-BugReports: https://github.com/MarionLegrandLogrami/stacomiR/issues
+Encoding: UTF-8
+URL: https://forgemia.inra.fr/stacomi/stacomir
+BugReports: https://forgemia.inra.fr/stacomi/stacomir/-/issues
 Collate:
     'create_generic.R'
     'data.R'
@@ -37,7 +38,6 @@ Collate:
     'ref_par.R'
     'ref_parqual.R'
     'ref_parquan.R'
-    'ref_period.R'
     'ref_stage.R'
     'ref_taxa.R'
     'ref_textbox.R'
@@ -89,6 +89,7 @@ Imports:
     mgcv,
     rlang,
     pool,
+    DBI,
     withr,
     scales   
 Suggests:
@@ -103,6 +104,6 @@ Author: Cedric Briand [aut, cre],
     Lafage Denis [ctb],
     Grall Sebastien [ctb]
 Maintainer: Cedric Briand <cedric.briand00@gmail.com>
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.1
 NeedsCompilation: no
 VignetteBuilder: knitr

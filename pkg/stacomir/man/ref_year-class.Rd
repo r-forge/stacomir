@@ -32,12 +32,11 @@ Other referential objects:
 \code{\link{ref_par-class}},
 \code{\link{ref_parqual-class}},
 \code{\link{ref_parquan-class}},
-\code{\link{ref_period-class}},
 \code{\link{ref_stage-class}},
 \code{\link{ref_taxa-class}}
 }
 \author{
-cedric.briand"at"eptb-vilaine.fr
+cedric.briand@eptb-vilaine.fr
 }
 \concept{referential objects}
 \keyword{classes}

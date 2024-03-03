@@ -5,7 +5,7 @@
 #'
 #' @param object An object of class \code{\linkS4class{ref_year}}
 #' @return boolean The test for the object refannee
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @keywords internal
 validity_year = function(object)
 {
@@ -26,7 +26,7 @@ validity_year = function(object)
 #' @slot year_selected A numeric vector
 #' @keywords classes
 #' @family referential objects
-#' @author cedric.briand"at"eptb-vilaine.fr
+#' @author cedric.briand@eptb-vilaine.fr
 setClass(
 		Class = "ref_year",
 		representation =
@@ -41,7 +41,7 @@ setClass(
 #' @param object An object of class \link{ref_year-class}
 #' @param objectreport The object report, default \code{report_ge_weight} other possible value report_mig_interannual
 #' @return object An object of class \link{ref_year-class} with slot data filled with the available years for the corresponding report
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @examples
 #' \dontrun{
 #' object=new("ref_year")
@@ -159,7 +159,7 @@ setMethod(
 #'
 #' The choice_c method will issue a warning if the year is not present in the database
 #' Allows the selection of year and the assignment in environment envir_stacomi
-#' @author Cedric Briand \email{cedric.briand"at"eptb-vilaine.fr}
+#' @author Cedric Briand \email{cedric.briand@eptb-vilaine.fr}
 #' @param object An object of class \link{ref_year-class}
 #' @param annee The year to select, either as a character or as a numeric
 #' @param nomassign The name to be assigned in envir_stacomi

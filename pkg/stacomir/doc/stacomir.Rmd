@@ -341,7 +341,7 @@ BL = body length, W = weight, MD = mean eye diameter (Dv+Dh)/2, and FL length of
 the pectoral fin, with each parameter p as S=Constant+BL*p(bl)+W*p(W)... The
 function `fun_stage_durif` choose the stage achieving the highest
 score ([Durif et al.,
-2009](http://fishlarvae.org/common/SiteMedia/durif%20et%20al%202009b.pdf))
+2009](https://fishlarvae.org/common/SiteMedia/durif%20et%20al%202009b.pdf))
 
 ```{r silver,eval=TRUE,echo=TRUE,message=FALSE,warning=FALSE,fig.height = 4, fig.width = 6,fig.keep="all"}
 require(stacomiR)

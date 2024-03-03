@@ -24,3 +24,6 @@ out$
 ^cran-comments.md$
 tests/testhat/\~import_coe20092015\.csv
 ^CRAN-RELEASE$
+^public
+^ci
+^Scripts

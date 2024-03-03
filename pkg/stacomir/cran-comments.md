@@ -23,23 +23,16 @@ Error in match_platform(platform) :
   Unknown R-hub platform, see rhub::platforms() for a list, and windows is not listed
 
 
-
 * Windows r-4.2.1 (my local machine) [0 errors v | 0 warnings v | 0 note v]
-* ubuntu (current rocker/tidyverse) https://forgemia.inra.fr/stacomi/stacomir/-/pipelines/44482  [0 errors v | 0 warnings v | 1 note x]
-* pc-linux-gnu (R 4.1.2) [0 errors v | 3 warnings x | 1 note x]
+* Windows rforge [0 errors v | 0 warnings v | 1 note x] (new submission)
+* linux  rforge [0 errors v | 0 warnings v | 1 note x] (new submission)
 * solaris-x86-patched:  [1 errors x ] : Package suggested but not available: ‘testthat’
+* macOS 10.13.6 High Sierra [0 errors v | 3 warnings v | 1 note x] : warnings : packages built 4.1.2, note : found 40748 marked UTF-8 strings
 
-Development version
-
-
-
-* macOS 10.13.6 High Sierra [0 errors v | 3 warnings v | 1 note x] note : found 40748 marked UTF-8 strings
-* Ubuntu Linux 20.04.1 LTS, R-release, GCC [0 errors v | 0 warnings v | 1 note x]
-* Windows Server 2008 R2 SP1, R-devel, 32/64 bit [0 errors v | 0 warnings v | 1 note x]
 
 ## NEWS 0.6.7
 
-stacomir based on gwidget was dropped from CRAN in May 2020, it has been completely reprogrammed to remove all dependence to gwidget and the graphical interface is now a shiny package . stacomirtools has been rewritten and submitted to CRAN to connect via pool and DBI.
+stacomir based on gwidget was dropped from CRAN in May 2020, it has been completely reprogrammed to remove all dependence to gwidget and the graphical interface is now a shiny package . stacomirtools has been rewritten and submitted to CRAN to connect via pool and DBI. A first submission was done in november, and then we have waited to finish the development of the shiny package before resubmitting.
 
 
 

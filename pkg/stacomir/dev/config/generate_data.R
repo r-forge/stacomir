@@ -124,14 +124,14 @@ usethis::use_data(r_mig_mult_dc, internal = FALSE, overwrite = TRUE)
 #################################
 # generates dataset for report_mig
 # from the vertical slot fishway located at the estuary of the Vilaine (Brittany)
-# Taxa Liza Ramada (Thinlip grey mullet) in 2015
+# Taxa Petromyzon Marinus, spawner (stage 11) in 2012
 ##################################
 
-stacomi(database_expected = TRUE, sch="iav")
+stacomi(database_expected = TRUE, sch="test")
 r_mig = new("report_mig")
 o <- options()
 options(
-		stacomiR.dbname = "bd_contmig_nat",
+		stacomiR.dbname = "bd_contmig_nat_test",
 		stacomiR.host = "localhost",
 		stacomiR.port = "5432",
 		stacomiR.user = user,
@@ -140,10 +140,10 @@ options(
 r_mig = choice_c(
 		r_mig,
 		dc = 5,
-		taxa = c("Liza ramada"),
-		stage = c("IND"),
-		datedebut = "2015-01-01",
-		datefin = "2015-12-31"
+		taxa = c("Petromyzon marinus"),
+		stage = 11,
+		datedebut = "2012-01-01",
+		datefin = "2012-12-31"
 )
 r_mig <- charge(r_mig)
 r_mig <- connect(r_mig)

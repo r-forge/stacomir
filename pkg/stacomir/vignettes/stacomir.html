@@ -12,7 +12,7 @@
 
 <meta name="author" content="Marion Legrand, Cedric Briand" />
 
-<meta name="date" content="2022-07-17" />
+<meta name="date" content="2024-03-03" />
 
 <title>StacomiR- A package for fish migration monitoring</title>
 
@@ -31,23 +31,23 @@ document.addEventListener('DOMContentLoaded', function(e) {
 </script>
 
 <style type="text/css">
-  code{white-space: pre-wrap;}
-  span.smallcaps{font-variant: small-caps;}
-  span.underline{text-decoration: underline;}
-  div.column{display: inline-block; vertical-align: top; width: 50%;}
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-  ul.task-list{list-style: none;}
-    </style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
 
 
 
 <style type="text/css">
-  code {
-    white-space: pre;
-  }
-  .sourceCode {
-    overflow: visible;
-  }
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
 </style>
 <style type="text/css" data-origin="pandoc">
 pre > code.sourceCode { white-space: pre; position: relative; }
@@ -65,55 +65,54 @@ pre > code.sourceCode { white-space: pre-wrap; }
 pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
-  { counter-reset: source-line 0; }
+{ counter-reset: source-line 0; }
 pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
+{ position: relative; left: -4em; counter-increment: source-line; }
 pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
 div.sourceCode
-  {   }
+{ }
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
 </style>
 <script>
 // apply pandoc div.sourceCode style to pre.sourceCode instead
@@ -122,13 +121,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   for (var i = 0; i < sheets.length; i++) {
     if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
     try { var rules = sheets[i].cssRules; } catch (e) { continue; }
-    for (var j = 0; j < rules.length; j++) {
+    var j = 0;
+    while (j < rules.length) {
       var rule = rules[j];
       // check if there is a div.sourceCode rule
-      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
       var style = rule.style.cssText;
       // check if color or background-color is set
-      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
       // replace div.sourceCode by a pre.sourceCode rule
       sheets[i].deleteRule(j);
       sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
@@ -335,7 +341,7 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <h1 class="title toc-ignore">StacomiR- A package for fish migration
 monitoring</h1>
 <h4 class="author">Marion Legrand, Cedric Briand</h4>
-<h4 class="date">2022-07-17</h4>
+<h4 class="date">2024-03-03</h4>
 
 
 
@@ -359,15 +365,15 @@ project.</p>
 <h2>Installation</h2>
 <p>The package is available from CRAN, a development version is
 available from R-Forge.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get the package from CRAN</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stacomiR&quot;</span>) </span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># get the development version</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stacomiR&quot;</span>, <span class="at">repos=</span><span class="st">&quot;http://R-Forge.R-project.org&quot;</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="co"># get the package from CRAN</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stacomiR&quot;</span>) </span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co"># get the development version</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&quot;stacomiR&quot;</span>, <span class="at">repos=</span><span class="st">&quot;http://R-Forge.R-project.org&quot;</span>) </span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2>Usage</h2>
 <p>Launch the graphical interface</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">stacomi</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">stacomi</span>()</span></code></pre></div>
 <p>The program can be launched with options</p>
 <ul>
 <li><code>stacomiR.dbname</code>: databasename</li>
@@ -387,16 +393,16 @@ windows</li>
 <li><code>stacomiR.printqueries</code>: a boolean, default FALSE, with
 the side effect of printing queries to the console</li>
 </ul>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#here is an example to connect with interactive use</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">stacomiR.dbname =</span> <span class="st">&quot;bd_contmig_nat&quot;</span>,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">stacomiR.host =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter host: &quot;</span>),</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">stacomiR.port =</span> <span class="st">&quot;5432&quot;</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">stacomiR.user =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter user: &quot;</span>),</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">stacomiR.password =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter password: &quot;</span>)</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># the schema of connection is passed by sch</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">stacomi</span>(<span class="at">database_expected =</span> <span class="cn">TRUE</span>, <span class="at">sch=</span> <span class="st">&quot;iav&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co">#here is an example to connect with interactive use</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">options</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>        <span class="at">stacomiR.dbname =</span> <span class="st">&quot;bd_contmig_nat&quot;</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>        <span class="at">stacomiR.host =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter host: &quot;</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>        <span class="at">stacomiR.port =</span> <span class="st">&quot;5432&quot;</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>        <span class="at">stacomiR.user =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter user: &quot;</span>),</span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>        <span class="at">stacomiR.password =</span> <span class="fu">readline</span>(<span class="at">prompt =</span> <span class="st">&quot;Enter password: &quot;</span>)</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>)</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co"># the schema of connection is passed by sch</span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="fu">stacomi</span>(<span class="at">database_expected =</span> <span class="cn">TRUE</span>, <span class="at">sch=</span> <span class="st">&quot;iav&quot;</span>)</span></code></pre></div>
 </div>
 <div id="data-structure" class="section level2">
 <h2>Data structure</h2>
@@ -596,8 +602,8 @@ documentation on the following classes.</p>
 simply by typing <code>? report_mig_mult</code>. The program is intented
 to be used in conjuntion with the database, to test it without access,
 use the argument <code>database_expected=FALSE</code>.</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="do">## launches the application in the command line without connection to the database</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stacomi</span>(<span class="at">database_expected=</span><span class="cn">FALSE</span>) </span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="do">## launches the application in the command line without connection to the database</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">stacomi</span>(<span class="at">database_expected=</span><span class="cn">FALSE</span>) </span></code></pre></div>
 <p>The following code is only run when there is a connection to the
 database. The program will create an object of the class
 report_mig_mult, and run it for several DC, here 5 is a vertical slot
@@ -609,22 +615,22 @@ migrating back to the ocean. Data are loaded from the database with the
 <code>charge</code> method and the <code>calcule</code> method will
 interpolate daily migration from monitoring operations which do not
 necessarily span a day, and convert the glass eel weight in numbers.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">stacomi</span>(</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">database_expected=</span><span class="cn">TRUE</span>) </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="ot">=</span><span class="fu">new</span>(<span class="st">&quot;report_mig_mult&quot;</span>)</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="ot">=</span><span class="fu">choice_c</span>(r_mig_mult,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">dc=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">12</span>),</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">taxa=</span><span class="fu">c</span>(<span class="st">&quot;Anguilla anguilla&quot;</span>),</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="at">stage=</span><span class="fu">c</span>(<span class="st">&quot;AGG&quot;</span>,<span class="st">&quot;AGJ&quot;</span>,<span class="st">&quot;CIV&quot;</span>),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="at">datedebut=</span><span class="st">&quot;2011-01-01&quot;</span>,</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">datefin=</span><span class="st">&quot;2011-12-31&quot;</span>)</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">charge</span>(r_mig_mult)</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># launching charge will also load classes associated with the report</span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># e.g. report_ope, report_df, report_dc</span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">connect</span>(r_mig_mult)</span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># calculations </span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">calcule</span>(r_mig_mult,<span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">stacomi</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>        <span class="at">database_expected=</span><span class="cn">TRUE</span>) </span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>r_mig_mult<span class="ot">=</span><span class="fu">new</span>(<span class="st">&quot;report_mig_mult&quot;</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>r_mig_mult<span class="ot">=</span><span class="fu">choice_c</span>(r_mig_mult,</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>        <span class="at">dc=</span><span class="fu">c</span>(<span class="dv">5</span>,<span class="dv">6</span>,<span class="dv">12</span>),</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>        <span class="at">taxa=</span><span class="fu">c</span>(<span class="st">&quot;Anguilla anguilla&quot;</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a>        <span class="at">stage=</span><span class="fu">c</span>(<span class="st">&quot;AGG&quot;</span>,<span class="st">&quot;AGJ&quot;</span>,<span class="st">&quot;CIV&quot;</span>),</span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>        <span class="at">datedebut=</span><span class="st">&quot;2011-01-01&quot;</span>,</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>        <span class="at">datefin=</span><span class="st">&quot;2011-12-31&quot;</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">charge</span>(r_mig_mult)</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co"># launching charge will also load classes associated with the report</span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co"># e.g. report_ope, report_df, report_dc</span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">connect</span>(r_mig_mult)</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co"># calculations </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>r_mig_mult<span class="ot">&lt;-</span><span class="fu">calcule</span>(r_mig_mult,<span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p>The previous line generates data not only about the report_mig_mult
 class, but also runs dependent classes which describe how the fishway
 (DF) and counting devices (DC) have been operated. Sometimes there are
@@ -636,31 +642,30 @@ had run the previous lines.</p>
 migration in weight and number (top), the periods and type of operation
 for DF and DC, and the operation (trapping periods) (middle), a summary
 of migration per month (bottom).</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Without a connection at the database we can launch these lines to generate the graph</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># To obtain titles in french use Sys.setenv(LANG = &quot;fr&quot;)</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">stacomi</span>(</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">database_expected=</span><span class="cn">FALSE</span>)    </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult&quot;</span>)</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_ope&quot;</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_ope&quot;</span>,r_mig_mult_ope,<span class="at">envir=</span>envir_stacomi)</span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_df&quot;</span>)</span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_df&quot;</span>,r_mig_mult_df,<span class="at">envir=</span>envir_stacomi)</span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_dc&quot;</span>)</span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_dc&quot;</span>,r_mig_mult_dc,<span class="at">envir=</span>envir_stacomi)</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>r_mig_mult <span class="ot">&lt;-</span> <span class="fu">calcule</span>(r_mig_mult,<span class="at">silent=</span><span class="cn">TRUE</span>) </span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="co"># To avoid call to dev.new() which creates a device per stage, DC, taxa, we simplify </span></span>
-<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="co"># the object as dev.new() causes knitr to crash:</span></span>
-<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="sc">@</span>taxa<span class="sc">@</span>data <span class="ot">&lt;-</span> r_mig_mult<span class="sc">@</span>taxa<span class="sc">@</span>data[<span class="dv">1</span>,]</span>
-<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="sc">@</span>stage<span class="sc">@</span>data <span class="ot">&lt;-</span> r_mig_mult<span class="sc">@</span>stage<span class="sc">@</span>data[<span class="dv">3</span>,]</span>
-<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>r_mig_mult<span class="sc">@</span>dc<span class="sc">@</span>dc_selected <span class="ot">&lt;-</span> r_mig_mult<span class="sc">@</span>dc<span class="sc">@</span>dc_selected[<span class="dv">3</span>]</span>
-<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r_mig_mult, <span class="at">plot.type=</span><span class="st">&quot;standard&quot;</span>, <span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Without a connection at the database we can launch these lines to generate the graph</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a><span class="co"># To obtain titles in french use Sys.setenv(LANG = &quot;fr&quot;)</span></span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a><span class="fu">stacomi</span>(</span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>        <span class="at">database_expected=</span><span class="cn">FALSE</span>)    </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult&quot;</span>)</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_ope&quot;</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_ope&quot;</span>,r_mig_mult_ope,<span class="at">envir=</span>envir_stacomi)</span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_df&quot;</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_df&quot;</span>,r_mig_mult_df,<span class="at">envir=</span>envir_stacomi)</span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_mig_mult_dc&quot;</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a><span class="fu">assign</span>(<span class="st">&quot;report_dc&quot;</span>,r_mig_mult_dc,<span class="at">envir=</span>envir_stacomi)</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>r_mig_mult <span class="ot">&lt;-</span> <span class="fu">calcule</span>(r_mig_mult,<span class="at">silent=</span><span class="cn">TRUE</span>) </span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a></span>
+<span id="cb6-15"><a href="#cb6-15" tabindex="-1"></a></span>
+<span id="cb6-16"><a href="#cb6-16" tabindex="-1"></a><span class="co"># restrict to glass eel</span></span>
+<span id="cb6-17"><a href="#cb6-17" tabindex="-1"></a>r_mig_mult<span class="sc">@</span>stage<span class="sc">@</span>stage_selected <span class="ot">&lt;-</span> r_mig_mult<span class="sc">@</span>stage<span class="sc">@</span>stage_selected[<span class="dv">3</span>]</span>
+<span id="cb6-18"><a href="#cb6-18" tabindex="-1"></a>r_mig_mult<span class="sc">@</span>dc<span class="sc">@</span>dc_selected <span class="ot">&lt;-</span> r_mig_mult<span class="sc">@</span>dc<span class="sc">@</span>dc_selected[<span class="dv">3</span>]</span>
+<span id="cb6-19"><a href="#cb6-19" tabindex="-1"></a>r_mig_mult <span class="ot">&lt;-</span> <span class="fu">calcule</span>(r_mig_mult,<span class="at">silent=</span><span class="cn">TRUE</span>) </span>
+<span id="cb6-20"><a href="#cb6-20" tabindex="-1"></a><span class="fu">plot</span>(r_mig_mult, <span class="at">plot.type=</span><span class="st">&quot;standard&quot;</span>, <span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAJACAMAAAAaQUt1AAACSVBMVEUAAAAAABcAACAAACIAADoAAD0AAGYADVEAOjoAOmYAOpAAPW0ASUkAU6IAWGYAWLYAZmYAZpwAZrYNAA0NACANDToNDVENIEkNIXwXABcXKpAhDSAhMpAldMMoKgAqFwAqfHsxACAxKDoxOmYxOpAyADozoCw4bLA5AAA5IlY6AAA6ADo6AGY6DQA6Kjo6MVE6MlE6OgA6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtDkuNJnJBRvP9YAABYIABYOgBkAD1mAABmAChmADpmAGZmOgBmOjpmOmZmOpBmZgBmZjpmZmZmZrZmkJBmkNtmtrZmtttmtv9m2/9qPZpqPatqPb1qYs5qhN52UwB72/9/yX+FPZqFPauFPb2FYs6FhM6FhN6Fpe+QKheQOgCQOjqQOmaQZjqQkDqQkLaQnGaQtpCQ29uQ2/+cZgCePZqePauePb2ehJqehKuew/+mzuO2WAC2ZgC2Zjq2Zma2kDq2tma225C2/7a2/9u2//+4Ypq4Yqu4Yr24hKu4pau44e+44f+8//++rtS/WxfQhJrQhKvQpavQ/97Q///XVyLXhFbXmpnbeyDbkDrbtmbb25Db29vb/7bb///jGhznpavnw73n4c7n/97n///wAn/7hFb7mm37mpn9wIb/fwD/fzr/f2b/lQD/lTr/lWb/lZD/qwD/qzr/q5D/q7b/tmb/vFH/wTr/wZD/wdv/w73/1mb/1v//22b/23z/25D/29v/4c7/65D/69v/6////5n//7b//9v//97//+/////XTttKAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAY+0lEQVR4nO2djZ8kxVnHW13XsL7h+P4eX9EFNbkNZOPreHcQY1TGS0RA0XM537LGF+IQ5VwTleRQ0di33AaVKAwYAWnO49DhTpiB/suseqq6u6q6qp+efpup7uf3uZvtma6nqvo79dZdT9UEMalQwbozsOkiQIgIECIChIgAISJAiAgQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChEgHNN87cYRbHkxKxLb4oMueRxDus7/TfctJNV1bHrTU53tXtGSWBxBluHO8dyxtHddhTZuHzixzKluCygFyA04Aze+8cLSSnS11I3i0cyKDFMdjT1tE6AYUBIB1fupsMOIJRAH7G0fB9u9MYnHMFAa3nFXezneD7SP2ITPldu8/CPbBfnkQ7JyEzggidgnTSTiB1LYvjiFtCJ5cGP/8sb0/YzliMHVjfuooTXLnJD3L2Dx8CGzgMmV8x+8bi2ykodK0kzMsg8yIGcsSFGbp8SiSYPHiDMc6v/2QfQeC5HSyOH24GHNzdsxP3nE0383esrNxOGIfsgNmx//tHUt7lssTFqM1Am565oh/yEx4TliNFMFTQOxzyANkW0+dnxJJ8gDpWbiiEVQfeaEQ3zELKuJNQyVpw5k0gykgYQnFCaKQwdJCwUzD/fne5YB/ryLiKJDli9cN5a24nIjnSiIRYEOwY8Vr69AaQXYgYoD8pMGTXLD/jx7O74oNY34qSfIYCros+yIiHpcgJ+ITkLVQWdopfq0EgaWsIJAlOBWwdxMV0CjJKLu+kRZ1+rYQULQtvmVLBOxKeLVi9QNigJqRBVcARSMW2DA2AWU1R1SekWhJLm+nhYwDUkIpaauAZOjEMlayJADJtj2tYvBXFkA4FoVcfcvjiXaOZXmXgJIqxvIUbR1aIxBQY5k9UaREcAPQ4p57jmIzdVk7kiqWnJVt192HEpCMT1ZTJZSSNnuVGWS19/YEEFiqWYJgADW2NdI/p7WxW++1NdKTOAUE9ovxzpVxcOt4Yo9gKXqRaATFAYr/AoKznjup/qL0civdGBjKJK+MZSMtGg3ehfGL4Bd6RcYnAMVZKDVtcYZncBrccrcEJDMORe3WpHnijbRabRRBBSivfAe7YgSfdPTATVjZQ5XLoB0Qr6/2QZVLBqCVI1j+7krJrWRlC1UygyzYqnkamggQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAIaoCaFBQCRCi3gAKaqgw3ip5qXgNrapGpghQHVMC1BKg186deySOn4BX0I2HnqkQVXPaMEBv/+HjN379ydd+5Zl3PvW4+NAN6MavPR6nwYSePs9e3v6jJ9Pj+towQAwHu2Z+bcn1sU+evo8VrI/+9SNG8BsP3mcAuvEgM3r74x99MjluQBsG6LX7WP16hJegv0wB/fN5XrDe/ngO0EN/9bgG6J1P/cn5+J1P/z0vQXDchDYSEGuDPpJc340HWYHg9eyJPKB/+U0GiLVassV6+nxWxeRxfW0YIFHF+JuEx42H/u68C9Azf/s3SgnilTEBlBzXV8kLmd+Rn0RssZG+L2av4sMbD/0rq1/2KvbMjd9QStDT/OC8AJQc11fJCwktfmCNA/pydmW2bp41SayR/mMLoPiJj3TWizHiBcGeKjItjLdKXmwyOvRYAOJdvaIWAfEiKQkJhwzhwLA8gKlmzePMNC2Md+W8LF7IXrluvhjzrruhClMxU7EOKHHJEa5KpsdZzrQw3lXzspi9kL6CAJBVN59/M15+8U31o6vX2P/Z7JU4fmk2e71CFuyZ4lIBgVOXcLOZ78rCZPFZaAPQ8j952RGvQgzQ1Vfi67MXrpoXfJOB0AHdnF3j4Zf/8fr1V5RCWEuWNkgCknWKu9JF+foVd1fFrl+LF8+/uciViJsvvvymBmj5xZevQSGK9ShqyXIhsorBq/Dz1P3SCkxLniyyyQHitY3Xs5fygG6+wgBdn81kdbp6jdF56b+hirGa1mwVU6Q20vEUXOnW2khfveYCFL/8f0oJ4pWRAUqD5gwqyQYIcU8vMC15ssgmD4jXL3sVi2/+l1KCrvKDaxyLqGZpZauljQIEHVi+m7/+Im+kbSUoful5sxe7zruw18VrhTzkM9WSaeMDRaNDjwWgmzlAvCBdg26+kQK0kYDqTCSUn1ZYMVPlld63VgfEHYxD6Uit20QB+OfDCF53wF+XVgIEy7bS+9ZagKJR/soD7msv+IejbKmSCxBfhqL5JMNqmhAGtaF1aFtF6YWwHgANDFlN71trAeILJRJ/9sxGuqELhftpqoyXWAel5WZ3pAHixskag9j+hKaCkgvhXeQsTblg2VY2JKoBaLxz/Iv5dYSBXFUiAyX45nuX92OxBkILPt/77UMTELwVMeRvHivJAghbtpUkXaeRnu9uHcrFXaqNAkiskBFht49iy/0yy9VdydKkSRJpnFTJplouC6DiVUlZ5W6hF8uqmEJvzpcKWgGdPPoxpQRFO6KKiRWkjnWkFTIlpdSwQkCjvGlhvFYBZrnMTLVJG2m1AZnvXTl9aK1iJ/M7lRLE26woWaljtm+VZbmQwmVbyn1rdUAyhnwvJrp5dnFTpRfiXwtv+/gyI1VQqLa0EiQWUDZZw6wXUrRsq5lGWny9+V6sUOYyI2WRqtBULEmD7Nmf0FRQ2VkNyxdSvwSl9Qgf+K6+kKohrQUQL6PWNmgDtYn3YhuldQJasQ1aj6gEISJAiNYDyDVQ3EC19Tiq4kBxOGphoNgvrTZQLGHTN/VmoNiWetOLtSUChIgAIVoLoCIfuU3TZgDaYGIECNE6AOXdUAmQJgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAISJAiHwEtJK36fAARYJNGJTzpxwcoMWHk3fltmceHKBi5felHh4g+xR8sk9+wB39cjY15B0gxxQ8/2h3n0qQcwoeFG59jAA5puCFlge5qjc4QI4p+GKbGvIPkFPtOFD5B8jVi7XkQOUdIGcv1pIDlXeAnL1YBU/7MvIOkLsXa8eByjtA1IsVaB2e9v4BcvViRTY15B0g972Y26aOvAPkvhejgWJxL0YDRaQXo4Hiejzt+wOIBoo0L4YKejH7o+dCmzryDpCy/0Z5mxryD5D4QfIVbarLQ0Dt26jyEBDMrS5dP1dvt6kuDwHxX3+OSs7MDxMQGxOW32VkiIDmu5NoDY87kr2QNh4Q7FK2hjbIG0Dt26jyDtD6/IM8AbQ+DzNfAK3NR9EfQK3bqEoBzQiQVQQIkQXQ5hIiQIiSe7HRYtz9vZg/gJYPH4aj7icO/QHENx3dL72t6gABLS9chP1gV7GprgTHzB9AbCy9c8XyYDoKtn5/N/cwf4iA7GJN03x30trUs0+AWB92b85hnDdN/BlIW1PPHgFaHkxg027jpJx6zu9pX08eAuK92MTSi8E20LlHjQMEBCWo9OTYAAHB7LNl5rldByqfANnVsgOVN4CczgstO1B5A8iplj3tvQHkdn9p14HKG0Bd2KjyEZB9JC1FbZBrJF1oU10eAnKNpItsqstDQK6RNA0Ui0fSNFBELpYGimkbNLZOO7fsae8RIPnLlTnRQFG92KhrR3KvANlLULFNVXkIyNEGFdpUl4eA2rdR5R2gxZmL43UsZvEGUBc2qnwExG4zcj/Ii9lUloeAYBsuupu3Kb2bX+FHcwcICO4paF7MpuJ5sUKbyvIRUOs2qggQIhugjSVEgBARIERlpn0cNpXlIaD1T/tsOKD1T/tsOKD1O1BtOKD1DxQ3HVDrNqq8A7Su3V+8AcQ05Ter+af2813+KL+LicMNB+R43MFv8qPtIwLketwhuV0kQNAM5Xt5sd//4u7Gp55n8NcnQA7xpSz5KVcC1IKNqh4BasuBagZ/vQGUb4alWnOgmsFfbwDF06497Wfw1x9Arhmf1jztZ/DXI0AuteVANYO/3gDq3nlB4PAGEKbm2yDvAHU99ewZoOWBaHu7e6LoGSB34WlroOgdIId/UGsDRe8AOfyDWhsoegeo4IFZ3IanvXeAXP5BbQ0UvQPU9bSPf4Bat1HlI6COnRcMQLONB9S184J3gLp2XvAOUNfOC94BWnMvtumAnM+kC2zqyDtAzmfSRTY15B+g8o+CFJvq8g4QVbECURVDRFUM0UbcixEgXd4B4hVsOlnjrAYB0kWAEBEgRP4B6txP2jNAXdioIkCIJI4ZAXKIACHqDyBH602AUtl/45gAZbI+yCdALdio6hGgVh2oegCoXQeqHgBq14GqB4Ba87TvC6B2Haj6AKg5G1W9A0RtUAc2sfJbqgTIIhVBjwA1NlA8lwc06wGg5gaKPQXU3ECxp4Ca87TvKaDmBop9BdSYDQFCRIAQESBEBAgRAUJEgBARIEQECBEBQkSAEHFAM+VNTIB0ESBEBAhRAgigEKC8CBCic+cUKgQoLwKESAKaESCHTECzRHCWAK0PULI7SGURIEQECFGHU889BNTs1HNKxQCU9mv1lcfRLqBmp547BzSDuNWz2uly6nDquYeAmp16tgJKP1k9zrxmNkAz1+ly6rIX6wxQ8kcCkmVVg1VaXfZiXQCSlVa8bR1QB71YS4Bm8DYZV2SAZivHue5erDVA/F/rgEp52mc5KMh2TwG15Gnvldbhae+V1uFp75WoBCEiQIjWsSTTK61jSaZXWseSTK/U0eMOf1VpoNg/VQWE0w1i7b/7bemAVe2qBsSvkQARIAJEgAhQLwENQQQIEQFCRIAQESBEBAgRAUI0ZEDmYxyrygOKgoA/HUqenpX4sS2w4D/iOioTvww4TTb+TBKwJMTzEPKnFPv2qBYfPEEM4ElXOCmRrdKAFqcPOfHFuPRvJAmLcJQ8d0MkAi5L/AxckgdnCTCZ5g0gS0+VyFV5QCxRlvnlhYtZCQr5Vz5/35i9huyrCfdtFvxInoHwIuT81FkbaHYivYb53jFEwP5CEqnSPEwn8mKhZESQm1NngxH7QNtA1DRgGbnl7EQY8GeChV95aUDRSCSQVTGWf/aGXRF/TWHkLRKTuQgvrjr/q7ciYPSuXQlDAQRJ6OHirJywdES8LDUWLyscuVqpG7Asz3cnwoDvVhsWNQE1AJ0w+FuHEs2jh/O7XBbJjrkQXoS0tmAQ8I0T2TYogEz6Ig/T/TTakZyh2ufxhvsOQIkBL8TTSWZQqBWrmPyFAFY453uXt494MyM+j0ZTs6GRZ6CwcIsIwouQtnylpSrcFwnwInraCQhepkk1mUQjmaYTUGogAaUGzQCSjbRSgi6P4igtQYt77jFrsrDIGpUIwouQlnyJgDzbaQli1rc7AaVR8Boy3ZeVq6CKpZ/yVmEsg8JXVvTbhTW6+Svj4NbxJClZ01FuAg0spmnvuoDwIiTPrBFaBpwmfTELMg1uudsJKBopluwSs0aapbRzJd9oZQZhsPVerZEu+MWMygPF0j862mkCzeeqKqCo3OivuqolsDmABiMChIgAISJAiAgQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAISJAiAgQoiqAPp/pBw3ZPiulzzchNTr5D02QABEgAkSACBABIkAEiAARIAK0KYAGJQKEqCagTxh6lsn8rJQauRg1OvmvdoIcUIF/Vfks9R1QKa/zoiwRICRLBAjJUq8BjcUGFqVXYdiy1GdAjWSJACFZ6jcgWEtVpRUaCKAp98VfHjiWp5XLUp8BOXbiWi1LBGigIkCIao6D+i963IGIACEiQIgIECIChGgzAIXJZp+lttPoVA0AglmU5M3ywHJPB3tpFMyxLM78+UgECj+gjHJho9Qy9z/T/J4P8JeP65+V7/gyeXPPVWtmDTUNyLpoFD4sAPTGCfsHgZ5SbwPKLkCd33lBL3c6IKFoBOvMreGK1DAgNubcPgr59y729IBV138Be2logEK5hnv7Mb6JB1+gDRtusIOvzgEyo4NdJsRbceq7v+tLfvzU2eCbfyR496mf4hG/+o0/Hbz/INh/9h+C4CtjsfnHV30dS+APJrywRSOx3YeS2c4AwY4VdxyJPQXYvYvYGiNXguQ2HreLfRnktht7vBB94lc/oFWxHUt0sdgbQOwbcvrwf771l+c/9gOHr379T8zf8z3fwSN+9Rvuhx0J/vGHP/fvP3MkNv/4WZ4L2DxleTAR230ome0UkNizQ25iAoUgX8WSbT/gVLqLBhx8p1GC8tHFybYX4tQ/fctJ/KffdvLqN31m/p7vP+YR80OO+3P/9kPBl8mdCX7rawGQ2JdBbPehZLZVQJrcgFRFybYfAtBIsdTjinFAvwR3kl/xGQD0vRBxAijZXSQFNJ2w6GCzHr7dx7oAyVILlyC2xjjOAUq2/QAI6YYb4sAAlI/uJAEEp37va1iw//32+wUgiDgFJJNJAPFGenH61JHc7qOrKmYC4k3nJN37BbbGGBvbhyySbT8EBNhFgweKtO28skZajy5Od5Zhp+698BiP5kdHAOj7fpJHnABKdhcBQKyYfen9sdgLRW73kWW2O0C9EwFCRIAQkYcZASJABIgAESACRIAIEAEiQASIAPkBaFACQPAYb1pla9BheJjJibcqhIYBiHwUC8QBLS8QIKegioXkBuyU6MUiciR3iZYiICJAiGitBiJaq4GIxkGIaCkCIgKEiNZqIKLHHYgIECIChIgAISJAiDYDEK3VoLUaZt400VoNWqtRFhCt1SgBiNZqFInWaiCitRo4IFqrMSgRIEQ1AT3wwAOflXruuefeeot/dtttt30BdOnSpZ9nekAGggBc4jw7mXz+1m1faOJaYp6eSC2On4vfui2OeToiCyL9JOlLl8rGSYAQESBEEhB/LF30o+IuDQUQjD4Kf3bdoaEAghmfKtM+QwEUi5vc1bM0FECVZ8aGAqiyCBCioQDij6bMB7alNBBAEW97FuMKHlTDAMQfHMTln5GrGgagGu4vwwBEJahA1AYhol4MEY2DEBEgRPRMGhEBQkSAEBEgRAQIEQFCRIAQESBEBAgRAUJEgBARIEQECBEBQpQHBEvEKyyA7qlMQJFgE1ZaRd9HGYAWH06OPrlpy27WJGqDEOWrWGBZNzRgGYCko3uVKbKeymyDaI8BQ44StHErI9cmsw2CZZDUBmWiXgwR9WKIqBdD1EAvFnirCoAcvViU7XAW5u5jvW3GqgCy92Ji1bE8P3BAVskFkDF3RvtQBmiVklqkWaq6Ma2mUlWtVC8mlgbzo3C/hSq2NkAVAtl7sRQQLD2vlE6RfAJk78XSKmZ92jgoQPZeTGmk2+jFfALkuBeDbl4Uq6EDaisdTQYRAmSqf4DSkfTUsmnwoADZlx6mjbTcd6dCOpo8BsRZ5ANlI2nbfeywAFkXh2cjaW1GsfKtxqYAqnKrYZUCSDlYKQpNmwKoUiCYW11esI+kuXIDoYEB4ns2RUZXpTbSgy9B/HYjt8NAOpKeWhw/hgZovjuJVnpoPzBAsGOo0QY1kI4mrwG1lI4mjwE5/IOSWw2+xWeugRoUILuHWdqLhaNY3ehwhXQ0+QzI+tTQMQ6ikXQidfgz+HsxmxRAlpvZ1QGdSwVv/QeUVTG+u3GlKDR5DGhx5qJlWj5tpK2OVbUBGW87U6USNLU9MEtvNabNTPv4DKiCe+LAALWUjiaPAbE2aGypYvXT0eQxIIcy/yBLDRwYINumnNnU82KcL1uDAsTvRrn0J/fpOGh5QR0FVL7V2BRAlW41bL2YOpIefBXj8z7meJkAKYK6ZDhQKXfz1QAZNxNeAypupCsCKibiFyDr3tuZfxABAv+FlbZNHhqgNtJZG6DCJynVS9C9D9tc8LSD1dLpEyDWBsFvMamfpY206s25SjrdAVrlaW7lXmw6cbkBa0/vV0inRUDFRNoqQUYvlg4UdeeFppYirEsVZzUsvZgDkDMKT9TcM+naVWwz1dwzaaSR9laVKFqfSacjaVs332+VqmJDVrlpnwGrgWmffsvbLqgrESBEuUb6iI8EqZ6lIkCIGgSkGeW8GXMLqTSP/anecYaacc7nTT+tRw25MCc606zxA6ujpVPNAdLnFE1vxtxCKm2HAuP+hd/R6K6Q2vjdOM3urDN7yIU50ZlmDQ6sjpZOlVovVkb6nCLIWNWhlzB1hwLT7yi/Lla7QzbuCHnoxELkwpjoTLOW5TGfgksN9mJmsTPe646z+g4F0bt21VI//YVdvRKY01C76lIAXoIO0sjghsicx9OqmCWrBWoPUN6bUSkG5g4Fb5zEYXZ2unOil5mp9oUDEeX0NNj60EqArKsGHWoNkMWbUUFi8TVWzvKLU/mZZTH/k54ZzoVaxeyAbI6WTrUFKLfBTu5Rm1bF2FmlBJmBzZ0yeAHbV0MrqfFc5CY6NUCr7WDXFqCcN2NuIZXZzRv9uPrW/AXYaa1u3upo6RTdaiAiQIgIECIChIgAISJAiAgQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAISJAiAgQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAISJAiAgQIgKEiAAhIkCICBAiAoSIACEiQIgIECIChIgAISJAiAgQov8Hhvg08ULbU6IAAAAASUVORK5CYII=" /><!-- --></p>
 <p>Summary of migration for different stages and counting devices</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r_mig_mult,<span class="at">plot.type=</span><span class="st">&quot;multiple&quot;</span>,<span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">plot</span>(r_mig_mult,<span class="at">plot.type=</span><span class="st">&quot;multiple&quot;</span>,<span class="at">silent=</span><span class="cn">TRUE</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
 </div>
 <div id="silver-eels" class="section level4">
@@ -673,34 +678,34 @@ metrics BL = body length, W = weight, MD = mean eye diameter (Dv+Dh)/2,
 and FL length of the pectoral fin, with each parameter p as
 S=Constant+BL<em>p(bl)+W</em>p(W)… The function
 <code>fun_stage_durif</code> choose the stage achieving the highest
-score (<a href="http://fishlarvae.org/common/SiteMedia/durif%20et%20al%202009b.pdf">Durif
+score (<a href="https://fishlarvae.org/common/SiteMedia/durif%20et%20al%202009b.pdf">Durif
 et al., 2009</a>)</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;coef_durif&quot;</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># load a dataset of class report_silver_eel with data slot already prepared</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># here is an example of output </span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_silver&quot;</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>r_silver <span class="ot">&lt;-</span> <span class="fu">calcule</span>(r_silver)</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(r_silver, <span class="at">plot.type=</span><span class="st">&quot;3&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="fu">require</span>(stacomiR)</span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;coef_durif&quot;</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a><span class="co"># load a dataset of class report_silver_eel with data slot already prepared</span></span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># here is an example of output </span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;r_silver&quot;</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>r_silver <span class="ot">&lt;-</span> <span class="fu">calcule</span>(r_silver)</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a><span class="fu">plot</span>(r_silver, <span class="at">plot.type=</span><span class="st">&quot;3&quot;</span>)</span></code></pre></div>
 <p><img src="data:image/png;base64,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" /><!-- --></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">#######################################</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># To use the function fun_stage_durif manually</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># create a matrix with columns BL&quot;,&quot;W&quot;,&quot;Dv&quot;,&quot;Dh&quot;,&quot;FL&quot;</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="do">#############################################</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># here it is extracted from the data at hand</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>silver_eel<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(r_silver<span class="sc">@</span>calcdata[[<span class="dv">1</span>]][,<span class="fu">c</span>(<span class="st">&quot;BL&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;Dv&quot;</span>,<span class="st">&quot;Dh&quot;</span>,<span class="st">&quot;FL&quot;</span>)])</span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(silver_eel) <span class="co"># to see the first lines</span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        BL    W    Dv    Dh    FL</span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25710 830 1074  8.14  8.70 39.79</span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25711 714  740  8.24  8.52 38.04</span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25712 720  755  6.92  6.87 34.01</span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25713 860 1101 10.53 10.43 44.47</span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25714 716  752  7.42  8.76 33.78</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 25715 690  622  7.83  9.25 29.58</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>stage <span class="ot">&lt;-</span> <span class="fu">fun_stage_durif</span>(silver_eel) <span class="co"># apply the function to the matrix</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>stage[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># look at the first 10 elements in vector silver</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  25710  25711  25712  25713  25714  25715  25716  25717  25718  25719 </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &quot;FIII&quot; &quot;FIII&quot; &quot;FIII&quot;  &quot;FIV&quot; &quot;FIII&quot; &quot;FIII&quot;   &quot;FV&quot;   &quot;FV&quot; &quot;FIII&quot; &quot;FIII&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="do">#######################################</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># To use the function fun_stage_durif manually</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># create a matrix with columns BL&quot;,&quot;W&quot;,&quot;Dv&quot;,&quot;Dh&quot;,&quot;FL&quot;</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="do">#############################################</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co"># here it is extracted from the data at hand</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a>silver_eel<span class="ot">&lt;-</span><span class="fu">as.matrix</span>(r_silver<span class="sc">@</span>calcdata[[<span class="dv">1</span>]][,<span class="fu">c</span>(<span class="st">&quot;BL&quot;</span>,<span class="st">&quot;W&quot;</span>,<span class="st">&quot;Dv&quot;</span>,<span class="st">&quot;Dh&quot;</span>,<span class="st">&quot;FL&quot;</span>)])</span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="fu">head</span>(silver_eel) <span class="co"># to see the first lines</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt;        BL    W    Dv    Dh    FL</span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; 25710 830 1074  8.14  8.70 39.79</span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; 25711 714  740  8.24  8.52 38.04</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; 25712 720  755  6.92  6.87 34.01</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; 25713 860 1101 10.53 10.43 44.47</span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; 25714 716  752  7.42  8.76 33.78</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; 25715 690  622  7.83  9.25 29.58</span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>stage <span class="ot">&lt;-</span> <span class="fu">fun_stage_durif</span>(silver_eel) <span class="co"># apply the function to the matrix</span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>stage[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="co"># look at the first 10 elements in vector silver</span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt;  25710  25711  25712  25713  25714  25715  25716  25717  25718  25719 </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; &quot;FIII&quot; &quot;FIII&quot; &quot;FIII&quot;  &quot;FIV&quot; &quot;FIII&quot; &quot;FIII&quot;   &quot;FV&quot;   &quot;FV&quot; &quot;FIII&quot; &quot;FIII&quot;</span></span></code></pre></div>
 </div>
 </div>
 </div>
